@@ -6,7 +6,7 @@ goog.require('sand.Ball');
 goog.require('sand.UserAvatar');
 /** 
  * @constructor 
- * @extends {ss2d.DisplayObjectContainer}
+ * @extends {ss2d.MultiplayerScene}
  * */
 sand.Game = function()
 {
