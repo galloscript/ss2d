@@ -5,7 +5,12 @@ Javascript 2D Game Framework
 
 Author: David Gallardo Moreno <portalg@gmail.com> <br/>
 License: The MIT License (MIT), read <a href=./LICENSE.md>LICENSE</a> <br/>
-API Class Reference: http://virtualcraft.net/ss2d_doc/ <br/>
+API Class Reference: http://galloman.github.com/ss2d/jsdoc/ <br/>
+
+Live demos:
+Sandbox: http://virtualcraft.net/b/ <br>
+Multiplayer Sandbox: http://virtualcraft.net/mmoballs/ <br>
+Match3: http://virtualcraft.net/m3/ <br>
 
 Framework
 =========
