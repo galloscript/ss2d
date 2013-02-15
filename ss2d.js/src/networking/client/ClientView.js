@@ -17,8 +17,8 @@ goog.require('ss2d.WebAudio');
 /**
  * @constructor
  * @param {Object} canvasId Id of the canvas element where the scene will be rendered
- * @param {number=} canvasWidth Canvas width in pixels, 800 by default.
- * @param {number=} canvasHeight Canvas height in pixels, 600 by default.
+ * @param {number=} canvasWidth Canvas width in pixels.
+ * @param {number=} canvasHeight Canvas height in pixels.
  * @param {number=} frameRate Frames to render per second, 60 by default.
  * @param {number=} inputRate Input updates to send to the server per second, 20 by default.
  * @param {number=} delay Latency in milliseconds
@@ -32,8 +32,8 @@ ss2d.ClientView = function(canvasId, canvasWidth, canvasHeight, frameRate, input
 	this.mInput = new ss2d.Input(this);
 	this.mLastFrameTimestamp = new Date().getTime();
 	
-	this.mCanvas.width = canvasWidth || 800;
-	this.mCanvas.height = canvasHeight || 600;
+	this.mCanvas.width = canvasWidth || this.mCanvas.height;
+	this.mCanvas.height = canvasHeight || this.mCanvas.height;
 	
 	ss2d.CURRENT_VIEW = this;
 	ss2d.ClientView.CANVAS_CONTEXT = this.mContext;

@@ -22,7 +22,7 @@ ss2d.Texture = function(textureFile, callbackFunction)
 	/** @type {Image} */
 	this.mTextureElement = new Image();
 	this.mTextureElement.mTexture = this;
-	this.mTextureElement.mCallbackFunction = callbackFunction || function(){};
+	this.mCallbackFunction = callbackFunction || function(){};
 	
 	this.mTextureElement.onload = function()
 	{ 
@@ -38,7 +38,6 @@ ss2d.Texture = function(textureFile, callbackFunction)
 ss2d.Texture.prototype.handleLoadedTexture = function()
 {
 	this.mCallbackFunction.call(null, this); 
-	
 	//if(RENDER_CONTEXT == 'webgl')
 	//{
 		//create texture in webgl

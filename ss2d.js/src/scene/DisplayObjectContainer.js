@@ -131,9 +131,9 @@ ss2d.DisplayObjectContainer.prototype.hitTestPoint = function(point)
 {
 	var hittedObject = null;
 	
-	for(var childIndex in this.mChildren)
+	for(var ic = this.mChildren.length-1; ic >= 0 && !hittedObject; --ic)
 	{
-		hittedObject = this.mChildren[childIndex].hitTestPoint(point) || hittedObject;
+		hittedObject = this.mChildren[ic].hitTestPoint(point);
 	}
 	
 	return hittedObject;

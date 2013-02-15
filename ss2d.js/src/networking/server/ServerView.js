@@ -11,9 +11,9 @@ goog.require('ss2d.ServerCommunicationInterface');
 
 /**
  * @constructor
- * @param {ss2d.MultiplayerScene} mainScene
- * @param {number} serverPort
- * @param {number} updateRate Number of world states per second that will be updated and broadcasted to all clients.
+ * @param {ss2d.MultiplayerScene=} mainScene
+ * @param {number=} serverPort
+ * @param {number=} updateRate Number of world states per second that will be updated and broadcasted to all clients.
  */
 ss2d.ServerView = function(mainScene, serverPort, updateRate)
 {
@@ -23,7 +23,7 @@ ss2d.ServerView = function(mainScene, serverPort, updateRate)
 	
 	ss2d.CURRENT_VIEW = this;
 	
-	this.mMainScene = mainScene;
+	this.mMainScene = mainScene || new ss2d.DisplayObjectContainer();
 	this.mMainScene.mParentView = this;
 	
 	this.mComunication = new ss2d.ServerCommunicationInterface(this, serverPort);

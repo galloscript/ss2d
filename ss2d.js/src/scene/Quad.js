@@ -50,7 +50,7 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 			renderSupport.pushTransform(this);
 			var ctx = renderSupport.mContext;
 			ctx.fillStyle = this.mColor.getHexString();
-			ctx.rect(0, 0, this.mWidth, this.mHeight);
+			ctx.fillRect(0, 0, this.mWidth, this.mHeight);
 			renderSupport.popTransform(); 
 		//}
 	};
@@ -83,8 +83,15 @@ ss2d.Quad.prototype.setHeight = function(h, excludeClip)
 /** @override */
 ss2d.Quad.prototype.getBounds = function()
 {
-	return new ss2d.Rectangle(this.mLocation.mX, this.mLocation.mY, this.getWidth(), this.getHeight());
+	return new ss2d.Rectangle(this.mLocation.mX - this.mPivotX, this.mLocation.mY - this.mPivotY, this.getWidth(), this.getHeight());
 };
+
+/** @override */
+ss2d.Quad.prototype.hitTestPoint = function(point)
+{
+	var localPoint = this.worldToLocal(point);
+	return (this.getBounds().containsPoint(localPoint))?this:null;
+}
 
 //*****************
 //* SERIALIZATION *

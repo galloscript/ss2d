@@ -11,14 +11,16 @@ goog.provide('ss2d.View');
 goog.require('ss2d.Input');
 goog.require('ss2d.RenderSupport');
 goog.require('ss2d.WebAudio');
+goog.require('ss2d.DisplayObjectContainer');
+
 
 /**
  * @constructor
  * @param {string} canvasId
- * @param {ss2d.DisplayObject} mainScene
- * @param {number} canvasWidth
- * @param {number} canvasHeight
- * @param {number} frameRate Frames per second, 60.0 by default
+ * @param {ss2d.DisplayObject=} mainScene
+ * @param {number=} canvasWidth
+ * @param {number=} canvasHeight
+ * @param {number=} frameRate Frames per second, 60.0 by default
  */
 ss2d.View = function(canvasId, mainScene, canvasWidth, canvasHeight, frameRate)
 {
@@ -32,12 +34,12 @@ ss2d.View = function(canvasId, mainScene, canvasWidth, canvasHeight, frameRate)
 	ss2d.CURRENT_VIEW = this;
 	ss2d.View.CANVAS_CONTEXT = this.mContext;
 	
-	this.mCanvas.width = canvasWidth || 800;
-	this.mCanvas.height = canvasHeight || 600;
+	this.mCanvas.width = canvasWidth || this.mCanvas.width;
+	this.mCanvas.height = canvasHeight || this.mCanvas.height;
 	
 	ss2d.AUDIO_CONTEXT = ss2d.WebAudio.getAudioContext();
 	
-	this.mMainScene = mainScene || null;
+	this.mMainScene = mainScene || new ss2d.DisplayObjectContainer();
 	this.mRenderSupport = new ss2d.RenderSupport(this.mContext);
 	this.mBackgroundFillStyle = '#202020';
 };
