@@ -46,5 +46,18 @@ echo "/**"  > ${deployTarget}
 echo "* @fileoverview SmoothStep2D Lib" >> ${deployTarget} 
 echo "* @copyright David Gallardo Moreno (portalg@gmail.com)" >> ${deployTarget}
 echo "*/" >> ${deployTarget}
+<<FLAGS_REPLACEMENT
+flagsReplacement='var RENDER_CONTEXT = RENDER_CONTEXT||"2d",COMPILING_CLIENT = COMPILING_CLIENT || !1,COMPILING_SERVER = COMPILING_SERVER || !1,COMPILING_OFFLINE = !(COMPILING_CLIENT || COMPILING_SERVER) \&\& !0;';
+#remove the "" quotes between -i and "s/..." in linux
+if [[ ${args[0]} == "-min" ]]
+then
+	sed -i "" 's@var RENDER_CONTEXT="2d",COMPILING_CLIENT=!1,COMPILING_SERVER=!1,COMPILING_OFFLINE=!0;@'"${flagsReplacement}"'@' ${deployTarget}"_backup"
+else
+	sed -i "" 's@var RENDER_CONTEXT = "2d", COMPILING_CLIENT = !1, COMPILING_SERVER = !1, COMPILING_OFFLINE = !0;@'"${flagsReplacement}"'@' ${deployTarget}"_backup"
+fi
+FLAGS_REPLACEMENT
 cat ${deployTarget}"_backup" >> ${deployTarget}
 rm  ${deployTarget}"_backup"
+
+
+

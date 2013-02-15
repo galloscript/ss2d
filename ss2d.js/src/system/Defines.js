@@ -36,5 +36,5 @@ var COMPILING_SERVER = false;
  * applications and single player applications side related code.
  * @define {boolean} 
  */
-var COMPILING_OFFLINE = false;
+var COMPILING_OFFLINE = true;
 
