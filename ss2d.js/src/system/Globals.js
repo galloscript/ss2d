@@ -14,7 +14,7 @@ goog.require('ss2d.WebAudio');
  * @class
  * @static 
  */
-var ss2d = ss2d||null;
+var ss2d = ss2d||{};
 
 /** 
  * The active ss2d.View, ss2d.ClientView or ss2d.ServerView
