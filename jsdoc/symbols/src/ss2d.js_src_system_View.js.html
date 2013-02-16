@@ -18,105 +18,117 @@
 <span class='line'> 11</span> </span><span class="NAME">goog.require</span><span class="PUNC">(</span><span class="STRN">'ss2d.Input'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 12</span> </span><span class="NAME">goog.require</span><span class="PUNC">(</span><span class="STRN">'ss2d.RenderSupport'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 13</span> </span><span class="NAME">goog.require</span><span class="PUNC">(</span><span class="STRN">'ss2d.WebAudio'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 14</span> 
-<span class='line'> 15</span> </span><span class="COMM">/**
-<span class='line'> 16</span>  * @constructor
-<span class='line'> 17</span>  * @param {string} canvasId
-<span class='line'> 18</span>  * @param {ss2d.DisplayObject} mainScene
-<span class='line'> 19</span>  * @param {number} canvasWidth
-<span class='line'> 20</span>  * @param {number} canvasHeight
-<span class='line'> 21</span>  * @param {number} frameRate Frames per second, 60.0 by default
-<span class='line'> 22</span>  */</span><span class="WHIT">
-<span class='line'> 23</span> </span><span class="NAME">ss2d.View</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">canvasId</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">mainScene</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">canvasWidth</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">canvasHeight</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">frameRate</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'> 24</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 25</span> </span><span class="WHIT">	</span><span class="NAME">this.mCanvas</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.getElementById</span><span class="PUNC">(</span><span class="NAME">canvasId</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 26</span> </span><span class="WHIT">	</span><span class="NAME">this.mContext</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.mCanvas.getContext</span><span class="PUNC">(</span><span class="STRN">'2d'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> 
-<span class='line'> 27</span> 	</span><span class="NAME">this.mRunning</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 28</span> </span><span class="WHIT">	</span><span class="NAME">this.mFrameRate</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">frameRate</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NUMB">60.0</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 29</span> </span><span class="WHIT">	</span><span class="NAME">this.mInput</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">ss2d.Input</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 30</span> </span><span class="WHIT">	</span><span class="NAME">this.mLastFrameTimestamp</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Date</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">getTime</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 31</span> </span><span class="WHIT">	
-<span class='line'> 32</span> 	</span><span class="NAME">ss2d.CURRENT_VIEW</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 33</span> </span><span class="WHIT">	</span><span class="NAME">ss2d.View.CANVAS_CONTEXT</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.mContext</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 34</span> </span><span class="WHIT">	
-<span class='line'> 35</span> 	</span><span class="NAME">this.mCanvas.width</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">canvasWidth</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NUMB">800</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 36</span> </span><span class="WHIT">	</span><span class="NAME">this.mCanvas.height</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">canvasHeight</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NUMB">600</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 37</span> </span><span class="WHIT">	
-<span class='line'> 38</span> 	</span><span class="NAME">ss2d.AUDIO_CONTEXT</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ss2d.WebAudio.getAudioContext</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 39</span> </span><span class="WHIT">	
-<span class='line'> 40</span> 	</span><span class="NAME">this.mMainScene</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">mainScene</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 41</span> </span><span class="WHIT">	</span><span class="NAME">this.mRenderSupport</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">ss2d.RenderSupport</span><span class="PUNC">(</span><span class="NAME">this.mContext</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 42</span> </span><span class="WHIT">	</span><span class="NAME">this.mBackgroundFillStyle</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">'#202020'</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 43</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 44</span> 
-<span class='line'> 45</span> </span><span class="COMM">/** @type {Object} */</span><span class="WHIT">
-<span class='line'> 46</span> </span><span class="NAME">ss2d.View.CANVAS_CONTEXT</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 47</span> 
-<span class='line'> 48</span> </span><span class="COMM">/** @type {function} */</span><span class="WHIT">
-<span class='line'> 49</span> </span><span class="NAME">ss2d.View.NEXT_FRAME_CALLER</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">ss2d.CURRENT_VIEW.nextFrame</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 14</span> </span><span class="NAME">goog.require</span><span class="PUNC">(</span><span class="STRN">'ss2d.DisplayObjectContainer'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 15</span> 
+<span class='line'> 16</span> 
+<span class='line'> 17</span> </span><span class="COMM">/**
+<span class='line'> 18</span>  * @constructor
+<span class='line'> 19</span>  * @param {string} canvasId
+<span class='line'> 20</span>  * @param {ss2d.DisplayObject=} mainScene
+<span class='line'> 21</span>  * @param {number=} canvasWidth
+<span class='line'> 22</span>  * @param {number=} canvasHeight
+<span class='line'> 23</span>  * @param {number=} frameRate Frames per second, 60.0 by default
+<span class='line'> 24</span>  * @property {HTMLCanvasElement} mCanvas Canvas HTML Canvas element
+<span class='line'> 25</span>  * @property {CanvasRenderingContext2d} mContext Canvas context
+<span class='line'> 26</span>  * @property {boolean} mRunning Is main loop running?
+<span class='line'> 27</span>  * @property {number} mFrameRate Frames per second (60 by default)
+<span class='line'> 28</span>  * @property {ss2d.Input} mInput Mapped user input
+<span class='line'> 29</span>  * @property {ss2d.DisplayObjectContainer} mMainScene Scene that is being rendering
+<span class='line'> 30</span>  * @property {ss2d.RenderSupport} mRenderSupport Rendering support
+<span class='line'> 31</span>  * @property {string} mBackgroundFillStyle Background fill style mapped to Context fillstyle
+<span class='line'> 32</span>  */</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="NAME">ss2d.View</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">canvasId</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">mainScene</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">canvasWidth</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">canvasHeight</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">frameRate</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 34</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 35</span> </span><span class="WHIT">	</span><span class="NAME">this.mCanvas</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">document.getElementById</span><span class="PUNC">(</span><span class="NAME">canvasId</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="WHIT">	</span><span class="NAME">this.mContext</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.mCanvas.getContext</span><span class="PUNC">(</span><span class="STRN">'2d'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> 
+<span class='line'> 37</span> 	</span><span class="NAME">this.mRunning</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 38</span> </span><span class="WHIT">	</span><span class="NAME">this.mFrameRate</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">frameRate</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NUMB">60.0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 39</span> </span><span class="WHIT">	</span><span class="NAME">this.mInput</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">ss2d.Input</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="WHIT">	
+<span class='line'> 41</span> 	</span><span class="NAME">this.mLastFrameTimestamp</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Date</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">getTime</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="WHIT">	
+<span class='line'> 43</span> 	</span><span class="NAME">ss2d.CURRENT_VIEW</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 44</span> </span><span class="WHIT">	</span><span class="NAME">ss2d.View.CANVAS_CONTEXT</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.mContext</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 45</span> </span><span class="WHIT">	
+<span class='line'> 46</span> 	</span><span class="NAME">this.mCanvas.width</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">canvasWidth</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">this.mCanvas.width</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 47</span> </span><span class="WHIT">	</span><span class="NAME">this.mCanvas.height</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">canvasHeight</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">this.mCanvas.height</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 48</span> </span><span class="WHIT">	
+<span class='line'> 49</span> 	</span><span class="NAME">ss2d.AUDIO_CONTEXT</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ss2d.WebAudio.getAudioContext</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 50</span> 
-<span class='line'> 51</span> </span><span class="COMM">/**
-<span class='line'> 52</span>  * Called every frame to update and render every object
-<span class='line'> 53</span>  */</span><span class="WHIT">
-<span class='line'> 54</span> </span><span class="NAME">ss2d.View.prototype.nextFrame</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'> 55</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 56</span> </span><span class="WHIT">	</span><span class="COMM">//get current time in miliseconds</span><span class="WHIT">
-<span class='line'> 57</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">now</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Date</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">getTime</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 58</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">timePassed</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">now</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">this.mLastFrameTimestamp</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 59</span> </span><span class="WHIT">	
-<span class='line'> 60</span> 	</span><span class="COMM">//called with canvas width and height every frame</span><span class="WHIT">
-<span class='line'> 61</span> </span><span class="WHIT">	</span><span class="NAME">this.resizeCanvas</span><span class="PUNC">(</span><span class="NAME">this.mCanvas.width</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.mCanvas.height</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 62</span> </span><span class="WHIT">	
-<span class='line'> 63</span> 	</span><span class="COMM">//update scene</span><span class="WHIT">
-<span class='line'> 64</span> </span><span class="WHIT">	</span><span class="NAME">this.mMainScene.tick</span><span class="PUNC">(</span><span class="NAME">timePassed</span><span class="PUNC">/</span><span class="NUMB">1000.0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 65</span> </span><span class="WHIT">	
-<span class='line'> 66</span> 	</span><span class="COMM">//update input</span><span class="WHIT">
-<span class='line'> 67</span> </span><span class="WHIT">	</span><span class="NAME">this.mInput.tick</span><span class="PUNC">(</span><span class="NAME">timePassed</span><span class="PUNC">/</span><span class="NUMB">1000.0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 68</span> </span><span class="WHIT">	
-<span class='line'> 69</span> 	</span><span class="COMM">//clean background</span><span class="WHIT">
-<span class='line'> 70</span> </span><span class="WHIT">	</span><span class="NAME">this.mContext.fillStyle</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.mBackgroundFillStyle</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'> 71</span> 	</span><span class="NAME">this.mContext.fillRect</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.mCanvas.width</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.mCanvas.height</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> 
-<span class='line'> 72</span> 	
-<span class='line'> 73</span> 	</span><span class="COMM">//render scene</span><span class="WHIT">
-<span class='line'> 74</span> </span><span class="WHIT">	</span><span class="NAME">this.mMainScene.render</span><span class="PUNC">(</span><span class="NAME">this.mRenderSupport</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 75</span> </span><span class="WHIT">	
-<span class='line'> 76</span> 	</span><span class="COMM">//calculate the delay time for the nextFrame call based on the </span><span class="WHIT">
-<span class='line'> 77</span> </span><span class="WHIT">	</span><span class="COMM">//frameRate and time spend in update and render operations.</span><span class="WHIT">
-<span class='line'> 78</span> </span><span class="WHIT">	</span><span class="NAME">this.mLastFrameTimestamp</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">now</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 79</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">wastedTime</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Date</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">getTime</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">now</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">/</span><span class="WHIT"> </span><span class="NUMB">1000.0</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 80</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">nextFrameTime</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">Math.max</span><span class="PUNC">(</span><span class="NUMB">0.0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NUMB">1.0</span><span class="PUNC">/</span><span class="NAME">this.mFrameRate</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">wastedTime</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 81</span> </span><span class="WHIT">	
-<span class='line'> 82</span> 	
-<span class='line'> 83</span> 	</span><span class="COMM">//if game is running call the next frame with the specified time</span><span class="WHIT">
-<span class='line'> 84</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">this.mRunning</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'> 85</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT"> 
-<span class='line'> 86</span> 		</span><span class="NAME">setTimeout</span><span class="PUNC">(</span><span class="NAME">ss2d.View.NEXT_FRAME_CALLER</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">nextFrameTime</span><span class="WHIT"> </span><span class="PUNC">*</span><span class="WHIT"> </span><span class="NUMB">1000.0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 87</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'> 88</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 89</span> 
-<span class='line'> 90</span> </span><span class="COMM">//start the main loop if it's ready.</span><span class="WHIT">
-<span class='line'> 91</span> </span><span class="NAME">ss2d.View.prototype.startLoop</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'> 92</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 93</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">this.mRunning</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">this.mMainScene</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'> 94</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 95</span> </span><span class="WHIT">		</span><span class="NAME">this.mRunning</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 96</span> </span><span class="WHIT">		</span><span class="NAME">this.nextFrame</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 97</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">	
-<span class='line'> 98</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 99</span> 
-<span class='line'>100</span> </span><span class="COMM">/**
-<span class='line'>101</span>  * Start the main loop if it's ready.
-<span class='line'>102</span>  */</span><span class="WHIT">
-<span class='line'>103</span> </span><span class="NAME">ss2d.View.prototype.stopLoop</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 51</span> </span><span class="WHIT">	</span><span class="NAME">this.mMainScene</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">mainScene</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">ss2d.DisplayObjectContainer</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 52</span> </span><span class="WHIT">	</span><span class="NAME">this.mRenderSupport</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">ss2d.RenderSupport</span><span class="PUNC">(</span><span class="NAME">this.mContext</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 53</span> </span><span class="WHIT">	
+<span class='line'> 54</span> 	</span><span class="NAME">this.mBackgroundFillStyle</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">'#202020'</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 55</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 56</span> 
+<span class='line'> 57</span> </span><span class="COMM">/** @type {Object} */</span><span class="WHIT">
+<span class='line'> 58</span> </span><span class="NAME">ss2d.View.CANVAS_CONTEXT</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 59</span> 
+<span class='line'> 60</span> </span><span class="COMM">/** @type {function} */</span><span class="WHIT">
+<span class='line'> 61</span> </span><span class="NAME">ss2d.View.NEXT_FRAME_CALLER</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">ss2d.CURRENT_VIEW.nextFrame</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 62</span> 
+<span class='line'> 63</span> </span><span class="COMM">/**
+<span class='line'> 64</span>  * Called every frame to update and render every object
+<span class='line'> 65</span>  */</span><span class="WHIT">
+<span class='line'> 66</span> </span><span class="NAME">ss2d.View.prototype.nextFrame</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 67</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 68</span> </span><span class="WHIT">	</span><span class="COMM">//get current time in miliseconds</span><span class="WHIT">
+<span class='line'> 69</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">now</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Date</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">getTime</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 70</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">timePassed</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">now</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">this.mLastFrameTimestamp</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 71</span> </span><span class="WHIT">	
+<span class='line'> 72</span> 	</span><span class="COMM">//called with canvas width and height every frame</span><span class="WHIT">
+<span class='line'> 73</span> </span><span class="WHIT">	</span><span class="NAME">this.resizeCanvas</span><span class="PUNC">(</span><span class="NAME">this.mCanvas.width</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.mCanvas.height</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 74</span> </span><span class="WHIT">	
+<span class='line'> 75</span> 	</span><span class="COMM">//update scene</span><span class="WHIT">
+<span class='line'> 76</span> </span><span class="WHIT">	</span><span class="NAME">this.mMainScene.tick</span><span class="PUNC">(</span><span class="NAME">timePassed</span><span class="PUNC">/</span><span class="NUMB">1000.0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 77</span> </span><span class="WHIT">	
+<span class='line'> 78</span> 	</span><span class="COMM">//update input</span><span class="WHIT">
+<span class='line'> 79</span> </span><span class="WHIT">	</span><span class="NAME">this.mInput.tick</span><span class="PUNC">(</span><span class="NAME">timePassed</span><span class="PUNC">/</span><span class="NUMB">1000.0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 80</span> </span><span class="WHIT">	
+<span class='line'> 81</span> 	</span><span class="COMM">//clean background</span><span class="WHIT">
+<span class='line'> 82</span> </span><span class="WHIT">	</span><span class="NAME">this.mContext.fillStyle</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.mBackgroundFillStyle</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'> 83</span> 	</span><span class="NAME">this.mContext.fillRect</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.mCanvas.width</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">this.mCanvas.height</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> 
+<span class='line'> 84</span> 	
+<span class='line'> 85</span> 	</span><span class="COMM">//render scene</span><span class="WHIT">
+<span class='line'> 86</span> </span><span class="WHIT">	</span><span class="NAME">this.mMainScene.render</span><span class="PUNC">(</span><span class="NAME">this.mRenderSupport</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 87</span> </span><span class="WHIT">	
+<span class='line'> 88</span> 	</span><span class="COMM">//calculate the delay time for the nextFrame call based on the </span><span class="WHIT">
+<span class='line'> 89</span> </span><span class="WHIT">	</span><span class="COMM">//frameRate and time spend in update and render operations.</span><span class="WHIT">
+<span class='line'> 90</span> </span><span class="WHIT">	</span><span class="NAME">this.mLastFrameTimestamp</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">now</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 91</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">wastedTime</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Date</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">getTime</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">now</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">/</span><span class="WHIT"> </span><span class="NUMB">1000.0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 92</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">nextFrameTime</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">Math.max</span><span class="PUNC">(</span><span class="NUMB">0.0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NUMB">1.0</span><span class="PUNC">/</span><span class="NAME">this.mFrameRate</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">wastedTime</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 93</span> </span><span class="WHIT">	
+<span class='line'> 94</span> 	
+<span class='line'> 95</span> 	</span><span class="COMM">//if game is running call the next frame with the specified time</span><span class="WHIT">
+<span class='line'> 96</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">this.mRunning</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 97</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT"> 
+<span class='line'> 98</span> 		</span><span class="NAME">setTimeout</span><span class="PUNC">(</span><span class="NAME">ss2d.View.NEXT_FRAME_CALLER</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">nextFrameTime</span><span class="WHIT"> </span><span class="PUNC">*</span><span class="WHIT"> </span><span class="NUMB">1000.0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 99</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>100</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>101</span> 
+<span class='line'>102</span> </span><span class="COMM">//start the main loop if it's ready.</span><span class="WHIT">
+<span class='line'>103</span> </span><span class="NAME">ss2d.View.prototype.startLoop</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
 <span class='line'>104</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>105</span> </span><span class="WHIT">	</span><span class="NAME">this.mRunning</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">	
-<span class='line'>106</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>107</span> 
-<span class='line'>108</span> </span><span class="COMM">/**
-<span class='line'>109</span>  * A callback function to resize the canvas. Receives canvas width and height every frame.
-<span class='line'>110</span>  * Implemented by the user
-<span class='line'>111</span>  * @param {Object} cw canvas width
-<span class='line'>112</span>  * @param {Object} ch canvas height
-<span class='line'>113</span>  */</span><span class="WHIT">
-<span class='line'>114</span> </span><span class="NAME">ss2d.View.prototype.resizeCanvas</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">cw</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ch</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>115</span> </span></pre></body></html>
+<span class='line'>105</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">this.mRunning</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">this.mMainScene</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>106</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>107</span> </span><span class="WHIT">		</span><span class="NAME">this.mRunning</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>108</span> </span><span class="WHIT">		</span><span class="NAME">this.nextFrame</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>109</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">	
+<span class='line'>110</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>111</span> 
+<span class='line'>112</span> </span><span class="COMM">/**
+<span class='line'>113</span>  * Start the main loop if it's ready.
+<span class='line'>114</span>  */</span><span class="WHIT">
+<span class='line'>115</span> </span><span class="NAME">ss2d.View.prototype.stopLoop</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>116</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>117</span> </span><span class="WHIT">	</span><span class="NAME">this.mRunning</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">	
+<span class='line'>118</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>119</span> 
+<span class='line'>120</span> </span><span class="COMM">/**
+<span class='line'>121</span>  * A callback function to resize the canvas. Receives canvas width and height every frame.
+<span class='line'>122</span>  * Implemented by the user
+<span class='line'>123</span>  * @param {Object} cw canvas width
+<span class='line'>124</span>  * @param {Object} ch canvas height
+<span class='line'>125</span>  */</span><span class="WHIT">
+<span class='line'>126</span> </span><span class="NAME">ss2d.View.prototype.resizeCanvas</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">cw</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ch</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>127</span> </span></pre></body></html>

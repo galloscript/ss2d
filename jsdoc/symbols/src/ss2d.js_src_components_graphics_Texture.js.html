@@ -29,7 +29,7 @@
 <span class='line'> 22</span> 	</span><span class="COMM">/** @type {Image} */</span><span class="WHIT">
 <span class='line'> 23</span> </span><span class="WHIT">	</span><span class="NAME">this.mTextureElement</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Image</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 24</span> </span><span class="WHIT">	</span><span class="NAME">this.mTextureElement.mTexture</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 25</span> </span><span class="WHIT">	</span><span class="NAME">this.mTextureElement.mCallbackFunction</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">callbackFunction</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="WHIT">	</span><span class="NAME">this.mCallbackFunction</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">callbackFunction</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 26</span> </span><span class="WHIT">	
 <span class='line'> 27</span> 	</span><span class="NAME">this.mTextureElement.onload</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
 <span class='line'> 28</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT"> 
@@ -45,26 +45,25 @@
 <span class='line'> 38</span> </span><span class="NAME">ss2d.Texture.prototype.handleLoadedTexture</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
 <span class='line'> 39</span> </span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'> 40</span> </span><span class="WHIT">	</span><span class="NAME">this.mCallbackFunction.call</span><span class="PUNC">(</span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> 
-<span class='line'> 41</span> 	
-<span class='line'> 42</span> 	</span><span class="COMM">//if(RENDER_CONTEXT == 'webgl')</span><span class="WHIT">
-<span class='line'> 43</span> </span><span class="WHIT">	</span><span class="COMM">//{</span><span class="WHIT">
-<span class='line'> 44</span> </span><span class="WHIT">		</span><span class="COMM">//create texture in webgl</span><span class="WHIT">
-<span class='line'> 45</span> </span><span class="WHIT">	</span><span class="COMM">//}</span><span class="WHIT">
-<span class='line'> 46</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 47</span> 
-<span class='line'> 48</span> </span><span class="COMM">/**
-<span class='line'> 49</span>  * @return {number} the width of the texture in pixels
-<span class='line'> 50</span>  */</span><span class="WHIT">
-<span class='line'> 51</span> </span><span class="NAME">ss2d.Texture.prototype.getWidth</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'> 52</span> </span><span class="PUNC">{</span><span class="WHIT"> 
-<span class='line'> 53</span> 	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.mTextureElement.width</span><span class="PUNC">;</span><span class="WHIT"> 
-<span class='line'> 54</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 55</span> 
-<span class='line'> 56</span> </span><span class="COMM">/**
-<span class='line'> 57</span>  * @return {number} the height of the texture in pixels
-<span class='line'> 58</span>  */</span><span class="WHIT">
-<span class='line'> 59</span> </span><span class="NAME">ss2d.Texture.prototype.getHeight</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'> 60</span> </span><span class="PUNC">{</span><span class="WHIT"> 
-<span class='line'> 61</span> 	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.mTextureElement.height</span><span class="PUNC">;</span><span class="WHIT"> 
-<span class='line'> 62</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 63</span> </span></pre></body></html>
+<span class='line'> 41</span> 	</span><span class="COMM">//if(RENDER_CONTEXT == 'webgl')</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="WHIT">	</span><span class="COMM">//{</span><span class="WHIT">
+<span class='line'> 43</span> </span><span class="WHIT">		</span><span class="COMM">//create texture in webgl</span><span class="WHIT">
+<span class='line'> 44</span> </span><span class="WHIT">	</span><span class="COMM">//}</span><span class="WHIT">
+<span class='line'> 45</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 46</span> 
+<span class='line'> 47</span> </span><span class="COMM">/**
+<span class='line'> 48</span>  * @return {number} the width of the texture in pixels
+<span class='line'> 49</span>  */</span><span class="WHIT">
+<span class='line'> 50</span> </span><span class="NAME">ss2d.Texture.prototype.getWidth</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 51</span> </span><span class="PUNC">{</span><span class="WHIT"> 
+<span class='line'> 52</span> 	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.mTextureElement.width</span><span class="PUNC">;</span><span class="WHIT"> 
+<span class='line'> 53</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 54</span> 
+<span class='line'> 55</span> </span><span class="COMM">/**
+<span class='line'> 56</span>  * @return {number} the height of the texture in pixels
+<span class='line'> 57</span>  */</span><span class="WHIT">
+<span class='line'> 58</span> </span><span class="NAME">ss2d.Texture.prototype.getHeight</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 59</span> </span><span class="PUNC">{</span><span class="WHIT"> 
+<span class='line'> 60</span> 	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.mTextureElement.height</span><span class="PUNC">;</span><span class="WHIT"> 
+<span class='line'> 61</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 62</span> </span></pre></body></html>

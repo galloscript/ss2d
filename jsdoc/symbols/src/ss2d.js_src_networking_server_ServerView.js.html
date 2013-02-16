@@ -18,9 +18,9 @@
 <span class='line'> 11</span> 
 <span class='line'> 12</span> </span><span class="COMM">/**
 <span class='line'> 13</span>  * @constructor
-<span class='line'> 14</span>  * @param {ss2d.MultiplayerScene} mainScene
-<span class='line'> 15</span>  * @param {number} serverPort
-<span class='line'> 16</span>  * @param {number} updateRate Number of world states per second that will be updated and broadcasted to all clients.
+<span class='line'> 14</span>  * @param {ss2d.MultiplayerScene=} mainScene
+<span class='line'> 15</span>  * @param {number=} serverPort
+<span class='line'> 16</span>  * @param {number=} updateRate Number of world states per second that will be updated and broadcasted to all clients.
 <span class='line'> 17</span>  */</span><span class="WHIT">
 <span class='line'> 18</span> </span><span class="NAME">ss2d.ServerView</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">mainScene</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">serverPort</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">updateRate</span><span class="PUNC">)</span><span class="WHIT">
 <span class='line'> 19</span> </span><span class="PUNC">{</span><span class="WHIT">
@@ -30,7 +30,7 @@
 <span class='line'> 23</span> </span><span class="WHIT">	
 <span class='line'> 24</span> 	</span><span class="NAME">ss2d.CURRENT_VIEW</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 25</span> </span><span class="WHIT">	
-<span class='line'> 26</span> 	</span><span class="NAME">this.mMainScene</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">mainScene</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 26</span> 	</span><span class="NAME">this.mMainScene</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">mainScene</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">ss2d.DisplayObjectContainer</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 27</span> </span><span class="WHIT">	</span><span class="NAME">this.mMainScene.mParentView</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 28</span> </span><span class="WHIT">	
 <span class='line'> 29</span> 	</span><span class="NAME">this.mComunication</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">ss2d.ServerCommunicationInterface</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">serverPort</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">

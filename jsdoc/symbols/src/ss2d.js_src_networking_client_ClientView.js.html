@@ -24,8 +24,8 @@
 <span class='line'> 17</span> </span><span class="COMM">/**
 <span class='line'> 18</span>  * @constructor
 <span class='line'> 19</span>  * @param {Object} canvasId Id of the canvas element where the scene will be rendered
-<span class='line'> 20</span>  * @param {number=} canvasWidth Canvas width in pixels, 800 by default.
-<span class='line'> 21</span>  * @param {number=} canvasHeight Canvas height in pixels, 600 by default.
+<span class='line'> 20</span>  * @param {number=} canvasWidth Canvas width in pixels.
+<span class='line'> 21</span>  * @param {number=} canvasHeight Canvas height in pixels.
 <span class='line'> 22</span>  * @param {number=} frameRate Frames to render per second, 60 by default.
 <span class='line'> 23</span>  * @param {number=} inputRate Input updates to send to the server per second, 20 by default.
 <span class='line'> 24</span>  * @param {number=} delay Latency in milliseconds
@@ -39,8 +39,8 @@
 <span class='line'> 32</span> </span><span class="WHIT">	</span><span class="NAME">this.mInput</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">ss2d.Input</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 33</span> </span><span class="WHIT">	</span><span class="NAME">this.mLastFrameTimestamp</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Date</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">getTime</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 34</span> </span><span class="WHIT">	
-<span class='line'> 35</span> 	</span><span class="NAME">this.mCanvas.width</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">canvasWidth</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NUMB">800</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 36</span> </span><span class="WHIT">	</span><span class="NAME">this.mCanvas.height</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">canvasHeight</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NUMB">600</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 35</span> 	</span><span class="NAME">this.mCanvas.width</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">canvasWidth</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">this.mCanvas.height</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="WHIT">	</span><span class="NAME">this.mCanvas.height</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">canvasHeight</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NAME">this.mCanvas.height</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 37</span> </span><span class="WHIT">	
 <span class='line'> 38</span> 	</span><span class="NAME">ss2d.CURRENT_VIEW</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 39</span> </span><span class="WHIT">	</span><span class="NAME">ss2d.ClientView.CANVAS_CONTEXT</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.mContext</span><span class="PUNC">;</span><span class="WHIT">
