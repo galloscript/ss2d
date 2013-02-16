@@ -16,7 +16,7 @@
 <span class='line'>  9</span> 
 <span class='line'> 10</span> </span><span class="COMM">/**
 <span class='line'> 11</span>  * @constructor
-<span class='line'> 12</span>  * @param {(ss2d.Color|number|string|Array.&lt;number>)} color
+<span class='line'> 12</span>  * @param {(ss2d.Color|number|string|number[3])} color
 <span class='line'> 13</span>  */</span><span class="WHIT">
 <span class='line'> 14</span> </span><span class="NAME">ss2d.Color</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">color</span><span class="PUNC">)</span><span class="WHIT">
 <span class='line'> 15</span> </span><span class="PUNC">{</span><span class="WHIT">
@@ -25,7 +25,7 @@
 <span class='line'> 18</span> 
 <span class='line'> 19</span> </span><span class="COMM">/**
 <span class='line'> 20</span>  * Sets the color value from various types of color representation formats
-<span class='line'> 21</span>  * @param {(ss2d.Color|number|string|Array.&lt;number>)} color
+<span class='line'> 21</span>  * @param {(ss2d.Color|number|string|number[3])} color
 <span class='line'> 22</span>  */</span><span class="WHIT">
 <span class='line'> 23</span> </span><span class="NAME">ss2d.Color.prototype.setValue</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">color</span><span class="PUNC">)</span><span class="WHIT">
 <span class='line'> 24</span> </span><span class="PUNC">{</span><span class="WHIT">
@@ -73,7 +73,7 @@
 <span class='line'> 66</span> </span><span class="NAME">ss2d.Color.prototype.setBlue</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">b</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="NAME">this.mColorArray</span><span class="PUNC">[</span><span class="NUMB">2</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">b</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 67</span> 
 <span class='line'> 68</span> </span><span class="COMM">/**
-<span class='line'> 69</span>  * @return {Array.&lt;number>} Array of bytes with values from 0 to 255
+<span class='line'> 69</span>  * @return {number[]} Array of bytes with values from 0 to 255
 <span class='line'> 70</span>  */</span><span class="WHIT">
 <span class='line'> 71</span> </span><span class="NAME">ss2d.Color.prototype.getRGBArray</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
 <span class='line'> 72</span> </span><span class="PUNC">{</span><span class="WHIT">
@@ -104,7 +104,7 @@
 <span class='line'> 97</span> 
 <span class='line'> 98</span> </span><span class="COMM">/**
 <span class='line'> 99</span>  * @param {Array=} target An already created array to store the values
-<span class='line'>100</span>  * @return {Array.&lt;number>} Array with float color components values from 0 to 1.
+<span class='line'>100</span>  * @return {number[3]} Array with float color components values from 0 to 1.
 <span class='line'>101</span>  */</span><span class="WHIT">
 <span class='line'>102</span> </span><span class="NAME">ss2d.Color.prototype.getF32Array</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">target</span><span class="PUNC">)</span><span class="WHIT">
 <span class='line'>103</span> </span><span class="PUNC">{</span><span class="WHIT">
@@ -125,8 +125,8 @@
 <span class='line'>118</span> 
 <span class='line'>119</span> </span><span class="COMM">/**
 <span class='line'>120</span>  * Interpolate between two color values
-<span class='line'>121</span>  * @param {Array.&lt;number>} initialColor
-<span class='line'>122</span>  * @param {Array.&lt;number>} finalColor
+<span class='line'>121</span>  * @param {number[3]} initialColor
+<span class='line'>122</span>  * @param {number[3]} finalColor
 <span class='line'>123</span>  * @param {number} part The fraction of difference value between two colors.
 <span class='line'>124</span>  */</span><span class="WHIT">
 <span class='line'>125</span> </span><span class="NAME">ss2d.Color.interpolate</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">initialColor</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">finalColor</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">part</span><span class="PUNC">)</span><span class="WHIT">

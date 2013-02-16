@@ -25,7 +25,7 @@
 <span class='line'> 18</span>  * @param {number=} scale
 <span class='line'> 19</span>  * @param {number=} rotation
 <span class='line'> 20</span>  * @property {*} inherited @see ss2d.DisplayObject
-<span class='line'> 21</span>  * @property {Array&lt;ss2d.DisplayObject>} mChildren List of ss2d.DisplayObject children.
+<span class='line'> 21</span>  * @property {ss2d.DisplayObject[]} mChildren List of ss2d.DisplayObject children.
 <span class='line'> 22</span>  */</span><span class="WHIT">
 <span class='line'> 23</span> </span><span class="NAME">ss2d.DisplayObjectContainer</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">x</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">y</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">scale</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">rotation</span><span class="PUNC">)</span><span class="WHIT">
 <span class='line'> 24</span> </span><span class="PUNC">{</span><span class="WHIT">
@@ -83,7 +83,7 @@
 <span class='line'> 76</span> 
 <span class='line'> 77</span> </span><span class="COMM">/**
 <span class='line'> 78</span>  * Adds a display objects to this container
-<span class='line'> 79</span>  * @param {(ss2d.DisplayObject|Array&lt;ss2d.DisplayObject>)} displayObject
+<span class='line'> 79</span>  * @param {(ss2d.DisplayObject|ss2d.DisplayObject[])} displayObject
 <span class='line'> 80</span>  */</span><span class="WHIT">
 <span class='line'> 81</span> </span><span class="NAME">ss2d.DisplayObjectContainer.prototype.addObject</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">displayObjects</span><span class="PUNC">)</span><span class="WHIT">
 <span class='line'> 82</span> </span><span class="PUNC">{</span><span class="WHIT">
@@ -107,7 +107,7 @@
 <span class='line'>100</span> 
 <span class='line'>101</span> </span><span class="COMM">/**
 <span class='line'>102</span>  * Remove the specified displayObjects from this container
-<span class='line'>103</span>  * @param {(ss2d.DisplayObject|Array&lt;ss2d.DisplayObject>)} displayObject
+<span class='line'>103</span>  * @param {(ss2d.DisplayObject|ss2d.DisplayObject[])} displayObject
 <span class='line'>104</span>  */</span><span class="WHIT">
 <span class='line'>105</span> </span><span class="NAME">ss2d.DisplayObjectContainer.prototype.removeObject</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">displayObjects</span><span class="PUNC">)</span><span class="WHIT">
 <span class='line'>106</span> </span><span class="PUNC">{</span><span class="WHIT">
