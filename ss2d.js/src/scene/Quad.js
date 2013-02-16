@@ -18,6 +18,9 @@ goog.require('ss2d.Rectangle');
  * @param {number} w The width
  * @param {number} h The height
  * @param {(number|string|Array.<number>|ss2d.Color)} color
+ * @property {*} inherited @see ss2d.DisplayObject
+ * @property {number} mWidth The width in pixels of the object
+ * @property {number} mHeight The height in pixels of the object
  */
 ss2d.Quad = function(x, y, w, h, color)
 {

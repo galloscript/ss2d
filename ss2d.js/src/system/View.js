@@ -21,6 +21,14 @@ goog.require('ss2d.DisplayObjectContainer');
  * @param {number=} canvasWidth
  * @param {number=} canvasHeight
  * @param {number=} frameRate Frames per second, 60.0 by default
+ * @property {HTMLCanvasElement} mCanvas Canvas HTML Canvas element
+ * @property {CanvasRenderingContext2d} mContext Canvas context
+ * @property {boolean} mRunning Is main loop running?
+ * @property {number} mFrameRate Frames per second (60 by default)
+ * @property {ss2d.Input} mInput Mapped user input
+ * @property {ss2d.DisplayObjectContainer} mMainScene Scene that is being rendering
+ * @property {ss2d.RenderSupport} mRenderSupport Rendering support
+ * @property {string} mBackgroundFillStyle Background fill style mapped to Context fillstyle
  */
 ss2d.View = function(canvasId, mainScene, canvasWidth, canvasHeight, frameRate)
 {
@@ -29,6 +37,7 @@ ss2d.View = function(canvasId, mainScene, canvasWidth, canvasHeight, frameRate)
 	this.mRunning = false;
 	this.mFrameRate = frameRate || 60.0;
 	this.mInput = new ss2d.Input(this);
+	
 	this.mLastFrameTimestamp = new Date().getTime();
 	
 	ss2d.CURRENT_VIEW = this;
@@ -38,9 +47,10 @@ ss2d.View = function(canvasId, mainScene, canvasWidth, canvasHeight, frameRate)
 	this.mCanvas.height = canvasHeight || this.mCanvas.height;
 	
 	ss2d.AUDIO_CONTEXT = ss2d.WebAudio.getAudioContext();
-	
+
 	this.mMainScene = mainScene || new ss2d.DisplayObjectContainer();
 	this.mRenderSupport = new ss2d.RenderSupport(this.mContext);
+	
 	this.mBackgroundFillStyle = '#202020';
 };
 

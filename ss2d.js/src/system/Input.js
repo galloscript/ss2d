@@ -12,6 +12,14 @@ goog.provide('ss2d.Input');
  * @param {ss2d.View} view
  * @constructor
  * @implements {EventHandler} 
+ * @property {number} mMouseX Mouse location in x axis
+ * @property {number} mMouseY Mouse location in y axis
+ * @property {number} mPreviousMouseX Last frame mouse location in x axis
+ * @property {number} mPreviousMouseY Last frame mouse location in y axis
+ * @property {ss2d.Point} mMousePoint Mouse location point
+ * @property {ss2d.Point} mPreviousMousePoint Last frame mouse location point
+ * @property {boolean} mMouseDown Is mouse left button down?
+ * @property {boolean} mPreviousMouseDown Was mouse left button down last frame?
  */
 ss2d.Input = function(view)
 {
@@ -43,11 +51,11 @@ ss2d.Input = function(view)
 	this.mPressedKeys = {};
 	this.mMouseX = -50;
 	this.mMouseY = -50;
-	this.mPrevMouseX = 0;
-	this.mPrevMouseY = 0;
+	this.mPreviousMouseX = 0;
+	this.mPreviousMouseY = 0;
 	this.mMouseDown = false;
 	this.mMousePoint = new ss2d.Point(this.mMouseX, this.mMouseY);
-	this.mPrevMousePoint = new ss2d.Point(this.mPrevMouseX, this.mPrevMouseY);
+	this.mPreviousMousePoint = new ss2d.Point(this.mPreviousMouseX, this.mPreviousMouseY);
 	this.mPreviousMouseDown = false;
 	this.mClicked = false;
 }
@@ -92,10 +100,10 @@ ss2d.Input.Keys.Z = 90;
 
 ss2d.Input.prototype.tick = function()
 {
-	this.mPrevMouseX = this.mMouseX;
-	this.mPrevMouseY = this.mMouseY;
-	this.mPrevMousePoint.mX = this.mPrevMouseX;
-	this.mPrevMousePoint.mY = this.mPrevMouseY;
+	this.mPreviousMouseX = this.mMouseX;
+	this.mPreviousMouseY = this.mMouseY;
+	this.mPreviousMousePoint.mX = this.mPreviousMouseX;
+	this.mPreviousMousePoint.mY = this.mPreviousMouseY;
 	this.mPreviousMouseDown = this.mMouseDown;
 	this.mMouseDown = this.mClicked;	
 }

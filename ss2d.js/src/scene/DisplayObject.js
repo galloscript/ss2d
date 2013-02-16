@@ -22,6 +22,15 @@ goog.require('ss2d.Color');
  * @param {number} rotation
  * @param {(number|string|Array.<number>|ss2d.Color)} color
  * @param {number} alpha Transparency
+ * @property {ss2d.Point} mLocation Object location point
+ * @property {number} mRotation Rotation in rads
+ * @property {number} mPivotX Pivot in x axis
+ * @property {number} mPivotY Pivot in y axis
+ * @property {number} mScaleX Scale in x axis
+ * @property {number} mScaleY Scale in y axis
+ * @property {ss2d.DisplayObjectContainer} mParent Parent in scene tree
+ * @property {ss2d.Color} mColor Color representation
+ * @property {number} mAlpha Transparency
  */
 ss2d.DisplayObject = function(x, y, scale, rotation, color, alpha)
 {
@@ -36,10 +45,6 @@ ss2d.DisplayObject = function(x, y, scale, rotation, color, alpha)
 	this.mScaleX = scale || 1.0;
 	this.mScaleY = scale || 1.0;
 	this.mParent = null;
-	this.mPicked = false; //set to true by user if the object if picked.
-	
-	this.mOffsetX = 0.0;
-	this.mOffsetY = 0.0;
 	
 	if(color instanceof ss2d.Color)
 	{

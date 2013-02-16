@@ -17,6 +17,8 @@ goog.require('ss2d.ResourceLoader');
  * @param {number=} y
  * @param {number=} scale
  * @param {number=} rotation
+ * @property {*} inherited @see ss2d.DisplayObject
+ * @property {Array<ss2d.DisplayObject>} mChildren List of ss2d.DisplayObject children.
  */
 ss2d.DisplayObjectContainer = function(x, y, scale, rotation)
 {

@@ -15,7 +15,9 @@ goog.require('ss2d.ResourceLoader');
  * @constructor
  * @extends {ss2d.Quad}
  * @param {string|ss2d.Texture} texture
- * @override
+ * @property {*} inherited @see ss2d.Quad
+ * @property {ss2d.Texture} mTexture Reference to the texture the sprite will draw
+ * @property {number[4]} mClip Texture clipping rectangle
  */
 ss2d.Sprite = function(x, y, w, h, texture, color)
 {

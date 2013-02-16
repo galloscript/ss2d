@@ -13,6 +13,7 @@ goog.require('ss2d.DisplayObjectContainer');
 /** 
  * @constructor 
  * @extends {ss2d.DisplayObjectContainer}
+ * @property {*} inherited @see ss2d.DisplayObjectContainer
  * */
 ss2d.MultiplayerScene = function()
 {

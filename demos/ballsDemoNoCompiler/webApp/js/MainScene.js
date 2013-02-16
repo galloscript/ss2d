@@ -80,7 +80,7 @@ sand.MainScene.prototype.tick = function(deltaTime)
     //move the picked object
     if(input.mMouseDown && input.mPreviousMouseDown && this.mTouchedObject)  
     {
-		var addPosition = ss2d.Point.subtractPoints(input.mPrevMousePoint, input.mMousePoint);
+		var addPosition = ss2d.Point.subtractPoints(input.mPreviousMousePoint, input.mMousePoint);
     	this.mTouchedObject.mLocation.mX += addPosition.mX;
     	this.mTouchedObject.mLocation.mY += addPosition.mY;
 		this.mTouchedObject.mPicked = true; 

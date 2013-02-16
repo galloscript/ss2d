@@ -11,6 +11,8 @@ goog.provide('ss2d.Point');
  * @constructor
  * @param {number} x coordinate
  * @param {number} y coordinate
+ * @property {number} mX x coordinate value
+ * @property {number} mY y coordinate value
  */
 ss2d.Point = function(x, y)
 {
