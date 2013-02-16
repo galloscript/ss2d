@@ -86,7 +86,10 @@ ss2d.Quad.prototype.setHeight = function(h, excludeClip)
 /** @override */
 ss2d.Quad.prototype.getBounds = function()
 {
-	return new ss2d.Rectangle(this.mLocation.mX - this.mPivotX, this.mLocation.mY - this.mPivotY, this.getWidth(), this.getHeight());
+	return new ss2d.Rectangle(this.mLocation.mX - (this.mPivotX * this.mScaleX), 
+							  this.mLocation.mY - (this.mPivotY * this.mScaleY), 
+							  this.getWidth() * this.mScaleX, 
+							  this.getHeight() * this.mScaleY);
 };
 
 /** @override */

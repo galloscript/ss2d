@@ -123,7 +123,6 @@ ss2d.DisplayObject.prototype.worldToLocal = function(point)
 {
 	var invWorldMatrix = this.getWorldTransformationMatrix().invert();
 	var transformedPoint = invWorldMatrix.transformPoint(point);
-	delete worldMatrix;
 	return transformedPoint;
 };
 
