@@ -23,7 +23,7 @@ ss2d.Juggler = function()
  */
 ss2d.Juggler.prototype.advanceTime = function(deltaTime)
 {
-	this.mElapsedTime += seconds;
+	this.mElapsedTime += deltaTime;
 	var objectsCopy = this.mObjects.slice();
 	for (var i = 0;i < objectsCopy.length; ++i)
 	{
