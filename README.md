@@ -6,7 +6,7 @@ Javascript 2D Game Framework
 Author: David Gallardo Moreno <portalg@gmail.com> <br/>
 License: The MIT License (MIT), read <a href=./LICENSE.md>LICENSE</a> <br/>
 API Class Reference: http://galloman.github.com/ss2d/jsdoc/ <br/>
-Youtube channel with live coding: https://www.youtube.com/user/SmoothStep2D
+Youtube channel with live coding: http://www.youtube.com/user/SmoothStep2D
 
 Demos
 ==========
