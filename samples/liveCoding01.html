@@ -1,0 +1,80 @@
+<h3>SmoothStep2D Live Coding 01: Hello Quad</h3>
+<canvas id="mainCanvas" width="512" height="512">No canvas!</canvas>
+<script src="http://galloman.github.com/ss2d/lib/ss2dLib.js"></script>
+<script>
+  //Welcome to the first ss2d live coding video, we will see how to 
+  //setup a basic scene and add a pickable quad.
+  
+  //as you can see above we created a canvas with a size of 512x512
+  //and imported the ss2dLib-min.js file from gitgub pages.
+  
+  //first of all, create a view for our canvas
+  var view = new ss2d.View('mainCanvas');
+  
+  //we have the view running, now, change the color
+  view.mBackgroundFillStyle = '#aabbbb';
+  //ss2d don't map directly the color property of it's elements to the 
+  //fill style but the view background is a special case.
+  
+  //now create a quad
+  //ss2d.Quad have some default vaules, let's costum it
+  var quad = new ss2d.Quad(30, //x
+                           100, //y
+                           40, //width 
+                           40, //height
+                           //color can have different formats
+                           [255,255,0] //color
+                          );
+  //picked flag
+  quad.mPicked = false;
+  
+  //change the quad pivot to it's center
+  quad.mPivotX = quad.mPivotY = 20; //half of the width
+  
+  //give a behaviour to our quad
+  quad.tick = function(deltaTime)
+  {
+    //tick is a method called every frame on every object of the scene.
+    //deltaTime is the time between frames, usually 0.016 seconds at 
+    //60fps
+    
+    //now get the mouse input
+    var input = ss2d.CURRENT_VIEW.mInput;
+    
+    //ss2d.CURRENT_VIEW gives us acces to the mainView properties. 
+    //mInput is the player input 
+    
+    //make the quad pickage using a state flag named picked
+    if(input.mMouseDown && !input.mPreviousMouseDown)
+    {
+      //if mouse is pressed this frame and was not pressed las frame
+      //then the mouse is clicked!
+      //check if is clicking over our quad
+      if(this.hitTestPoint(input.mMousePoint))
+      {
+        //hitTestPoint return null if there is no hit collision or 
+        //returns the object that is hitted, in this case is the same 
+        //quad if the hit test success
+        this.mPicked = true;
+      }
+    }
+    
+    //check the mouse is still down
+    this.mPicked = this.mPicked && input.mMouseDown;
+    
+    //move in x and y if picked
+    if(this.mPicked)
+    {
+      this.mLocation.mX = input.mMouseX;
+      this.mLocation.mY = input.mMouseY;
+    }
+  }
+  
+  //and add it to the scene
+  view.mMainScene.addObject(quad);
+  
+  //then run the main loop
+  view.startLoop();
+  
+  //that's all, i hope you enjoyed this live coding demo!
+</script>
