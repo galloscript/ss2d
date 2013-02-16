@@ -92,7 +92,7 @@ ss2d.Tween.prototype.fadeTo = function(alpha)
  */
 ss2d.Tween.prototype.advanceTime = function(deltaTime)
 {
-	if (deltaTime == 0 || (this.mLoop == ss2d.Tween.LoopTypeNone && this.mCurrentTime >= this.mTotalTime))
+	if (deltaTime == 0 || (this.mLoop == ss2d.Tween.LoopType.NONE && this.mCurrentTime >= this.mTotalTime))
 		return;
 	
 	if (this.mCurrentTime >= this.mTotalTime)
@@ -110,7 +110,7 @@ ss2d.Tween.prototype.advanceTime = function(deltaTime)
 	
 	var ratio = this.mCurrentTime / this.mTotalTime;
 
-	var invertTransition = (this.mLoop == ss2d.Tween.LoopTypeReverse && this.mLoopCount % 2 == 1);
+	var invertTransition = (this.mLoop == ss2d.Tween.LoopType.REVERSE && this.mLoopCount % 2 == 1);
 	
 	for (var i = 0; i < this.mProperties.length; ++i)
 	{		
@@ -124,7 +124,7 @@ ss2d.Tween.prototype.advanceTime = function(deltaTime)
 	
 	if (previousTime < this.mTotalTime && this.mCurrentTime >= this.mTotalTime)
 	{
-		if (this.mLoop == ss2d.Tween.LoopTypeRepeat)
+		if (this.mLoop == ss2d.Tween.LoopType.REPEAT)
 		{
 			for (var i = 0; i < this.mProperties.length; ++i)
 			{
@@ -132,7 +132,7 @@ ss2d.Tween.prototype.advanceTime = function(deltaTime)
 				prop.setCurrentValue(prop.mStartValue);
 			}
 		}
-		else if (this.mLoop == ss2d.Tween.LoopTypeReverse)
+		else if (this.mLoop == ss2d.Tween.LoopType.REVERSE)
 		{
 			for (var i = 0; i < this.mProperties.length; ++i)
 			{
@@ -152,7 +152,7 @@ ss2d.Tween.prototype.advanceTime = function(deltaTime)
  */
 ss2d.Tween.prototype.isComplete = function()
 {
-	return this.mCurrentTime >= this.mTotalTime && this.mLoop == ss2d.Tween.LoopTypeNone;
+	return this.mCurrentTime >= this.mTotalTime && this.mLoop == ss2d.Tween.LoopType.NONE;
 };
 
 /**
