@@ -31,7 +31,9 @@ ss2d.ReelSprite = function(x, y, w, h, descriptor)
 	//Sprite
 	this.mTexture = this.mFirstFrame.mTexture;
 	this.mClip = this.mFirstFrame.copyClip(new Array(4));
-	
+	this.mOffsetX = 0;
+	this.mOffsetY = 0;
+				
 	//Animation state
 	this.mPlaying = true;
 	this.mComplete = false;

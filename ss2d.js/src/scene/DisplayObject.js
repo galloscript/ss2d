@@ -78,7 +78,6 @@ ss2d.DisplayObject.prototype.getTransformationMatrix = function(targetMatrix)
 	targetMatrix = targetMatrix || new ss2d.Matrix3();
 	
 	if (this.mPivotX != 0.0 || this.mPivotY != 0.0)				{ targetMatrix.translate(-this.mPivotX,-this.mPivotY); }
-	if (this.mOffsetX != 0.0 || this.mOffsetY != 0.0)			{ targetMatrix.translate(-this.mOffsetX,-this.mOffsetY); }
 	if (this.mScaleX != 1.0 || this.mScaleY != 1.0)				{ targetMatrix.scale(this.mScaleX,this.mScaleY); }
 	if (this.mRotation != 0.0)			 						{ targetMatrix.rotate(this.mRotation); }
 	if (this.mLocation.mX != 0.0 || this.mLocation.mY != 0.0)	{ targetMatrix.translate(this.mLocation.mX,this.mLocation.mY); }
@@ -236,8 +235,6 @@ if(COMPILING_CLIENT)
 		this.mPivotY = objBackup['py'] || this.mPivotY;
 		this.mScaleX = objBackup['sx'] || this.mScaleX;
 		this.mScaleY = objBackup['sy'] || this.mScaleY;
-		this.mOffsetX = objBackup['ox'] || this.mOffsetX;
-		this.mOffsetY = objBackup['oy'] || this.mOffsetY;
 		this.mColor = new ss2d.Color(objBackup['c']) || this.mColor;
 		this.mAlpha = objBackup['a'] || this.mAlpha;
 	}
@@ -273,8 +270,6 @@ if(COMPILING_CLIENT)
 		this.mPivotY = prevState['py'] + (nextState['py'] - prevState['py']) * part;
 		this.mScaleX = prevState['sx'] + (nextState['sx'] - prevState['sx']) * part;
 		this.mScaleY = prevState['sy'] + (nextState['sy'] - prevState['sy']) * part;
-		this.mOffsetX = prevState['ox'] + (nextState['ox'] - prevState['ox']) * part;
-		this.mOffsetY = prevState['oy'] + (nextState['oy'] - prevState['oy']) * part;
 		var ca = ss2d.Color.interpolate(prevState['c'], nextState['c'], part).getRGBArray();
 		this.mColor.setRGB(ca[0],ca[1],ca[2]);
 		this.mAlpha = prevState['a'] + (nextState['a'] - prevState['a']) * part;
@@ -326,7 +321,9 @@ if(COMPILING_SERVER)
 	
 	/**
 	 * @return A string with all properties serialized in JSON format.
+	 * <pre>
 	 * SERIALIZACION SPEC
+	 * 
 	 * CLASS_ID : cid
 	 * mObjectId : doid
 	 * mLocation.mX : x
@@ -336,11 +333,10 @@ if(COMPILING_SERVER)
 	 * mPivotY : py
 	 * mScaleX : sx
 	 * mScaleY : sy
-	 * mOffsetX : ox
-	 * mOffsetY : oy
 	 * mColor : c
 	 * mAlpha : a
 	 * mSoundList : snds
+	 * </pre>
 	 */
 	ss2d.DisplayObject.prototype.getPropertiesJSON = function()
 	{
@@ -356,8 +352,6 @@ if(COMPILING_SERVER)
 		str += '"py":'+this.mPivotY+',';
 		str += '"sx":'+this.mScaleX+',';
 		str += '"sy":'+this.mScaleY+',';
-		str += '"ox":'+this.mOffsetX+',';
-		str += '"oy":'+this.mOffsetY+',';
 		str += '"c":'+JSON.stringify(this.mColor.getRGBArray())+',';
 		str += '"a":'+this.mAlpha;
 		str += ',"snds":'+JSON.stringify(this.mSoundList);
