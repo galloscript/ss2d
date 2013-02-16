@@ -84,7 +84,7 @@ ss2d.Juggler.prototype.removeObjectsWithTarget = function(object)
 /**
  * Creates and store a ss2d.DelayedInvocation object with the specified parameters.
  * @param {(ss2d.DisplayObject|?Object)} target The object that implements the methods or null
- * @param {(function|Array.<function>)} methods
+ * @param {(function|function[])} methods
  * @param {*} values
  * @param {number} time The time that must pass to call the function
  */

@@ -20,7 +20,7 @@ goog.require('ss2d.Color');
  * @param {number=} y Position in y axis
  * @param {number=} scale Scale in both x and y axis
  * @param {number} rotation
- * @param {(number|string|Array.<number>|ss2d.Color)} color
+ * @param {(number|string|number[3]|ss2d.Color)} color
  * @param {number} alpha Transparency
  * @property {ss2d.Point} mLocation Object location point
  * @property {number} mRotation Rotation in rads

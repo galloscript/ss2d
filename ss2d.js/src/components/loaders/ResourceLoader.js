@@ -72,7 +72,7 @@ if(typeof webkitAudioContext != 'undefined' || typeof AudioContext != 'undefined
  *   sample.App.run();
  * });
  * </pre>
- * @param {(string|Array.<string|function>)} resources Resource name or list of resource loaders plus resource names to load.
+ * @param {(string|Array)} resources Resource name or list of resource loaders plus resource names to load.
  * @param {function(string, number, number)} oneElementLoadedCallback Called for each loaded resource with the element name,
  * 																		  the number of loaded elements, and the total elements to load.
  * @param {function} elementsLoadedCallback  Called once all resources are loaded.

@@ -14,7 +14,7 @@ goog.require('ss2d.IAnimatable');
  * @constructor
  * @implements {ss2d.IAnimatable}
  * @param {ss2d.DisplayObject} target
- * @param {(Array.<function>|function)} methods
+ * @param {(function|function[])} methods
  * @param {Array} values
  * @param {number} time
  */

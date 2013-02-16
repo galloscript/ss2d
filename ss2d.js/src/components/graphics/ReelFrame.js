@@ -36,7 +36,7 @@ ss2d.ReelFrame = function(x, y, width, height, texture, offsetX, offsetY)
 
 /**
  * @param {Array=} clipArray array where the clip information will be dump
- * @return {Array.<number>} array for clipping the proper frame from the texture
+ * @return {number[4]} array for clipping the proper frame from the texture
  */
 ss2d.ReelFrame.prototype.dumpClip = function(clipArray)
 {

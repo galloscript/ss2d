@@ -87,7 +87,7 @@ ss2d.ServerCommunicationInterface.CONNECTIONS_COUNT = 1000;
 
 /**
  * @param {ss2d.MultiplayerScene} sceneToSend
- * @param {Array.<Object>} userConnections
+ * @param {Object[]} userConnections
  */
 ss2d.ServerCommunicationInterface.prototype.broadcastSceneToClients = function(sceneToSend, userConnections)
 {

@@ -15,7 +15,7 @@ goog.require('ss2d.ReelFrame');
  */
 ss2d.Reel = function(duration)
 {
-	/** @type {Array.<ss2d.ReelFrame>} */
+	/** @type {ss2d.ReelFrame[]} */
 	this.mFrames = [];
 	
 	this.mDuration = duration; //duration in seconds

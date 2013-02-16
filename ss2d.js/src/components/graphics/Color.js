@@ -9,7 +9,7 @@ goog.provide('ss2d.Color');
 
 /**
  * @constructor
- * @param {(ss2d.Color|number|string|Array.<number>)} color
+ * @param {(ss2d.Color|number|string|number[3])} color
  */
 ss2d.Color = function(color)
 {
@@ -18,7 +18,7 @@ ss2d.Color = function(color)
 
 /**
  * Sets the color value from various types of color representation formats
- * @param {(ss2d.Color|number|string|Array.<number>)} color
+ * @param {(ss2d.Color|number|string|number[3])} color
  */
 ss2d.Color.prototype.setValue = function(color)
 {
@@ -66,7 +66,7 @@ ss2d.Color.prototype.getBlue = function(){ return this.mColorArray[2]; };
 ss2d.Color.prototype.setBlue = function(b){ this.mColorArray[2] = b; };
 
 /**
- * @return {Array.<number>} Array of bytes with values from 0 to 255
+ * @return {number[3]} Array of bytes with values from 0 to 255
  */
 ss2d.Color.prototype.getRGBArray = function()
 {
@@ -97,7 +97,7 @@ ss2d.Color.prototype.getRGBAString = function(alpha)
 
 /**
  * @param {Array=} target An already created array to store the values
- * @return {Array.<number>} Array with float color components values from 0 to 1.
+ * @return {number[3]} Array with float color components values from 0 to 1.
  */
 ss2d.Color.prototype.getF32Array = function(target)
 {
@@ -118,8 +118,8 @@ ss2d.Color.prototype.getF32 = function()
 
 /**
  * Interpolate between two color values
- * @param {Array.<number>} initialColor
- * @param {Array.<number>} finalColor
+ * @param {number[3]} initialColor
+ * @param {number[3]} finalColor
  * @param {number} part The fraction of difference value between two colors.
  */
 ss2d.Color.interpolate = function(initialColor, finalColor, part)

@@ -82,7 +82,7 @@ ss2d.ClientCommunicationInterface.prototype.packAndSendInput = function(inputObj
 
 /**
  * Interprets the server commands
- * @param {Array.<(string|Object)>} commandPackage
+ * @param {Object[2]} commandPackage
  * @param {WebSocket} connection
  */
 ss2d.ClientCommunicationInterface.prototype.processServerCommand = function(commandPackage, connection)

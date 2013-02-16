@@ -18,7 +18,7 @@ goog.require('ss2d.ResourceLoader');
  * @param {number=} scale
  * @param {number=} rotation
  * @property {*} inherited @see ss2d.DisplayObject
- * @property {Array<ss2d.DisplayObject>} mChildren List of ss2d.DisplayObject children.
+ * @property {ss2d.DisplayObject[]} mChildren List of ss2d.DisplayObject children.
  */
 ss2d.DisplayObjectContainer = function(x, y, scale, rotation)
 {
@@ -76,7 +76,7 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 
 /**
  * Adds a display objects to this container
- * @param {(ss2d.DisplayObject|Array<ss2d.DisplayObject>)} displayObject
+ * @param {(ss2d.DisplayObject|ss2d.DisplayObject[])} displayObject
  */
 ss2d.DisplayObjectContainer.prototype.addObject = function(displayObjects)
 {
@@ -100,7 +100,7 @@ ss2d.DisplayObjectContainer.prototype.addObject = function(displayObjects)
 
 /**
  * Remove the specified displayObjects from this container
- * @param {(ss2d.DisplayObject|Array<ss2d.DisplayObject>)} displayObject
+ * @param {(ss2d.DisplayObject|ss2d.DisplayObject[])} displayObject
  */
 ss2d.DisplayObjectContainer.prototype.removeObject = function(displayObjects)
 {

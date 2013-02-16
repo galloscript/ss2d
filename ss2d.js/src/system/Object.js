@@ -13,7 +13,7 @@ goog.provide('ss2d.Object');
  */
 ss2d.Object = {};
 
-/** @type {Array.<function(new:ss2d.DisplayObject)>} */
+/** @type {function(new:ss2d.DisplayObject)[]} */
 ss2d.Object.CLASSES = [];
 
 /** @type {number} */

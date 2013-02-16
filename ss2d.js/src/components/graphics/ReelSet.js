@@ -11,7 +11,7 @@ goog.require('ss2d.Reel');
 
 /**
  * @constructor
- * @param {Array.<ss2d.Reel>} rsFileName
+ * @param {ss2d.Reel[]} rsFileName
  */
 ss2d.ReelSet = function(rsFileName, callbackFunction)
 {
