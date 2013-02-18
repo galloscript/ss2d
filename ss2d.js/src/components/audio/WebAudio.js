@@ -34,7 +34,7 @@ ss2d.WebAudio = function(soundFile, callbackFunction)
 	audioFileRequest.onload = function() 
 	{
 	    this.mSound.mSoundBuffer = ss2d.AUDIO_CONTEXT.createBuffer(this.response, false);
-	    audioFileRequest.mSound.mCallbackFunction(this.mSound);
+	    this.mSound.mCallbackFunction(this.mSound);
 	};
 	
 	audioFileRequest.send();

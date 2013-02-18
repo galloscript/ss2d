@@ -298,7 +298,7 @@ if(COMPILING_CLIENT)
 			{
 				var sound = prevState['snds'][childIndex];
 				try{
-					ss2d.ResourceLoader.loadSound(sound).play();
+					ss2d.ResourceManager.loadSound(sound).play();
 				}catch(e){}
 			}
 			

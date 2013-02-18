@@ -13,8 +13,8 @@ goog.require('ss2d.Rectangle');
 /**
  * @constructor
  * @extends {ss2d.DisplayObject}
- * @param {number} x
- * @param {number} y
+ * @param {number=} x Position in x axis 
+ * @param {number=} y Position in y axis
  * @param {number} w The width
  * @param {number} h The height
  * @param {(number|string|number[3]|ss2d.Color)} color

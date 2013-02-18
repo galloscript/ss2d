@@ -4,7 +4,12 @@ goog.require('sand.Config');
 goog.require('sand.Game');
 goog.require('ss2d.ClientView');
 
-sand.client = new ss2d.ClientView('mainScene', sand.Config.CANVAS_WIDTH, sand.Config.CANVAS_HEIGHT, 60.0, 20.0, 100.0);
+sand.client = new ss2d.ClientView('mainScene', 
+								  sand.Config.CANVAS_WIDTH, 
+								  sand.Config.CANVAS_HEIGHT, 
+								  sand.Config.CLIENT_FRAME_RATE, 
+								  20.0, 
+								  100.0);
 
 sand.client.onConnect = function(connection)
 {

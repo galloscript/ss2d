@@ -11,7 +11,9 @@ sand.Config = ss2d.DefaultConfig;
 
 //canvas
 /** @define {number} */
-sand.Config.FRAME_RATE = 60.0;
+sand.Config.CLIENT_FRAME_RATE = 60.0;
+
+sand.Config.SERVER_FRAME_RATE = 20.0;
 
 /** @define {number} */
 sand.Config.CANVAS_WIDTH = 768; //640

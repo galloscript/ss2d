@@ -28,9 +28,14 @@ goog.require('ss2d.Reel');
 goog.require('ss2d.ReelFrame');
 goog.require('ss2d.ReelSet');
 goog.require('ss2d.Texture');
+goog.require('ss2d.TextureAtlas');
 
 //componentes/loaders
-goog.require('ss2d.ResourceLoader');
+goog.require('ss2d.ResourceManager');
+goog.require('ss2d.ILoader');
+goog.require('ss2d.AudioLoader');
+goog.require('ss2d.TextureAtlasLoader');
+goog.require('ss2d.TextureLoader');
 
 //maths
 goog.require('ss2d.Matrix3');

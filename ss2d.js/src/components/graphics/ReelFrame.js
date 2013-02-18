@@ -7,7 +7,7 @@
 
 goog.provide('ss2d.ReelFrame');
 
-goog.require('ss2d.ResourceLoader');
+goog.require('ss2d.ResourceManager');
 
 /**
  * @constructor
@@ -31,7 +31,7 @@ ss2d.ReelFrame = function(x, y, width, height, texture, offsetX, offsetY)
 	this.mOffsetY = offsetY||0;
 	
 	//reference to the texture for this frame
-	this.mTexture = (texture instanceof ss2d.Texture) ? texture : ss2d.ResourceLoader.loadTexture(texture);
+	this.mTexture = (texture instanceof ss2d.Texture) ? texture : ss2d.ResourceManager.loadTexture(texture);
 };
 
 /**

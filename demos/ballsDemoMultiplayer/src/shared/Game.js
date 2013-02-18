@@ -56,6 +56,7 @@ if(COMPILING_SERVER)
 	sand.Game.prototype.onUserConnect = function(connection)
 	{
 		this.mUserTracker.addObject(new sand.UserAvatar(connection));
+		ss2d.CURRENT_VIEW.mFrameRate = sand.Config.SERVER_FRAME_RATE;
 	};
 
 	sand.Game.prototype.onUserDisconnect = function(connection)
@@ -69,6 +70,11 @@ if(COMPILING_SERVER)
 				iut = this.mUserTracker.mChildren.length;
 				console.log(connection.mUserName+' disconnect');
 			}
+		}
+		
+		if(this.mUserTracker.mChildren.length == 0)
+		{
+			ss2d.CURRENT_VIEW.mFrameRate = 0.5;
 		}
 	};
 

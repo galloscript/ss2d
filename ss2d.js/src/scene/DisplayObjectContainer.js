@@ -8,7 +8,7 @@
 goog.provide('ss2d.DisplayObjectContainer');
 
 goog.require('ss2d.DisplayObject');
-goog.require('ss2d.ResourceLoader');
+goog.require('ss2d.ResourceManager');
 
 /**
  * @constructor

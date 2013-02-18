@@ -9,28 +9,39 @@ goog.provide('ss2d.Sprite');
 
 goog.require('ss2d.Quad');
 goog.require('ss2d.Texture');
-goog.require('ss2d.ResourceLoader');
+goog.require('ss2d.ResourceManager');
 
 /**
  * @constructor
  * @extends {ss2d.Quad}
- * @param {string|ss2d.Texture} texture
+ * @param {number=} x Position in x axis 
+ * @param {number=} y Position in y axis
+ * @param {number} width The width
+ * @param {number} height The height
+ * @param {string|ss2d.Texture} texture The name or reference of a texture file or the name of a frame in a texture atlas.
+ * @param {string|ss2d.TextureAtlas=} textureAtlas The name or reference of a texture atlas file.
  * @property {*} inherited @see ss2d.Quad
  * @property {ss2d.Texture} mTexture Reference to the texture the sprite will draw
+ * @property {ss2d.TextureAtlas} mTextureAtlas Reference to the textureAtlas where the sprite will look up for mTexture frame.
  * @property {number[4]} mClip Texture clipping rectangle
  */
-ss2d.Sprite = function(x, y, w, h, texture, color)
+ss2d.Sprite = function(x, y, width, height, texture, textureAtlas)
 {
-	ss2d.Quad.call(this, x, y, w, h, color);
-
+	ss2d.Quad.call(this, x, y, width, height);
+	
 	if(COMPILING_CLIENT || COMPILING_OFFLINE)
 	{
-		if(typeof texture == 'string')
+		if(typeof textureAtlas == 'string')
 		{
-			texture = ss2d.ResourceLoader.loadTexture(texture);
+			textureAtlas = ss2d.ResourceManager.loadTextureAtlas(textureAtlas);
 		}
+		else if(typeof texture == 'string' && !textureAtlas)
+		{
+			texture = ss2d.ResourceManager.loadTexture(texture);
+		}
+
 	}
-	
+	this.mTextureAtlas = textureAtlas||null
 	this.mTexture = texture || null;
 	this.mClip = [];
 	
@@ -51,36 +62,54 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 	/** @override */
 	ss2d.Sprite.prototype.render = function(renderSupport)
 	{
+
 		//if(RENDER_CONTEXT == 'webgl')
 		//{
 			
 		//}
 		//else
 		//{
-			renderSupport.pushTransform(this);
-			var ctx = renderSupport.mContext;
-			//ctx.fillStyle = this.mColor.getHexString();
-			if(this.mClip.length == 4)
+			var textureElement = null;
+			if(this.mTextureAtlas)
 			{
-				ctx.drawImage(this.mTexture.mTextureElement,
-							  this.mClip[0],
-							  this.mClip[1],
-							  this.mClip[2],
-							  this.mClip[3],
-							  0,
-							  0,
-							  this.mWidth, 
-							  this.mHeight);
+				if(this.mTextureAtlas.mTexture && this.mTextureAtlas.mAtlasDescriptor)
+				{
+					textureElement = this.mTextureAtlas.mTexture.mTextureElement;
+					this.mTextureAtlas.getClipFor(this.mTexture, this.mClip);
+				}
 			}
 			else
 			{
-				ctx.drawImage(this.mTexture.mTextureElement,
-							  0,
-							  0,
-							  this.mWidth, 
-							  this.mHeight);	 
+				textureElement = this.mTexture.mTextureElement;
+			}
+			renderSupport.pushTransform(this);
+			var ctx = renderSupport.mContext;
+			//ctx.fillStyle = this.mColor.getHexString();
+			if(textureElement)
+			{
+				if(this.mClip.length == 4)
+				{
+					ctx.drawImage(textureElement,
+								  this.mClip[0],
+								  this.mClip[1],
+								  this.mClip[2],
+								  this.mClip[3],
+								  0,
+								  0,
+								  this.mWidth, 
+								  this.mHeight);
+				}
+				else
+				{
+					ctx.drawImage(textureElement,
+								  0,
+								  0,
+								  this.mWidth, 
+								  this.mHeight);	 
+				}
 			}
 			renderSupport.popTransform();
+			
 		//}
 	};
 }
@@ -155,7 +184,7 @@ if(COMPILING_CLIENT)
 	{
 		ss2d.Quad.prototype.restoreSerializedProperties.call(this, objBackup);
 		
-		this.mTexture = this.mTexture || ss2d.ResourceLoader.loadTexture(objBackup['t']);
+		this.mTexture = this.mTexture || ss2d.ResourceManager.loadTexture(objBackup['t']);
 		this.mClip = objBackup['clip'] || null;
 	}
 	
@@ -169,7 +198,7 @@ if(COMPILING_CLIENT)
 	ss2d.Sprite.prototype.interpolateState = function(prevState, nextState, part)
 	{
 		ss2d.Quad.prototype.interpolateState.call(this, prevState, nextState, part, deltaTime);
-		this.mTexture = (prevState['t'] && prevState['t'] != this.mTexture.mName)?ss2d.ResourceLoader.loadTexture(prevState['t']):this.mTexture;
+		this.mTexture = (prevState['t'] && prevState['t'] != this.mTexture.mName)?ss2d.ResourceManager.loadTexture(prevState['t']):this.mTexture;
 		this.mClip = prevState['clip'] || this.mClip;
 	}
 }
