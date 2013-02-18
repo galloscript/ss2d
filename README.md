@@ -15,6 +15,14 @@ Sandbox: http://virtualcraft.net/b/ <br>
 Multiplayer Sandbox: http://virtualcraft.net/mmoballs/ <br>
 Match3: http://virtualcraft.net/m3/ <br>
 
+Changes
+=======
+
+18-02-2013:
+Added suppor for texture atlas generated with TexturePacker in JSON (hash) format.
+http://www.codeandweb.com/texturepacker
+
+
 Framework
 =========
 
