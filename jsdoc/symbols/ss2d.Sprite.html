@@ -193,6 +193,8 @@ ul.inheritsList
 	
 	<li><a href="../symbols/ss2d.html">ss2d</a></li>
 	
+	<li><a href="../symbols/ss2d.AudioLoader.html">ss2d.AudioLoader</a></li>
+	
 	<li><a href="../symbols/ss2d.ClientCommunicationInterface.html">ss2d.ClientCommunicationInterface</a></li>
 	
 	<li><a href="../symbols/ss2d.ClientView.html">ss2d.ClientView</a></li>
@@ -212,6 +214,8 @@ ul.inheritsList
 	<li><a href="../symbols/ss2d.IAnimatable.html">ss2d.IAnimatable</a></li>
 	
 	<li><a href="../symbols/ss2d.IAudioComponent.html">ss2d.IAudioComponent</a></li>
+	
+	<li><a href="../symbols/ss2d.ILoader.html">ss2d.ILoader</a></li>
 	
 	<li><a href="../symbols/ss2d.Input.html">ss2d.Input</a></li>
 	
@@ -243,7 +247,7 @@ ul.inheritsList
 	
 	<li><a href="../symbols/ss2d.RenderSupport.html">ss2d.RenderSupport</a></li>
 	
-	<li><a href="../symbols/ss2d.ResourceLoader.html">ss2d.ResourceLoader</a></li>
+	<li><a href="../symbols/ss2d.ResourceManager.html">ss2d.ResourceManager</a></li>
 	
 	<li><a href="../symbols/ss2d.ServerCommunicationInterface.html">ss2d.ServerCommunicationInterface</a></li>
 	
@@ -252,6 +256,12 @@ ul.inheritsList
 	<li><a href="../symbols/ss2d.Sprite.html">ss2d.Sprite</a></li>
 	
 	<li><a href="../symbols/ss2d.Texture.html">ss2d.Texture</a></li>
+	
+	<li><a href="../symbols/ss2d.TextureAtlas.html">ss2d.TextureAtlas</a></li>
+	
+	<li><a href="../symbols/ss2d.TextureAtlasLoader.html">ss2d.TextureAtlasLoader</a></li>
+	
+	<li><a href="../symbols/ss2d.TextureLoader.html">ss2d.TextureLoader</a></li>
 	
 	<li><a href="../symbols/ss2d.Transitions.html">ss2d.Transitions</a></li>
 	
@@ -304,7 +314,7 @@ ul.inheritsList
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/ss2d.Sprite.html#constructor">ss2d.Sprite</a></b>(texture, y, w, h, texture, color)
+								<b><a href="../symbols/ss2d.Sprite.html#constructor">ss2d.Sprite</a></b>(x, y, width, height, texture, textureAtlas)
 							</div>
 							<div class="description"></div>
 						</td>
@@ -354,6 +364,16 @@ ul.inheritsList
 								<b><a href="../symbols/ss2d.Sprite.html#mTexture">mTexture</a></b>
 								</div>
 								<div class="description">Reference to the texture the sprite will draw</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/ss2d.Sprite.html#mTextureAtlas">mTextureAtlas</a></b>
+								</div>
+								<div class="description">Reference to the textureAtlas where the sprite will look up for mTexture frame.</div>
 							</td>
 						</tr>
 					
@@ -487,7 +507,7 @@ mClip : clip</div>
 				</div>
 				
 				<div class="fixedFont">
-						<b>ss2d.Sprite</b>(texture, y, w, h, texture, color)
+						<b>ss2d.Sprite</b>(x, y, width, height, texture, textureAtlas)
 				</div>
 				
 				<div class="description">
@@ -503,40 +523,40 @@ mClip : clip</div>
 						<dt class="heading">Parameters:</dt>
 						
 							<dt>
+								<span class="light fixedFont">{number=}</span>  <b>x</b>
+								
+							</dt>
+								<dd>Position in x axis</dd>
+						
+							<dt>
+								<span class="light fixedFont">{number=}</span>  <b>y</b>
+								
+							</dt>
+								<dd>Position in y axis</dd>
+						
+							<dt>
+								<span class="light fixedFont">{number}</span>  <b>width</b>
+								
+							</dt>
+								<dd>The width</dd>
+						
+							<dt>
+								<span class="light fixedFont">{number}</span>  <b>height</b>
+								
+							</dt>
+								<dd>The height</dd>
+						
+							<dt>
 								<span class="light fixedFont">{string|<a href="../symbols/ss2d.Texture.html">ss2d.Texture</a>}</span>  <b>texture</b>
 								
 							</dt>
-								<dd></dd>
+								<dd>The name or reference of a texture file or the name of a frame in a texture atlas.</dd>
 						
 							<dt>
-								 <b>y</b>
+								<span class="light fixedFont">{string|<a href="../symbols/ss2d.TextureAtlas.html">ss2d.TextureAtlas</a>=}</span>  <b>textureAtlas</b>
 								
 							</dt>
-								<dd></dd>
-						
-							<dt>
-								 <b>w</b>
-								
-							</dt>
-								<dd></dd>
-						
-							<dt>
-								 <b>h</b>
-								
-							</dt>
-								<dd></dd>
-						
-							<dt>
-								 <b>texture</b>
-								
-							</dt>
-								<dd></dd>
-						
-							<dt>
-								 <b>color</b>
-								
-							</dt>
-								<dd></dd>
+								<dd>The name or reference of a texture atlas file.</dd>
 						
 						</dl>
 					
@@ -616,6 +636,28 @@ mClip : clip</div>
 					</div>
 					<div class="description">
 						Reference to the texture the sprite will draw
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="mTextureAtlas"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{<a href="../symbols/ss2d.TextureAtlas.html">ss2d.TextureAtlas</a>}</span>
+					<b>mTextureAtlas</b>
+					
+					</div>
+					<div class="description">
+						Reference to the textureAtlas where the sprite will look up for mTexture frame.
 						
 						
 					</div>
@@ -1042,7 +1084,7 @@ mClip : clip
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Sat Feb 16 2013 23:45:31 GMT+0100 (CET)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Mon Feb 18 2013 02:24:47 GMT+0100 (CET)
 		</div>
 	</body>
 </html>

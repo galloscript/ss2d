@@ -5,7 +5,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="generator" content="JsDoc Toolkit" />
 		
-		<title>JsDoc Reference - ss2d.ClientCommunicationInterface</title>
+		<title>JsDoc Reference - ss2d.AudioLoader</title>
 
 		<style type="text/css">
 			/* default.css */
@@ -282,7 +282,7 @@ ul.inheritsList
 <!-- ============================== class title ============================ -->
 			<h1 class="classTitle">
 				
-				Class ss2d.ClientCommunicationInterface
+				Namespace ss2d.AudioLoader
 			</h1>
 
 <!-- ============================== class summary ========================== -->			
@@ -293,14 +293,14 @@ ul.inheritsList
 				
 				
 				
-					<br /><i>Defined in: </i> <a href="../symbols/src/ss2d.js_src_networking_client_ClientCommunicationInterface.js.html">ClientCommunicationInterface.js</a>.
+					<br /><i>Defined in: </i> <a href="../symbols/src/ss2d.js_src_components_loaders_AudioLoader.js.html">AudioLoader.js</a>.
 				
 			</p>
 
 <!-- ============================== constructor summary ==================== -->			
 			
-			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class ss2d.ClientCommunicationInterface.">
-				<caption>Class Summary</caption>
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class ss2d.AudioLoader.">
+				<caption>Namespace Summary</caption>
 				<thead>
 					<tr>
 						<th scope="col">Constructor Attributes</th>
@@ -312,7 +312,7 @@ ul.inheritsList
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/ss2d.ClientCommunicationInterface.html#constructor">ss2d.ClientCommunicationInterface</a></b>(clientView, host, port)
+								<b><a href="../symbols/ss2d.AudioLoader.html#constructor">ss2d.AudioLoader</a></b>
 							</div>
 							<div class="description"></div>
 						</td>
@@ -325,7 +325,7 @@ ul.inheritsList
 			
 				
 				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class ss2d.ClientCommunicationInterface.">
+				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class ss2d.AudioLoader.">
 					<caption>Field Summary</caption>
 					<thead>
 						<tr>
@@ -336,12 +336,22 @@ ul.inheritsList
 					<tbody>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/ss2d.ClientCommunicationInterface.html#mConnection">mConnection</a></b>
+								ss2d.AudioLoader.<b><a href="../symbols/ss2d.AudioLoader.html#.AUDIO_COMPONENT_CLASS">AUDIO_COMPONENT_CLASS</a></b>
 								</div>
 								<div class="description"></div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								ss2d.AudioLoader.<b><a href="../symbols/ss2d.AudioLoader.html#.RESOURCE_EXTENSION">RESOURCE_EXTENSION</a></b>
+								</div>
+								<div class="description">The extension used in ResourceManager class.</div>
 							</td>
 						</tr>
 					
@@ -356,7 +366,7 @@ ul.inheritsList
 			
 				
 				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class ss2d.ClientCommunicationInterface.">
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class ss2d.AudioLoader.">
 					<caption>Method Summary</caption>
 					<thead>
 						<tr>
@@ -367,29 +377,11 @@ ul.inheritsList
 					<tbody>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/ss2d.ClientCommunicationInterface.html#packAndSendInput">packAndSendInput</a></b>(inputObject)
+								<div class="fixedFont">ss2d.AudioLoader.<b><a href="../symbols/ss2d.AudioLoader.html#.loadResource">loadResource</a></b>(resourceFileName, resourceLoadedCallback)
 								</div>
-								<div class="description">Sends a UINPUT command with the user input.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/ss2d.ClientCommunicationInterface.html#packAndSendUserName">packAndSendUserName</a></b>(userName)
-								</div>
-								<div class="description">Sends a UNAME command with the user name.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/ss2d.ClientCommunicationInterface.html#processServerCommand">processServerCommand</a></b>(commandPackage, connection)
-								</div>
-								<div class="description">Interprets the server commands</div>
+								<div class="description">Load the audio file</div>
 							</td>
 						</tr>
 					
@@ -406,11 +398,11 @@ ul.inheritsList
 			
 			<div class="details"><a name="constructor"> </a>
 				<div class="sectionTitle">
-					Class Detail
+					Namespace Detail
 				</div>
 				
 				<div class="fixedFont">
-						<b>ss2d.ClientCommunicationInterface</b>(clientView, host, port)
+						<b>ss2d.AudioLoader</b>
 				</div>
 				
 				<div class="description">
@@ -421,29 +413,6 @@ ul.inheritsList
 				
 				
 				
-					
-						<dl class="detailList">
-						<dt class="heading">Parameters:</dt>
-						
-							<dt>
-								<span class="light fixedFont">{<a href="../symbols/ss2d.ClientView.html">ss2d.ClientView</a>}</span>  <b>clientView</b>
-								
-							</dt>
-								<dd>client main view</dd>
-						
-							<dt>
-								<span class="light fixedFont">{string}</span>  <b>host</b>
-								
-							</dt>
-								<dd></dd>
-						
-							<dt>
-								<span class="light fixedFont">{number}</span>  <b>port</b>
-								
-							</dt>
-								<dd></dd>
-						
-						</dl>
 					
 					
 					
@@ -461,15 +430,37 @@ ul.inheritsList
 					Field Detail
 				</div>
 				
-					<a name="mConnection"> </a>
-					<div class="fixedFont">
+					<a name=".AUDIO_COMPONENT_CLASS"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					
-					<b>mConnection</b>
+					<span class="light">ss2d.AudioLoader.</span><b>AUDIO_COMPONENT_CLASS</b>
 					
 					</div>
 					<div class="description">
 						
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".RESOURCE_EXTENSION"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">ss2d.AudioLoader.</span><b>RESOURCE_EXTENSION</b>
+					
+					</div>
+					<div class="description">
+						The extension used in ResourceManager class.
 						
 						
 					</div>
@@ -491,15 +482,15 @@ ul.inheritsList
 					Method Detail
 				</div>
 				
-					<a name="packAndSendInput"> </a>
-					<div class="fixedFont">
+					<a name=".loadResource"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
-					
-					<b>packAndSendInput</b>(inputObject)
+					<span class="light">{<a href="../symbols/ss2d.Texture.html">ss2d.Texture</a>}</span>
+					<span class="light">ss2d.AudioLoader.</span><b>loadResource</b>(resourceFileName, resourceLoadedCallback)
 					
 					</div>
 					<div class="description">
-						Sends a UINPUT command with the user input.
+						Load the audio file
 						
 						
 					</div>
@@ -511,7 +502,13 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{<a href="../symbols/ss2d.Input.html">ss2d.Input</a>}</span> <b>inputObject</b>
+									<span class="light fixedFont">{string}</span> <b>resourceFileName</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{function}</span> <b>resourceLoadedCallback</b>
 									
 								</dt>
 								<dd></dd>
@@ -521,84 +518,13 @@ ul.inheritsList
 						
 						
 						
-						
-						
-						
-
-					<hr />
-				
-					<a name="packAndSendUserName"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>packAndSendUserName</b>(userName)
-					
-					</div>
-					<div class="description">
-						Sends a UNAME command with the user name.
-						
-						
-					</div>
-					
-					
-					
 						
 							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
+							<dt class="heading">Returns:</dt>
 							
-								<dt>
-									<span class="light fixedFont">{string}</span> <b>userName</b>
-									
-								</dt>
-								<dd></dd>
+								<dd><span class="light fixedFont">{<a href="../symbols/ss2d.Texture.html">ss2d.Texture</a>}</span> The loaded texture</dd>
 							
 							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="processServerCommand"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>processServerCommand</b>(commandPackage, connection)
-					
-					</div>
-					<div class="description">
-						Interprets the server commands
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<span class="light fixedFont">{Object[2]}</span> <b>commandPackage</b>
-									
-								</dt>
-								<dd></dd>
-							
-								<dt>
-									<span class="light fixedFont">{WebSocket}</span> <b>connection</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
-						
-						
-						
-						
 						
 						
 						

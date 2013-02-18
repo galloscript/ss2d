@@ -5,7 +5,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="generator" content="JsDoc Toolkit" />
 		
-		<title>JsDoc Reference - ss2d.ClientCommunicationInterface</title>
+		<title>JsDoc Reference - ss2d.TextureAtlas</title>
 
 		<style type="text/css">
 			/* default.css */
@@ -282,7 +282,7 @@ ul.inheritsList
 <!-- ============================== class title ============================ -->
 			<h1 class="classTitle">
 				
-				Class ss2d.ClientCommunicationInterface
+				Class ss2d.TextureAtlas
 			</h1>
 
 <!-- ============================== class summary ========================== -->			
@@ -293,13 +293,13 @@ ul.inheritsList
 				
 				
 				
-					<br /><i>Defined in: </i> <a href="../symbols/src/ss2d.js_src_networking_client_ClientCommunicationInterface.js.html">ClientCommunicationInterface.js</a>.
+					<br /><i>Defined in: </i> <a href="../symbols/src/ss2d.js_src_components_graphics_TextureAtlas.js.html">TextureAtlas.js</a>.
 				
 			</p>
 
 <!-- ============================== constructor summary ==================== -->			
 			
-			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class ss2d.ClientCommunicationInterface.">
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class ss2d.TextureAtlas.">
 				<caption>Class Summary</caption>
 				<thead>
 					<tr>
@@ -312,9 +312,9 @@ ul.inheritsList
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/ss2d.ClientCommunicationInterface.html#constructor">ss2d.ClientCommunicationInterface</a></b>(clientView, host, port)
+								<b><a href="../symbols/ss2d.TextureAtlas.html#constructor">ss2d.TextureAtlas</a></b>(atlasJSONFileName, callbackFunction)
 							</div>
-							<div class="description"></div>
+							<div class="description">A texture atlas component for TexturePacker JSON (hash) output files.</div>
 						</td>
 					</tr>
 				</tbody>
@@ -323,40 +323,12 @@ ul.inheritsList
 
 <!-- ============================== properties summary ===================== -->
 			
-				
-				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class ss2d.ClientCommunicationInterface.">
-					<caption>Field Summary</caption>
-					<thead>
-						<tr>
-							<th scope="col">Field Attributes</th>
-							<th scope="col">Field Name and Description</th>
-						</tr>
-					</thead>
-					<tbody>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
-								<b><a href="../symbols/ss2d.ClientCommunicationInterface.html#mConnection">mConnection</a></b>
-								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-					</tbody>
-				</table>
-				
-				
-				
-			
 
 <!-- ============================== methods summary ======================== -->
 			
 				
 				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class ss2d.ClientCommunicationInterface.">
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class ss2d.TextureAtlas.">
 					<caption>Method Summary</caption>
 					<thead>
 						<tr>
@@ -369,27 +341,9 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/ss2d.ClientCommunicationInterface.html#packAndSendInput">packAndSendInput</a></b>(inputObject)
+								<div class="fixedFont"><b><a href="../symbols/ss2d.TextureAtlas.html#getClipFor">getClipFor</a></b>(frameName, targetClipArray)
 								</div>
-								<div class="description">Sends a UINPUT command with the user input.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/ss2d.ClientCommunicationInterface.html#packAndSendUserName">packAndSendUserName</a></b>(userName)
-								</div>
-								<div class="description">Sends a UNAME command with the user name.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/ss2d.ClientCommunicationInterface.html#processServerCommand">processServerCommand</a></b>(commandPackage, connection)
-								</div>
-								<div class="description">Interprets the server commands</div>
+								<div class="description">Retrieve the clip frame information for a given frame name.</div>
 							</td>
 						</tr>
 					
@@ -410,11 +364,11 @@ ul.inheritsList
 				</div>
 				
 				<div class="fixedFont">
-						<b>ss2d.ClientCommunicationInterface</b>(clientView, host, port)
+						<b>ss2d.TextureAtlas</b>(atlasJSONFileName, callbackFunction)
 				</div>
 				
 				<div class="description">
-					
+					A texture atlas component for TexturePacker JSON (hash) output files.
 					
 				</div>
 				
@@ -426,22 +380,16 @@ ul.inheritsList
 						<dt class="heading">Parameters:</dt>
 						
 							<dt>
-								<span class="light fixedFont">{<a href="../symbols/ss2d.ClientView.html">ss2d.ClientView</a>}</span>  <b>clientView</b>
+								<span class="light fixedFont">{string}</span>  <b>atlasJSONFileName</b>
 								
 							</dt>
-								<dd>client main view</dd>
+								<dd>The resource name</dd>
 						
 							<dt>
-								<span class="light fixedFont">{string}</span>  <b>host</b>
+								<span class="light fixedFont">{function}</span>  <b>callbackFunction</b>
 								
 							</dt>
-								<dd></dd>
-						
-							<dt>
-								<span class="light fixedFont">{number}</span>  <b>port</b>
-								
-							</dt>
-								<dd></dd>
+								<dd>Called when the textureAtlas is loaded</dd>
 						
 						</dl>
 					
@@ -451,38 +399,18 @@ ul.inheritsList
 					
 					
 					
+						<dl class="detailList">
+						<dt class="heading">See:</dt>
+						
+							<dd>http://www.codeandweb.com/texturepacker</dd>
+						
+						</dl>
+					
 
 			</div>
 			
 
 <!-- ============================== field details ========================== -->		
-			
-				<div class="sectionTitle">
-					Field Detail
-				</div>
-				
-					<a name="mConnection"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>mConnection</b>
-					
-					</div>
-					<div class="description">
-						
-						
-						
-					</div>
-					
-					
-
-						
-						
-						
-						
-
-					
-				
 			
 
 <!-- ============================== method details ========================= -->		
@@ -491,15 +419,15 @@ ul.inheritsList
 					Method Detail
 				</div>
 				
-					<a name="packAndSendInput"> </a>
+					<a name="getClipFor"> </a>
 					<div class="fixedFont">
 					
-					
-					<b>packAndSendInput</b>(inputObject)
+					<span class="light">{number[4]}</span>
+					<b>getClipFor</b>(frameName, targetClipArray)
 					
 					</div>
 					<div class="description">
-						Sends a UINPUT command with the user input.
+						Retrieve the clip frame information for a given frame name.
 						
 						
 					</div>
@@ -511,94 +439,29 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{<a href="../symbols/ss2d.Input.html">ss2d.Input</a>}</span> <b>inputObject</b>
+									<span class="light fixedFont">{string}</span> <b>frameName</b>
 									
 								</dt>
 								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{number[4]=}</span> <b>targetClipArray</b>
+									
+								</dt>
+								<dd>Optional array where the clipping information will be copied</dd>
 							
 							</dl>
 						
 						
 						
 						
-						
-						
-						
-
-					<hr />
-				
-					<a name="packAndSendUserName"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>packAndSendUserName</b>(userName)
-					
-					</div>
-					<div class="description">
-						Sends a UNAME command with the user name.
-						
-						
-					</div>
-					
-					
-					
 						
 							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
+							<dt class="heading">Returns:</dt>
 							
-								<dt>
-									<span class="light fixedFont">{string}</span> <b>userName</b>
-									
-								</dt>
-								<dd></dd>
+								<dd><span class="light fixedFont">{number[4]}</span> The clip array</dd>
 							
 							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="processServerCommand"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>processServerCommand</b>(commandPackage, connection)
-					
-					</div>
-					<div class="description">
-						Interprets the server commands
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<span class="light fixedFont">{Object[2]}</span> <b>commandPackage</b>
-									
-								</dt>
-								<dd></dd>
-							
-								<dt>
-									<span class="light fixedFont">{WebSocket}</span> <b>connection</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
-						
-						
-						
-						
 						
 						
 						
@@ -617,7 +480,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Mon Feb 18 2013 02:24:46 GMT+0100 (CET)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Mon Feb 18 2013 02:24:47 GMT+0100 (CET)
 		</div>
 	</body>
 </html>

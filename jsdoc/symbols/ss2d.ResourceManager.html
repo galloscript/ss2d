@@ -5,7 +5,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="generator" content="JsDoc Toolkit" />
 		
-		<title>JsDoc Reference - ss2d.ResourceLoader</title>
+		<title>JsDoc Reference - ss2d.ResourceManager</title>
 
 		<style type="text/css">
 			/* default.css */
@@ -193,6 +193,8 @@ ul.inheritsList
 	
 	<li><a href="../symbols/ss2d.html">ss2d</a></li>
 	
+	<li><a href="../symbols/ss2d.AudioLoader.html">ss2d.AudioLoader</a></li>
+	
 	<li><a href="../symbols/ss2d.ClientCommunicationInterface.html">ss2d.ClientCommunicationInterface</a></li>
 	
 	<li><a href="../symbols/ss2d.ClientView.html">ss2d.ClientView</a></li>
@@ -212,6 +214,8 @@ ul.inheritsList
 	<li><a href="../symbols/ss2d.IAnimatable.html">ss2d.IAnimatable</a></li>
 	
 	<li><a href="../symbols/ss2d.IAudioComponent.html">ss2d.IAudioComponent</a></li>
+	
+	<li><a href="../symbols/ss2d.ILoader.html">ss2d.ILoader</a></li>
 	
 	<li><a href="../symbols/ss2d.Input.html">ss2d.Input</a></li>
 	
@@ -243,7 +247,7 @@ ul.inheritsList
 	
 	<li><a href="../symbols/ss2d.RenderSupport.html">ss2d.RenderSupport</a></li>
 	
-	<li><a href="../symbols/ss2d.ResourceLoader.html">ss2d.ResourceLoader</a></li>
+	<li><a href="../symbols/ss2d.ResourceManager.html">ss2d.ResourceManager</a></li>
 	
 	<li><a href="../symbols/ss2d.ServerCommunicationInterface.html">ss2d.ServerCommunicationInterface</a></li>
 	
@@ -252,6 +256,12 @@ ul.inheritsList
 	<li><a href="../symbols/ss2d.Sprite.html">ss2d.Sprite</a></li>
 	
 	<li><a href="../symbols/ss2d.Texture.html">ss2d.Texture</a></li>
+	
+	<li><a href="../symbols/ss2d.TextureAtlas.html">ss2d.TextureAtlas</a></li>
+	
+	<li><a href="../symbols/ss2d.TextureAtlasLoader.html">ss2d.TextureAtlasLoader</a></li>
+	
+	<li><a href="../symbols/ss2d.TextureLoader.html">ss2d.TextureLoader</a></li>
 	
 	<li><a href="../symbols/ss2d.Transitions.html">ss2d.Transitions</a></li>
 	
@@ -272,7 +282,7 @@ ul.inheritsList
 <!-- ============================== class title ============================ -->
 			<h1 class="classTitle">
 				
-				Namespace ss2d.ResourceLoader
+				Namespace ss2d.ResourceManager
 			</h1>
 
 <!-- ============================== class summary ========================== -->			
@@ -283,13 +293,13 @@ ul.inheritsList
 				
 				
 				
-					<br /><i>Defined in: </i> <a href="../symbols/src/ss2d.js_src_components_loaders_ResourceLoader.js.html">ResourceLoader.js</a>.
+					<br /><i>Defined in: </i> <a href="../symbols/src/ss2d.js_src_components_loaders_ResourceManager.js.html">ResourceManager.js</a>.
 				
 			</p>
 
 <!-- ============================== constructor summary ==================== -->			
 			
-			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class ss2d.ResourceLoader.">
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class ss2d.ResourceManager.">
 				<caption>Namespace Summary</caption>
 				<thead>
 					<tr>
@@ -302,7 +312,7 @@ ul.inheritsList
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/ss2d.ResourceLoader.html#constructor">ss2d.ResourceLoader</a></b>
+								<b><a href="../symbols/ss2d.ResourceManager.html#constructor">ss2d.ResourceManager</a></b>
 							</div>
 							<div class="description"></div>
 						</td>
@@ -315,7 +325,7 @@ ul.inheritsList
 			
 				
 				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class ss2d.ResourceLoader.">
+				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class ss2d.ResourceManager.">
 					<caption>Field Summary</caption>
 					<thead>
 						<tr>
@@ -329,7 +339,7 @@ ul.inheritsList
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								ss2d.ResourceLoader.<b><a href="../symbols/ss2d.ResourceLoader.html#.AUDIO_COMPONENT_CLASS">AUDIO_COMPONENT_CLASS</a></b>
+								ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.CURRENT_ELEMENT_TO_LOAD">CURRENT_ELEMENT_TO_LOAD</a></b>
 								</div>
 								<div class="description"></div>
 							</td>
@@ -339,7 +349,7 @@ ul.inheritsList
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								ss2d.ResourceLoader.<b><a href="../symbols/ss2d.ResourceLoader.html#.CURRENT_ELEMENT_TO_LOAD">CURRENT_ELEMENT_TO_LOAD</a></b>
+								ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.ELEMENTS_TO_LOAD">ELEMENTS_TO_LOAD</a></b>
 								</div>
 								<div class="description"></div>
 							</td>
@@ -349,7 +359,7 @@ ul.inheritsList
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								ss2d.ResourceLoader.<b><a href="../symbols/ss2d.ResourceLoader.html#.ELEMENTS_TO_LOAD">ELEMENTS_TO_LOAD</a></b>
+								ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.LOADED_RESOURCES">LOADED_RESOURCES</a></b>
 								</div>
 								<div class="description"></div>
 							</td>
@@ -359,17 +369,7 @@ ul.inheritsList
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								ss2d.ResourceLoader.<b><a href="../symbols/ss2d.ResourceLoader.html#.LOADED_RESOURCES">LOADED_RESOURCES</a></b>
-								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
-								ss2d.ResourceLoader.<b><a href="../symbols/ss2d.ResourceLoader.html#.Types">Types</a></b>
+								ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.Loaders">Loaders</a></b>
 								</div>
 								<div class="description">Enumeration for loader functions</div>
 							</td>
@@ -386,7 +386,7 @@ ul.inheritsList
 			
 				
 				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class ss2d.ResourceLoader.">
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class ss2d.ResourceManager.">
 					<caption>Method Summary</caption>
 					<thead>
 						<tr>
@@ -399,7 +399,7 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">ss2d.ResourceLoader.<b><a href="../symbols/ss2d.ResourceLoader.html#.ACTIVE_LOADER">ACTIVE_LOADER</a></b>(res)
+								<div class="fixedFont">ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.ACTIVE_LOADER">ACTIVE_LOADER</a></b>(res)
 								</div>
 								<div class="description"></div>
 							</td>
@@ -408,7 +408,7 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">ss2d.ResourceLoader.<b><a href="../symbols/ss2d.ResourceLoader.html#.ELEMENTS_LOADED_CALLBACK">ELEMENTS_LOADED_CALLBACK</a></b>()
+								<div class="fixedFont">ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.ELEMENTS_LOADED_CALLBACK">ELEMENTS_LOADED_CALLBACK</a></b>()
 								</div>
 								<div class="description"></div>
 							</td>
@@ -417,7 +417,7 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">ss2d.ResourceLoader.<b><a href="../symbols/ss2d.ResourceLoader.html#.loadEndsCallback">loadEndsCallback</a></b>(resource)
+								<div class="fixedFont">ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.loadEndsCallback">loadEndsCallback</a></b>(resource)
 								</div>
 								<div class="description">Called by loadResources every time a resource is loaded</div>
 							</td>
@@ -426,32 +426,23 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">ss2d.ResourceLoader.<b><a href="../symbols/ss2d.ResourceLoader.html#.loadJSON">loadJSON</a></b>(jsonFileName, jsonLoadedCallback)
-								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">ss2d.ResourceLoader.<b><a href="../symbols/ss2d.ResourceLoader.html#.loadResources">loadResources</a></b>(resources, oneElementLoadedCallback, elementsLoadedCallback)
+								<div class="fixedFont">ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.loadResources">loadResources</a></b>(resources, oneElementLoadedCallback, elementsLoadedCallback)
 								</div>
 								<div class="description">Load resources of the specified types
 
 <pre>
 example of use:
 sample.App = new sample.Game();
-ss2d.ResourceLoader.loadResources(
+ss2d.ResourceManager.loadResources(
 [
-   ss2d.ResourceLoader.Types.TEXTURE,  //next elements will be loaded as textures
+   ss2d.ResourceManager.Loaders.TEXTURE,  //next elements will be loaded as textures
   'textures/ball01.png',
   'textures/ball02.png',
-   ss2d.ResourceLoader.Types.SOUND,  //next elements will be loaded as sounds
+   ss2d.ResourceManager.Loaders.SOUND,  //next elements will be loaded as sounds
   'sounds/clink.wav',
   'sounds/pom.wav',
   'sounds/door.wav',
-   sample.CustomTypeLoaderFunction,  //next elements will be loaded as a custom type
+   sample.CustomLoadr,  //next elements will be loaded as a custom type
   'customAssets/customAsset01.json
 ],
 //For each element loaded callback
@@ -472,7 +463,16 @@ function()
 						<tr>
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">ss2d.ResourceLoader.<b><a href="../symbols/ss2d.ResourceLoader.html#.loadSound">loadSound</a></b>(soudName, soundLoadedCallback)
+								<div class="fixedFont">ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.loadResourceWithLoader">loadResourceWithLoader</a></b>(loader, name, loadedCallback)
+								</div>
+								<div class="description">Loads a resource with the specified loader.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.loadSound">loadSound</a></b>(soudName, soundLoadedCallback)
 								</div>
 								<div class="description"></div>
 							</td>
@@ -481,7 +481,7 @@ function()
 						<tr>
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">ss2d.ResourceLoader.<b><a href="../symbols/ss2d.ResourceLoader.html#.loadTexture">loadTexture</a></b>(textureName, textureLoadedCallback)
+								<div class="fixedFont">ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.loadTexture">loadTexture</a></b>(textureName, textureLoadedCallback)
 								</div>
 								<div class="description"></div>
 							</td>
@@ -490,7 +490,7 @@ function()
 						<tr>
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">ss2d.ResourceLoader.<b><a href="../symbols/ss2d.ResourceLoader.html#.loadXML">loadXML</a></b>(xmlFileName, xmlLoadedCallback)
+								<div class="fixedFont">ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.loadTextureAtlas">loadTextureAtlas</a></b>(textureName, textureLoadedCallback)
 								</div>
 								<div class="description"></div>
 							</td>
@@ -499,7 +499,7 @@ function()
 						<tr>
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">ss2d.ResourceLoader.<b><a href="../symbols/ss2d.ResourceLoader.html#.ONE_ELEMENT_LOADED_CALLBACK">ONE_ELEMENT_LOADED_CALLBACK</a></b>()
+								<div class="fixedFont">ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.ONE_ELEMENT_LOADED_CALLBACK">ONE_ELEMENT_LOADED_CALLBACK</a></b>()
 								</div>
 								<div class="description"></div>
 							</td>
@@ -522,7 +522,7 @@ function()
 				</div>
 				
 				<div class="fixedFont">
-						<b>ss2d.ResourceLoader</b>
+						<b>ss2d.ResourceManager</b>
 				</div>
 				
 				<div class="description">
@@ -550,33 +550,11 @@ function()
 					Field Detail
 				</div>
 				
-					<a name=".AUDIO_COMPONENT_CLASS"> </a>
-					<div class="fixedFont">&lt;static&gt; 
-					
-					
-					<span class="light">ss2d.ResourceLoader.</span><b>AUDIO_COMPONENT_CLASS</b>
-					
-					</div>
-					<div class="description">
-						
-						
-						
-					</div>
-					
-					
-
-						
-						
-						
-						
-
-					<hr />
-				
 					<a name=".CURRENT_ELEMENT_TO_LOAD"> </a>
 					<div class="fixedFont">&lt;static&gt; 
 					
 					
-					<span class="light">ss2d.ResourceLoader.</span><b>CURRENT_ELEMENT_TO_LOAD</b>
+					<span class="light">ss2d.ResourceManager.</span><b>CURRENT_ELEMENT_TO_LOAD</b>
 					
 					</div>
 					<div class="description">
@@ -598,7 +576,7 @@ function()
 					<div class="fixedFont">&lt;static&gt; 
 					
 					
-					<span class="light">ss2d.ResourceLoader.</span><b>ELEMENTS_TO_LOAD</b>
+					<span class="light">ss2d.ResourceManager.</span><b>ELEMENTS_TO_LOAD</b>
 					
 					</div>
 					<div class="description">
@@ -620,7 +598,7 @@ function()
 					<div class="fixedFont">&lt;static&gt; 
 					
 					
-					<span class="light">ss2d.ResourceLoader.</span><b>LOADED_RESOURCES</b>
+					<span class="light">ss2d.ResourceManager.</span><b>LOADED_RESOURCES</b>
 					
 					</div>
 					<div class="description">
@@ -638,11 +616,11 @@ function()
 
 					<hr />
 				
-					<a name=".Types"> </a>
+					<a name=".Loaders"> </a>
 					<div class="fixedFont">&lt;static&gt; 
 					
 					
-					<span class="light">ss2d.ResourceLoader.</span><b>Types</b>
+					<span class="light">ss2d.ResourceManager.</span><b>Loaders</b>
 					
 					</div>
 					<div class="description">
@@ -672,7 +650,7 @@ function()
 					<div class="fixedFont">&lt;static&gt; 
 					
 					
-					<span class="light">ss2d.ResourceLoader.</span><b>ACTIVE_LOADER</b>(res)
+					<span class="light">ss2d.ResourceManager.</span><b>ACTIVE_LOADER</b>(res)
 					
 					</div>
 					<div class="description">
@@ -708,7 +686,7 @@ function()
 					<div class="fixedFont">&lt;static&gt; 
 					
 					
-					<span class="light">ss2d.ResourceLoader.</span><b>ELEMENTS_LOADED_CALLBACK</b>()
+					<span class="light">ss2d.ResourceManager.</span><b>ELEMENTS_LOADED_CALLBACK</b>()
 					
 					</div>
 					<div class="description">
@@ -733,7 +711,7 @@ function()
 					<div class="fixedFont">&lt;static&gt; 
 					
 					
-					<span class="light">ss2d.ResourceLoader.</span><b>loadEndsCallback</b>(resource)
+					<span class="light">ss2d.ResourceManager.</span><b>loadEndsCallback</b>(resource)
 					
 					</div>
 					<div class="description">
@@ -765,53 +743,11 @@ function()
 
 					<hr />
 				
-					<a name=".loadJSON"> </a>
-					<div class="fixedFont">&lt;static&gt; 
-					
-					
-					<span class="light">ss2d.ResourceLoader.</span><b>loadJSON</b>(jsonFileName, jsonLoadedCallback)
-					
-					</div>
-					<div class="description">
-						
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<span class="light fixedFont">{string}</span> <b>jsonFileName</b>
-									
-								</dt>
-								<dd></dd>
-							
-								<dt>
-									<span class="light fixedFont">{function}</span> <b>jsonLoadedCallback</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
 					<a name=".loadResources"> </a>
 					<div class="fixedFont">&lt;static&gt; 
 					
 					
-					<span class="light">ss2d.ResourceLoader.</span><b>loadResources</b>(resources, oneElementLoadedCallback, elementsLoadedCallback)
+					<span class="light">ss2d.ResourceManager.</span><b>loadResources</b>(resources, oneElementLoadedCallback, elementsLoadedCallback)
 					
 					</div>
 					<div class="description">
@@ -820,16 +756,16 @@ function()
 <pre>
 example of use:
 sample.App = new sample.Game();
-ss2d.ResourceLoader.loadResources(
+ss2d.ResourceManager.loadResources(
 [
-   ss2d.ResourceLoader.Types.TEXTURE,  //next elements will be loaded as textures
+   ss2d.ResourceManager.Loaders.TEXTURE,  //next elements will be loaded as textures
   'textures/ball01.png',
   'textures/ball02.png',
-   ss2d.ResourceLoader.Types.SOUND,  //next elements will be loaded as sounds
+   ss2d.ResourceManager.Loaders.SOUND,  //next elements will be loaded as sounds
   'sounds/clink.wav',
   'sounds/pom.wav',
   'sounds/door.wav',
-   sample.CustomTypeLoaderFunction,  //next elements will be loaded as a custom type
+   sample.CustomLoadr,  //next elements will be loaded as a custom type
   'customAssets/customAsset01.json
 ],
 //For each element loaded callback
@@ -855,10 +791,10 @@ function()
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{(string|Array)}</span> <b>resources</b>
+									<span class="light fixedFont">{(Array)}</span> <b>resources</b>
 									
 								</dt>
-								<dd>Resource name or list of resource loaders plus resource names to load.</dd>
+								<dd>List of resource loaders plus resource names to load.</dd>
 							
 								<dt>
 									<span class="light fixedFont">{function(string|number|number)}</span> <b>oneElementLoadedCallback</b>
@@ -884,11 +820,59 @@ function()
 
 					<hr />
 				
+					<a name=".loadResourceWithLoader"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">ss2d.ResourceManager.</span><b>loadResourceWithLoader</b>(loader, name, loadedCallback)
+					
+					</div>
+					<div class="description">
+						Loads a resource with the specified loader.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/ss2d.ILoader.html">ss2d.ILoader</a>}</span> <b>loader</b>
+									
+								</dt>
+								<dd>The static class that loads this resource</dd>
+							
+								<dt>
+									<span class="light fixedFont">{string}</span> <b>name</b>
+									
+								</dt>
+								<dd>Resource file name</dd>
+							
+								<dt>
+									<span class="light fixedFont">{function=}</span> <b>loadedCallback</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
 					<a name=".loadSound"> </a>
 					<div class="fixedFont">&lt;static&gt; 
 					
 					
-					<span class="light">ss2d.ResourceLoader.</span><b>loadSound</b>(soudName, soundLoadedCallback)
+					<span class="light">ss2d.ResourceManager.</span><b>loadSound</b>(soudName, soundLoadedCallback)
 					
 					</div>
 					<div class="description">
@@ -930,7 +914,7 @@ function()
 					<div class="fixedFont">&lt;static&gt; 
 					
 					
-					<span class="light">ss2d.ResourceLoader.</span><b>loadTexture</b>(textureName, textureLoadedCallback)
+					<span class="light">ss2d.ResourceManager.</span><b>loadTexture</b>(textureName, textureLoadedCallback)
 					
 					</div>
 					<div class="description">
@@ -968,11 +952,11 @@ function()
 
 					<hr />
 				
-					<a name=".loadXML"> </a>
+					<a name=".loadTextureAtlas"> </a>
 					<div class="fixedFont">&lt;static&gt; 
 					
 					
-					<span class="light">ss2d.ResourceLoader.</span><b>loadXML</b>(xmlFileName, xmlLoadedCallback)
+					<span class="light">ss2d.ResourceManager.</span><b>loadTextureAtlas</b>(textureName, textureLoadedCallback)
 					
 					</div>
 					<div class="description">
@@ -988,13 +972,13 @@ function()
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{string}</span> <b>xmlFileName</b>
+									<span class="light fixedFont">{string}</span> <b>textureName</b>
 									
 								</dt>
 								<dd></dd>
 							
 								<dt>
-									<span class="light fixedFont">{function}</span> <b>xmlLoadedCallback</b>
+									<span class="light fixedFont">{function}</span> <b>textureLoadedCallback</b>
 									
 								</dt>
 								<dd></dd>
@@ -1014,7 +998,7 @@ function()
 					<div class="fixedFont">&lt;static&gt; 
 					
 					
-					<span class="light">ss2d.ResourceLoader.</span><b>ONE_ELEMENT_LOADED_CALLBACK</b>()
+					<span class="light">ss2d.ResourceManager.</span><b>ONE_ELEMENT_LOADED_CALLBACK</b>()
 					
 					</div>
 					<div class="description">
@@ -1047,7 +1031,7 @@ function()
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Sat Feb 16 2013 23:45:31 GMT+0100 (CET)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Mon Feb 18 2013 02:24:47 GMT+0100 (CET)
 		</div>
 	</body>
 </html>

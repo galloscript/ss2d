@@ -1,0 +1,199 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">// Copyright (c) 2013 David Gallardo Moreno. All rights reserved.</span><span class="WHIT">
+<span class='line'>  2</span> 
+<span class='line'>  3</span> </span><span class="COMM">/**
+<span class='line'>  4</span>  * @fileoverview A utility class for load and track resources
+<span class='line'>  5</span>  * @author David Gallardo Moreno (portalg@gmail.com)
+<span class='line'>  6</span>  */</span><span class="WHIT">
+<span class='line'>  7</span> 
+<span class='line'>  8</span> </span><span class="NAME">goog.provide</span><span class="PUNC">(</span><span class="STRN">'ss2d.ResourceManager'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  9</span> 
+<span class='line'> 10</span> </span><span class="NAME">goog.require</span><span class="PUNC">(</span><span class="STRN">'ss2d.TextureLoader'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 11</span> </span><span class="NAME">goog.require</span><span class="PUNC">(</span><span class="STRN">'ss2d.TextureAtlasLoader'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 12</span> </span><span class="NAME">goog.require</span><span class="PUNC">(</span><span class="STRN">'ss2d.AudioLoader'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 13</span> 
+<span class='line'> 14</span> </span><span class="COMM">/** 
+<span class='line'> 15</span>  * @class 
+<span class='line'> 16</span>  * @static 
+<span class='line'> 17</span>  */</span><span class="WHIT">
+<span class='line'> 18</span> </span><span class="NAME">ss2d.ResourceManager</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 19</span> 
+<span class='line'> 20</span> </span><span class="COMM">/** @type {Object} */</span><span class="WHIT">
+<span class='line'> 21</span> </span><span class="NAME">ss2d.ResourceManager.LOADED_RESOURCES</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 22</span> 
+<span class='line'> 23</span> </span><span class="COMM">/** @type {number} */</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="NAME">ss2d.ResourceManager.ELEMENTS_TO_LOAD</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 25</span> 
+<span class='line'> 26</span> </span><span class="COMM">/** @type {number} */</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="NAME">ss2d.ResourceManager.CURRENT_ELEMENT_TO_LOAD</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 28</span> 
+<span class='line'> 29</span> </span><span class="COMM">/** @type {function} */</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="NAME">ss2d.ResourceManager.ELEMENTS_LOADED_CALLBACK</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 31</span> 
+<span class='line'> 32</span> </span><span class="COMM">/** @type {function} */</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="NAME">ss2d.ResourceManager.ONE_ELEMENT_LOADED_CALLBACK</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 34</span> 
+<span class='line'> 35</span> </span><span class="COMM">/** @type {function} */</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="NAME">ss2d.ResourceManager.ACTIVE_LOADER</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">res</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="KEYW">throw</span><span class="WHIT"> </span><span class="STRN">'No active loader for: '</span><span class="PUNC">+</span><span class="NAME">res</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 37</span> 
+<span class='line'> 38</span> </span><span class="COMM">/**
+<span class='line'> 39</span>  * Enumeration for loader functions
+<span class='line'> 40</span>  * @enum {Object}
+<span class='line'> 41</span>  */</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="NAME">ss2d.ResourceManager.Loaders</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 43</span> </span><span class="WHIT">	</span><span class="NAME">TEXTURE</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">ss2d.TextureLoader</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 44</span> </span><span class="WHIT">	</span><span class="NAME">SOUND</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">ss2d.AudioLoader</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 45</span> </span><span class="WHIT">	</span><span class="NAME">TEXTURE_ATLAS</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">ss2d.TextureAtlasLoader</span><span class="WHIT">
+<span class='line'> 46</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 47</span> 
+<span class='line'> 48</span> </span><span class="COMM">/**
+<span class='line'> 49</span>  * Load resources of the specified types
+<span class='line'> 50</span>  * 
+<span class='line'> 51</span>  * &lt;pre>
+<span class='line'> 52</span>  * example of use:
+<span class='line'> 53</span>  * sample.App = new sample.Game();
+<span class='line'> 54</span>  * ss2d.ResourceManager.loadResources(
+<span class='line'> 55</span>  * [
+<span class='line'> 56</span>  *    ss2d.ResourceManager.Loaders.TEXTURE,  //next elements will be loaded as textures
+<span class='line'> 57</span>  *   'textures/ball01.png',
+<span class='line'> 58</span>  *   'textures/ball02.png',
+<span class='line'> 59</span>  *    ss2d.ResourceManager.Loaders.SOUND,  //next elements will be loaded as sounds
+<span class='line'> 60</span>  *   'sounds/clink.wav',
+<span class='line'> 61</span>  *   'sounds/pom.wav',
+<span class='line'> 62</span>  *   'sounds/door.wav',
+<span class='line'> 63</span>  *    sample.CustomLoadr,  //next elements will be loaded as a custom type
+<span class='line'> 64</span>  *   'customAssets/customAsset01.json
+<span class='line'> 65</span>  * ],
+<span class='line'> 66</span>  * //For each element loaded callback
+<span class='line'> 67</span>  * function(resourceName, numLoaded, totalToLoad)  
+<span class='line'> 68</span>  * {
+<span class='line'> 69</span>  *   console.log(resourceName+' '+numLoaded+'/'+totalToLoad);
+<span class='line'> 70</span>  * },
+<span class='line'> 71</span>  * //Resource loading ends callback
+<span class='line'> 72</span>  * function()  
+<span class='line'> 73</span>  * {
+<span class='line'> 74</span>  *   sample.App.initScene();
+<span class='line'> 75</span>  *   sample.App.run();
+<span class='line'> 76</span>  * });
+<span class='line'> 77</span>  * &lt;/pre>
+<span class='line'> 78</span>  * @param {(Array)} resources List of resource loaders plus resource names to load.
+<span class='line'> 79</span>  * @param {function(string, number, number)} oneElementLoadedCallback Called for each loaded resource with the element name,
+<span class='line'> 80</span>  * 																		  the number of loaded elements, and the total elements to load.
+<span class='line'> 81</span>  * @param {function} elementsLoadedCallback  Called once all resources are loaded.
+<span class='line'> 82</span>  */</span><span class="WHIT">
+<span class='line'> 83</span> </span><span class="NAME">ss2d.ResourceManager.loadResources</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">resources</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">oneElementLoadedCallback</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">elementsLoadedCallback</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 84</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 85</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">resources</span><span class="WHIT"> </span><span class="KEYW">instanceof</span><span class="WHIT"> </span><span class="NAME">Array</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 86</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 87</span> </span><span class="WHIT">		</span><span class="NAME">ss2d.ResourceManager.ELEMENTS_LOADED_CALLBACK</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">elementsLoadedCallback</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 88</span> </span><span class="WHIT">		</span><span class="NAME">ss2d.ResourceManager.ONE_ELEMENT_LOADED_CALLBACK</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">oneElementLoadedCallback</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 89</span> </span><span class="WHIT">		</span><span class="NAME">ss2d.ResourceManager.CURRENT_ELEMENT_TO_LOAD</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 90</span> </span><span class="WHIT">		
+<span class='line'> 91</span> 		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">loaderKeys</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 92</span> </span><span class="WHIT">		
+<span class='line'> 93</span> 		</span><span class="KEYW">for</span><span class="PUNC">(</span><span class="NAME">resKey</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">resources</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 94</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 95</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="WHIT"> </span><span class="NAME">resources</span><span class="PUNC">[</span><span class="NAME">resKey</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">'object'</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 96</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 97</span> </span><span class="WHIT">				</span><span class="PUNC">++</span><span class="NAME">loaderKeys</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 98</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 99</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>100</span> </span><span class="WHIT">		
+<span class='line'>101</span> 		</span><span class="NAME">ss2d.ResourceManager.ELEMENTS_TO_LOAD</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">resources.length</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">loaderKeys</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>102</span> </span><span class="WHIT">		
+<span class='line'>103</span> 		</span><span class="KEYW">for</span><span class="PUNC">(</span><span class="NAME">resKey</span><span class="WHIT"> </span><span class="KEYW">in</span><span class="WHIT"> </span><span class="NAME">resources</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>104</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>105</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">resName</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">resources</span><span class="PUNC">[</span><span class="NAME">resKey</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>106</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="WHIT"> </span><span class="NAME">resName</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">'object'</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>107</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>108</span> </span><span class="WHIT">				</span><span class="NAME">ss2d.ResourceManager.ACTIVE_LOADER</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">resName</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>109</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>110</span> </span><span class="WHIT">			</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'>111</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>112</span> </span><span class="WHIT">				</span><span class="NAME">ss2d.ResourceManager.loadResourceWithLoader</span><span class="PUNC">(</span><span class="NAME">ss2d.ResourceManager.ACTIVE_LOADER</span><span class="PUNC">,</span><span class="WHIT"> 
+<span class='line'>113</span> 															</span><span class="NAME">resName</span><span class="PUNC">,</span><span class="WHIT"> 
+<span class='line'>114</span> 															</span><span class="NAME">ss2d.ResourceManager.loadEndsCallback</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>115</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>116</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>117</span> </span><span class="WHIT">		</span><span class="NAME">ss2d.ResourceManager.ACTIVE_LOADER</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">res</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT"> </span><span class="KEYW">throw</span><span class="WHIT"> </span><span class="STRN">'No active loader for: '</span><span class="PUNC">+</span><span class="NAME">res</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>118</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>119</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>120</span> 
+<span class='line'>121</span> </span><span class="COMM">/**
+<span class='line'>122</span>  * Loads a resource with the specified loader.
+<span class='line'>123</span>  * @param {ss2d.ILoader} loader The static class that loads this resource
+<span class='line'>124</span>  * @param {string} name Resource file name
+<span class='line'>125</span>  * @param {function=} loadedCallback
+<span class='line'>126</span>  */</span><span class="WHIT">
+<span class='line'>127</span> </span><span class="NAME">ss2d.ResourceManager.loadResourceWithLoader</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">loaderClass</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">resourceName</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">loadedCallback</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>128</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>129</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">lrArray</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ss2d.ResourceManager.LOADED_RESOURCES</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>130</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">resHash</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">resourceName</span><span class="PUNC">+</span><span class="STRN">'.'</span><span class="PUNC">+</span><span class="NAME">loaderClass.RESOURCE_EXTENSION</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>131</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">lrArray</span><span class="PUNC">[</span><span class="NAME">resHash</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>132</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">	
+<span class='line'>133</span> 		</span><span class="NAME">lrArray</span><span class="PUNC">[</span><span class="NAME">resHash</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">loaderClass.loadResource</span><span class="PUNC">(</span><span class="NAME">resourceName</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">loadedCallback</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>134</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>135</span> </span><span class="WHIT">	
+<span class='line'>136</span> 	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">lrArray</span><span class="PUNC">[</span><span class="NAME">resHash</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>137</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>138</span> 
+<span class='line'>139</span> </span><span class="COMM">/**
+<span class='line'>140</span>  * Called by loadResources every time a resource is loaded
+<span class='line'>141</span>  * @param {Object} resource
+<span class='line'>142</span>  */</span><span class="WHIT">
+<span class='line'>143</span> </span><span class="NAME">ss2d.ResourceManager.loadEndsCallback</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">resource</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>144</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>145</span> </span><span class="WHIT">	</span><span class="PUNC">++</span><span class="NAME">ss2d.ResourceManager.CURRENT_ELEMENT_TO_LOAD</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>146</span> </span><span class="WHIT">	
+<span class='line'>147</span> 	</span><span class="NAME">ss2d.ResourceManager.ONE_ELEMENT_LOADED_CALLBACK</span><span class="PUNC">(</span><span class="NAME">resource.mName</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ss2d.ResourceManager.CURRENT_ELEMENT_TO_LOAD</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">ss2d.ResourceManager.ELEMENTS_TO_LOAD</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>148</span> </span><span class="WHIT">	
+<span class='line'>149</span> 	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">ss2d.ResourceManager.ELEMENTS_TO_LOAD</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">ss2d.ResourceManager.CURRENT_ELEMENT_TO_LOAD</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>150</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>151</span> </span><span class="WHIT">		</span><span class="NAME">console.log</span><span class="PUNC">(</span><span class="STRN">'Load resources ends'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>152</span> </span><span class="WHIT">		</span><span class="NAME">ss2d.ResourceManager.ELEMENTS_LOADED_CALLBACK.call</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>153</span> </span><span class="WHIT">		
+<span class='line'>154</span> 		</span><span class="NAME">ss2d.ResourceManager.ELEMENTS_LOADED_CALLBACK</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>155</span> </span><span class="WHIT">		</span><span class="NAME">ss2d.ResourceManager.ONE_ELEMENT_LOADED_CALLBACK</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>156</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>157</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>158</span> 
+<span class='line'>159</span> </span><span class="COMM">//Built-in loaders</span><span class="WHIT">
+<span class='line'>160</span> 
+<span class='line'>161</span> </span><span class="COMM">/**
+<span class='line'>162</span>  * @param {string} textureName
+<span class='line'>163</span>  * @param {function} textureLoadedCallback
+<span class='line'>164</span>  */</span><span class="WHIT">
+<span class='line'>165</span> </span><span class="NAME">ss2d.ResourceManager.loadTexture</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">textureName</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">textureLoadedCallback</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>166</span> </span><span class="PUNC">{</span><span class="WHIT">	
+<span class='line'>167</span> 	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">ss2d.ResourceManager.loadResourceWithLoader</span><span class="PUNC">(</span><span class="NAME">ss2d.TextureLoader</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">textureName</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">textureLoadedCallback</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>168</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>169</span> 
+<span class='line'>170</span> </span><span class="COMM">/**
+<span class='line'>171</span>  * @param {string} textureName
+<span class='line'>172</span>  * @param {function} textureLoadedCallback
+<span class='line'>173</span>  */</span><span class="WHIT">
+<span class='line'>174</span> </span><span class="NAME">ss2d.ResourceManager.loadTextureAtlas</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">atlasName</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">textureLoadedCallback</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>175</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>176</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">ss2d.ResourceManager.loadResourceWithLoader</span><span class="PUNC">(</span><span class="NAME">ss2d.TextureAtlasLoader</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">atlasName</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">textureLoadedCallback</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>177</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>178</span> 
+<span class='line'>179</span> </span><span class="COMM">/**
+<span class='line'>180</span>  * @param {string} soudName
+<span class='line'>181</span>  * @param {function} soundLoadedCallback
+<span class='line'>182</span>  */</span><span class="WHIT">
+<span class='line'>183</span> </span><span class="NAME">ss2d.ResourceManager.loadSound</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">soudName</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">soundLoadedCallback</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>184</span> </span><span class="PUNC">{</span><span class="WHIT">	
+<span class='line'>185</span> 	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">ss2d.ResourceManager.loadResourceWithLoader</span><span class="PUNC">(</span><span class="NAME">ss2d.AudioLoader</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">soudName</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">soundLoadedCallback</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>186</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>187</span> 
+<span class='line'>188</span> 
+<span class='line'>189</span> 
+<span class='line'>190</span> 
+<span class='line'>191</span> 
+<span class='line'>192</span> </span></pre></body></html>
