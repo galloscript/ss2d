@@ -191,8 +191,6 @@ ss2d.DisplayObject.prototype.setWidth = function(w){ }; //function(){ must be pr
  */
 ss2d.DisplayObject.prototype.setHeight = function(h){ }; //function(){ must be provided by child classes }
 
-
-
 //*****************
 //* SERIALIZATION *
 //*****************/

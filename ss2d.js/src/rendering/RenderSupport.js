@@ -19,7 +19,6 @@ ss2d.RenderSupport = function(context)
 {
 	this.mContext = context;
 	this.mAuxMatrix = new ss2d.Matrix3();
-	
 	if(RENDER_CONTEXT == 'webgl')
 	{
 		this.mMatrixStack = [];
@@ -49,6 +48,7 @@ else
 		this.mAuxMatrix.identity();
 		var curMatrix = displayObject.getTransformationMatrix(this.mAuxMatrix);
 		this.mContext.save();
+		this.mContext.globalAlpha *= displayObject.mAlpha;
 		this.mContext.transform(curMatrix.mA,
 								curMatrix.mB,
 								curMatrix.mC,
