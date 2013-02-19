@@ -123,4 +123,37 @@ ss2d.Point.scalePoint = function(p, scalar)
 	return new ss2d.Point(scalar * p.mX, scalar * p.mY);
 }
 
+/**
+ * @param {ss2d.Point} vecA
+ * @param {ss2d.Point} vecB
+ * @return {number} dot product of two vectors.
+ */
+ss2d.Point.dot = function(vecA, vecB)
+{
+    return (vecA.mX*vecB.mX) + (vecA.mY*vecB.mY)
+};
 
+/**
+ * @param {ss2d.Point} vecA
+ * @param {ss2d.Point} vecB
+ * @return {number} Angle in radians between two vectors.
+ */
+ss2d.Point.angle = function(vecA, vecB)
+{
+    var dotProd = ss2d.Point.dot(vecA, vecB);
+    var lenProd = vecA.length()*vecB.length();
+    var divOp = dotProd/lenProd;
+    return Math.acos(divOp);
+};
+
+/**
+ * Unit vector of x axis (1, 0)
+ * @type {ss2d.Point}
+ */
+ss2d.Point.X_AXIS = new ss2d.Point(1, 0);
+
+/**
+ * Unit vector of y axis (0, 1)
+ * @type {ss2d.Point}
+ */
+ss2d.Point.Y_AXIS = new ss2d.Point(0, 1);
