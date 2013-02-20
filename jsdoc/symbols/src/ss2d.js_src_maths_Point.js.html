@@ -130,5 +130,38 @@
 <span class='line'>123</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">ss2d.Point</span><span class="PUNC">(</span><span class="NAME">scalar</span><span class="WHIT"> </span><span class="PUNC">*</span><span class="WHIT"> </span><span class="NAME">p.mX</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">scalar</span><span class="WHIT"> </span><span class="PUNC">*</span><span class="WHIT"> </span><span class="NAME">p.mY</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>124</span> </span><span class="PUNC">}</span><span class="WHIT">
 <span class='line'>125</span> 
-<span class='line'>126</span> 
-<span class='line'>127</span> </span></pre></body></html>
+<span class='line'>126</span> </span><span class="COMM">/**
+<span class='line'>127</span>  * @param {ss2d.Point} vecA
+<span class='line'>128</span>  * @param {ss2d.Point} vecB
+<span class='line'>129</span>  * @return {number} dot product of two vectors.
+<span class='line'>130</span>  */</span><span class="WHIT">
+<span class='line'>131</span> </span><span class="NAME">ss2d.Point.dot</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">vecA</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">vecB</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>132</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>133</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">vecA.mX</span><span class="PUNC">*</span><span class="NAME">vecB.mX</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">vecA.mY</span><span class="PUNC">*</span><span class="NAME">vecB.mY</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>134</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>135</span> 
+<span class='line'>136</span> </span><span class="COMM">/**
+<span class='line'>137</span>  * @param {ss2d.Point} vecA
+<span class='line'>138</span>  * @param {ss2d.Point} vecB
+<span class='line'>139</span>  * @return {number} Angle in radians between two vectors.
+<span class='line'>140</span>  */</span><span class="WHIT">
+<span class='line'>141</span> </span><span class="NAME">ss2d.Point.angle</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">vecA</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">vecB</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>142</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>143</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">dotProd</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ss2d.Point.dot</span><span class="PUNC">(</span><span class="NAME">vecA</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">vecB</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>144</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">lenProd</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">vecA.length</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">*</span><span class="NAME">vecB.length</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>145</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">divOp</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">dotProd</span><span class="PUNC">/</span><span class="NAME">lenProd</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>146</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">Math.acos</span><span class="PUNC">(</span><span class="NAME">divOp</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>147</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>148</span> 
+<span class='line'>149</span> </span><span class="COMM">/**
+<span class='line'>150</span>  * Unit vector of x axis (1, 0)
+<span class='line'>151</span>  * @type {ss2d.Point}
+<span class='line'>152</span>  */</span><span class="WHIT">
+<span class='line'>153</span> </span><span class="NAME">ss2d.Point.X_AXIS</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">ss2d.Point</span><span class="PUNC">(</span><span class="NUMB">1</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>154</span> 
+<span class='line'>155</span> </span><span class="COMM">/**
+<span class='line'>156</span>  * Unit vector of y axis (0, 1)
+<span class='line'>157</span>  * @type {ss2d.Point}
+<span class='line'>158</span>  */</span><span class="WHIT">
+<span class='line'>159</span> </span><span class="NAME">ss2d.Point.Y_AXIS</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">ss2d.Point</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>160</span> </span></pre></body></html>

@@ -355,6 +355,26 @@ ul.inheritsList
 							</td>
 						</tr>
 					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								ss2d.Point.<b><a href="../symbols/ss2d.Point.html#.X_AXIS">X_AXIS</a></b>
+								</div>
+								<div class="description">Unit vector of x axis (1, 0)</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								ss2d.Point.<b><a href="../symbols/ss2d.Point.html#.Y_AXIS">Y_AXIS</a></b>
+								</div>
+								<div class="description">Unit vector of y axis (0, 1)</div>
+							</td>
+						</tr>
+					
 					</tbody>
 				</table>
 				
@@ -388,7 +408,25 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
+								<div class="fixedFont">ss2d.Point.<b><a href="../symbols/ss2d.Point.html#.angle">angle</a></b>(vecA, vecB)
+								</div>
+								<div class="description"></div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
 								<div class="fixedFont">ss2d.Point.<b><a href="../symbols/ss2d.Point.html#.distanceBetweenPoints">distanceBetweenPoints</a></b>(p1, p2)
+								</div>
+								<div class="description"></div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ss2d.Point.<b><a href="../symbols/ss2d.Point.html#.dot">dot</a></b>(vecA, vecB)
 								</div>
 								<div class="description"></div>
 							</td>
@@ -579,6 +617,50 @@ ul.inheritsList
 						
 						
 
+					<hr />
+				
+					<a name=".X_AXIS"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">ss2d.Point.</span><b>X_AXIS</b>
+					
+					</div>
+					<div class="description">
+						Unit vector of x axis (1, 0)
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".Y_AXIS"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">ss2d.Point.</span><b>Y_AXIS</b>
+					
+					</div>
+					<div class="description">
+						Unit vector of y axis (0, 1)
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
 					
 				
 			
@@ -638,6 +720,55 @@ ul.inheritsList
 
 					<hr />
 				
+					<a name=".angle"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{number}</span>
+					<span class="light">ss2d.Point.</span><b>angle</b>(vecA, vecB)
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/ss2d.Point.html">ss2d.Point</a>}</span> <b>vecA</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/ss2d.Point.html">ss2d.Point</a>}</span> <b>vecB</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{number}</span> Angle in radians between two vectors.</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
 					<a name=".distanceBetweenPoints"> </a>
 					<div class="fixedFont">&lt;static&gt; 
 					
@@ -679,6 +810,55 @@ ul.inheritsList
 							<dt class="heading">Returns:</dt>
 							
 								<dd><span class="light fixedFont">{number}</span> distance between points</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name=".dot"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					<span class="light">{number}</span>
+					<span class="light">ss2d.Point.</span><b>dot</b>(vecA, vecB)
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/ss2d.Point.html">ss2d.Point</a>}</span> <b>vecA</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{<a href="../symbols/ss2d.Point.html">ss2d.Point</a>}</span> <b>vecB</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{number}</span> dot product of two vectors.</dd>
 							
 							</dl>
 						
@@ -1039,7 +1219,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Mon Feb 18 2013 02:24:47 GMT+0100 (CET)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Feb 20 2013 01:20:27 GMT+0100 (CET)
 		</div>
 	</body>
 </html>
