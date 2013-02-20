@@ -14,9 +14,10 @@ Youtube channel: http://www.youtube.com/user/SmoothStep2D
 Demos
 ==========
 
+- Car (no compiled): http://virtualcraft.net/car/
 - Sandbox: http://virtualcraft.net/b/
 - Multiplayer Sandbox: http://virtualcraft.net/mmoballs/
-- Match3: http://virtualcraft.net/m3/
+- Match3 (mini-game): http://virtualcraft.net/m3/
 
 Changes
 =======
