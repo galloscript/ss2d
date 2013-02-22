@@ -32,16 +32,33 @@ ss2d.Input = function(view)
 	{
 		this.mMobileDevice = true;
    	}
-
+	
+	
    	if(!this.mMobileDevice){
-   		window.addEventListener('mousedown', ss2d.Input.windowMouseEventHandler, true);
+   		if (window.navigator.msPointerEnabled) { // WIN8
+   			//Gorkinovich contribution: Windows 8 Touchscreen
+   			window.addEventListener("MSPointerDown", ss2d.Input.windowMouseEventHandler, true);
+		} 
+		else 
+		{
+			window.addEventListener('mousedown', ss2d.Input.windowMouseEventHandler, true);
+		}
    	}
    	window.addEventListener('keydown', ss2d.Input.handleEventCaller, true);
 	window.addEventListener('keyup', ss2d.Input.handleEventCaller, true);
    	
-	canvas.addEventListener('mousedown', ss2d.Input.handleEventCaller, true);
-	canvas.addEventListener('mouseup', ss2d.Input.handleEventCaller, true);
-	canvas.addEventListener('mousemove', ss2d.Input.handleEventCaller, true);
+   	if (window.navigator.msPointerEnabled) { // WIN8
+   		a.addEventListener("MSPointerDown", ss2d.Input.handleEventCaller, true);
+		a.addEventListener("MSPointerUp", ss2d.Input.handleEventCaller, true);
+		a.addEventListener("MSPointerMove", ss2d.Input.handleEventCaller, true);
+   	} 
+   	else
+   	{
+   		canvas.addEventListener('mousedown', ss2d.Input.handleEventCaller, true);
+		canvas.addEventListener('mouseup', ss2d.Input.handleEventCaller, true);
+		canvas.addEventListener('mousemove', ss2d.Input.handleEventCaller, true);
+   	}
+
 
 	canvas.addEventListener("touchstart", ss2d.Input.handleEventCaller, false);
 	canvas.addEventListener("touchend", ss2d.Input.handleEventCaller, false);
@@ -129,11 +146,11 @@ ss2d.Input.prototype.handleEvent = function(event)
 {
 	var r = true;
 	switch(event.type){
-	case 'mousedown': case 'touchstart': r = this.onMouseDown(event); break;
-	case 'mouseup': case 'touchend': case 'touchcancel': r = this.onMouseUp(event); break;
+	case 'mousedown': case 'touchstart': case "MSPointerDown": r = this.onMouseDown(event); break;
+	case 'mouseup': case 'touchend': case 'touchcancel': case "MSPointerUp": r = this.onMouseUp(event); break;
 	case 'keydown': r = this.onKeyDown(event); break;
 	case 'keyup': r = this.onKeyUp(event); break;
-	case 'mousemove': case 'touchmove': r = this.onMouseMove(event); break;
+	case 'mousemove': case 'touchmove':  case "MSPointerMove": r = this.onMouseMove(event); break;
 	}
 
 	return r;
