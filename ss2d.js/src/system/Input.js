@@ -223,7 +223,12 @@ ss2d.Input.prototype.onFocusOut = function(event)
 {
 	this.mView.mHaveFocus = false;
 	this.mClicked = false;
-	//this.mPressedKeys = [];
+	
+	for(var key in this.mPressedKeys)
+    {
+        this.mPressedKeys[key] = false;
+		delete this.mPressedKeys[key];
+    }
 }
 
 ss2d.Input.prototype.onMouseMove = function(pe)
