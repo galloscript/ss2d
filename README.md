@@ -22,6 +22,9 @@ Demos
 Changes
 =======
 
+23-02-2013:
+Added Windows 8 touchscreen input, thanks to Gorkinovich contribution.
+
 19-02-2013:
 Now the mAlpha property works properly. The mAlpha value is automatically applied to all childs of a container.
 
