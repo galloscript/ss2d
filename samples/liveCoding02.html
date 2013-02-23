@@ -1,0 +1,75 @@
+<style>h3{ font-family: Verdana }</style>
+<h3>SmoothStep2D Live Coding 02: Little Shooter</h3>
+<canvas id="mainCanvas" width="512" height="512">No canvas Support!</canvas>
+<script src="http://galloman.github.com/ss2d/lib/ss2dLib-min.js"></script>
+<script>
+  var Bullet = function(x, y, w, h, r)
+  {
+    ss2d.Quad.call(this, x, y, w, h, '#ff0000');
+    this.mLifeTime = 1;
+    this.mRotation = r;
+    this.mPivotX = w/2;
+    this.mPivotY = h/2;
+  }
+  
+  goog.inherits(Bullet, ss2d.Quad);
+  
+  Bullet.prototype.tick = function(deltaTime)
+  {
+    this.mLocation.mX += 300*deltaTime*Math.sin(this.mRotation);
+    this.mLocation.mY -= 300*deltaTime*Math.cos(this.mRotation);
+    this.mLifeTime -= deltaTime;
+    if(this.mLifeTime <= 0)
+      this.mParent.removeObject(this);
+    
+  }
+</script>
+<script>
+  var view = new ss2d.View('mainCanvas');
+  view.mBackgroundFillStyle = '#bbbbbb';
+  
+  var container = new ss2d.DisplayObjectContainer(200, 200);
+  view.mMainScene.addObject(container);
+  
+  
+  var cannon = new ss2d.Quad(-10, -60, 20, 60, '#000000');
+  container.addObject(cannon);
+  
+  container.tick = function(deltaTime)
+  {
+    var input = ss2d.CURRENT_VIEW.mInput;
+    
+    if(input.isKeyPressed(ss2d.Input.Keys.A))
+       this.mRotation -= 3*deltaTime;
+    
+    if(input.isKeyPressed(ss2d.Input.Keys.D))
+       this.mRotation += 3*deltaTime;
+    
+    if(input.isKeyPressed(ss2d.Input.Keys.W))
+    {   
+      this.mLocation.mX += 200*deltaTime*Math.sin(this.mRotation);
+      this.mLocation.mY -= 200*deltaTime*Math.cos(this.mRotation); 
+    }
+    
+    if(input.isKeyPressed(ss2d.Input.Keys.S))
+    {   
+      this.mLocation.mX -= 200*deltaTime*Math.sin(this.mRotation);
+      this.mLocation.mY += 200*deltaTime*Math.cos(this.mRotation); 
+    }
+    
+    if(input.isKeyPressed(ss2d.Input.Keys.SPACE) && !this.mBarPressed)
+    {   
+      ss2d.CURRENT_VIEW.mMainScene.addObject(
+      new Bullet(this.mLocation.mX + (65*Math.sin(this.mRotation)), 
+                 this.mLocation.mY - (65*Math.cos(this.mRotation)), 
+                 10, 10, this.mRotation));
+    }
+    
+    this.mBarPressed = input.isKeyPressed(ss2d.Input.Keys.SPACE);
+    
+  }
+  
+  
+  view.startLoop();
+</script>
+
