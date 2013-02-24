@@ -95,11 +95,18 @@ ss2d.Rectangle.prototype.containsRectangle = function(otherRectangle)
  */
 ss2d.Rectangle.prototype.intersectsRectangle = function(otherRectangle)
 {
-        return !(otherRectangle.mX <= this.mX && otherRectangle.mX + otherRectangle.mWidth <= this.mX)  || 
-        	(otherRectangle.mX >= this.mX + this.mWidth && rX + otherRectangle.mWidth >= this.mX + this.mWidth) ||
-        	(otherRectangle.mY <= this.mY && otherRectangle.mY + otherRectangle.mHeight <= this.mY) || 
-        	(otherRectangle.mY >= this.mY + this.mHeight && otherRectangle.mY + otherRectangle.mHeight >= this.mY + this.mHeight);	
-}
+	var rX = otherRectangle.mX;
+    var rY = otherRectangle.mY;
+    var rWidth = otherRectangle.mWidth;
+    var rHeight = otherRectangle.mHeight;
+    
+    var outside = (rX <= this.mX && rX + rWidth <= this.mX)  || 
+    			  (rX >= this.mX + this.mWidth && rX + rWidth >= this.mX + this.mWidth) ||
+				  (rY <= this.mY && rY + rHeight <= this.mY) || 
+				  (rY >= this.mY + this.mHeight && rY + rHeight >= this.mY + this.mHeight);
+
+    return !outside;
+};
 
 /**
  * If the specified rectangle intersects with the rectangle, returns the area of intersection.
@@ -114,10 +121,7 @@ ss2d.Rectangle.prototype.intersectionWithRectangle = function(otherRectangle, ta
 		return null;
 	} 
 	
-	if(!targetRectangle)
-	{
-		targetRectangle = new ss2d.Rectangle(0.0, 0.0, 0.0, 0.0);
-	} 
+	targetRectangle = targetRectangle || new ss2d.Rectangle(0.0, 0.0, 0.0, 0.0);
 
 	var left   = Math.max(this.mX, otherRectangle.mX);
 	var right  = Math.min(this.mX + this.mWidth, otherRectangle.mX + otherRectangle.mWidth);
