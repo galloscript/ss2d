@@ -89,7 +89,11 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 				this.mGlyphSprite.mTexture = this.mBitmapFont.mTexture;
 				var s = this.mFontSize /this.mBitmapFont.mMidHeight;
 				this.mScaleX = this.mScaleY = s;
-				for(var c = 0; c < this.mTextString.length; ++c)
+				var charsToShow = (this.mDisplayChars > -1)?
+								  Math.min(this.mDisplayChars, this.mTextString.length):
+								  this.mTextString.length;
+				
+				for(var c = 0; c < charsToShow; ++c)
 				{
 					var charCode = this.mTextString.charCodeAt(c);
 					if(charCode == 32){ 
