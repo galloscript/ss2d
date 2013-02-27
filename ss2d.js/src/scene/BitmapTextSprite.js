@@ -97,7 +97,7 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 				{
 					var charCode = this.mTextString.charCodeAt(c);
 					if(charCode == 32){ 
-						ctx.translate(this.mBitmapFont.mMidWidth, 0);
+						ctx.translate(this.mBitmapFont.mMidWidth*0.5, 0);
 						continue;
 					}
 					
