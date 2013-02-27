@@ -29,6 +29,7 @@ goog.require('ss2d.ReelFrame');
 goog.require('ss2d.ReelSet');
 goog.require('ss2d.Texture');
 goog.require('ss2d.TextureAtlas');
+goog.require('ss2d.BitmapFont');
 
 //componentes/loaders
 goog.require('ss2d.ResourceManager');
@@ -36,6 +37,7 @@ goog.require('ss2d.ILoader');
 goog.require('ss2d.AudioLoader');
 goog.require('ss2d.TextureAtlasLoader');
 goog.require('ss2d.TextureLoader');
+goog.require('ss2d.BitmapFontLoader');
 
 //maths
 goog.require('ss2d.Matrix3');
@@ -61,6 +63,8 @@ goog.require('ss2d.MultiplayerScene');
 goog.require('ss2d.Quad');
 goog.require('ss2d.ReelSprite');
 goog.require('ss2d.Sprite');
+goog.require('ss2d.TextSprite');
+goog.require('ss2d.BitmapTextSprite');
 
 //system
 goog.require('ss2d.DefaultConfig');
@@ -68,4 +72,7 @@ goog.require('ss2d.Defines');
 goog.require('ss2d.Input');
 goog.require('ss2d.Object');
 goog.require('ss2d.View');
+
+//utils
+goog.require('XML.ObjTree');
 

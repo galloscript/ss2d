@@ -163,8 +163,8 @@ if(COMPILING_SERVER)
 	ss2d.Quad.prototype.getPropertiesJSON = function()
 	{
 		var str = ss2d.DisplayObject.prototype.getPropertiesJSON.call(this)+',';
-		str += '"w": '+this.mWidth+',';
-		str += '"h": '+this.mHeight;
+		str += '"w": '+this.getWidth()+',';
+		str += '"h": '+this.getHeight();
 		
 		return str;
 	}

@@ -10,6 +10,7 @@ goog.provide('ss2d.ResourceManager');
 goog.require('ss2d.TextureLoader');
 goog.require('ss2d.TextureAtlasLoader');
 goog.require('ss2d.AudioLoader');
+goog.require('ss2d.BitmapFont');
 
 /** 
  * @class 
@@ -42,7 +43,8 @@ ss2d.ResourceManager.ACTIVE_LOADER = function(res){ throw 'No active loader for:
 ss2d.ResourceManager.Loaders = {
 	TEXTURE: ss2d.TextureLoader,
 	SOUND: ss2d.AudioLoader,
-	TEXTURE_ATLAS: ss2d.TextureAtlasLoader
+	TEXTURE_ATLAS: ss2d.TextureAtlasLoader,
+	BITMAP_FONT: ss2d.BitmapFont
 };
 
 /**
@@ -116,7 +118,7 @@ ss2d.ResourceManager.loadResources = function(resources, oneElementLoadedCallbac
 		}
 		ss2d.ResourceManager.ACTIVE_LOADER = function(res){ throw 'No active loader for: '+res; };
 	}
-}
+};
 
 /**
  * Loads a resource with the specified loader.
@@ -134,7 +136,7 @@ ss2d.ResourceManager.loadResourceWithLoader = function(loaderClass, resourceName
 	}
 	
 	return lrArray[resHash];
-}
+};
 
 /**
  * Called by loadResources every time a resource is loaded
@@ -154,7 +156,7 @@ ss2d.ResourceManager.loadEndsCallback = function(resource)
 		ss2d.ResourceManager.ELEMENTS_LOADED_CALLBACK = function(){};
 		ss2d.ResourceManager.ONE_ELEMENT_LOADED_CALLBACK = function(){};
 	}
-}
+};
 
 //Built-in loaders
 
@@ -165,16 +167,16 @@ ss2d.ResourceManager.loadEndsCallback = function(resource)
 ss2d.ResourceManager.loadTexture = function(textureName, textureLoadedCallback)
 {	
 	return ss2d.ResourceManager.loadResourceWithLoader(ss2d.TextureLoader, textureName, textureLoadedCallback);
-}
+};
 
 /**
- * @param {string} textureName
- * @param {function} textureLoadedCallback
+ * @param {string} atlasName
+ * @param {function} atlasLoadedCallback
  */
-ss2d.ResourceManager.loadTextureAtlas = function(atlasName, textureLoadedCallback)
+ss2d.ResourceManager.loadTextureAtlas = function(atlasName, atlasLoadedCallback)
 {
-	return ss2d.ResourceManager.loadResourceWithLoader(ss2d.TextureAtlasLoader, atlasName, textureLoadedCallback);
-}
+	return ss2d.ResourceManager.loadResourceWithLoader(ss2d.TextureAtlasLoader, atlasName, atlasLoadedCallback);
+};
 
 /**
  * @param {string} soudName
@@ -183,9 +185,15 @@ ss2d.ResourceManager.loadTextureAtlas = function(atlasName, textureLoadedCallbac
 ss2d.ResourceManager.loadSound = function(soudName, soundLoadedCallback)
 {	
 	return ss2d.ResourceManager.loadResourceWithLoader(ss2d.AudioLoader, soudName, soundLoadedCallback);
-}
+};
 
-
-
+/**
+ * @param {string} bitmapFont
+ * @param {function} bitmapLoadedCallback
+ */
+ss2d.ResourceManager.loadBitmapFont = function(bitmapFont, bitmapLoadedCallback)
+{
+	return ss2d.ResourceManager.loadResourceWithLoader(ss2d.BitmapFontLoader, bitmapFont, bitmapLoadedCallback);
+};
 
 

@@ -37,13 +37,17 @@ ss2d.TextureAtlas = function(atlasJSONFileName, callbackFunction)
 
 /**
  * @private
- * @param {Object} frameName
- * @param {Object} targetClipArray
+ * @param {string} fileData
  */
 ss2d.TextureAtlas.prototype.atlasFileLoaded = function(fileData)
 {
 	this.mAtlasDescriptor = JSON.parse(fileData);
-	this.mTexture = new ss2d.Texture(this.mAtlasDescriptor['meta']['image'], this.mCallbackFunction);
+	
+	var pathEnd = this.mName.lastIndexOf('/') + 1;
+	var img = this.mAtlasDescriptor['meta']['image'];
+	var texturePath = (pathEnd > 0)?this.mName.substring(0, pathEnd)+img:img;
+	
+	this.mTexture = new ss2d.Texture(texturePath, this.mCallbackFunction);
 };
 
 
