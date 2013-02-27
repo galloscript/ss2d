@@ -87,7 +87,7 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 			//ctx.fillStyle = this.mColor.getHexString();
 			if(textureElement)
 			{
-				if(this.mClip.length == 4)
+				if(this.mClip.length > 3)
 				{
 					ctx.drawImage(textureElement,
 								  this.mClip[0],

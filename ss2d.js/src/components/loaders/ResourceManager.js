@@ -10,7 +10,7 @@ goog.provide('ss2d.ResourceManager');
 goog.require('ss2d.TextureLoader');
 goog.require('ss2d.TextureAtlasLoader');
 goog.require('ss2d.AudioLoader');
-goog.require('ss2d.BitmapFont');
+goog.require('ss2d.BitmapFontLoader');
 
 /** 
  * @class 
@@ -44,7 +44,7 @@ ss2d.ResourceManager.Loaders = {
 	TEXTURE: ss2d.TextureLoader,
 	SOUND: ss2d.AudioLoader,
 	TEXTURE_ATLAS: ss2d.TextureAtlasLoader,
-	BITMAP_FONT: ss2d.BitmapFont
+	BITMAP_FONT: ss2d.BitmapFontLoader
 };
 
 /**
