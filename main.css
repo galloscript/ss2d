@@ -7,6 +7,7 @@ div#menu {
 	float: left;
 	position: fixed;
 	width: 200px;
+	top: 20px;
 }
 
 div#pageContent {
