@@ -20,6 +20,17 @@ function goPage(pageUrl)
 	processURL();
 }
 
+function frameLoad()
+{
+	var iframe = document.getElementById('pageContentFrame');
+	if(history && history.replaceState)
+	{
+		history.replaceState(iframe.contentDocument.title, 
+							 iframe.contentDocument.title ,
+							 '#' + iframe.contentWindow.location.href.substring(iframe.contentWindow.location.href.indexOf('/ss2d/')+6));
+	}
+}
+
 window.onload = function()
 {
 	processURL();
