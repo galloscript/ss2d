@@ -5,7 +5,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="generator" content="JsDoc Toolkit" />
 		
-		<title>JsDoc Reference - ss2d.ReelSprite</title>
+		<title>JsDoc Reference - ss2d.BitmapFont</title>
 
 		<style type="text/css">
 			/* default.css */
@@ -292,7 +292,7 @@ ul.inheritsList
 <!-- ============================== class title ============================ -->
 			<h1 class="classTitle">
 				
-				Class ss2d.ReelSprite
+				Class ss2d.BitmapFont
 			</h1>
 
 <!-- ============================== class summary ========================== -->			
@@ -303,13 +303,13 @@ ul.inheritsList
 				
 				
 				
-					<br /><i>Defined in: </i> <a href="../symbols/src/ss2d.js_src_scene_ReelSprite.js.html">ReelSprite.js</a>.
+					<br /><i>Defined in: </i> <a href="../symbols/src/ss2d.js_src_components_graphics_BitmapFont.js.html">BitmapFont.js</a>.
 				
 			</p>
 
 <!-- ============================== constructor summary ==================== -->			
 			
-			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class ss2d.ReelSprite.">
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class ss2d.BitmapFont.">
 				<caption>Class Summary</caption>
 				<thead>
 					<tr>
@@ -322,9 +322,9 @@ ul.inheritsList
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/ss2d.ReelSprite.html#constructor">ss2d.ReelSprite</a></b>(x, y, w, h, descriptor)
+								<b><a href="../symbols/ss2d.BitmapFont.html#constructor">ss2d.BitmapFont</a></b>(bitmapFilename, callbackFunction)
 							</div>
-							<div class="description"></div>
+							<div class="description">A Bitmap font component for Glyph Designer XML .fnt output files.</div>
 						</td>
 					</tr>
 				</tbody>
@@ -338,7 +338,7 @@ ul.inheritsList
 			
 				
 				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class ss2d.ReelSprite.">
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class ss2d.BitmapFont.">
 					<caption>Method Summary</caption>
 					<thead>
 						<tr>
@@ -351,27 +351,9 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/ss2d.ReelSprite.html#pauseAnimation">pauseAnimation</a></b>()
+								<div class="fixedFont"><b><a href="../symbols/ss2d.BitmapFont.html#getGlyphClip">getGlyphClip</a></b>(charCode, targetClipArray)
 								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/ss2d.ReelSprite.html#playAnimation">playAnimation</a></b>(descriptor)
-								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/ss2d.ReelSprite.html#tick">tick</a></b>(deltaTime)
-								</div>
-								<div class="description"></div>
+								<div class="description">Retrieve the clip frame information for a given character</div>
 							</td>
 						</tr>
 					
@@ -392,11 +374,11 @@ ul.inheritsList
 				</div>
 				
 				<div class="fixedFont">
-						<b>ss2d.ReelSprite</b>(x, y, w, h, descriptor)
+						<b>ss2d.BitmapFont</b>(bitmapFilename, callbackFunction)
 				</div>
 				
 				<div class="description">
-					
+					A Bitmap font component for Glyph Designer XML .fnt output files.
 					
 				</div>
 				
@@ -408,34 +390,16 @@ ul.inheritsList
 						<dt class="heading">Parameters:</dt>
 						
 							<dt>
-								 <b>x</b>
+								<span class="light fixedFont">{string}</span>  <b>bitmapFilename</b>
 								
 							</dt>
-								<dd></dd>
+								<dd>The resource name</dd>
 						
 							<dt>
-								 <b>y</b>
+								<span class="light fixedFont">{function}</span>  <b>callbackFunction</b>
 								
 							</dt>
-								<dd></dd>
-						
-							<dt>
-								 <b>w</b>
-								
-							</dt>
-								<dd></dd>
-						
-							<dt>
-								 <b>h</b>
-								
-							</dt>
-								<dd></dd>
-						
-							<dt>
-								 <b>descriptor</b>
-								
-							</dt>
-								<dd></dd>
+								<dd>Called when the BitmapFont is loaded</dd>
 						
 						</dl>
 					
@@ -444,6 +408,13 @@ ul.inheritsList
 					
 					
 					
+					
+						<dl class="detailList">
+						<dt class="heading">See:</dt>
+						
+							<dd>http://www.71squared.com/en/glyphdesigner</dd>
+						
+						</dl>
 					
 
 			</div>
@@ -458,40 +429,15 @@ ul.inheritsList
 					Method Detail
 				</div>
 				
-					<a name="pauseAnimation"> </a>
+					<a name="getGlyphClip"> </a>
 					<div class="fixedFont">
 					
-					
-					<b>pauseAnimation</b>()
+					<span class="light">{number[4]}</span>
+					<b>getGlyphClip</b>(charCode, targetClipArray)
 					
 					</div>
 					<div class="description">
-						
-						
-						
-					</div>
-					
-					
-					
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="playAnimation"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>playAnimation</b>(descriptor)
-					
-					</div>
-					<div class="description">
-						
+						Retrieve the clip frame information for a given character
 						
 						
 					</div>
@@ -503,52 +449,29 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<b>descriptor</b>
+									<span class="light fixedFont">{number|string}</span> <b>charCode</b>
 									
 								</dt>
 								<dd></dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="tick"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>tick</b>(deltaTime)
-					
-					</div>
-					<div class="description">
-						
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<b>deltaTime</b>
+									<span class="light fixedFont">{number[4]=}</span> <b>targetClipArray</b>
 									
 								</dt>
-								<dd></dd>
+								<dd>Optional array where the clipping information will be copied</dd>
 							
 							</dl>
 						
 						
 						
 						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{number[4]}</span> The clip array</dd>
+							
+							</dl>
 						
 						
 						

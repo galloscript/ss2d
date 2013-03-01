@@ -5,7 +5,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="generator" content="JsDoc Toolkit" />
 		
-		<title>JsDoc Reference - ss2d.Matrix3</title>
+		<title>JsDoc Reference - ss2d.BitmapTextSprite</title>
 
 		<style type="text/css">
 			/* default.css */
@@ -292,24 +292,26 @@ ul.inheritsList
 <!-- ============================== class title ============================ -->
 			<h1 class="classTitle">
 				
-				Class ss2d.Matrix3
+				Class ss2d.BitmapTextSprite
 			</h1>
 
 <!-- ============================== class summary ========================== -->			
 			<p class="description">
 				
+				<br />Extends
+					.<br />
 				
 			
 				
 				
 				
-					<br /><i>Defined in: </i> <a href="../symbols/src/ss2d.js_src_maths_Matrix3.js.html">Matrix3.js</a>.
+					<br /><i>Defined in: </i> <a href="../symbols/src/ss2d.js_src_scene_BitmapTextSprite.js.html">BitmapTextSprite.js</a>.
 				
 			</p>
 
 <!-- ============================== constructor summary ==================== -->			
 			
-			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class ss2d.Matrix3.">
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class ss2d.BitmapTextSprite.">
 				<caption>Class Summary</caption>
 				<thead>
 					<tr>
@@ -322,7 +324,7 @@ ul.inheritsList
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/ss2d.Matrix3.html#constructor">ss2d.Matrix3</a></b>()
+								<b><a href="../symbols/ss2d.BitmapTextSprite.html#constructor">ss2d.BitmapTextSprite</a></b>(x, y, textString, bitmapFont, fontSize)
 							</div>
 							<div class="description"></div>
 						</td>
@@ -333,12 +335,90 @@ ul.inheritsList
 
 <!-- ============================== properties summary ===================== -->
 			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class ss2d.BitmapTextSprite.">
+					<caption>Field Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Field Attributes</th>
+							<th scope="col">Field Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/ss2d.BitmapTextSprite.html#inherited">inherited</a></b>
+								</div>
+								<div class="description"></div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/ss2d.BitmapTextSprite.html#mBitmapFont">mBitmapFont</a></b>
+								</div>
+								<div class="description"></div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/ss2d.BitmapTextSprite.html#mClip">mClip</a></b>
+								</div>
+								<div class="description"></div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/ss2d.BitmapTextSprite.html#mDisplayChars">mDisplayChars</a></b>
+								</div>
+								<div class="description">Number of chars that will be displayed, by default -1 (all), used for text scrolling.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/ss2d.BitmapTextSprite.html#mFontSize">mFontSize</a></b>
+								</div>
+								<div class="description"></div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/ss2d.BitmapTextSprite.html#mTextString">mTextString</a></b>
+								</div>
+								<div class="description"></div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+			
 
 <!-- ============================== methods summary ======================== -->
 			
 				
 				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class ss2d.Matrix3.">
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class ss2d.BitmapTextSprite.">
 					<caption>Method Summary</caption>
 					<thead>
 						<tr>
@@ -349,9 +429,18 @@ ul.inheritsList
 					<tbody>
 					
 						<tr>
-							<td class="attributes">&nbsp;</td>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/ss2d.Matrix3.html#clone">clone</a></b>()
+								<div class="fixedFont">ss2d.BitmapTextSprite.<b><a href="../symbols/ss2d.BitmapTextSprite.html#.convert">convert</a></b>(obj)
+								</div>
+								<div class="description"></div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ss2d.BitmapTextSprite.<b><a href="../symbols/ss2d.BitmapTextSprite.html#.createFromSerializedObject">createFromSerializedObject</a></b>(obj)
 								</div>
 								<div class="description"></div>
 							</td>
@@ -360,16 +449,26 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/ss2d.Matrix3.html#concatMatrix">concatMatrix</a></b>(otherMatrix)
+								<div class="fixedFont"><b><a href="../symbols/ss2d.BitmapTextSprite.html#getDisplayChars">getDisplayChars</a></b>()
 								</div>
-								<div class="description">Concatenates a matrix with the current matrix, combining the geometric effects of the two.</div>
+								<div class="description">Gets the number of chars that will be displayed, use with ss2d.Tween to create scroll animation.</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/ss2d.Matrix3.html#determinant">determinant</a></b>()
+								<div class="fixedFont"><b><a href="../symbols/ss2d.BitmapTextSprite.html#getPropertiesJSON">getPropertiesJSON</a></b>()
+								</div>
+								<div class="description">SERIALIZACION SPEC:
+mTextString : str</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/ss2d.BitmapTextSprite.html#interpolateState">interpolateState</a></b>(prevState, nextState, part)
 								</div>
 								<div class="description"></div>
 							</td>
@@ -378,7 +477,7 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/ss2d.Matrix3.html#getMatF32Array">getMatF32Array</a></b>()
+								<div class="fixedFont"><b><a href="../symbols/ss2d.BitmapTextSprite.html#render">render</a></b>(renderSupport)
 								</div>
 								<div class="description"></div>
 							</td>
@@ -387,43 +486,7 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/ss2d.Matrix3.html#identity">identity</a></b>()
-								</div>
-								<div class="description">Sets each matrix property to a value that causes a null transformation.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/ss2d.Matrix3.html#invert">invert</a></b>()
-								</div>
-								<div class="description">Performs the opposite transformation of the matrix.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/ss2d.Matrix3.html#rotate">rotate</a></b>(angle)
-								</div>
-								<div class="description">Applies a rotation on the matrix (angle in RAD).</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/ss2d.Matrix3.html#scale">scale</a></b>(sx, sy)
-								</div>
-								<div class="description">Applies a uniform scaling transformation to the matrix.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/ss2d.Matrix3.html#setValues">setValues</a></b>(a, b, c, d, tx, ty)
+								<div class="fixedFont"><b><a href="../symbols/ss2d.BitmapTextSprite.html#restoreSerializedProperties">restoreSerializedProperties</a></b>(objBackup)
 								</div>
 								<div class="description"></div>
 							</td>
@@ -432,27 +495,18 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/ss2d.Matrix3.html#toString">toString</a></b>()
+								<div class="fixedFont"><b><a href="../symbols/ss2d.BitmapTextSprite.html#setDisplayChars">setDisplayChars</a></b>(displayChars)
+								</div>
+								<div class="description">Sets the number of chars that will be displayed, use with ss2d.Tween to create scroll animation.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/ss2d.BitmapTextSprite.html#toJSON">toJSON</a></b>()
 								</div>
 								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/ss2d.Matrix3.html#transformPoint">transformPoint</a></b>(point, targetPoint)
-								</div>
-								<div class="description">Applies the geometric transformation represented by the matrix to the specified point.</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/ss2d.Matrix3.html#translate">translate</a></b>(dx, dy)
-								</div>
-								<div class="description">Translates the matrix along the x and y axes.</div>
 							</td>
 						</tr>
 					
@@ -473,7 +527,7 @@ ul.inheritsList
 				</div>
 				
 				<div class="fixedFont">
-						<b>ss2d.Matrix3</b>()
+						<b>ss2d.BitmapTextSprite</b>(x, y, textString, bitmapFont, fontSize)
 				</div>
 				
 				<div class="description">
@@ -484,6 +538,41 @@ ul.inheritsList
 				
 				
 				
+					
+						<dl class="detailList">
+						<dt class="heading">Parameters:</dt>
+						
+							<dt>
+								<span class="light fixedFont">{number=}</span>  <b>x</b>
+								
+							</dt>
+								<dd>Position in x axis</dd>
+						
+							<dt>
+								<span class="light fixedFont">{number=}</span>  <b>y</b>
+								
+							</dt>
+								<dd>Position in y axis</dd>
+						
+							<dt>
+								<span class="light fixedFont">{string}</span>  <b>textString</b>
+								
+							</dt>
+								<dd>The text that will be displayed.</dd>
+						
+							<dt>
+								<span class="light fixedFont">{string}</span>  <b>bitmapFont</b>
+								
+							</dt>
+								<dd>Bitmap font name.</dd>
+						
+							<dt>
+								<span class="light fixedFont">{number}</span>  <b>fontSize</b>
+								
+							</dt>
+								<dd>size in pixels of the line-height</dd>
+						
+						</dl>
 					
 					
 					
@@ -497,6 +586,150 @@ ul.inheritsList
 
 <!-- ============================== field details ========================== -->		
 			
+				<div class="sectionTitle">
+					Field Detail
+				</div>
+				
+					<a name="inherited"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{*}</span>
+					<b>inherited</b>
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">See:</dt>
+							
+							<dd><a href="../symbols/ss2d.Quad.html">ss2d.Quad</a></dd>
+							
+							</dl>
+						
+						
+
+					<hr />
+				
+					<a name="mBitmapFont"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{string}</span>
+					<b>mBitmapFont</b>
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="mClip"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{number[5]}</span>
+					<b>mClip</b>
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="mDisplayChars"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{string}</span>
+					<b>mDisplayChars</b>
+					
+					</div>
+					<div class="description">
+						Number of chars that will be displayed, by default -1 (all), used for text scrolling.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="mFontSize"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{number}</span>
+					<b>mFontSize</b>
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="mTextString"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{string}</span>
+					<b>mTextString</b>
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					
+				
+			
 
 <!-- ============================== method details ========================= -->		
 			
@@ -504,47 +737,15 @@ ul.inheritsList
 					Method Detail
 				</div>
 				
-					<a name="clone"> </a>
-					<div class="fixedFont">
-					
-					<span class="light">{<a href="../symbols/ss2d.Matrix3.html">ss2d.Matrix3</a>}</span>
-					<b>clone</b>()
-					
-					</div>
-					<div class="description">
-						
-						
-						
-					</div>
+					<a name=".convert"> </a>
+					<div class="fixedFont">&lt;static&gt; 
 					
 					
-					
-						
-						
-						
-						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{<a href="../symbols/ss2d.Matrix3.html">ss2d.Matrix3</a>}</span> new ss2d.Matrix3 object that is a copy of this one</dd>
-							
-							</dl>
-						
-						
-						
-
-					<hr />
-				
-					<a name="concatMatrix"> </a>
-					<div class="fixedFont">
-					
-					<span class="light">{<a href="../symbols/ss2d.Matrix3.html">ss2d.Matrix3</a>}</span>
-					<b>concatMatrix</b>(otherMatrix)
+					<span class="light">ss2d.BitmapTextSprite.</span><b>convert</b>(obj)
 					
 					</div>
 					<div class="description">
-						Concatenates a matrix with the current matrix, combining the geometric effects of the two.
+						
 						
 						
 					</div>
@@ -556,7 +757,7 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{<a href="../symbols/ss2d.Matrix3.html">ss2d.Matrix3</a>}</span> <b>otherMatrix</b>
+									<b>obj</b>
 									
 								</dt>
 								<dd></dd>
@@ -567,27 +768,56 @@ ul.inheritsList
 						
 						
 						
+						
+						
+
+					<hr />
+				
+					<a name=".createFromSerializedObject"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">ss2d.BitmapTextSprite.</span><b>createFromSerializedObject</b>(obj)
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+					
+						
 							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
+							<dt class="heading">Parameters:</dt>
 							
-								<dd><span class="light fixedFont">{<a href="../symbols/ss2d.Matrix3.html">ss2d.Matrix3</a>}</span> this object</dd>
+								<dt>
+									<b>obj</b>
+									
+								</dt>
+								<dd></dd>
 							
 							</dl>
+						
+						
+						
+						
 						
 						
 						
 
 					<hr />
 				
-					<a name="determinant"> </a>
+					<a name="getDisplayChars"> </a>
 					<div class="fixedFont">
 					
 					<span class="light">{number}</span>
-					<b>determinant</b>()
+					<b>getDisplayChars</b>()
 					
 					</div>
 					<div class="description">
-						
+						Gets the number of chars that will be displayed, use with ss2d.Tween to create scroll animation.
 						
 						
 					</div>
@@ -602,7 +832,7 @@ ul.inheritsList
 							<dl class="detailList">
 							<dt class="heading">Returns:</dt>
 							
-								<dd><span class="light fixedFont">{number}</span> The determinant of the matrix.</dd>
+								<dd><span class="light fixedFont">{number}</span> </dd>
 							
 							</dl>
 						
@@ -611,15 +841,16 @@ ul.inheritsList
 
 					<hr />
 				
-					<a name="getMatF32Array"> </a>
+					<a name="getPropertiesJSON"> </a>
 					<div class="fixedFont">
 					
-					<span class="light">{Float32Array}</span>
-					<b>getMatF32Array</b>()
+					
+					<b>getPropertiesJSON</b>()
 					
 					</div>
 					<div class="description">
-						
+						SERIALIZACION SPEC:
+mTextString : str
 						
 						
 					</div>
@@ -630,180 +861,17 @@ ul.inheritsList
 						
 						
 						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{Float32Array}</span> for uniform shader attributes</dd>
-							
-							</dl>
 						
 						
 						
 
 					<hr />
 				
-					<a name="identity"> </a>
+					<a name="interpolateState"> </a>
 					<div class="fixedFont">
 					
-					<span class="light">{<a href="../symbols/ss2d.Matrix3.html">ss2d.Matrix3</a>}</span>
-					<b>identity</b>()
 					
-					</div>
-					<div class="description">
-						Sets each matrix property to a value that causes a null transformation.
-						
-						
-					</div>
-					
-					
-					
-						
-						
-						
-						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{<a href="../symbols/ss2d.Matrix3.html">ss2d.Matrix3</a>}</span> this object</dd>
-							
-							</dl>
-						
-						
-						
-
-					<hr />
-				
-					<a name="invert"> </a>
-					<div class="fixedFont">
-					
-					<span class="light">{<a href="../symbols/ss2d.Matrix3.html">ss2d.Matrix3</a>}</span>
-					<b>invert</b>()
-					
-					</div>
-					<div class="description">
-						Performs the opposite transformation of the matrix.
-						
-						
-					</div>
-					
-					
-					
-						
-						
-						
-						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{<a href="../symbols/ss2d.Matrix3.html">ss2d.Matrix3</a>}</span> this object</dd>
-							
-							</dl>
-						
-						
-						
-
-					<hr />
-				
-					<a name="rotate"> </a>
-					<div class="fixedFont">
-					
-					<span class="light">{<a href="../symbols/ss2d.Matrix3.html">ss2d.Matrix3</a>}</span>
-					<b>rotate</b>(angle)
-					
-					</div>
-					<div class="description">
-						Applies a rotation on the matrix (angle in RAD).
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<span class="light fixedFont">{number}</span> <b>angle</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{<a href="../symbols/ss2d.Matrix3.html">ss2d.Matrix3</a>}</span> this object</dd>
-							
-							</dl>
-						
-						
-						
-
-					<hr />
-				
-					<a name="scale"> </a>
-					<div class="fixedFont">
-					
-					<span class="light">{<a href="../symbols/ss2d.Matrix3.html">ss2d.Matrix3</a>}</span>
-					<b>scale</b>(sx, sy)
-					
-					</div>
-					<div class="description">
-						Applies a uniform scaling transformation to the matrix.
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<span class="light fixedFont">{number}</span> <b>sx</b>
-									
-								</dt>
-								<dd>scale in x axis</dd>
-							
-								<dt>
-									<span class="light fixedFont">{number}</span> <b>sy</b>
-									
-								</dt>
-								<dd>scale in y axis</dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{<a href="../symbols/ss2d.Matrix3.html">ss2d.Matrix3</a>}</span> this object</dd>
-							
-							</dl>
-						
-						
-						
-
-					<hr />
-				
-					<a name="setValues"> </a>
-					<div class="fixedFont">
-					
-					<span class="light">{<a href="../symbols/ss2d.Matrix3.html">ss2d.Matrix3</a>}</span>
-					<b>setValues</b>(a, b, c, d, tx, ty)
+					<b>interpolateState</b>(prevState, nextState, part)
 					
 					</div>
 					<div class="description">
@@ -819,37 +887,19 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{number}</span> <b>a</b>
+									<b>prevState</b>
 									
 								</dt>
 								<dd></dd>
 							
 								<dt>
-									<span class="light fixedFont">{number}</span> <b>b</b>
+									<b>nextState</b>
 									
 								</dt>
 								<dd></dd>
 							
 								<dt>
-									<span class="light fixedFont">{number}</span> <b>c</b>
-									
-								</dt>
-								<dd></dd>
-							
-								<dt>
-									<span class="light fixedFont">{number}</span> <b>d</b>
-									
-								</dt>
-								<dd></dd>
-							
-								<dt>
-									<span class="light fixedFont">{number}</span> <b>tx</b>
-									
-								</dt>
-								<dd></dd>
-							
-								<dt>
-									<span class="light fixedFont">{number}</span> <b>ty</b>
+									<b>part</b>
 									
 								</dt>
 								<dd></dd>
@@ -859,60 +909,21 @@ ul.inheritsList
 						
 						
 						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{<a href="../symbols/ss2d.Matrix3.html">ss2d.Matrix3</a>}</span> this object</dd>
-							
-							</dl>
 						
 						
 						
 
 					<hr />
 				
-					<a name="toString"> </a>
+					<a name="render"> </a>
 					<div class="fixedFont">
 					
-					<span class="light">{string}</span>
-					<b>toString</b>()
+					
+					<b>render</b>(renderSupport)
 					
 					</div>
 					<div class="description">
 						
-						
-						
-					</div>
-					
-					
-					
-						
-						
-						
-						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{string}</span> for debug purposes</dd>
-							
-							</dl>
-						
-						
-						
-
-					<hr />
-				
-					<a name="transformPoint"> </a>
-					<div class="fixedFont">
-					
-					<span class="light">{<a href="../symbols/ss2d.Point.html">ss2d.Point</a>}</span>
-					<b>transformPoint</b>(point, targetPoint)
-					
-					</div>
-					<div class="description">
-						Applies the geometric transformation represented by the matrix to the specified point.
 						
 						
 					</div>
@@ -924,13 +935,7 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{<a href="../symbols/ss2d.Point.html">ss2d.Point</a>}</span> <b>point</b>
-									
-								</dt>
-								<dd></dd>
-							
-								<dt>
-									<span class="light fixedFont">{<a href="../symbols/ss2d.Point.html">ss2d.Point</a>=}</span> <b>targetPoint</b>
+									<b>renderSupport</b>
 									
 								</dt>
 								<dd></dd>
@@ -940,28 +945,21 @@ ul.inheritsList
 						
 						
 						
-						
-							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
-							
-								<dd><span class="light fixedFont">{<a href="../symbols/ss2d.Point.html">ss2d.Point</a>}</span> the transformed point</dd>
-							
-							</dl>
 						
 						
 						
 
 					<hr />
 				
-					<a name="translate"> </a>
+					<a name="restoreSerializedProperties"> </a>
 					<div class="fixedFont">
 					
-					<span class="light">{<a href="../symbols/ss2d.Matrix3.html">ss2d.Matrix3</a>}</span>
-					<b>translate</b>(dx, dy)
+					
+					<b>restoreSerializedProperties</b>(objBackup)
 					
 					</div>
 					<div class="description">
-						Translates the matrix along the x and y axes.
+						
 						
 						
 					</div>
@@ -973,29 +971,77 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{number}</span> <b>dx</b>
+									<b>objBackup</b>
 									
 								</dt>
-								<dd>movement in x axis</dd>
-							
-								<dt>
-									<span class="light fixedFont">{number}</span> <b>dy</b>
-									
-								</dt>
-								<dd>movement in y axis</dd>
+								<dd></dd>
 							
 							</dl>
 						
 						
 						
 						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setDisplayChars"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setDisplayChars</b>(displayChars)
+					
+					</div>
+					<div class="description">
+						Sets the number of chars that will be displayed, use with ss2d.Tween to create scroll animation.
+						
+						
+					</div>
+					
+					
+					
 						
 							<dl class="detailList">
-							<dt class="heading">Returns:</dt>
+							<dt class="heading">Parameters:</dt>
 							
-								<dd><span class="light fixedFont">{<a href="../symbols/ss2d.Matrix3.html">ss2d.Matrix3</a>}</span> this object</dd>
+								<dt>
+									<span class="light fixedFont">{number}</span> <b>displayChars</b>
+									
+								</dt>
+								<dd></dd>
 							
 							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="toJSON"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>toJSON</b>()
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
 						
 						
 						

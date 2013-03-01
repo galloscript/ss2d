@@ -1,0 +1,30 @@
+
+body {
+	font-family: Verdana;
+}
+
+div#menu {
+	float: left;
+	position: fixed;
+	width: 200px;
+}
+
+div#pageContent {
+	float: right;
+    position: fixed;
+    top: 0px;
+    left: 220px;
+    bottom: 0px;
+    min-width: 100%;
+}
+
+div#pageContent iframe {
+    position: absolute;
+    top: 70px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    border: 0px;
+}
