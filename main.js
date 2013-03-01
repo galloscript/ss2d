@@ -6,7 +6,7 @@ function processURL()
 	{
 		var pageToLoad = window.location.href.substring(paramIndex+pageParam.length);
 		console.log(pageToLoad);
-		if(newUrl.indexOf(':blank') == -1)
+		if(pageToLoad.indexOf(':blank') == -1)
 		{
 			document.getElementById('pageContentFrame').src = pageToLoad;
 		}
