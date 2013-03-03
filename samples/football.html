@@ -17,10 +17,9 @@
            Shift + Space bar - shoot forward <p>
         <canvas id="mainCanvas" width="512" height="512">No canvas Support!</canvas>
         <script src="http://galloman.github.com/ss2d/lib/ss2dLib-min.js"></script>
-<script id="classDef">
+<script id="player">
   var ballgame = {};
   
-  //FOOTBALL PLAYER
   ballgame.Player = function(x, y, gameField)
   {
     ss2d.Quad.call(this, x, y, 16, 50, '#0000ff');
@@ -68,10 +67,8 @@
   {
     this.mRecentShoot = state;
   }
-
-  //END FOOTBALL PLAYER
-
-  //BALL
+</script>
+<script id="ball">
   ballgame.Ball = function(x, y, gameField)
   {
     ss2d.Sprite.call(this, x, y, 20, 20, 'assets/textures/fball1.png');
@@ -142,9 +139,8 @@
     this.mRotation += this.mVelocity.length()*deltaTime*0.05;
 
   };
-  //END BALL
-
-  //FIELD
+</script>
+<script id="field">
   ballgame.Field = function(players)
   {
     ss2d.DisplayObjectContainer.call(this);
@@ -309,9 +305,6 @@
 
     this.mSwitchCameraWasPressed = input.isKeyPressed(ss2d.Input.Keys.C);
   };
-  //END FIELD
-
-
 </script>
         <script id="launcher">
 
@@ -322,16 +315,25 @@
 
         </script>
         <p> Class definitions code</p>
-        <pre class="prettyprint lang-js" id="code1">
+        <pre class="prettyprint lang-js" id="codeA">
         </pre>
-        <p> Launch code</p>
-        <pre class="prettyprint lang-js" id="code2">
+        <pre class="prettyprint lang-js" id="codeB">
+        </pre>
+        <pre class="prettyprint lang-js" id="codeC">
+        </pre>
+
+        <p> Launcher code</p>
+        <pre class="prettyprint lang-js" id="codeL">
         </pre>
         <script>
-        var c1 = document.getElementById('classDef').innerHTML;
-        var c2 = document.getElementById('launcher').innerHTML;
-        document.getElementById('code1').innerHTML = c1;
-        document.getElementById('code2').innerHTML = c2;
+        var cA = document.getElementById('player').innerHTML;
+        var cB = document.getElementById('ball').innerHTML;
+        var cC = document.getElementById('field').innerHTML;
+        var cL = document.getElementById('launcher').innerHTML;
+        document.getElementById('codeA').innerHTML = cA;
+        document.getElementById('codeB').innerHTML = cB;
+        document.getElementById('codeC').innerHTML = cC;
+        document.getElementById('codeL').innerHTML = cL;
         </script>
         <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
         <link rel="stylesheet" type="text/css" href="http://google-code-prettify.googlecode.com/svn/trunk/styles/desert.css" />
