@@ -44,7 +44,9 @@ ss2d.Point.prototype.length = function()
  */
 ss2d.Point.prototype.normalize = function()
 {
-	return ss2d.Point.scalePoint(this, 1.0 / this.length());
+	var len = this.length();
+	var scalar = (len > 0)?1.0/len:0.0;
+	return ss2d.Point.scalePoint(this,  scalar);
 }
 
 /**
