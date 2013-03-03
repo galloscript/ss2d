@@ -51,12 +51,12 @@
     if(this == this.mGameField.mActivePlayer)
     {
       this.mAlpha = 0.5;
-      this.mColor.setValue([255,0,255]);
+      this.mColor.setRed(255);
     }
     else
     {
       this.mAlpha = 1;
-      this.mColor.setValue([0,0,255]);
+      this.mColor.setRed(0);
     }
 
     this.mLocation.mX = Math.max(Math.min(this.mLocation.mX, 512), this.mWidth - this.mPivotX);
