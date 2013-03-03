@@ -9,63 +9,71 @@
     <h3>Text Rendering Demo</h3>
     <canvas id="mainCanvas" width="512" height="512">No canvas Support!</canvas>
     <script src="http://galloman.github.com/ss2d/lib/ss2dLib-min.js"></script>
-    <script>
-    function startGame()
+  <script id="textDemo">
+  function startGame()
+  {
+    var view = new ss2d.View('mainCanvas');
+    view.mBackgroundFillStyle = '#cccccc';
+
+    var text = new ss2d.TextSprite(20, 300, 'hello text sprite', '#000000');
+    view.mMainScene.addObject(text);
+    text.mDisplayChars = 0;
+    text.tick = function(deltaTime)
     {
-      var view = new ss2d.View('mainCanvas');
-      view.mBackgroundFillStyle = '#cccccc';
+      this.mDisplayChars += 20*deltaTime;
 
-      var text = new ss2d.TextSprite(20, 300, 'hello text sprite', '#000000');
-      view.mMainScene.addObject(text);
-      text.mDisplayChars = 0;
-      text.tick = function(deltaTime)
-      {
-        this.mDisplayChars += 20*deltaTime;
+      if(this.mDisplayChars > this.mTextString.length*2)
+        this.mDisplayChars = 0;
 
-        if(this.mDisplayChars > this.mTextString.length*2)
-          this.mDisplayChars = 0;
-
-        var input = ss2d.CURRENT_VIEW.mInput;
-          this.mLocation.set(input.mMousePoint.mX,input.mMousePoint.mY - 24);
-      }
-
-      var funText = new ss2d.BitmapTextSprite(30, 20, 'hello world', 'assets/fonts/fun01.fnt', 45);
-      view.mMainScene.addObject(funText);
-      funText.tick = function(deltaTime)
-      {
-        this.mDisplayChars += 10*deltaTime;
-
-        if(this.mDisplayChars > this.mTextString.length*2)
-          this.mDisplayChars = 0;
-      }
-
-      var goldText = new ss2d.BitmapTextSprite(50, 175, 'Cool Fonts', 'assets/fonts/gold01.fnt', 55);
-      view.mMainScene.addObject(goldText);
-
-      var funText2 = new ss2d.BitmapTextSprite(20, 320, 'More cool fonts', 'assets/fonts/fun02.fnt', 35);
-      view.mMainScene.addObject(funText2);
-
-      var cursorText = new ss2d.BitmapTextSprite(0, 0, '<', 'assets/fonts/gold02.fnt', 55);
-      view.mMainScene.addObject(cursorText);
-      cursorText.mAlpha = 0.6;
-      cursorText.tick = function()
-      {
-        var input = ss2d.CURRENT_VIEW.mInput;
-        this.mLocation.set(input.mMouseX, input.mMouseY);
-      }
-
-      view.startLoop();
+      var input = ss2d.CURRENT_VIEW.mInput;
+        this.mLocation.set(input.mMousePoint.mX,input.mMousePoint.mY - 24);
     }
 
-    ss2d.ResourceManager.loadResources([
-    ss2d.ResourceManager.Loaders.BITMAP_FONT,
-    'assets/fonts/gold01.fnt',
-    'assets/fonts/gold02.fnt',
-    'assets/fonts/fun01.fnt',
-    'assets/fonts/fun02.fnt',
-    ],function(resname, count, total){
-      console.log(resname+' loaded '+count+'/'+total);
-    },startGame);
+    var funText = new ss2d.BitmapTextSprite(30, 20, 'hello world', 'assets/fonts/fun01.fnt', 45);
+    view.mMainScene.addObject(funText);
+    funText.tick = function(deltaTime)
+    {
+      this.mDisplayChars += 10*deltaTime;
+
+      if(this.mDisplayChars > this.mTextString.length*2)
+        this.mDisplayChars = 0;
+    }
+
+    var goldText = new ss2d.BitmapTextSprite(50, 175, 'Cool Fonts', 'assets/fonts/gold01.fnt', 55);
+    view.mMainScene.addObject(goldText);
+
+    var funText2 = new ss2d.BitmapTextSprite(20, 320, 'More cool fonts', 'assets/fonts/fun02.fnt', 35);
+    view.mMainScene.addObject(funText2);
+
+    var cursorText = new ss2d.BitmapTextSprite(0, 0, '<', 'assets/fonts/gold02.fnt', 55);
+    view.mMainScene.addObject(cursorText);
+    cursorText.mAlpha = 0.6;
+    cursorText.tick = function()
+    {
+      var input = ss2d.CURRENT_VIEW.mInput;
+      this.mLocation.set(input.mMouseX, input.mMouseY);
+    }
+
+    view.startLoop();
+  }
+
+  ss2d.ResourceManager.loadResources([
+  ss2d.ResourceManager.Loaders.BITMAP_FONT,
+  'assets/fonts/gold01.fnt',
+  'assets/fonts/gold02.fnt',
+  'assets/fonts/fun01.fnt',
+  'assets/fonts/fun02.fnt',
+  ],function(resname, count, total){
+    console.log(resname+' loaded '+count+'/'+total);
+  },startGame);
+</script>
+  <pre class="prettyprint" id="code1">
+  </pre>
+  <script>
+  var c1 = document.getElementById('textDemo').innerHTML;
+  document.getElementById('code1').innerHTML = c1;
   </script>
+  <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://google-code-prettify.googlecode.com/svn/trunk/styles/desert.css" />
   </body>
 </html>
