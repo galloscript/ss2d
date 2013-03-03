@@ -17,7 +17,7 @@
            Shift + Space bar - shoot forward <p>
         <canvas id="mainCanvas" width="512" height="512">No canvas Support!</canvas>
         <script src="http://galloman.github.com/ss2d/lib/ss2dLib-min.js"></script>
-        <script>
+        <script id="classDef">
           var ballgame = {};
           
           //FOOTBALL PLAYER
@@ -313,7 +313,7 @@
 
 
         </script>
-        <script>
+        <script id="launcher">
 
           var field = new ballgame.Field(3 + Math.floor(Math.random()*4));
           var view = new ss2d.View('mainCanvas', field);
@@ -321,5 +321,18 @@
           view.startLoop();
 
         </script>
+        <p> Class definitions code</p>
+        <pre class="prettyprint lang-js linenums" id="code1">
+        </pre>
+        <p> Launch code</p>
+        <pre class="prettyprint lang-js linenums" id="code2">
+        </pre>
+        <script>
+        var c1 = document.getElementById('classDef').innerHTML;
+        var c2 = document.getElementById('launcher').innerHTML;
+        document.getElementById('code1').innerHTML = c1;
+        document.getElementById('code2').innerHTML = c2;
+        </script>
+        <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
     </body>
 </html>
