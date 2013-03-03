@@ -38,14 +38,10 @@ function frameLoad()
 		}
 	}
 
-	document.getElementById('pageContent').style.height = '100%';
 	document.getElementById('pageContentFrame').style.height = '100%';
-	document.getElementById('pageContent').style.width = '100%';
-	document.getElementById('pageContentFrame').style.width = '100%';
-	document.getElementById('pageContent').style.height = document.getElementById('pageContentFrame').contentDocument.body.scrollHeight;
-	document.getElementById('pageContentFrame').style.height = document.getElementById('pageContentFrame').contentDocument.body.scrollHeight;
-	document.getElementById('pageContent').style.height = document.getElementById('pageContentFrame').contentDocument.body.scrollWidth;
-	document.getElementById('pageContentFrame').style.width = document.getElementById('pageContentFrame').contentDocument.body.scrollWidth;
+	document.getElementById('pageContentFrame').style.height = document.getElementById('pageContentFrame').contentDocument.body.scrollHeight+'px';
+	document.getElementById('pageContent').style.width = document.getElementById('pageContentFrame').contentDocument.body.scrollWidth+'px';
+	document.getElementById('pageContentFrame').style.width = document.getElementById('pageContentFrame').contentDocument.body.scrollWidth+'px';
 }
 
 window.onload = function()
