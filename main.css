@@ -5,14 +5,14 @@ body {
 
 div#menu {
 	float: left;
-	position: relative;
+	position: fixed;
 	width: 200px;
 	top: 20px;
 }
 
 div#pageContent {
 	float: right;
-    position: relative;
+    position: fixed;
     top: 0px;
     left: 220px;
     bottom: 0px;
