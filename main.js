@@ -9,14 +9,7 @@ function processURL()
 		if(pageToLoad.indexOf(':blank') == -1)
 		{
 			document.getElementById('pageContentFrame').src = pageToLoad;
-			document.getElementById('pageContent').style.height = '100%';
-			document.getElementById('pageContentFrame').style.height = '100%';
-			document.getElementById('pageContent').style.width = '100%';
-			document.getElementById('pageContentFrame').style.width = '100%';
-			document.getElementById('pageContent').style.height = document.getElementById('pageContentFrame').contentDocument.body.scrollHeight;
-			document.getElementById('pageContentFrame').style.height = document.getElementById('pageContentFrame').contentDocument.body.scrollHeight;
-			document.getElementById('pageContent').style.height = document.getElementById('pageContentFrame').contentDocument.body.scrollWidth;
-			document.getElementById('pageContentFrame').style.width = document.getElementById('pageContentFrame').contentDocument.body.scrollWidth;
+
 		}
 	}
 	else
@@ -44,6 +37,15 @@ function frameLoad()
 								 newUrl);
 		}
 	}
+
+	document.getElementById('pageContent').style.height = '100%';
+	document.getElementById('pageContentFrame').style.height = '100%';
+	document.getElementById('pageContent').style.width = '100%';
+	document.getElementById('pageContentFrame').style.width = '100%';
+	document.getElementById('pageContent').style.height = document.getElementById('pageContentFrame').contentDocument.body.scrollHeight;
+	document.getElementById('pageContentFrame').style.height = document.getElementById('pageContentFrame').contentDocument.body.scrollHeight;
+	document.getElementById('pageContent').style.height = document.getElementById('pageContentFrame').contentDocument.body.scrollWidth;
+	document.getElementById('pageContentFrame').style.width = document.getElementById('pageContentFrame').contentDocument.body.scrollWidth;
 }
 
 window.onload = function()
