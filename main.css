@@ -12,7 +12,7 @@ div#menu {
 
 div#pageContent {
 	float: right;
-    /*position: fixed;*/
+    position: relative;
     top: 0px;
     left: 220px;
     bottom: 0px;
