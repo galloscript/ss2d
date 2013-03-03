@@ -67,6 +67,7 @@
   {
     this.mRecentShoot = state;
   }
+  
 </script>
 <script id="ball">
   ballgame.Ball = function(x, y, gameField)
@@ -139,6 +140,7 @@
     this.mRotation += this.mVelocity.length()*deltaTime*0.05;
 
   };
+
 </script>
 <script id="field">
   ballgame.Field = function(players)
@@ -305,6 +307,7 @@
 
     this.mSwitchCameraWasPressed = input.isKeyPressed(ss2d.Input.Keys.C);
   };
+
 </script>
         <script id="launcher">
 
@@ -314,11 +317,14 @@
           view.startLoop();
 
         </script>
-        <p> Class definitions code</p>
+        <h4> Class definitions code</h4>
+        <p>Player class</p>
         <pre class="prettyprint lang-js" id="codeA">
         </pre>
+        <p>Ball class</p>
         <pre class="prettyprint lang-js" id="codeB">
         </pre>
+        <p>Field class</p>
         <pre class="prettyprint lang-js" id="codeC">
         </pre>
 
