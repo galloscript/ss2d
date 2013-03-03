@@ -1,0 +1,53 @@
+<title>Car</title>
+<canvas id="mainCanvas" width="512" height="512">No canvas!</canvas>
+<script src="http://galloman.github.com/ss2d/lib/ss2dLib-min.js"></script>
+<script id="car">
+  var view = new ss2d.View('mainCanvas');
+  view.mBackgroundFillStyle = '#aabbbb';
+  
+  var car = new ss2d.DisplayObjectContainer(200, 200);
+  view.mMainScene.addObject(car);
+  car.mPicked = false;
+
+  car.tick = function (deltaTime) {
+    var input = ss2d.CURRENT_VIEW.mInput;
+    
+    this.mPicked = input.mMouseDown && (this.mPicked || !input.mPreviousMouseDown && this.hitTestPoint(input.mMousePoint));
+    
+    if(this.mPicked) {
+      this.mLocation.mX = input.mMouseX;
+      this.mLocation.mY = input.mMouseY;
+    } else {
+      var mouseDiff = ss2d.Point.subtractPoints(input.mMousePoint, this.mLocation);
+      this.mLocation.mX -= mouseDiff.mX*deltaTime;
+      this.mLocation.mY -= mouseDiff.mY*deltaTime;
+      var left = input.mMousePoint.mX < this.mLocation.mX?-1:1;
+      var rot = ss2d.Point.angle(mouseDiff, ss2d.Point.Y_AXIS)*left;  
+      this.mRotation = (isNaN(rot))?this.mRotation:rot;
+    }
+  };
+
+  //car body
+  var quad = new ss2d.Quad(0, 0, 40, 40, [255,255,0]);
+  var quad2 = new ss2d.Quad(0,-30, 40, 40, [0,255,0]);
+  quad2.mPivotX = quad2.mPivotY = quad.mPivotX = quad.mPivotY = 20;
+  quad2.mAlpha = 0.5;
+  car.addObject(quad);
+  car.addObject(quad2);
+  
+  //wheels
+  car.addObject(new ss2d.Quad(20, 6, 6, 16, '#000000'));
+  car.addObject(new ss2d.Quad(-26, 6, 6, 16, '#000000'));  
+  car.addObject(new ss2d.Quad(20, -50, 6, 16, '#000000'));
+  car.addObject(new ss2d.Quad(-26, -50, 6, 16, '#000000'));
+
+  view.startLoop();
+</script>
+<pre class="prettyprint" id="code1">
+</pre>
+<script>
+var c1 = document.getElementById('car').innerHTML;
+document.getElementById('code1').innerHTML = c1;
+</script>
+<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+<link rel="stylesheet" type="text/css" href="http://google-code-prettify.googlecode.com/svn/trunk/styles/desert.css" />
