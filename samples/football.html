@@ -17,302 +17,302 @@
            Shift + Space bar - shoot forward <p>
         <canvas id="mainCanvas" width="512" height="512">No canvas Support!</canvas>
         <script src="http://galloman.github.com/ss2d/lib/ss2dLib-min.js"></script>
-        <script id="classDef">
-          var ballgame = {};
-          
-          //FOOTBALL PLAYER
-          ballgame.Player = function(x, y, gameField)
+<script id="classDef">
+  var ballgame = {};
+  
+  //FOOTBALL PLAYER
+  ballgame.Player = function(x, y, gameField)
+  {
+    ss2d.Quad.call(this, x, y, 16, 50, '#0000ff');
+    this.mPivotX = 8;
+    this.mPivotY = 46;
+    this.mGameField = gameField;
+    this.mVelocity = new ss2d.Point(0, 0);
+    this.mRecentShoot = false;
+  };
+
+  goog.inherits(ballgame.Player, ss2d.Quad);
+
+  ballgame.Player.prototype.tick = function(deltaTime)
+  {
+    this.mLocation.mX += this.mVelocity.mX*deltaTime;
+    this.mLocation.mY += this.mVelocity.mY*deltaTime;
+
+    //check if this player is touching the ball
+    var ball = this.mGameField.mBall;
+    if(!ball.mOwner && !this.mRecentShoot)
+    {
+      if(ball.getBounds().intersectsRectangle(this.getBounds()))
+      {
+        ball.mOwner = this;
+        this.mGameField.mActivePlayer = this;
+      }
+    } 
+    if(this == this.mGameField.mActivePlayer)
+    {
+      this.mAlpha = 0.5;
+      this.mColor.setValue([255,0,255]);
+    }
+    else
+    {
+      this.mAlpha = 1;
+      this.mColor.setValue([0,0,255]);
+    }
+
+    this.mLocation.mX = Math.max(Math.min(this.mLocation.mX, 512), this.mWidth - this.mPivotX);
+    this.mLocation.mY = Math.max(Math.min(this.mLocation.mY, 512), this.mHeight - this.mPivotY);
+
+  };
+
+  ballgame.Player.prototype.setRecentShoot = function(state)
+  {
+    this.mRecentShoot = state;
+  }
+
+  //END FOOTBALL PLAYER
+
+  //BALL
+  ballgame.Ball = function(x, y, gameField)
+  {
+    ss2d.Sprite.call(this, x, y, 20, 20, 'assets/textures/fball1.png');
+    this.mPivotX = this.mPivotY = 10;
+    this.mGameField = gameField;
+    this.mOwner = null;
+    this.mVelocity = new ss2d.Point(0, 0);
+  };
+
+  goog.inherits(ballgame.Ball, ss2d.Sprite);
+
+  ballgame.Ball.prototype.tick = function(deltaTime)
+  {
+    if(this.mOwner)
+    {
+      var nVel = this.mOwner.mVelocity.normalize();
+      this.mLocation.mX = this.mOwner.mLocation.mX + (nVel.mX*10);
+      this.mLocation.mY = this.mOwner.mLocation.mY + (nVel.mY*6);
+      this.mVelocity.set(0, 0);
+    }
+    else
+    {
+      
+      this.mLocation.mX += this.mVelocity.mX*deltaTime;
+      this.mLocation.mY += this.mVelocity.mY*deltaTime;
+    }
+
+    //ball friction
+    if(this.mVelocity.mX > 0)
+    {
+      this.mVelocity.mX -= this.mVelocity.mX*deltaTime;
+      if(this.mVelocity.mX < 0)
+      {
+        this.mVelocity.mX = 0;
+      }
+    }
+
+    if(this.mVelocity.mX < 0)
+    {
+      this.mVelocity.mX -= this.mVelocity.mX*deltaTime;
+      if(this.mVelocity.mX > 0)
+      {
+        this.mVelocity.mX = 0;
+      }
+    }
+
+    if(this.mVelocity.mY > 0)
+    {
+      this.mVelocity.mY -= this.mVelocity.mY*deltaTime;
+      if(this.mVelocity.mY < 0)
+      {
+        this.mVelocity.mY = 0;
+      }
+    }
+    
+    if(this.mVelocity.mY < 0)
+    {
+      this.mVelocity.mY -= this.mVelocity.mY*deltaTime;
+      if(this.mVelocity.mY > 0)
+      {
+        this.mVelocity.mY = 0;
+      }
+    }
+
+    this.mLocation.mX = Math.max(Math.min(this.mLocation.mX, 512 - this.mWidth), this.mWidth);
+    this.mLocation.mY = Math.max(Math.min(this.mLocation.mY, 512 - this.mHeight), this.mHeight);
+    
+    this.mRotation += this.mVelocity.length()*deltaTime*0.05;
+
+  };
+  //END BALL
+
+  //FIELD
+  ballgame.Field = function(players)
+  {
+    ss2d.DisplayObjectContainer.call(this);
+
+    this.addObject(new ss2d.Quad(0,0,512,512,'#33aa33'));
+    this.mPlayers = [];
+    while(players--)
+    {
+      var newPlayer = new ballgame.Player(80 + Math.random()*400, 80 + Math.random()*400, this);
+      this.mPlayers.push(newPlayer);
+      this.addObject(newPlayer);
+    }
+
+    this.mActivePlayer = this.mPlayers[0];
+
+    this.mBall = new ballgame.Ball(256, 256);
+    this.addObject(this.mBall);
+
+    this.mJuggler = new ss2d.Juggler();
+    this.mCenterCamera = false;
+  };
+
+  goog.inherits(ballgame.Field, ss2d.DisplayObjectContainer);
+
+  ballgame.Field.prototype.tick = function(deltaTime)
+  {
+    //Process shoot, ball will go to the closest player
+    var input = ss2d.CURRENT_VIEW.mInput;
+    var owner = this.mBall.mOwner;
+
+    
+
+    if(this.mActivePlayer)
+    {
+      if(input.isKeyPressed(ss2d.Input.Keys.SPACE) && !this.mSpaceWasPressed && this.mActivePlayer == owner)
+      {
+        console.log('shoot');
+        var closestPlayer = null;
+        var closestDistance = 0;
+        
+        if(owner)
+        {
+          for(var pIndex in this.mPlayers)
           {
-            ss2d.Quad.call(this, x, y, 16, 50, '#0000ff');
-            this.mPivotX = 8;
-            this.mPivotY = 46;
-            this.mGameField = gameField;
-            this.mVelocity = new ss2d.Point(0, 0);
-            this.mRecentShoot = false;
-          };
 
-          goog.inherits(ballgame.Player, ss2d.Quad);
-
-          ballgame.Player.prototype.tick = function(deltaTime)
-          {
-            this.mLocation.mX += this.mVelocity.mX*deltaTime;
-            this.mLocation.mY += this.mVelocity.mY*deltaTime;
-
-            //check if this player is touching the ball
-            var ball = this.mGameField.mBall;
-            if(!ball.mOwner && !this.mRecentShoot)
+            var player = this.mPlayers[pIndex];
+            if(player != owner)
             {
-              if(ball.getBounds().intersectsRectangle(this.getBounds()))
+              if(!closestPlayer)
               {
-                ball.mOwner = this;
-                this.mGameField.mActivePlayer = this;
+                closestPlayer = player;
+                closestDistance = ss2d.Point.subtractPoints(owner.mLocation, player.mLocation).length();
+                continue;
               }
-            } 
-            if(this == this.mGameField.mActivePlayer)
-            {
-              this.mAlpha = 0.5;
-              this.mColor.setValue([255,0,255]);
-            }
-            else
-            {
-              this.mAlpha = 1;
-              this.mColor.setValue([0,0,255]);
-            }
-
-            this.mLocation.mX = Math.max(Math.min(this.mLocation.mX, 512), this.mWidth - this.mPivotX);
-            this.mLocation.mY = Math.max(Math.min(this.mLocation.mY, 512), this.mHeight - this.mPivotY);
-
-          };
-
-          ballgame.Player.prototype.setRecentShoot = function(state)
-          {
-            this.mRecentShoot = state;
-          }
-
-          //END FOOTBALL PLAYER
-
-          //BALL
-          ballgame.Ball = function(x, y, gameField)
-          {
-            ss2d.Sprite.call(this, x, y, 20, 20, 'assets/textures/fball1.png');
-            this.mPivotX = this.mPivotY = 10;
-            this.mGameField = gameField;
-            this.mOwner = null;
-            this.mVelocity = new ss2d.Point(0, 0);
-          };
-
-          goog.inherits(ballgame.Ball, ss2d.Sprite);
-
-          ballgame.Ball.prototype.tick = function(deltaTime)
-          {
-            if(this.mOwner)
-            {
-              var nVel = this.mOwner.mVelocity.normalize();
-              this.mLocation.mX = this.mOwner.mLocation.mX + (nVel.mX*10);
-              this.mLocation.mY = this.mOwner.mLocation.mY + (nVel.mY*6);
-              this.mVelocity.set(0, 0);
-            }
-            else
-            {
-              
-              this.mLocation.mX += this.mVelocity.mX*deltaTime;
-              this.mLocation.mY += this.mVelocity.mY*deltaTime;
-            }
-
-            //ball friction
-            if(this.mVelocity.mX > 0)
-            {
-              this.mVelocity.mX -= this.mVelocity.mX*deltaTime;
-              if(this.mVelocity.mX < 0)
+              else
               {
-                this.mVelocity.mX = 0;
-              }
-            }
-
-            if(this.mVelocity.mX < 0)
-            {
-              this.mVelocity.mX -= this.mVelocity.mX*deltaTime;
-              if(this.mVelocity.mX > 0)
-              {
-                this.mVelocity.mX = 0;
-              }
-            }
-
-            if(this.mVelocity.mY > 0)
-            {
-              this.mVelocity.mY -= this.mVelocity.mY*deltaTime;
-              if(this.mVelocity.mY < 0)
-              {
-                this.mVelocity.mY = 0;
-              }
-            }
-            
-            if(this.mVelocity.mY < 0)
-            {
-              this.mVelocity.mY -= this.mVelocity.mY*deltaTime;
-              if(this.mVelocity.mY > 0)
-              {
-                this.mVelocity.mY = 0;
-              }
-            }
-
-            this.mLocation.mX = Math.max(Math.min(this.mLocation.mX, 512 - this.mWidth), this.mWidth);
-            this.mLocation.mY = Math.max(Math.min(this.mLocation.mY, 512 - this.mHeight), this.mHeight);
-            
-            this.mRotation += this.mVelocity.length()*deltaTime*0.05;
-
-          };
-          //END BALL
-
-          //FIELD
-          ballgame.Field = function(players)
-          {
-            ss2d.DisplayObjectContainer.call(this);
-
-            this.addObject(new ss2d.Quad(0,0,512,512,'#33aa33'));
-            this.mPlayers = [];
-            while(players--)
-            {
-              var newPlayer = new ballgame.Player(80 + Math.random()*400, 80 + Math.random()*400, this);
-              this.mPlayers.push(newPlayer);
-              this.addObject(newPlayer);
-            }
-
-            this.mActivePlayer = this.mPlayers[0];
-
-            this.mBall = new ballgame.Ball(256, 256);
-            this.addObject(this.mBall);
-
-            this.mJuggler = new ss2d.Juggler();
-            this.mCenterCamera = false;
-          };
-
-          goog.inherits(ballgame.Field, ss2d.DisplayObjectContainer);
-
-          ballgame.Field.prototype.tick = function(deltaTime)
-          {
-            //Process shoot, ball will go to the closest player
-            var input = ss2d.CURRENT_VIEW.mInput;
-            var owner = this.mBall.mOwner;
-
-            
-
-            if(this.mActivePlayer)
-            {
-              if(input.isKeyPressed(ss2d.Input.Keys.SPACE) && !this.mSpaceWasPressed && this.mActivePlayer == owner)
-              {
-                console.log('shoot');
-                var closestPlayer = null;
-                var closestDistance = 0;
-                
-                if(owner)
+                var distance = ss2d.Point.subtractPoints(owner.mLocation, player.mLocation).length();
+                if(distance < closestDistance)
                 {
-                  for(var pIndex in this.mPlayers)
-                  {
-
-                    var player = this.mPlayers[pIndex];
-                    if(player != owner)
-                    {
-                      if(!closestPlayer)
-                      {
-                        closestPlayer = player;
-                        closestDistance = ss2d.Point.subtractPoints(owner.mLocation, player.mLocation).length();
-                        continue;
-                      }
-                      else
-                      {
-                        var distance = ss2d.Point.subtractPoints(owner.mLocation, player.mLocation).length();
-                        if(distance < closestDistance)
-                        {
-                          closestDistance = distance;
-                          closestPlayer = player;
-                        }
-                      }
-                    }
-                  }
-
-                  if(closestPlayer)
-                  {
-                    //move the ball over time
-                    //var ballTween = new ss2d.Tween(this.mBall, 0.5, ss2d.Transitions.fadeOut);
-                    //ballTween.moveTo(closestPlayer.mLocation.mX, closestPlayer.mLocation.mY);
-                    //this.mJuggler.addObject(ballTween);
-
-                    var direction = ss2d.Point.subtractPoints(owner.mLocation, closestPlayer.mLocation).normalize();
-
-                    if(input.isKeyPressed(ss2d.Input.Keys.SHIFT))
-                    {             
-                      //if shift is pressed simply shoot forwards           
-                      this.mBall.mVelocity.set(owner.mVelocity.mX*2.2,
-                                               owner.mVelocity.mY*3.2);
-
-                    }
-                    else
-                    {
-                      this.mBall.mVelocity.set(direction.mX*250 + owner.mVelocity.mX*(0.2 + Math.random()),
-                                               direction.mY*250 + owner.mVelocity.mY*(0.2 + Math.random()));
-                      this.mActivePlayer = closestPlayer;
-                    }
-
-                    
-
-                    //discard current owner for own the ball in the next 0.5 seconds
-                    owner.mRecentShoot = true;
-                    this.mJuggler.delayInvocation(owner, owner.setRecentShoot, false, 0.5);
-
-                    
-                    this.mBall.mOwner = null;
-                  }
+                  closestDistance = distance;
+                  closestPlayer = player;
                 }
               }
-
-
-              //active player movement
-              for(var pIndex in this.mPlayers)
-              { 
-                this.mPlayers[pIndex].mVelocity.set(0, 0);
-              }
-
-              if(input.isKeyPressed(ss2d.Input.Keys.D))
-                this.mActivePlayer.mVelocity.mX = 150;
-              
-              if(input.isKeyPressed(ss2d.Input.Keys.A))
-                this.mActivePlayer.mVelocity.mX = -150;
-              
-              if(input.isKeyPressed(ss2d.Input.Keys.W))
-                this.mActivePlayer.mVelocity.mY = -150;
-
-              if(input.isKeyPressed(ss2d.Input.Keys.S))
-                this.mActivePlayer.mVelocity.mY = 150;
-
-              //change active player
-              if(input.isKeyPressed(ss2d.Input.Keys.F) && !this.mChangeWasPressed)
-              {
-                var activeIndex = this.mPlayers.indexOf(this.mActivePlayer) + 1;
-                activeIndex = (activeIndex >= this.mPlayers.length)?0:activeIndex;
-                this.mActivePlayer = this.mPlayers[activeIndex];
-              }
-
-              if(input.isKeyPressed(ss2d.Input.Keys.V))
-              {
-                this.mActivePlayer = (this.mBall.mOwner)?this.mBall.mOwner:this.mActivePlayer;
-              }
             }
+          }
 
-            this.mSpaceWasPressed = input.isKeyPressed(ss2d.Input.Keys.SPACE);
-            this.mChangeWasPressed = input.isKeyPressed(ss2d.Input.Keys.F);
+          if(closestPlayer)
+          {
+            //move the ball over time
+            //var ballTween = new ss2d.Tween(this.mBall, 0.5, ss2d.Transitions.fadeOut);
+            //ballTween.moveTo(closestPlayer.mLocation.mX, closestPlayer.mLocation.mY);
+            //this.mJuggler.addObject(ballTween);
 
-            this.tickChildren(deltaTime);
-            this.mJuggler.advanceTime(deltaTime);
+            var direction = ss2d.Point.subtractPoints(owner.mLocation, closestPlayer.mLocation).normalize();
 
-            //sort scene objects by Y coord, bottom objects will be drawn over top objects.
-            this.mChildren.sort(function(ca, cb)
-            {
-              return ca.mLocation.mY - cb.mLocation.mY;
-            });
+            if(input.isKeyPressed(ss2d.Input.Keys.SHIFT))
+            {             
+              //if shift is pressed simply shoot forwards           
+              this.mBall.mVelocity.set(owner.mVelocity.mX*2.2,
+                                       owner.mVelocity.mY*3.2);
 
-            //change camera
-            if(this.mCenterCamera)
-            {
-              this.mLocation.mX = 256 - this.mBall.mLocation.mX;
-              this.mLocation.mY = 256 - this.mBall.mLocation.mY;
             }
             else
             {
-              this.mLocation.set(0, 0);
+              this.mBall.mVelocity.set(direction.mX*250 + owner.mVelocity.mX*(0.2 + Math.random()),
+                                       direction.mY*250 + owner.mVelocity.mY*(0.2 + Math.random()));
+              this.mActivePlayer = closestPlayer;
             }
 
-            if(input.isKeyPressed(ss2d.Input.Keys.C) && !this.mSwitchCameraWasPressed)
-            {
-              this.mCenterCamera = !this.mCenterCamera;
-            }
+            
 
-            this.mSwitchCameraWasPressed = input.isKeyPressed(ss2d.Input.Keys.C);
-          };
-          //END FIELD
+            //discard current owner for own the ball in the next 0.5 seconds
+            owner.mRecentShoot = true;
+            this.mJuggler.delayInvocation(owner, owner.setRecentShoot, false, 0.5);
+
+            
+            this.mBall.mOwner = null;
+          }
+        }
+      }
 
 
-        </script>
+      //active player movement
+      for(var pIndex in this.mPlayers)
+      { 
+        this.mPlayers[pIndex].mVelocity.set(0, 0);
+      }
+
+      if(input.isKeyPressed(ss2d.Input.Keys.D))
+        this.mActivePlayer.mVelocity.mX = 150;
+      
+      if(input.isKeyPressed(ss2d.Input.Keys.A))
+        this.mActivePlayer.mVelocity.mX = -150;
+      
+      if(input.isKeyPressed(ss2d.Input.Keys.W))
+        this.mActivePlayer.mVelocity.mY = -150;
+
+      if(input.isKeyPressed(ss2d.Input.Keys.S))
+        this.mActivePlayer.mVelocity.mY = 150;
+
+      //change active player
+      if(input.isKeyPressed(ss2d.Input.Keys.F) && !this.mChangeWasPressed)
+      {
+        var activeIndex = this.mPlayers.indexOf(this.mActivePlayer) + 1;
+        activeIndex = (activeIndex >= this.mPlayers.length)?0:activeIndex;
+        this.mActivePlayer = this.mPlayers[activeIndex];
+      }
+
+      if(input.isKeyPressed(ss2d.Input.Keys.V))
+      {
+        this.mActivePlayer = (this.mBall.mOwner)?this.mBall.mOwner:this.mActivePlayer;
+      }
+    }
+
+    this.mSpaceWasPressed = input.isKeyPressed(ss2d.Input.Keys.SPACE);
+    this.mChangeWasPressed = input.isKeyPressed(ss2d.Input.Keys.F);
+
+    this.tickChildren(deltaTime);
+    this.mJuggler.advanceTime(deltaTime);
+
+    //sort scene objects by Y coord, bottom objects will be drawn over top objects.
+    this.mChildren.sort(function(ca, cb)
+    {
+      return ca.mLocation.mY - cb.mLocation.mY;
+    });
+
+    //change camera
+    if(this.mCenterCamera)
+    {
+      this.mLocation.mX = 256 - this.mBall.mLocation.mX;
+      this.mLocation.mY = 256 - this.mBall.mLocation.mY;
+    }
+    else
+    {
+      this.mLocation.set(0, 0);
+    }
+
+    if(input.isKeyPressed(ss2d.Input.Keys.C) && !this.mSwitchCameraWasPressed)
+    {
+      this.mCenterCamera = !this.mCenterCamera;
+    }
+
+    this.mSwitchCameraWasPressed = input.isKeyPressed(ss2d.Input.Keys.C);
+  };
+  //END FIELD
+
+
+</script>
         <script id="launcher">
 
           var field = new ballgame.Field(3 + Math.floor(Math.random()*4));
