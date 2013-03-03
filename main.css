@@ -16,7 +16,7 @@ div#pageContent {
     top: 0px;
     left: 220px;
     bottom: 0px;
-    min-width: 100%;
+    min-width: 80%;
 }
 
 div#pageContent iframe {

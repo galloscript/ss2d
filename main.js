@@ -40,7 +40,6 @@ function frameLoad()
 
 	document.getElementById('pageContentFrame').style.height = '100%';
 	document.getElementById('pageContentFrame').style.height = document.getElementById('pageContentFrame').contentDocument.body.scrollHeight+'px';
-	document.getElementById('pageContent').style.width = document.getElementById('pageContentFrame').contentDocument.body.scrollWidth+'px';
 	document.getElementById('pageContentFrame').style.width = document.getElementById('pageContentFrame').contentDocument.body.scrollWidth+'px';
 }
 
