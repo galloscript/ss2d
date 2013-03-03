@@ -5,24 +5,25 @@ body {
 
 div#menu {
 	float: left;
-	position: absolute;
+	position: fixed;
 	width: 200px;
 	top: 20px;
 }
 
 div#pageContent {
+	float: right;
     position: relative;
     top: 0px;
-    left: 0px;
+    left: 220px;
     bottom: 0px;
     min-width: 100%;
 }
 
 div#pageContent iframe {
-    position: absolute;
+    /*position: absolute;*/
     top: 70px;
     bottom: 0;
-    left: 0px;
+    left: 220px;
     right: 0;
     height: 100%;
     width: 100%;
