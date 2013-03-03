@@ -12,7 +12,9 @@
   car.tick = function (deltaTime) {
     var input = ss2d.CURRENT_VIEW.mInput;
     
-    this.mPicked = input.mMouseDown && (this.mPicked || !input.mPreviousMouseDown && this.hitTestPoint(input.mMousePoint));
+    this.mPicked = input.mMouseDown && 
+                   (this.mPicked || !input.mPreviousMouseDown && 
+                   this.hitTestPoint(input.mMousePoint));
     
     if(this.mPicked) {
       this.mLocation.mX = input.mMouseX;
