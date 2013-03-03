@@ -11,12 +11,12 @@ div#menu {
 }
 
 div#pageContent {
-	float: right;
+	float: left;
     position: relative;
     top: 0px;
     left: 220px;
     bottom: 0px;
-    min-width: 80%;
+    min-width: 100%;
 }
 
 div#pageContent iframe {
