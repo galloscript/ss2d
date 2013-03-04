@@ -141,6 +141,26 @@ ss2d.DisplayObjectContainer.prototype.hitTestPoint = function(point)
 	return hittedObject;
 }
 
+ss2d.DisplayObjectContainer.prototype.getBounds = function()
+{
+	var objBounds = this.mChildren[0].getBounds();
+	var x = objBounds.mX;
+	var y = objBounds.mY;
+	var width = objBounds.mX + objBounds.mWidth;
+	var height = objBounds.mY + objBounds.mHeight;
+	
+	for(var childIndex = 1; childIndex < this.mChildren.length; ++childIndex)
+	{
+		objBounds = this.mChildren[childIndex].getBounds();
+		x = (x < objBounds.mX)?x:objBounds.mX;
+		y = (y < objBounds.mY)?y:objBounds.mY;
+		width = (width > objBounds.mX + objBounds.mWidth)?width:(objBounds.mX + objBounds.mWidth);
+		height = (height > objBounds.mY + objBounds.mHeight)?height:(objBounds.mY + objBounds.mHeight);
+	}
+	
+	return new ss2d.Rectangle(x, y, width - x, height - y);
+};
+
 //*****************
 //* SERIALIZATION *
 //*****************/

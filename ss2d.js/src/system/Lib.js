@@ -39,6 +39,12 @@ goog.require('ss2d.TextureAtlasLoader');
 goog.require('ss2d.TextureLoader');
 goog.require('ss2d.BitmapFontLoader');
 
+//components/interaction
+goog.require('ss2d.Pickable');
+
+//components/physics
+
+
 //maths
 goog.require('ss2d.Matrix3');
 goog.require('ss2d.Point');
