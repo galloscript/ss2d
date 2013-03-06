@@ -279,7 +279,7 @@
     this.mChangeWasPressed = input.isKeyPressed(ss2d.Input.Keys.F);
 
     this.tickChildren(deltaTime);
-    this.mJuggler.advanceTime(deltaTime);
+    this.mJuggler.tick(deltaTime);
 
     //sort scene objects by Y coord, bottom objects will be drawn over top objects.
     this.mChildren.sort(function(ca, cb)
