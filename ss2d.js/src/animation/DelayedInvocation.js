@@ -69,7 +69,7 @@ ss2d.DelayedInvocation.prototype.callMethodWithValues = function(method, values)
  * Called every frame by the ss2d.Juggler parent object.
  * @param {number} deltaTime The time passed since the last frame call (1.0 / frameRate)
  */
-ss2d.DelayedInvocation.prototype.advanceTime = function(deltaTime)
+ss2d.DelayedInvocation.prototype.tick = function(deltaTime)
 {
 	if(!this.mComplete)
 	{

@@ -132,8 +132,8 @@ ss2d.Matrix3.prototype.scale = function(sx,sy)
 ss2d.Matrix3.prototype.rotate = function(angle)
 {
 	var rotMatrix = new ss2d.Matrix3()
-	rotMatrix.setValues(-Math.cos(angle),
-			    -Math.sin(angle),
+	rotMatrix.setValues(Math.cos(angle),
+			    Math.sin(angle),
 			    -Math.sin(angle),
 			    Math.cos(angle),
 			    0.0, 0.0);

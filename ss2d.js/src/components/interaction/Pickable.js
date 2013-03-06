@@ -45,8 +45,9 @@ ss2d.Pickable.prototype.tick = function(deltaTime)
 			
 			ss2d.Pickable.PICKED_COMPONENT = this;
 			this.mPicked = true;
-			this.mOffset.set(this.mOwner.mLocation.mX - input.mMouseX, 
-							 this.mOwner.mLocation.mY - input.mMouseY);
+			var localMouse = this.mOwner.worldToLocal(input.mMousePoint);
+			this.mOffset.set(this.mOwner.mLocation.mX - localMouse.mX, 
+							 this.mOwner.mLocation.mY - localMouse.mY);
 		}
 	}
 	
@@ -54,8 +55,13 @@ ss2d.Pickable.prototype.tick = function(deltaTime)
 	
 	if(this.mPicked)
 	{
-		this.mOwner.mLocation.mX = input.mMouseX + this.mOffset.mX;
-		this.mOwner.mLocation.mY = input.mMouseY + this.mOffset.mY;
+		var localMouse = this.mOwner.worldToLocal(input.mMousePoint);
+		//var prevLocalMouse = this.mOwner.worldToLocal(input.mPreviousMousePoint);
+		//var mouseMovement = ss2d.Point.subtractPoints(prevLocalMouse, localMouse);
+		//this.mOwner.mLocation.mX += mouseMovement.mX;
+		//this.mOwner.mLocation.mY += mouseMovement.mY;
+		this.mOwner.mLocation.mX = localMouse.mX + this.mOffset.mX;
+		this.mOwner.mLocation.mY = localMouse.mY + this.mOffset.mY;
 	}
 	else
 	{

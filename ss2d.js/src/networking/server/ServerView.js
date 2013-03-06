@@ -8,6 +8,7 @@
 goog.provide('ss2d.ServerView');
 
 goog.require('ss2d.ServerCommunicationInterface');
+goog.require('ss2d.PhysicalWorld');
 
 /**
  * @constructor
@@ -31,6 +32,8 @@ ss2d.ServerView = function(mainScene, serverPort, updateRate)
 	//sounds that must be send to the client on the next command list, once sent, the sound list is empty
 	this.mSoundList = [];
 	//this.mDeletedObjectList = [];
+	
+	this.mPhysicalWorld = ss2d.PhysicalWorld.getWorld();
 };
 
 /** @type {function} */
@@ -47,7 +50,10 @@ ss2d.ServerView.prototype.nextFrame = function()
 	
 	//update scene
 	this.mMainScene.tick(timePassed/1000.0);
-
+	
+	//update physics
+	this.mPhysicalWorld.tick(timePassed/1000.0);
+	
 	//calculate the delay time for the nextFrame call based on the 
 	//frameRate and time spend in update and render operations.
 	this.mLastFrameTimestamp = now;

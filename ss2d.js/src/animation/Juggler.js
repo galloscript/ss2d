@@ -21,14 +21,14 @@ ss2d.Juggler = function()
  * If the animation of an object is completed, then the object is removed.
  * @param {number} deltaTime
  */
-ss2d.Juggler.prototype.advanceTime = function(deltaTime)
+ss2d.Juggler.prototype.tick = function(deltaTime)
 {
 	this.mElapsedTime += deltaTime;
 	var objectsCopy = this.mObjects.slice();
 	for (var i = 0;i < objectsCopy.length; ++i)
 	{
 		var object = objectsCopy[i];
-		object.advanceTime(deltaTime);        
+		object.tick(deltaTime);        
 		if (object.isComplete()) this.removeObject(object);
 	}    
 };

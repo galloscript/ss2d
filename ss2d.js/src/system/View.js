@@ -12,7 +12,7 @@ goog.require('ss2d.Input');
 goog.require('ss2d.RenderSupport');
 goog.require('ss2d.WebAudio');
 goog.require('ss2d.DisplayObjectContainer');
-
+goog.require('ss2d.PhysicalWorld');
 
 /**
  * @constructor
@@ -29,6 +29,7 @@ goog.require('ss2d.DisplayObjectContainer');
  * @property {ss2d.DisplayObjectContainer} mMainScene Scene that is being rendering
  * @property {ss2d.RenderSupport} mRenderSupport Rendering support
  * @property {string} mBackgroundFillStyle Background fill style mapped to Context fillstyle
+ * @property {ss2d.PhysicalWorld} mPhysicalWorld A box2d physical world
  */
 ss2d.View = function(canvasId, mainScene, canvasWidth, canvasHeight, frameRate)
 {
@@ -52,6 +53,8 @@ ss2d.View = function(canvasId, mainScene, canvasWidth, canvasHeight, frameRate)
 	this.mRenderSupport = new ss2d.RenderSupport(this.mContext);
 	
 	this.mBackgroundFillStyle = '#202020';
+	
+	this.mPhysicalWorld = ss2d.PhysicalWorld.getWorld();
 };
 
 /** @type {Object} */
@@ -77,6 +80,9 @@ ss2d.View.prototype.nextFrame = function()
 	
 	//update input
 	this.mInput.tick(timePassed/1000.0);
+	
+	//update physics
+	this.mPhysicalWorld.tick(timePassed/1000.0);
 	
 	//clean background
 	this.mContext.fillStyle = this.mBackgroundFillStyle;  

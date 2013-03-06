@@ -127,6 +127,18 @@ ss2d.DisplayObject.prototype.worldToLocal = function(point)
 };
 
 /**
+ * Transform a point from local to world coordinate space
+ * @param {ss2d.Point} point
+ * @return {ss2d.Point} Transformed point
+ */
+ss2d.DisplayObject.prototype.localToWorld = function(point)
+{
+	var worldMatrix = this.getWorldTransformationMatrix();
+	var transformedPoint = worldMatrix.transformPoint(point);
+	return transformedPoint;
+};
+
+/**
  * Sets the world coordinate space location using a point.
  * @param {ss2d.Point} point
  */

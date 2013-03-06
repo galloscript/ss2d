@@ -72,7 +72,7 @@ ss2d.Object.backupAndDeleteObjectProperties = function(obj)
 //decomp = LZW.decompress(comp);
 //document.write(comp + '<br>' + decomp);
 
-/** @class Compression for websocket packages. Not used yet. */
+//** @class Compression for websocket packages. Not used yet. */
 ss2d.Object.LZWCompressor = {
     compress: function (uncompressed) {
         "use strict";

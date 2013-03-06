@@ -43,7 +43,8 @@ goog.require('ss2d.BitmapFontLoader');
 goog.require('ss2d.Pickable');
 
 //components/physics
-
+goog.require('ss2d.PhysicalWorld');
+goog.require('ss2d.RigidBody');
 
 //maths
 goog.require('ss2d.Matrix3');

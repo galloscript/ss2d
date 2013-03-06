@@ -90,7 +90,7 @@ ss2d.Tween.prototype.fadeTo = function(alpha)
  * Called every frame by the ss2d.Juggler parent object.
  * @param {number} deltaTime The time passed since the last frame call (1.0 / frameRate)
  */
-ss2d.Tween.prototype.advanceTime = function(deltaTime)
+ss2d.Tween.prototype.tick = function(deltaTime)
 {
 	if (deltaTime == 0 || (this.mLoop == ss2d.Tween.LoopType.NONE && this.mCurrentTime >= this.mTotalTime))
 		return;
@@ -143,7 +143,7 @@ ss2d.Tween.prototype.advanceTime = function(deltaTime)
 		}
 	}
 	
-	this.advanceTime(carryOverTime);
+	this.tick(carryOverTime);
 };
 
 /**

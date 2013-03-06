@@ -5,7 +5,7 @@
 
 goog.provide('XML.ObjTree');
 
-if ( typeof(XML) == 'undefined' ) XML = function() {};
+var XML = XML || {};
 
 /** @constructor */
 XML.ObjTree = function () {

@@ -21,7 +21,7 @@ ss2d.IAnimatable = function()
  * Called every frame by the ss2d.Juggler parent object.
  * @param {number} deltaTime The time passed since the last frame call (1.0 / frameRate)
  */
-ss2d.IAnimatable.prototype.advanceTime = function(deltaTime){};
+ss2d.IAnimatable.prototype.tick = function(deltaTime){};
 
 /**
  * Called by the ss2d.Juggler parent object to check if the object must be removed.
