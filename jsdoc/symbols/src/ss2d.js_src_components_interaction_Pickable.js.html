@@ -1,0 +1,83 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">// Copyright (c) 2013 David Gallardo Moreno. All rights reserved.</span><span class="WHIT">
+<span class='line'>  2</span> 
+<span class='line'>  3</span> </span><span class="COMM">/**
+<span class='line'>  4</span>  * @fileoverview Behaviour component that gives pickable interaction to a DisplayObject.
+<span class='line'>  5</span>  * @author David Gallardo Moreno (portalg@gmail.com)
+<span class='line'>  6</span>  */</span><span class="WHIT">
+<span class='line'>  7</span> 
+<span class='line'>  8</span> </span><span class="NAME">goog.provide</span><span class="PUNC">(</span><span class="STRN">'ss2d.Pickable'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  9</span> 
+<span class='line'> 10</span> </span><span class="COMM">/**
+<span class='line'> 11</span>  * @constructor
+<span class='line'> 12</span>  * @param {ss2d.DisplayObject} owner The object that owns this component
+<span class='line'> 13</span>  */</span><span class="WHIT">
+<span class='line'> 14</span> </span><span class="NAME">ss2d.Pickable</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">owner</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 15</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 16</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">owner</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 17</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 18</span> </span><span class="WHIT">		</span><span class="KEYW">throw</span><span class="WHIT"> </span><span class="STRN">"Pickable component need an owner"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 19</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 20</span> </span><span class="WHIT">	
+<span class='line'> 21</span> 	</span><span class="NAME">this.mOwner</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">owner</span><span class="PUNC">||</span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 22</span> </span><span class="WHIT">	</span><span class="NAME">this.mPicked</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 23</span> </span><span class="WHIT">	</span><span class="NAME">this.mOffset</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">ss2d.Point</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 24</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 25</span> 
+<span class='line'> 26</span> </span><span class="NAME">ss2d.Pickable.PICKED_COMPONENT</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 27</span> 
+<span class='line'> 28</span> </span><span class="COMM">/**
+<span class='line'> 29</span>  * Called on every frame by the owner with the delta time
+<span class='line'> 30</span>  * @param {number} deltaTime
+<span class='line'> 31</span>  */</span><span class="WHIT">
+<span class='line'> 32</span> </span><span class="NAME">ss2d.Pickable.prototype.tick</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">deltaTime</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 34</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">input</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">ss2d.CURRENT_VIEW.mInput</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 35</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">input.mMouseDown</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="PUNC">!</span><span class="NAME">input.mPreviousMouseDown</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 37</span> </span><span class="WHIT">		</span><span class="COMM">//picking</span><span class="WHIT">
+<span class='line'> 38</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">this.mOwner.hitTestPoint</span><span class="PUNC">(</span><span class="NAME">input.mMousePoint</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 39</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="WHIT">			</span><span class="COMM">//last elements are near in z</span><span class="WHIT">
+<span class='line'> 41</span> </span><span class="WHIT">			</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">ss2d.Pickable.PICKED_COMPONENT</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="WHIT">			</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 43</span> </span><span class="WHIT">				</span><span class="NAME">ss2d.Pickable.PICKED_COMPONENT.mPicked</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 44</span> </span><span class="WHIT">			</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 45</span> </span><span class="WHIT">			
+<span class='line'> 46</span> 			</span><span class="NAME">ss2d.Pickable.PICKED_COMPONENT</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 47</span> </span><span class="WHIT">			</span><span class="NAME">this.mPicked</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 48</span> </span><span class="WHIT">			</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">localMouse</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.mOwner.worldToLocal</span><span class="PUNC">(</span><span class="NAME">input.mMousePoint</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 49</span> </span><span class="WHIT">			</span><span class="NAME">this.mOffset.set</span><span class="PUNC">(</span><span class="NAME">this.mOwner.mLocation.mX</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">localMouse.mX</span><span class="PUNC">,</span><span class="WHIT"> 
+<span class='line'> 50</span> 							 </span><span class="NAME">this.mOwner.mLocation.mY</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">localMouse.mY</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 51</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 52</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 53</span> </span><span class="WHIT">	
+<span class='line'> 54</span> 	</span><span class="NAME">this.mPicked</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">ss2d.Pickable.PICKED_COMPONENT</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">input.mMouseDown</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 55</span> </span><span class="WHIT">	
+<span class='line'> 56</span> 	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">this.mPicked</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 57</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 58</span> </span><span class="WHIT">		</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">localMouse</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.mOwner.worldToLocal</span><span class="PUNC">(</span><span class="NAME">input.mMousePoint</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 59</span> </span><span class="WHIT">		</span><span class="COMM">//var prevLocalMouse = this.mOwner.worldToLocal(input.mPreviousMousePoint);</span><span class="WHIT">
+<span class='line'> 60</span> </span><span class="WHIT">		</span><span class="COMM">//var mouseMovement = ss2d.Point.subtractPoints(prevLocalMouse, localMouse);</span><span class="WHIT">
+<span class='line'> 61</span> </span><span class="WHIT">		</span><span class="COMM">//this.mOwner.mLocation.mX += mouseMovement.mX;</span><span class="WHIT">
+<span class='line'> 62</span> </span><span class="WHIT">		</span><span class="COMM">//this.mOwner.mLocation.mY += mouseMovement.mY;</span><span class="WHIT">
+<span class='line'> 63</span> </span><span class="WHIT">		</span><span class="NAME">this.mOwner.mLocation.mX</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">localMouse.mX</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">this.mOffset.mX</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 64</span> </span><span class="WHIT">		</span><span class="NAME">this.mOwner.mLocation.mY</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">localMouse.mY</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">this.mOffset.mY</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 65</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 66</span> </span><span class="WHIT">	</span><span class="KEYW">else</span><span class="WHIT">
+<span class='line'> 67</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 68</span> </span><span class="WHIT">		</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="NAME">ss2d.Pickable.PICKED_COMPONENT</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 69</span> </span><span class="WHIT">		</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 70</span> </span><span class="WHIT">			</span><span class="NAME">ss2d.Pickable.PICKED_COMPONENT</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 71</span> </span><span class="WHIT">		</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 72</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 73</span> </span><span class="WHIT">	
+<span class='line'> 74</span> 	
+<span class='line'> 75</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 76</span> </span></pre></body></html>

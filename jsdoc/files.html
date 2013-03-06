@@ -230,7 +230,9 @@ ul.inheritsList
 	
 	<li><a href="symbols/ss2d.Object.html">ss2d.Object</a></li>
 	
-	<li><a href="symbols/ss2d.Object.LZWCompressor.html">ss2d.Object.LZWCompressor</a></li>
+	<li><a href="symbols/ss2d.PhysicalWorld.html">ss2d.PhysicalWorld</a></li>
+	
+	<li><a href="symbols/ss2d.Pickable.html">ss2d.Pickable</a></li>
 	
 	<li><a href="symbols/ss2d.Point.html">ss2d.Point</a></li>
 	
@@ -249,6 +251,8 @@ ul.inheritsList
 	<li><a href="symbols/ss2d.RenderSupport.html">ss2d.RenderSupport</a></li>
 	
 	<li><a href="symbols/ss2d.ResourceManager.html">ss2d.ResourceManager</a></li>
+	
+	<li><a href="symbols/ss2d.RigidBody.html">ss2d.RigidBody</a></li>
 	
 	<li><a href="symbols/ss2d.ServerCommunicationInterface.html">ss2d.ServerCommunicationInterface</a></li>
 	
@@ -276,8 +280,6 @@ ul.inheritsList
 	
 	<li><a href="symbols/ss2d.WebAudio.html">ss2d.WebAudio</a></li>
 	
-	<li><a href="symbols/XML.ObjTree.html">XML.ObjTree</a></li>
-	
 </ul>
 <hr />
 		</div>
@@ -303,10 +305,9 @@ Interface for objects that will be used with ss2d.Juggler.
 			<hr />
 			
 			<div>
-				<h2><a href="symbols/src/ss2d.js_src_animation_DelayedInvocation.js.html">DelayedInvocation.js</a></h2>
+				<h2><a href="symbols/src/ss2d.js_src_animation_Juggler.js.html">Juggler.js</a></h2>
 				
-Representation of a delayed in time function call. 
-Implements ss2d.IAnimatable interface to be used with ss2d.Juggler class.
+Controls the major part of animations and delayed calls of the game.
 				<dl>
 					
 						<dt class="heading">Author:</dt>
@@ -354,9 +355,9 @@ in the specified time and update the property value every frame.
 			<hr />
 			
 			<div>
-				<h2><a href="symbols/src/ss2d.js_src_animation_Juggler.js.html">Juggler.js</a></h2>
+				<h2><a href="symbols/src/ss2d.js_src_animation_TweenedProperty.js.html">TweenedProperty.js</a></h2>
 				
-Controls the major part of animations and delayed calls of the game.
+Animated property stored in a ss2d.Tween object.
 				<dl>
 					
 						<dt class="heading">Author:</dt>
@@ -453,9 +454,9 @@ Representation of an RGB color
 			<hr />
 			
 			<div>
-				<h2><a href="symbols/src/ss2d.js_src_animation_TweenedProperty.js.html">TweenedProperty.js</a></h2>
+				<h2><a href="symbols/src/ss2d.js_src_components_graphics_Reel.js.html">Reel.js</a></h2>
 				
-Animated property stored in a ss2d.Tween object.
+Collection of ss2d.ReelFrame objects that describe an animation.
 				<dl>
 					
 						<dt class="heading">Author:</dt>
@@ -520,6 +521,22 @@ Texture component
 				<h2><a href="symbols/src/ss2d.js_src_components_graphics_TextureAtlas.js.html">TextureAtlas.js</a></h2>
 				
 A texture atlas component for TexturePacker JSON (hash) output files.
+				<dl>
+					
+						<dt class="heading">Author:</dt>
+						<dd>David Gallardo Moreno (portalg@gmail.com)</dd>
+					
+					
+					
+					
+				</dl>
+			</div>
+			<hr />
+			
+			<div>
+				<h2><a href="symbols/src/ss2d.js_src_components_interaction_Pickable.js.html">Pickable.js</a></h2>
+				
+Behaviour component that gives pickable interaction to a DisplayObject.
 				<dl>
 					
 						<dt class="heading">Author:</dt>
@@ -629,6 +646,38 @@ Loader for texture files
 			<hr />
 			
 			<div>
+				<h2><a href="symbols/src/ss2d.js_src_components_physics_PhysicalWorld.js.html">PhysicalWorld.js</a></h2>
+				
+A singleton class that represents a box2d physic world
+				<dl>
+					
+						<dt class="heading">Author:</dt>
+						<dd>David Gallardo Moreno (portalg@gmail.com)</dd>
+					
+					
+					
+					
+				</dl>
+			</div>
+			<hr />
+			
+			<div>
+				<h2><a href="symbols/src/ss2d.js_src_components_physics_RigidBody.js.html">RigidBody.js</a></h2>
+				
+A rigid body component
+				<dl>
+					
+						<dt class="heading">Author:</dt>
+						<dd>David Gallardo Moreno (portalg@gmail.com)</dd>
+					
+					
+					
+					
+				</dl>
+			</div>
+			<hr />
+			
+			<div>
 				<h2><a href="symbols/src/ss2d.js_src_maths_Matrix3.js.html">Matrix3.js</a></h2>
 				
 3x3 Transformation Matrix.
@@ -645,9 +694,9 @@ Loader for texture files
 			<hr />
 			
 			<div>
-				<h2><a href="symbols/src/ss2d.js_src_components_graphics_Reel.js.html">Reel.js</a></h2>
+				<h2><a href="symbols/src/ss2d.js_src_maths_Point.js.html">Point.js</a></h2>
 				
-Collection of ss2d.ReelFrame objects that describe an animation.
+A simple 2D point.
 				<dl>
 					
 						<dt class="heading">Author:</dt>
@@ -1017,22 +1066,10 @@ Main view class
 			<hr />
 			
 			<div>
-				<h2><a href="symbols/src/ss2d.js_src_utils_ObjTree.js.html">ObjTree.js</a></h2>
+				<h2><a href="symbols/src/ss2d.js_src_animation_DelayedInvocation.js.html">DelayedInvocation.js</a></h2>
 				
-XML.ObjTree -- XML source code from/to JavaScript object like E4X
-				<dl>
-					
-					
-					
-					
-				</dl>
-			</div>
-			<hr />
-			
-			<div>
-				<h2><a href="symbols/src/ss2d.js_src_maths_Point.js.html">Point.js</a></h2>
-				
-A simple 2D point.
+Representation of a delayed in time function call. 
+Implements ss2d.IAnimatable interface to be used with ss2d.Juggler class.
 				<dl>
 					
 						<dt class="heading">Author:</dt>
@@ -1045,23 +1082,11 @@ A simple 2D point.
 			</div>
 			<hr />
 			
-			<div>
-				<h2><a href="symbols/src/ss2d.js_src_utils_xml2json.js.html">../../ss2d.js/src/utils/xml2json.js</a></h2>
-				
-				<dl>
-					
-					
-					
-					
-				</dl>
-			</div>
-			<hr />
-			
 			
 		</div>
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blankt">JsDoc Toolkit</a> 2.4.0 on Fri Mar 01 2013 21:53:06 GMT+0100 (CET)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blankt">JsDoc Toolkit</a> 2.4.0 on Wed Mar 06 2013 03:17:18 GMT+0100 (CET)
 		</div>
 	</body>
 </html>

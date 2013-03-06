@@ -5,7 +5,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="generator" content="JsDoc Toolkit" />
 		
-		<title>JsDoc Reference - ss2d.Object.LZWCompressor</title>
+		<title>JsDoc Reference - ss2d.RigidBody</title>
 
 		<style type="text/css">
 			/* default.css */
@@ -235,7 +235,9 @@ ul.inheritsList
 	
 	<li><a href="../symbols/ss2d.Object.html">ss2d.Object</a></li>
 	
-	<li><a href="../symbols/ss2d.Object.LZWCompressor.html">ss2d.Object.LZWCompressor</a></li>
+	<li><a href="../symbols/ss2d.PhysicalWorld.html">ss2d.PhysicalWorld</a></li>
+	
+	<li><a href="../symbols/ss2d.Pickable.html">ss2d.Pickable</a></li>
 	
 	<li><a href="../symbols/ss2d.Point.html">ss2d.Point</a></li>
 	
@@ -254,6 +256,8 @@ ul.inheritsList
 	<li><a href="../symbols/ss2d.RenderSupport.html">ss2d.RenderSupport</a></li>
 	
 	<li><a href="../symbols/ss2d.ResourceManager.html">ss2d.ResourceManager</a></li>
+	
+	<li><a href="../symbols/ss2d.RigidBody.html">ss2d.RigidBody</a></li>
 	
 	<li><a href="../symbols/ss2d.ServerCommunicationInterface.html">ss2d.ServerCommunicationInterface</a></li>
 	
@@ -281,8 +285,6 @@ ul.inheritsList
 	
 	<li><a href="../symbols/ss2d.WebAudio.html">ss2d.WebAudio</a></li>
 	
-	<li><a href="../symbols/XML.ObjTree.html">XML.ObjTree</a></li>
-	
 </ul>
 <hr />
 			<!-- end publish.classesIndex -->
@@ -292,7 +294,7 @@ ul.inheritsList
 <!-- ============================== class title ============================ -->
 			<h1 class="classTitle">
 				
-				Class ss2d.Object.LZWCompressor
+				Class ss2d.RigidBody
 			</h1>
 
 <!-- ============================== class summary ========================== -->			
@@ -300,16 +302,16 @@ ul.inheritsList
 				
 				
 			
-				Compression for websocket packages. Not used yet.
 				
 				
-					<br /><i>Defined in: </i> <a href="../symbols/src/ss2d.js_src_system_Object.js.html">Object.js</a>.
+				
+					<br /><i>Defined in: </i> <a href="../symbols/src/ss2d.js_src_components_physics_RigidBody.js.html">RigidBody.js</a>.
 				
 			</p>
 
 <!-- ============================== constructor summary ==================== -->			
 			
-			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class ss2d.Object.LZWCompressor.">
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class ss2d.RigidBody.">
 				<caption>Class Summary</caption>
 				<thead>
 					<tr>
@@ -322,7 +324,7 @@ ul.inheritsList
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/ss2d.Object.LZWCompressor.html#constructor">ss2d.Object.LZWCompressor</a></b>()
+								<b><a href="../symbols/ss2d.RigidBody.html#constructor">ss2d.RigidBody</a></b>(owner, bodyType, dynamicBody)
 							</div>
 							<div class="description"></div>
 						</td>
@@ -333,12 +335,40 @@ ul.inheritsList
 
 <!-- ============================== properties summary ===================== -->
 			
+				
+				
+				<table class="summaryTable" cellspacing="0" summary="A summary of the fields documented in the class ss2d.RigidBody.">
+					<caption>Field Summary</caption>
+					<thead>
+						<tr>
+							<th scope="col">Field Attributes</th>
+							<th scope="col">Field Name and Description</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								ss2d.RigidBody.<b><a href="../symbols/ss2d.RigidBody.html#.Types">Types</a></b>
+								</div>
+								<div class="description"></div>
+							</td>
+						</tr>
+					
+					</tbody>
+				</table>
+				
+				
+				
+			
 
 <!-- ============================== methods summary ======================== -->
 			
 				
 				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class ss2d.Object.LZWCompressor.">
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class ss2d.RigidBody.">
 					<caption>Method Summary</caption>
 					<thead>
 						<tr>
@@ -349,18 +379,27 @@ ul.inheritsList
 					<tbody>
 					
 						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">ss2d.Object.LZWCompressor.<b><a href="../symbols/ss2d.Object.LZWCompressor.html#.compress">compress</a></b>(uncompressed)
+								<div class="fixedFont"><b><a href="../symbols/ss2d.RigidBody.html#destroy">destroy</a></b>()
 								</div>
 								<div class="description"></div>
 							</td>
 						</tr>
 					
 						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">ss2d.Object.LZWCompressor.<b><a href="../symbols/ss2d.Object.LZWCompressor.html#.decompress">decompress</a></b>(compressed)
+								<div class="fixedFont"><b><a href="../symbols/ss2d.RigidBody.html#reset">reset</a></b>()
+								</div>
+								<div class="description"></div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/ss2d.RigidBody.html#tick">tick</a></b>(deltaTime)
 								</div>
 								<div class="description"></div>
 							</td>
@@ -383,7 +422,7 @@ ul.inheritsList
 				</div>
 				
 				<div class="fixedFont">
-						<b>ss2d.Object.LZWCompressor</b>()
+						<b>ss2d.RigidBody</b>(owner, bodyType, dynamicBody)
 				</div>
 				
 				<div class="description">
@@ -394,6 +433,29 @@ ul.inheritsList
 				
 				
 				
+					
+						<dl class="detailList">
+						<dt class="heading">Parameters:</dt>
+						
+							<dt>
+								<span class="light fixedFont">{<a href="../symbols/ss2d.DisplayObject.html">ss2d.DisplayObject</a>}</span>  <b>owner</b>
+								
+							</dt>
+								<dd>The display object owner of this rigid body</dd>
+						
+							<dt>
+								 <b>bodyType</b>
+								
+							</dt>
+								<dd></dd>
+						
+							<dt>
+								 <b>dynamicBody</b>
+								
+							</dt>
+								<dd></dd>
+						
+						</dl>
 					
 					
 					
@@ -407,6 +469,33 @@ ul.inheritsList
 
 <!-- ============================== field details ========================== -->		
 			
+				<div class="sectionTitle">
+					Field Detail
+				</div>
+				
+					<a name=".Types"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">ss2d.RigidBody.</span><b>Types</b>
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					
+				
+			
 
 <!-- ============================== method details ========================= -->		
 			
@@ -414,11 +503,11 @@ ul.inheritsList
 					Method Detail
 				</div>
 				
-					<a name=".compress"> </a>
-					<div class="fixedFont">&lt;static&gt; 
+					<a name="destroy"> </a>
+					<div class="fixedFont">
 					
 					
-					<span class="light">ss2d.Object.LZWCompressor.</span><b>compress</b>(uncompressed)
+					<b>destroy</b>()
 					
 					</div>
 					<div class="description">
@@ -429,17 +518,6 @@ ul.inheritsList
 					
 					
 					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>uncompressed</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
 						
 						
 						
@@ -450,11 +528,36 @@ ul.inheritsList
 
 					<hr />
 				
-					<a name=".decompress"> </a>
-					<div class="fixedFont">&lt;static&gt; 
+					<a name="reset"> </a>
+					<div class="fixedFont">
 					
 					
-					<span class="light">ss2d.Object.LZWCompressor.</span><b>decompress</b>(compressed)
+					<b>reset</b>()
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="tick"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>tick</b>(deltaTime)
 					
 					</div>
 					<div class="description">
@@ -470,10 +573,10 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<b>compressed</b>
+									<span class="light fixedFont">{number}</span> <b>deltaTime</b>
 									
 								</dt>
-								<dd></dd>
+								<dd>Time passed since the last update</dd>
 							
 							</dl>
 						
@@ -498,7 +601,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Fri Mar 01 2013 21:53:05 GMT+0100 (CET)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Mar 06 2013 03:17:18 GMT+0100 (CET)
 		</div>
 	</body>
 </html>

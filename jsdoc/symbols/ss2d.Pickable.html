@@ -5,7 +5,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="generator" content="JsDoc Toolkit" />
 		
-		<title>JsDoc Reference - XML.ObjTree</title>
+		<title>JsDoc Reference - ss2d.Pickable</title>
 
 		<style type="text/css">
 			/* default.css */
@@ -235,7 +235,9 @@ ul.inheritsList
 	
 	<li><a href="../symbols/ss2d.Object.html">ss2d.Object</a></li>
 	
-	<li><a href="../symbols/ss2d.Object.LZWCompressor.html">ss2d.Object.LZWCompressor</a></li>
+	<li><a href="../symbols/ss2d.PhysicalWorld.html">ss2d.PhysicalWorld</a></li>
+	
+	<li><a href="../symbols/ss2d.Pickable.html">ss2d.Pickable</a></li>
 	
 	<li><a href="../symbols/ss2d.Point.html">ss2d.Point</a></li>
 	
@@ -254,6 +256,8 @@ ul.inheritsList
 	<li><a href="../symbols/ss2d.RenderSupport.html">ss2d.RenderSupport</a></li>
 	
 	<li><a href="../symbols/ss2d.ResourceManager.html">ss2d.ResourceManager</a></li>
+	
+	<li><a href="../symbols/ss2d.RigidBody.html">ss2d.RigidBody</a></li>
 	
 	<li><a href="../symbols/ss2d.ServerCommunicationInterface.html">ss2d.ServerCommunicationInterface</a></li>
 	
@@ -281,8 +285,6 @@ ul.inheritsList
 	
 	<li><a href="../symbols/ss2d.WebAudio.html">ss2d.WebAudio</a></li>
 	
-	<li><a href="../symbols/XML.ObjTree.html">XML.ObjTree</a></li>
-	
 </ul>
 <hr />
 			<!-- end publish.classesIndex -->
@@ -292,7 +294,7 @@ ul.inheritsList
 <!-- ============================== class title ============================ -->
 			<h1 class="classTitle">
 				
-				Class XML.ObjTree
+				Class ss2d.Pickable
 			</h1>
 
 <!-- ============================== class summary ========================== -->			
@@ -303,13 +305,13 @@ ul.inheritsList
 				
 				
 				
-					<br /><i>Defined in: </i> <a href="../symbols/src/ss2d.js_src_utils_ObjTree.js.html">ObjTree.js</a>.
+					<br /><i>Defined in: </i> <a href="../symbols/src/ss2d.js_src_components_interaction_Pickable.js.html">Pickable.js</a>.
 				
 			</p>
 
 <!-- ============================== constructor summary ==================== -->			
 			
-			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class XML.ObjTree.">
+			<table class="summaryTable" cellspacing="0" summary="A summary of the constructor documented in the class ss2d.Pickable.">
 				<caption>Class Summary</caption>
 				<thead>
 					<tr>
@@ -322,7 +324,7 @@ ul.inheritsList
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/XML.ObjTree.html#constructor">XML.ObjTree</a></b>()
+								<b><a href="../symbols/ss2d.Pickable.html#constructor">ss2d.Pickable</a></b>(owner)
 							</div>
 							<div class="description"></div>
 						</td>
@@ -338,7 +340,7 @@ ul.inheritsList
 			
 				
 				
-				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class XML.ObjTree.">
+				<table class="summaryTable" cellspacing="0" summary="A summary of the methods documented in the class ss2d.Pickable.">
 					<caption>Method Summary</caption>
 					<thead>
 						<tr>
@@ -351,90 +353,9 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/XML.ObjTree.html#addNode">addNode</a></b>(hash, key, cnts, val)
+								<div class="fixedFont"><b><a href="../symbols/ss2d.Pickable.html#tick">tick</a></b>(deltaTime)
 								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/XML.ObjTree.html#array_to_xml">array_to_xml</a></b>(name, array)
-								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/XML.ObjTree.html#hash_to_xml">hash_to_xml</a></b>(name, tree)
-								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/XML.ObjTree.html#parseDOM">parseDOM</a></b>(root)
-								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/XML.ObjTree.html#parseElement">parseElement</a></b>(elem)
-								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/XML.ObjTree.html#parseHTTP">parseHTTP</a></b>(url, options, callback)
-								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/XML.ObjTree.html#parseXML">parseXML</a></b>(xml)
-								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/XML.ObjTree.html#scalar_to_xml">scalar_to_xml</a></b>(name, text)
-								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/XML.ObjTree.html#writeXML">writeXML</a></b>(tree)
-								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/XML.ObjTree.html#xml_escape">xml_escape</a></b>(text)
-								</div>
-								<div class="description"></div>
+								<div class="description">Called on every frame by the owner with the delta time</div>
 							</td>
 						</tr>
 					
@@ -455,7 +376,7 @@ ul.inheritsList
 				</div>
 				
 				<div class="fixedFont">
-						<b>XML.ObjTree</b>()
+						<b>ss2d.Pickable</b>(owner)
 				</div>
 				
 				<div class="description">
@@ -466,6 +387,17 @@ ul.inheritsList
 				
 				
 				
+					
+						<dl class="detailList">
+						<dt class="heading">Parameters:</dt>
+						
+							<dt>
+								<span class="light fixedFont">{<a href="../symbols/ss2d.DisplayObject.html">ss2d.DisplayObject</a>}</span>  <b>owner</b>
+								
+							</dt>
+								<dd>The object that owns this component</dd>
+						
+						</dl>
 					
 					
 					
@@ -486,15 +418,15 @@ ul.inheritsList
 					Method Detail
 				</div>
 				
-					<a name="addNode"> </a>
+					<a name="tick"> </a>
 					<div class="fixedFont">
 					
 					
-					<b>addNode</b>(hash, key, cnts, val)
+					<b>tick</b>(deltaTime)
 					
 					</div>
 					<div class="description">
-						
+						Called on every frame by the owner with the delta time
 						
 						
 					</div>
@@ -506,379 +438,7 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<b>hash</b>
-									
-								</dt>
-								<dd></dd>
-							
-								<dt>
-									<b>key</b>
-									
-								</dt>
-								<dd></dd>
-							
-								<dt>
-									<b>cnts</b>
-									
-								</dt>
-								<dd></dd>
-							
-								<dt>
-									<b>val</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="array_to_xml"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>array_to_xml</b>(name, array)
-					
-					</div>
-					<div class="description">
-						
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>name</b>
-									
-								</dt>
-								<dd></dd>
-							
-								<dt>
-									<b>array</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="hash_to_xml"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>hash_to_xml</b>(name, tree)
-					
-					</div>
-					<div class="description">
-						
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>name</b>
-									
-								</dt>
-								<dd></dd>
-							
-								<dt>
-									<b>tree</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="parseDOM"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>parseDOM</b>(root)
-					
-					</div>
-					<div class="description">
-						
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>root</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="parseElement"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>parseElement</b>(elem)
-					
-					</div>
-					<div class="description">
-						
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>elem</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="parseHTTP"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>parseHTTP</b>(url, options, callback)
-					
-					</div>
-					<div class="description">
-						
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>url</b>
-									
-								</dt>
-								<dd></dd>
-							
-								<dt>
-									<b>options</b>
-									
-								</dt>
-								<dd></dd>
-							
-								<dt>
-									<b>callback</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="parseXML"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>parseXML</b>(xml)
-					
-					</div>
-					<div class="description">
-						
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>xml</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="scalar_to_xml"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>scalar_to_xml</b>(name, text)
-					
-					</div>
-					<div class="description">
-						
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>name</b>
-									
-								</dt>
-								<dd></dd>
-							
-								<dt>
-									<b>text</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="writeXML"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>writeXML</b>(tree)
-					
-					</div>
-					<div class="description">
-						
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>tree</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="xml_escape"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>xml_escape</b>(text)
-					
-					</div>
-					<div class="description">
-						
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>text</b>
+									<span class="light fixedFont">{number}</span> <b>deltaTime</b>
 									
 								</dt>
 								<dd></dd>
@@ -906,7 +466,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Fri Mar 01 2013 21:53:06 GMT+0100 (CET)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Mar 06 2013 03:17:18 GMT+0100 (CET)
 		</div>
 	</body>
 </html>
