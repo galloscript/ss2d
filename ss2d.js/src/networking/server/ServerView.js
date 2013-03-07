@@ -52,7 +52,11 @@ ss2d.ServerView.prototype.nextFrame = function()
 	this.mMainScene.tick(timePassed/1000.0);
 	
 	//update physics
-	this.mPhysicalWorld.tick(timePassed/1000.0);
+	var worldUpdates = Math.floor(Math.max(1, timePassed/(1000.0/this.mFrameRate)));
+	for(var i = 0; i < worldUpdates; ++i)
+	{
+		this.mPhysicalWorld.tick((timePassed/worldUpdates)/1000.0);
+	}
 	
 	//calculate the delay time for the nextFrame call based on the 
 	//frameRate and time spend in update and render operations.

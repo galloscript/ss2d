@@ -82,7 +82,11 @@ ss2d.View.prototype.nextFrame = function()
 	this.mInput.tick(timePassed/1000.0);
 	
 	//update physics
-	this.mPhysicalWorld.tick(timePassed/1000.0);
+	var worldUpdates = Math.floor(Math.max(1, timePassed/(1000.0/this.mFrameRate)));
+	for(var i = 0; i < worldUpdates; ++i)
+	{
+		this.mPhysicalWorld.tick((timePassed/worldUpdates)/1000.0);
+	}
 	
 	//clean background
 	this.mContext.fillStyle = this.mBackgroundFillStyle;  
