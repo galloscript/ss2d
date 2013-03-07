@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Physics</title>
+    </head>
+    <body>
+        <div></div>
+        <canvas id="mainCanvas" width="512" height="512">No canvas Support!</canvas>
+        <script src="http://galloman.github.com/ss2d/lib/ss2dLib-min.js"></script>
+        <script>
+
+          var view = new ss2d.View('mainCanvas');
+          view.mBackgroundFillStyle = '#cccccc';
+          
+          ss2d.PhysicalWorld.getWorld().setGravity(0, 300);
+
+          function createBoxAt(x, y)
+          {
+            var box = new ss2d.Sprite(x, y, 40, 40, 'assets/textures/stoneblocks.png');
+            box.mClip = [171, 290, 40, 40];
+            //box.mPivotX = box.mPivotY = 25;
+            view.mMainScene.addObject(box);
+            box.mRotation = 0;
+            box.mRB = new ss2d.RigidBody(box);
+            box.mPickable = new ss2d.Pickable(box);
+            box.mPickable.mMoveObject = false;
+
+            box.tick = function(dt)
+            {
+              
+              //pickable can't update an object with rigidbody attached 
+              //due to physic engine incompatibilities
+             
+              this.mPickable.tick(dt);
+              
+              if(this.mPickable.mPicked && !this.mWasPicked)
+              {
+                this.mMouseJoint = ss2d.PhysicalWorld.getWorld().createMouseJoint(this.mRB.mBody);
+                this.mRB.mBody.WakeUp();
+              }
+
+              if(!this.mPickable.mPicked && this.mWasPicked && this.mMouseJoint)
+              {
+                ss2d.PhysicalWorld.getWorld().mWorld.DestroyJoint(this.mMouseJoint);
+                this.mMouseJoint = null;
+              }
+
+
+
+              if(this.mMouseJoint)
+              {
+                var input = ss2d.CURRENT_VIEW.mInput;
+                this.mMouseJoint.m_target.Set(input.mMouseX, input.mMouseY);
+              }
+
+              this.mRB.tick(dt); 
+              this.mWasPicked = this.mPickable.mPicked;
+            }
+          }
+
+          createBoxAt(65, 20);
+          createBoxAt(265, 20);
+
+          var floor = new ss2d.Sprite(150, 450, 255, 20, 'assets/textures/stoneblocks.png');
+          floor.mClip = [255, 203, 203, 20];
+          view.mMainScene.addObject(floor);
+          floor.mRB = new ss2d.RigidBody(floor, null, false);
+
+
+          floor = new ss2d.Sprite(400, 450, 168, 20, 'assets/textures/stoneblocks.png');
+          floor.mClip = [255, 290, 168, 20];
+          view.mMainScene.addObject(floor);
+          floor.mRB = new ss2d.RigidBody(floor, null, false);
+
+          view.mMainScene.tick = function(dt)
+          {
+            this.tickChildren(dt);
+            var input = ss2d.CURRENT_VIEW.mInput;
+            if(input.mMouseDown && !input.mPreviousMouseDown && !this.hitTestPoint(input.mMousePoint))
+              createBoxAt(input.mMouseX, input.mMouseY);
+
+            
+          }
+
+
+          view.startLoop();
+
+          //imgcords
+          //170, 290
+          //210, 330
+
+          //255, 203, 458, 223
+          //255, 290, 423
+        </script>
+    </body>
+</html>
