@@ -5,6 +5,7 @@
         <title>Transformations</title>
     </head>
     <body>
+        <h4>Transformations</h4>
         <div></div>
         <canvas id="mainCanvas" width="512" height="512">No canvas Support!</canvas>
         <script src="http://galloman.github.com/ss2d/lib/ss2dLib-min.js"></script>
@@ -42,7 +43,7 @@
           container.addObject(quad4);
           container.tick = function(dt)
           {
-            //this.mRotation += dt;
+            this.mRotation += dt;
             this.tickChildren(dt);
           };
           var selector = new ss2d.Quad(10, 10, 10, 10, '#ff0000');
@@ -58,7 +59,7 @@
             this.mPivotY = -b.mY;
             this.mWidth = b.mWidth;
             this.mHeight = b.mHeight;
-            //this.mRotation = this.mContainer.mRotation;
+            this.mRotation = this.mContainer.mRotation;
           };
           
           view.startLoop();
