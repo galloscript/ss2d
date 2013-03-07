@@ -7,7 +7,7 @@
     </head>
     <body>
         <h4>Physics</h4>
-        Move stones with mouse or click on the background to create new.
+        Move stones with mouse or click on the background to create new.<br />
         <div></div>
         <canvas id="mainCanvas" width="512" height="512">No canvas Support!</canvas>
         <script src="http://galloman.github.com/ss2d/lib/ss2dLib-min.js"></script>
@@ -18,7 +18,8 @@
   
   ss2d.PhysicalWorld.getWorld().setGravity(0, 300);
 
-  //Object definition on the fly instead of definning a class.
+  //Object definition on the fly instead of defining a class.
+  //It's recommended to do this with a new class.
   function createBoxAt(x, y)
   {
     var box = new ss2d.Sprite(x, y, 40, 40, 'assets/textures/stoneblocks.png');
