@@ -3,67 +3,73 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Transformations</title>
+        <style>body{ font-family: Verdana }</style>
     </head>
     <body>
         <h4>Transformations</h4>
         <div></div>
         <canvas id="mainCanvas" width="512" height="512">No canvas Support!</canvas>
         <script src="http://galloman.github.com/ss2d/lib/ss2dLib-min.js"></script>
-        <script>
-          ss2d.PickableQuad = function(x, y, w, h, c)
-          {
-            ss2d.Quad.call(this, x, y, w, h, c);
-            this.mPickComponent = new ss2d.Pickable(this);
-          };
+<script id="trans">
+  ss2d.PickableQuad = function(x, y, w, h, c)
+  {
+    ss2d.Quad.call(this, x, y, w, h, c);
+    this.mPickComponent = new ss2d.Pickable(this);
+  };
 
-          goog.inherits(ss2d.PickableQuad, ss2d.Quad);
+  goog.inherits(ss2d.PickableQuad, ss2d.Quad);
 
-          ss2d.PickableQuad.prototype.tick = function(deltaTime)
-          {
-            this.mPickComponent.tick(deltaTime);
-          }
+  ss2d.PickableQuad.prototype.tick = function(deltaTime)
+  {
+    this.mPickComponent.tick(deltaTime);
+  }
 
-        </script>
-        <script>
+  var view = new ss2d.View('mainCanvas');
+  view.mBackgroundFillStyle = '#cccccc';
+  
+  var quad1 = new ss2d.PickableQuad(20, -60, 50, 50, '#00aaee');
+  var quad2 = new ss2d.PickableQuad(30, 0, 50, 50, '#00aaee');
+  var quad3 = new ss2d.PickableQuad(60, 10, 50, 50, '#00aaee');
+  var quad4 = new ss2d.PickableQuad(-20, 50, 50, 50, '#00aaee');
 
-          var view = new ss2d.View('mainCanvas');
-          view.mBackgroundFillStyle = '#cccccc';
-          
-          var quad1 = new ss2d.PickableQuad(20, -60, 50, 50, '#00aaee');
-          var quad2 = new ss2d.PickableQuad(30, 0, 50, 50, '#00aaee');
-          var quad3 = new ss2d.PickableQuad(60, 10, 50, 50, '#00aaee');
-          var quad4 = new ss2d.PickableQuad(-20, 50, 50, 50, '#00aaee');
+  var container = new ss2d.DisplayObjectContainer();
+  view.mMainScene.addObject(container);
+  container.mLocation.set(256, 256);
+  container.addObject(quad1);
+  container.addObject(quad2);
+  container.addObject(quad3);
+  container.addObject(quad4);
+  container.tick = function(dt)
+  {
+    this.mRotation += dt;
+    this.tickChildren(dt);
+  };
+  var selector = new ss2d.Quad(10, 10, 10, 10, '#ff0000');
+  view.mMainScene.addObject(selector);
+  selector.mAlpha = 0.4;
+  selector.mContainer = container;
+  selector.tick = function(dt)
+  {
+    var b = this.mContainer.getBounds();
+    this.mLocation.mX = this.mContainer.mLocation.mX;
+    this.mLocation.mY = this.mContainer.mLocation.mY;
+    this.mPivotX = -b.mX;
+    this.mPivotY = -b.mY;
+    this.mWidth = b.mWidth;
+    this.mHeight = b.mHeight;
+    this.mRotation = this.mContainer.mRotation;
+  };
+  
+  view.startLoop();
 
-          var container = new ss2d.DisplayObjectContainer();
-          view.mMainScene.addObject(container);
-          container.mLocation.set(256, 256);
-          container.addObject(quad1);
-          container.addObject(quad2);
-          container.addObject(quad3);
-          container.addObject(quad4);
-          container.tick = function(dt)
-          {
-            this.mRotation += dt;
-            this.tickChildren(dt);
-          };
-          var selector = new ss2d.Quad(10, 10, 10, 10, '#ff0000');
-          view.mMainScene.addObject(selector);
-          selector.mAlpha = 0.4;
-          selector.mContainer = container;
-          selector.tick = function(dt)
-          {
-            var b = this.mContainer.getBounds();
-            this.mLocation.mX = this.mContainer.mLocation.mX;
-            this.mLocation.mY = this.mContainer.mLocation.mY;
-            this.mPivotX = -b.mX;
-            this.mPivotY = -b.mY;
-            this.mWidth = b.mWidth;
-            this.mHeight = b.mHeight;
-            this.mRotation = this.mContainer.mRotation;
-          };
-          
-          view.startLoop();
-
-        </script>
+</script>
+          <pre class="prettyprint" id="code1">
+          </pre>
+          <script>
+          var c1 = document.getElementById('trans').innerHTML;
+          document.getElementById('code1').innerHTML = c1;
+          </script>
+          <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+          <link rel="stylesheet" type="text/css" href="http://google-code-prettify.googlecode.com/svn/trunk/styles/desert.css" />
     </body>
 </html>
