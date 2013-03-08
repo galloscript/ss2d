@@ -38,6 +38,7 @@ ss2d.BitmapTextSprite = function(x, y, textString, bitmapFont, fontSize)
 	{
 		this.mGlyphSprite = new ss2d.Sprite;
 		this.mClip = [];
+		this.mDisplacement = new ss2d.Point();
 	}
 	//WEBGL
 	//if(RENDER_CONTEXT == 'webgl')
@@ -101,12 +102,14 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 						continue;
 					}
 					
+					this.displacement(c, charCode, xTranslation, this.mClip[5], this.mDisplacement);
+					
 					this.mBitmapFont.getGlyphClip(charCode, this.mClip);
 				
 					//this.mGlyphSprite.mScaleX = this.mGlyphSprite.mScaleY = s;
 					//ctx.scale(s, s);
-					this.mGlyphSprite.mLocation.mX = xTranslation;
-					this.mGlyphSprite.mLocation.mY = this.mClip[5];
+					this.mGlyphSprite.mLocation.mX = this.mDisplacement.mX;
+					this.mGlyphSprite.mLocation.mY = this.mDisplacement.mY;
 					//ctx.translate(0, this.mClip[5]);
 					
 					//this.mGlyphSprite.mRotation = this.mRotation
@@ -139,6 +142,20 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 		//}
 	};
 }
+
+/**
+ * Apply displacement to each character with this hook.
+ * @param {number} charIndex Index in the string.
+ * @param {number} charCode ASII charCode.
+ * @param {number} x The current X location in local space where the char will be rendered.
+ * @param {number} y The current Y location in local space where the char will be rendered.
+ * @param {ss2d.Point} targetDisplacement Output ss2d.Point with the new location info.
+ */
+ss2d.BitmapTextSprite.prototype.displacement = function(charIndex, charCode, x, y, targetDisplacement)
+{
+	targetDisplacement.mX = x;
+	targetDisplacement.mY = y;
+};
 
 //*****************
 //* SERIALIZATION *
