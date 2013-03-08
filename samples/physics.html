@@ -7,8 +7,6 @@
     </head>
     <body>
         <h4>Physics</h4>
-        - W,A,S,D: Move the camera.<br/>
-        - R: Reset camera location.<br/>
         - click: create a stone<br/>
         - Hold 1 + click: Create a long bar stone.<br/>
         - Hold 2 + click: Create a short bar stone.<br/>
@@ -88,24 +86,6 @@
       var floor2 = input.isKeyPressed(ss2d.Input.Keys.TWO);
       var floorType = (floor1)?1:(floor2)?2:0;
       worldContainer.addObject(new demo.Box(locX, locY, floorType, dynamicBody));
-    }
-    
-    if(input.isKeyPressed(ss2d.Input.Keys.D))
-      this.mLocation.mX -= 200*dt;
-
-    if(input.isKeyPressed(ss2d.Input.Keys.A))
-      this.mLocation.mX += 200*dt;
-
-    if(input.isKeyPressed(ss2d.Input.Keys.W))
-      this.mLocation.mY += 200*dt;
-
-    if(input.isKeyPressed(ss2d.Input.Keys.S))
-      this.mLocation.mY -= 200*dt;
-
-    if(input.isKeyPressed(ss2d.Input.Keys.R))
-    {
-      this.mLocation.mX = 0;
-      this.mLocation.mY = 0;
     }
   }
 
