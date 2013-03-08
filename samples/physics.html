@@ -7,7 +7,13 @@
     </head>
     <body>
         <h4>Physics</h4>
-        Move stones with mouse or click on the background to create new.<br />
+        - W,A,S,D: Move the camera.<br/>
+        - R: Reset camera location.<br/>
+        - click: create a stone<br/>
+        - Hold 1 + click: Create a long bar stone.<br/>
+        - Hold 2 + click: Create a short bar stone.<br/>
+        - Shift + 1 or 2 + click: Create a static bar.<br/>
+        <br /><br />
         <div></div>
         <canvas id="mainCanvas" width="512" height="512">No canvas Support!</canvas>
         <script src="http://galloman.github.com/ss2d/lib/ss2dLib-min.js"></script>
@@ -77,7 +83,7 @@
       var locX = input.mMouseX - this.mLocation.mX;
       var locY = input.mMouseY - this.mLocation.mY;
       var dynamicBody = !input.isKeyPressed(ss2d.Input.Keys.SHIFT);
-      console.log(ss2d.CURRENT_VIEW.mInput.mPressedKeys);
+
       var floor1 = input.isKeyPressed(ss2d.Input.Keys.ONE);
       var floor2 = input.isKeyPressed(ss2d.Input.Keys.TWO);
       var floorType = (floor1)?1:(floor2)?2:0;
@@ -101,9 +107,6 @@
       this.mLocation.mX = 0;
       this.mLocation.mY = 0;
     }
-
-    if(input.isKeyPressed(ss2d.Input.Keys.SHIFT))
-      console.log(ss2d.CURRENT_VIEW.mInput.mPressedKeys);
   }
 
   view.startLoop();
