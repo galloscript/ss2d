@@ -121,7 +121,8 @@ ss2d.DisplayObject.prototype.getWorldTransformationMatrix = function(targetMatri
  */
 ss2d.DisplayObject.prototype.worldToLocal = function(point)
 {
-	var invWorldMatrix = this.getWorldTransformationMatrix().invert();
+	var worldMatrix = this.getWorldTransformationMatrix();
+	var invWorldMatrix = worldMatrix.invert();
 	var transformedPoint = invWorldMatrix.transformPoint(point);
 	return transformedPoint;
 };

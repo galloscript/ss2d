@@ -7,7 +7,6 @@
 
 goog.provide('ss2d.RigidBody');
 
-
 /** 
  * @constructor 
  * @param {ss2d.DisplayObject} owner The display object owner of this rigid body
@@ -48,9 +47,8 @@ ss2d.RigidBody.prototype.reset = function()
 			var ownerBounds = this.mOwner.getBounds();
 			this.mOwner.mPivotX = 0.5*ownerBounds.mWidth/this.mOwner.mScaleX;
 			this.mOwner.mPivotY = 0.5*ownerBounds.mHeight/this.mOwner.mScaleY;
-			var loc = new ss2d.Point(this.mOwner.mLocation.mX, 
-									 this.mOwner.mLocation.mY);
-			var worldLocation = this.mOwner.localToWorld(loc);
+			//var worldLocation = this.mOwner.localToWorld(this.mOwner.mLocation);
+			var worldLocation = this.mOwner.mLocation;
 			this.mBody = world.createBox(worldLocation.mX,
 										 worldLocation.mY,
 										 ownerBounds.mWidth*0.5,
@@ -61,6 +59,7 @@ ss2d.RigidBody.prototype.reset = function()
 										 
 		break;
 		case ss2d.RigidBody.Types.CIRCLE:
+		
 		break;
 		case ss2d.RigidBody.Types.POLYGON:
 		break;
@@ -72,8 +71,8 @@ ss2d.RigidBody.prototype.reset = function()
 
 ss2d.RigidBody.prototype.destroy = function()  
 {  
-	this.mBody.m_flags = box2d.Body.Flags.sleepFlag;
-	this.mBody.Destroy();
+	var world = ss2d.PhysicalWorld.getWorld();
+	world.mWorld.DestroyBody(this.mBody);
 };
 
 /**

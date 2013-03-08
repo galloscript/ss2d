@@ -143,6 +143,12 @@ ss2d.DisplayObjectContainer.prototype.hitTestPoint = function(point)
 
 ss2d.DisplayObjectContainer.prototype.getBounds = function()
 {
+	if(this.mChildren.length == 0)
+	{ 
+		var worldLocation = this.localToWorld(this.mLocation)
+		return new ss2d.Rectangle(worldLocation.mX, worldLocation.mY);
+	}
+	
 	var objBounds = this.mChildren[0].getBounds();
 	var x = objBounds.mX;
 	var y = objBounds.mY;

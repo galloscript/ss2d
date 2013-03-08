@@ -88,6 +88,18 @@ ss2d.Input.Keys.ARROW_LEFT = 37;
 ss2d.Input.Keys.ARROW_UP = 38;
 ss2d.Input.Keys.ARROW_RIGHT = 39;
 ss2d.Input.Keys.ARROW_DOWN = 40;
+
+ss2d.Input.Keys.ZERO = 48;
+ss2d.Input.Keys.ONE = 49;
+ss2d.Input.Keys.TWO = 50;
+ss2d.Input.Keys.THREE = 51;
+ss2d.Input.Keys.FOUR = 52;
+ss2d.Input.Keys.FIVE = 53;
+ss2d.Input.Keys.SIX = 54;
+ss2d.Input.Keys.SEVEN = 55;
+ss2d.Input.Keys.EIGHT = 56;
+ss2d.Input.Keys.NINE = 57;
+
 ss2d.Input.Keys.A = 65;
 ss2d.Input.Keys.B = 66;
 ss2d.Input.Keys.C = 67;
@@ -223,12 +235,12 @@ ss2d.Input.prototype.onFocusOut = function(event)
 {
 	this.mView.mHaveFocus = false;
 	this.mClicked = false;
-	
+	/*
 	for(var key in this.mPressedKeys)
     {
         this.mPressedKeys[key] = false;
 		delete this.mPressedKeys[key];
-    }
+    }*/
 }
 
 ss2d.Input.prototype.onMouseMove = function(pe)

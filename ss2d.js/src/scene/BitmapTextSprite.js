@@ -102,20 +102,22 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 						continue;
 					}
 					
-					this.displacement(c, charCode, xTranslation, this.mClip[5], this.mDisplacement);
+					
 					
 					this.mBitmapFont.getGlyphClip(charCode, this.mClip);
-				
+
+					//this.mGlyphSprite.mRotation = this.mRotation
+					this.mGlyphSprite.mClip = this.mClip;
+					this.mGlyphSprite.mWidth =  this.mClip[2];
+					this.mGlyphSprite.mHeight =  this.mClip[3];
+					
+					this.displacement(c, charCode, xTranslation, this.mClip[5], this.mDisplacement);
+					
 					//this.mGlyphSprite.mScaleX = this.mGlyphSprite.mScaleY = s;
 					//ctx.scale(s, s);
 					this.mGlyphSprite.mLocation.mX = this.mDisplacement.mX;
 					this.mGlyphSprite.mLocation.mY = this.mDisplacement.mY;
 					//ctx.translate(0, this.mClip[5]);
-					
-					//this.mGlyphSprite.mRotation = this.mRotation
-					this.mGlyphSprite.mClip = this.mClip;
-					this.mGlyphSprite.mWidth =  this.mClip[2];
-					this.mGlyphSprite.mHeight =  this.mClip[3];
 					
 					
 					this.mGlyphSprite.render(renderSupport);

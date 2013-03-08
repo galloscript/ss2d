@@ -1,7 +1,7 @@
 // Copyright (c) 2013 David Gallardo Moreno. All rights reserved.
 
 /**
- * @fileoverview A singleton class that represents a box2d physic world
+ * @fileoverview A singleton class that represents a box2d world
  * @author David Gallardo Moreno (portalg@gmail.com)
  */
 
@@ -13,13 +13,14 @@ goog.require('box2d.Vec2');
 goog.require('box2d.BoxDef');
 goog.require('box2d.CircleDef');
 goog.require('box2d.BodyDef');
+goog.require('box2d.MouseJointDef');
 
 /** @constructor */
 ss2d.PhysicalWorld = function()
 {
 	var worldAABB = new box2d.AABB();  
-	worldAABB.minVertex.Set(-1024, -1024);  
-	worldAABB.maxVertex.Set(1024, 1024);  
+	worldAABB.minVertex.Set(-2048, -2048);  
+	worldAABB.maxVertex.Set(2048, 2048);  
 	var gravity = new box2d.Vec2(0, 300);  
 	var doSleep = true;  
 	this.mWorld = new box2d.World(worldAABB, gravity, doSleep);
@@ -112,16 +113,17 @@ ss2d.PhysicalWorld.prototype.createBox = function(x, y, width, height, fixed, fi
 
 /**
  * Create a mouse joint for target body
- * @param {Object} body Target body
+ * @param {ss2d.RigidBody} body Target body
  */
-ss2d.PhysicalWorld.prototype.createMouseJoint = function(body) 
+ss2d.PhysicalWorld.prototype.createMouseJoint = function(rigidBody) 
 {  
 	var input = ss2d.CURRENT_VIEW.mInput;
 	md = new box2d.MouseJointDef();
 	md.body1 = this.mWorld.m_groundBody;
-	md.body2 = body;
-	md.target.Set(input.mMouseX, input.mMouseY);
-	md.maxForce = 1000.0 * body.m_mass;
+	md.body2 = rigidBody.mBody;
+	var localMouse = rigidBody.mOwner.worldToLocal(input.mMousePoint);
+	md.target.Set(localMouse.mX, localMouse.mY);
+	md.maxForce = 1000.0 * rigidBody.mBody.m_mass;
 	md.m_collideConnected = true;
 	md.timeStep = 1.0/ss2d.CURRENT_VIEW.mFrameRate;
 	return this.mWorld.CreateJoint(md);
