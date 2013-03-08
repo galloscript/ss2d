@@ -13,73 +13,98 @@
         <script src="http://galloman.github.com/ss2d/lib/ss2dLib-min.js"></script>
 <script id="phys">
 
-  var view = new ss2d.View('mainCanvas');
-  view.mBackgroundFillStyle = '#cccccc';
-  
-  ss2d.PhysicalWorld.getWorld().setGravity(0, 300);
+  //demo namespace
+  var demo = {};
 
-  //Object definition on the fly instead of defining a class.
-  //It's recommended to do this with a new class.
-  function createBoxAt(x, y)
+  demo.Box = function(x, y, isFloor, dynamicBody)
   {
-    var box = new ss2d.Sprite(x, y, 40, 40, 'assets/textures/stoneblocks.png');
-    box.mClip = [171, 290, 40, 40];
-    //box.mPivotX = box.mPivotY = 25;
-    view.mMainScene.addObject(box);
-    box.mRotation = 0;
-    box.mRB = new ss2d.RigidBody(box);
-    box.mPickable = new ss2d.Pickable(box);
-    box.mPickable.mMoveObject = false;
+    ss2d.DisplayObjectContainer.call(this, x, y);
 
-    box.tick = function(dt)
-    {     
-      this.mPickable.tick(dt);
-      
-      if(this.mPickable.mPicked && !this.mWasPicked)
-      {
-        this.mMouseJoint = ss2d.PhysicalWorld.getWorld().createMouseJoint(this.mRB.mBody);
-        this.mRB.mBody.WakeUp();
-      }
-
-      if(!this.mPickable.mPicked && this.mWasPicked && this.mMouseJoint)
-      {
-        ss2d.PhysicalWorld.getWorld().mWorld.DestroyJoint(this.mMouseJoint);
-        this.mMouseJoint = null;
-      }
-
-      if(this.mMouseJoint)
-      {
-        var input = ss2d.CURRENT_VIEW.mInput;
-        this.mMouseJoint.m_target.Set(input.mMouseX, input.mMouseY);
-      }
-
-      this.mRB.tick(dt); 
-      this.mWasPicked = this.mPickable.mPicked;
+    if(isFloor == 1)
+    {
+      this.addObject(new ss2d.Sprite(0, 0, 203, 20, 'assets/textures/stoneblocks.png'));
+      this.mChildren[0].mClip = [255, 203, 203, 20];
     }
+    else if(isFloor == 2)
+    {
+      this.addObject(new ss2d.Sprite(0, 0, 168, 20, 'assets/textures/stoneblocks.png'));
+      this.mChildren[0].mClip = [255, 203, 203, 20];
+    }
+    else
+    {
+      this.addObject(new ss2d.Sprite(0, 0, 40, 40, 'assets/textures/stoneblocks.png'));
+      this.mChildren[0].mClip = [171, 290, 40, 40];
+      dynamicBody = true; //boxes always dynamic
+    }
+
+    if(typeof dynamicBody == 'undefined')
+    {
+      dynamicBody = true;
+    }
+
+    this.mRB = new ss2d.RigidBody(this, null, dynamicBody);
+    this.mPickable = new ss2d.Pickable(this, this.mRB);
   }
 
-  createBoxAt(65, 20);
-  createBoxAt(265, 20);
+  goog.inherits(demo.Box, ss2d.DisplayObjectContainer);
 
-  var floor = new ss2d.Sprite(150, 450, 255, 20, 'assets/textures/stoneblocks.png');
-  floor.mClip = [255, 203, 203, 20];
-  view.mMainScene.addObject(floor);
-  floor.mRB = new ss2d.RigidBody(floor, null, false);
+  demo.Box.prototype.tick = function(dt)
+  {
+    this.mRB.tick(dt); 
+    this.mPickable.tick(dt);
+    this.tickChildren(dt);
+  }
+
+  var worldContainer = new ss2d.DisplayObjectContainer();
+  var view = new ss2d.View('mainCanvas', worldContainer);
+  view.mBackgroundFillStyle = '#cccccc';
+  
+  //boxes
+  worldContainer.addObject(new demo.Box(65, 20));
+  worldContainer.addObject(new demo.Box(215, 20));
+
+  //floor
+  worldContainer.addObject(new demo.Box(150, 450, 1, false));
+  worldContainer.addObject(new demo.Box(400, 450, 2, false));
 
 
-  floor = new ss2d.Sprite(400, 450, 168, 20, 'assets/textures/stoneblocks.png');
-  floor.mClip = [255, 290, 168, 20];
-  view.mMainScene.addObject(floor);
-  floor.mRB = new ss2d.RigidBody(floor, null, false);
-
-  view.mMainScene.tick = function(dt)
+  worldContainer.tick = function(dt)
   {
     this.tickChildren(dt);
     var input = ss2d.CURRENT_VIEW.mInput;
     if(input.mMouseDown && !input.mPreviousMouseDown && !this.hitTestPoint(input.mMousePoint))
-      createBoxAt(input.mMouseX, input.mMouseY);
-  }
+    {
+      var locX = input.mMouseX - this.mLocation.mX;
+      var locY = input.mMouseY - this.mLocation.mY;
+      var dynamicBody = !input.isKeyPressed(ss2d.Input.Keys.SHIFT);
+      console.log(ss2d.CURRENT_VIEW.mInput.mPressedKeys);
+      var floor1 = input.isKeyPressed(ss2d.Input.Keys.ONE);
+      var floor2 = input.isKeyPressed(ss2d.Input.Keys.TWO);
+      var floorType = (floor1)?1:(floor2)?2:0;
+      worldContainer.addObject(new demo.Box(locX, locY, floorType, dynamicBody));
+    }
+    
+    if(input.isKeyPressed(ss2d.Input.Keys.D))
+      this.mLocation.mX -= 200*dt;
 
+    if(input.isKeyPressed(ss2d.Input.Keys.A))
+      this.mLocation.mX += 200*dt;
+
+    if(input.isKeyPressed(ss2d.Input.Keys.W))
+      this.mLocation.mY += 200*dt;
+
+    if(input.isKeyPressed(ss2d.Input.Keys.S))
+      this.mLocation.mY -= 200*dt;
+
+    if(input.isKeyPressed(ss2d.Input.Keys.R))
+    {
+      this.mLocation.mX = 0;
+      this.mLocation.mY = 0;
+    }
+
+    if(input.isKeyPressed(ss2d.Input.Keys.SHIFT))
+      console.log(ss2d.CURRENT_VIEW.mInput.mPressedKeys);
+  }
 
   view.startLoop();
 
