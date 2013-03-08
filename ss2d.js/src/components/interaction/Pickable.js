@@ -47,10 +47,12 @@ ss2d.Pickable.prototype.tick = function(deltaTime)
 			//last elements are near in z
 			if(ss2d.Pickable.PICKED_COMPONENT)
 			{
-				if(this.mMouseJoint)
+				if(this.mRigidBody && this.mMouseJoint)
+				{
 					ss2d.PhysicalWorld.getWorld().mWorld.DestroyJoint(this.mMouseJoint);
-					
-       			this.mMouseJoint  = null;
+					this.mMouseJoint  = null;
+				}
+
 				ss2d.Pickable.PICKED_COMPONENT.mPicked = false;
 			}
 			
@@ -93,8 +95,11 @@ ss2d.Pickable.prototype.tick = function(deltaTime)
 	else if(ss2d.Pickable.PICKED_COMPONENT == this)
 	{
 		ss2d.Pickable.PICKED_COMPONENT = null;
-		ss2d.PhysicalWorld.getWorld().mWorld.DestroyJoint(this.mMouseJoint);
-        this.mMouseJoint = null;
+		if(this.mRigidBody && this.mMouseJoint)
+		{
+			ss2d.PhysicalWorld.getWorld().mWorld.DestroyJoint(this.mMouseJoint);
+        	this.mMouseJoint = null;
+        }
 	}
 	
 	this.mPreviousPicked = this.mPicked;
