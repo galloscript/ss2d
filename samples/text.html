@@ -29,15 +29,24 @@
         this.mLocation.set(input.mMousePoint.mX,input.mMousePoint.mY - 24);
     }
 
-    var funText = new ss2d.BitmapTextSprite(30, 20, 'hello world', 'assets/fonts/fun01.fnt', 45);
-    view.mMainScene.addObject(funText);
-    funText.tick = function(deltaTime)
-    {
-      this.mDisplayChars += 10*deltaTime;
+    var bmtext2 = new ss2d.BitmapTextSprite(40, 260, 'SmoothStep2D', 'assets/fonts/fun02.fnt', 45);
+    
+    bmtext2.mTotalTime = 0;
+    view.mMainScene.addObject(bmtext2);
 
-      if(this.mDisplayChars > this.mTextString.length*2)
-        this.mDisplayChars = 0;
+    bmtext2.tick = function(deltaTime)
+    {
+      this.mTotalTime += deltaTime;
     }
+
+    //displacement is a BitmapTextSprite method called before each char is rendered and let you
+    //modify the final location where the character will be drawn. This way we can apply
+    //cool animations to the text.
+    bmtext2.displacement = function(charIndex, charCode, x, y, targetDisplacement)
+    {
+      targetDisplacement.mX = x;
+      targetDisplacement.mY = y + Math.sin(charIndex/2+this.mTotalTime*3)*30;
+    };
 
     var goldText = new ss2d.BitmapTextSprite(50, 175, 'Cool Fonts', 'assets/fonts/gold01.fnt', 55);
     view.mMainScene.addObject(goldText);
