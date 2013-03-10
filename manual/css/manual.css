@@ -1,0 +1,103 @@
+body
+{
+	vertical-align: middle;
+	font-family: Verdana;
+	margin: 0 0 0 0;
+	text-align: center;
+	background-color: #efefef;
+}
+
+header
+{
+	background-color: #ccccff;
+	height: 75px;
+	text-align: center;
+	border-bottom: 1px solid #aaaaaa;
+}
+
+header h1
+{
+	margin: 0 0 0 0;
+	padding-top: 17px;
+	font-weight: bold;
+}
+
+.menu
+{
+	width: 250px;
+	border: 1px solid #aaaaaa;
+	padding-left: 15px;
+	background-color: #ffffee;
+}
+
+a:link, a:visited, a:hover
+{
+	text-decoration: none;
+	color: #06a0f0;
+	font-weight: bold;
+}
+
+.menu ul
+{
+	margin-left: -10px;
+	margin-top: -10px;
+}
+
+.menu li
+{
+	list-style-type: square;
+	padding-top: 5px;
+}
+
+div.sectionContent
+{
+	display: block;
+	max-width: 1020px;
+	margin: auto;
+	text-align: left;
+	padding-top: 15px;
+	font-size: 13px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+div.sectionContent p
+{
+	margin-left: 12px;
+	font-size: 15px;
+	text-align: justify;
+}
+
+span.codeChunk
+{
+	background-color: #000;
+	font-family: monospace;
+	font-size: 13px;
+	padding: 1px 2px 1px 2px;
+}
+
+div.codeContainer
+{
+	text-align: left;
+	width: 100%;
+}
+
+div.codeContainer .runCodeLink
+{
+	float: right;
+	margin-top: -37px;
+	margin-right: 30px;
+	font-size: 15px;
+}
+
+div.codeContainer .runCodeLink a:hover
+{
+	color: #55ccff;
+}
+
+div.codeContainer pre
+{
+    -moz-tab-size: 4;
+    -o-tab-size:   4;
+    tab-size:      4;
+}

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" type="text/css" href="js/prettify/sunburst.css">
+		<link rel="stylesheet" type="text/css" href="css/manual.css">
+		<title>SmoothStep2D User Guide</title>
+		<script src="js/jquery-1.9.1.min.js"></script>
+		<script src="js/prettify/prettify.js"></script>
+		<script src="js/manual.js"></script>
+
+	</head>
+	<body onload="prettyPrint();">
+		<header>
+			<h1>SmoothStep2D User Guide</h1>
+		</header>
+		<section>
+			<div class="sectionContent">
+				<div class="menu">
+					<h2>Sections</h2>
+					<h3>Core functionality</h3>
+					<ul>
+						<li><a href="#intro">Introduction</a></li>
+						<li><a href="#gettingStarted">Getting started</a></li>
+						<li><a href="#quadsSprites">Quads and Sprites</a></li>
+						<li><a href="#containers">Containers</a></li>
+						<li><a href="#userInput">User input</a></li>
+						<li><a href="#text">Displaying text</a></li>
+						<li><a href="#audio">Playing audio files</a></li>
+						<li><a href="#contentmanager">Loading content</a></li>
+						<li><a href="#animations">Animations and timers</a></li>
+						<li><a href="#reelsprites">Reel sprites</a></li>
+					</ul>
+					<h3>Advanced features</h3>
+					<ul>
+						<li><a href="#physics">Physics</a></li>
+						<li><a href="#prototypes">Extending prototypes</a></li>
+						<li><a href="#building">Building applications</a></li>
+						<li><a href="#networking">Networking</a></li>
+					</ul>
+					<h3>Creating content</h3>
+					<ul>
+						<li><a href="#bitmapfonts">Bitmap fonts</a></li>
+						<li><a href="#textureatlas">Texture atlas</a></li>
+						<li><a href="#reelsets">Reel sets</a></li>
+					</ul>
+				<div>
+			</div>
+		</section>
+
+		<!--CORE-->
+		<!--INTRODUCTION-->
+		<section>
+			<div class="sectionContent">
+				<h2><a id="intro">Introduction</h2>
+			</div><!--/sectionContent-->
+		</section>
+
+		<!--GETTING STARTED-->
+		<section>
+			<div class="sectionContent">
+				<h2><a id="gettingStarted"></a>Getting started</h2>		
+				<p>To start using SmoothStep2D you need to create an html file with the following setup.</p>
+				<div class="codeContainer">
+					<pre class="prettyprint linenums">
+&lt;canvas id="mainCanvas" width="512" height="512"&gt;&lt;/canvas&gt;
+&lt;script src="http://galloman.github.com/ss2d/lib/ss2dLib-min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	//create a view
+	var view = new ss2d.View('mainCanvas');
+
+	//canvas background color
+	view.mBackgroundFillstyle = '#cccccc';
+
+	//run the game
+	view.startLoop();
+&lt;/script&gt;		</pre>
+					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample01_setup.html" target="_blank" >Run this code</a></span>
+				</div><!--/codeContainer-->
+				<p>What we are doing here is creating a canvas element with the id <span class="codeChunk" style="color: #65B042;">"mainCanvas"</span> and a size of 512x512 pixels, you can set any size for canvas, even full screen. Then we add the minified ss2d library, wich brings all ss2d objects you need to draw and interact with the scene. The library can be added in other ways, you can download it and upload to your own server. You can also checkout the source code from the <a href="https://github.com/Galloman/ss2d" target="_blank">github repository</a> and build your own version of the library or build a single file with all the library and your application together, this is a more advanced topic explained <a href="#building">here</a>.
+				</p>
+				<p>The next thing we do is create a script wich will contain the logic of our game or application, of course you can write this code in a .js file and include it to the html page. In this script the first we are going to do is instance an <a href="http://galloman.github.com/ss2d/jsdoc/symbols/ss2d.View.html" target="_blank">ss2d.View</a>, this object takes the canvas wich id we pass as the first parameter and create all the needed stuff to render a scene inside it and capture the player input related to the canvas element like mouse or touch position and the keys that the user is actually pressing. Then in this example we choose a different background color with the <span class="codeChunk" style="color: #fff;">mBackgroundFillstyle</span> property from our ss2d.View object. Finally we run our view calling the  <span class="codeChunk" style="color: #fff;">startLoop</span> method that will start to update the contents of the scene at 60 times per seconds. At this point the only thing we will see here is a grey square with nothing inside, let's add for example an <a href="http://galloman.github.com/ss2d/jsdoc/symbols/ss2d.Quad.html" target="_blank">ss2d.Quad</a> object and make it moves 20 pixels per second.
+				</p>
+				<div class="codeContainer">
+					<pre class="prettyprint linenums">
+var view = new ss2d.View('mainCanvas');
+view.mBackgroundFillStyle = '#cccccc';
+
+//instance a quad object
+var quad = new ss2d.Quad(23,  //horizontal location in pixels from the canvas left
+						 125, //vertical location in pixels from the canvas top
+						 50,  //the width size of our quad
+						 50,  //the height size of our quad
+						 '#ff0000');  //finally, the color
+
+//add the quad object to the main scene
+view.mMainScene.addObject(quad);
+
+//make the quad move 20 pixels per second to the right.
+quad.tick = function(deltaTime)
+{
+	this.mLocation.mX += 20*deltaTime;
+};
+
+view.startLoop();	</pre>
+					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample02_quad.html" target="_blank">Run this code</a></span>
+				</div><!--/codeContainer-->
+				<p>In this code we instanced an <a href="http://galloman.github.com/ss2d/jsdoc/symbols/ss2d.Quad.html" target="_blank">ss2d.Quad</a> object, this contains all the needed information and methods to render a quad on our scene, in the constructor we pass the location, the size and the color of the quad. Then we acces to the current rendering scene with the <span class="codeChunk" style="color: #fff;">mMainScene</span> property from the view and call <span class="codeChunk" style="color: #fff;">addObject</span> method passing the recently created quad object as a parameter.
+				</p>
+				<p>Now we have a red square drawed on our scene at 23,125 location from the top-left corner of our canvas. Then we override the  <span class="codeChunk" style="color: #fff;">tick</span> method of the quad object to give it a behaviour. The  <span class="codeChunk" style="color: #fff;">tick</span> method is called by the view loop on each frame passing the delta time that has been passed since the last frame was rendered, it is usually 0.016 secons at 60 frames per second (1 / frame rate). Within this method we acces to the <span class="codeChunk" style="color: #fff;">mLocation</span> property of our quad (represented by the <span class="codeChunk" style="color: #E28964;">this</span> keyword), this property is an <a href="http://galloman.github.com/ss2d/jsdoc/symbols/ss2d.Point.html" target="_blank">ss2d.Point</a> and is used to set where is located the object in the scene, initially we set it at 23,125 in the constructor, now we are adding to the <span class="codeChunk" style="color: #fff;">mX</span> property 20 pixels multiplied by the deltaTime, this means that we want to move our object 20 pixels per second but this frame we add only the distance equivalent to the time passed sinsce the last frame was rendered, this way we get a smooth animation of our quad moving to right at 20 pixels per second.
+				</p>
+			</div><!--/sectionContent-->
+		</section>
+
+		<!--QUADS AND SPRITES-->
+		<section>
+			<div class="sectionContent">
+				<h2><a id="quadsSprites"></a>Quads and Sprites</h2>
+				<p>In SmoothStep2D all objects that are displayed on the scene extends a class named <a href="http://galloman.github.com/ss2d/jsdoc/symbols/ss2d.DisplayObject.html" target="_blank">ss2d.DisplayObject</a>, an abastract class that contains the base properties and methods needed to update and render objects every frame, you can see it in API class reference. So, the combination of a ss2d.DisplayObject and some component we want to show in the scene like a colored rectangle or a texture can become a new class extending ss2d.DisplayObject or a child class that inherits from him. The ss2d.Quad class is an example of that, ss2d.Quad inherits from ss2d.DisplayObject adding some properties and overriding methods like <span class="codeChunk" style="color: #fff;">render</span> to achieve what the quad needs to be rendered. Another class that borns from the combination of ss2d.Quad and a texture is <a href="http://galloman.github.com/ss2d/jsdoc/symbols/ss2d.Sprite.html" target="_blank">ss2d.Sprite</a> wich we can use as follows to show this texture in the scene.
+				</p>
+				<center><img src="images/Enemy Bug.png" style="border: 1px solid #ababab;" /></center>
+				<div class="codeContainer">
+					<pre class="prettyprint linenums">
+var view = new ss2d.View('mainCanvas');
+view.mBackgroundFillStyle = '#cccccc';
+
+//instance a sprite object
+var sprite = new ss2d.Sprite(23, 125, 101,  171,  //same four first parameters as ss2d.Quad
+						   	'assets/textures/Enemy Bug.png');  //the texture file
+
+//add the sprite object to the main scene
+view.mMainScene.addObject(sprite);
+
+//change the sprite transparency
+sprite.mAlpha = 0.7;
+
+//change the pivot of the sprite (point of rotation) to its center
+sprite.mPivotX = sprite.mWidth*0.5;
+sprite.mPivotY = sprite.mHeight*0.5;
+
+//moving and rotating the sprite
+sprite.tick = function(deltaTime)
+{
+	this.mLocation.mX += 10*deltaTime;
+	this.mRotation -= Math.PI*0.5*deltaTime;
+};
+
+view.startLoop();	</pre>
+					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample03_sprite.html" target="_blank">Run this code</a></span>
+				</div><!--/codeContainer-->
+
+			</div><!--/sectionContent-->
+		</section>
+
+		<!--CONTAINERS-->
+		<section>
+			<div class="sectionContent">
+				<h2><a id="containers"></a>Containers</h2>
+			</div><!--/sectionContent-->
+		</section>
+
+		<!--USER INPUT-->
+		<section>
+			<div class="sectionContent">
+				<h2><a id="userInput"></a>User input</h2>
+			</div><!--/sectionContent-->
+		</section>
+
+		<!--TEXT-->
+		<section>
+			<div class="sectionContent">
+				<h2><a id="text"></a>Displying text</h2>
+			</div><!--/sectionContent-->
+		</section>
+
+		<!--AUDIO-->
+		<section>
+			<div class="sectionContent">
+				<h2><a id="audio"></a>Playing audio files</h2>
+			</div><!--/sectionContent-->
+		</section>
+
+		<!--CONTENT MANAGER-->
+		<section>
+			<div class="sectionContent">
+				<h2><a id="audio"></a>Loading content</h2>
+			</div><!--/sectionContent-->
+		</section>
+
+		<!--TRANSITIONS-->
+		<section>
+			<div class="sectionContent">
+				<h2><a id="animations"></a>Animations and timers</h2>
+			</div><!--/sectionContent-->
+		</section>
+
+		<!--REEL SPRITES-->
+		<section>
+			<div class="sectionContent">
+				<h2><a id="reelsprites"></a>Reel sprites</h2>
+			</div><!--/sectionContent-->
+		</section>
+
+		<!--ADVANCED-->
+		<!--PHYSICS-->
+		<section>
+			<div class="sectionContent">
+				<h2><a id="physics"></a>Physics</h2>
+			</div><!--/sectionContent-->
+		</section>
+
+		<!--PROTOTYPES-->
+		<section>
+			<div class="sectionContent">
+				<h2><a id="prototypes"></a>Extending prototypes</h2>
+			</div><!--/sectionContent-->
+		</section>
+
+		<!--BULDING-->
+		<section>
+			<div class="sectionContent">
+				<h2><a id="building"></a>Bulding applications</h2>
+			</div><!--/sectionContent-->
+		</section>
+
+		<!--NETWORKING-->
+		<section>
+			<div class="sectionContent">
+				<h2><a id="networking"></a>Networking</h2>
+			</div><!--/sectionContent-->
+		</section>
+
+		<!--CREATING CONTENT-->
+		<!--BITMAP FONTS-->
+		<section>
+			<div class="sectionContent">
+				<h2><a id="bitmapfonts"></a>Bitmap fonts</h2>
+			</div><!--/sectionContent-->
+		</section>
+
+		<!--TEXTURE ATLAS-->
+		<section>
+			<div class="sectionContent">
+				<h2><a id="textureatlas"></a>Texture atlas</h2>
+			</div><!--/sectionContent-->
+		</section>
+
+		<!--REEL SETS-->
+		<section>
+			<div class="sectionContent">
+				<h2><a id="reelsets"></a>Reel sets</h2>
+			</div><!--/sectionContent-->
+		</section>
+
+	</body>
+</html>
