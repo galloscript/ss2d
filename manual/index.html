@@ -14,13 +14,22 @@
 		<header>
 			<h1>SmoothStep2D User Guide</h1>
 		</header>
+
+		<!--INTRODUCTION AND MENU-->
 		<section>
-			<div class="sectionContent">
-				<div class="menu">
+			<div class="sectionContent" style="display: inline-block">
+				<div style="float: left; padding-right: 30px; width: 670px;">
+					<h2><a id="intro"></a>Introduction</h2>
+					<p>
+
+
+					</p>
+				</div>
+				<div class="menu" style="float: left; margin-top: 30px;">
 					<h2>Sections</h2>
 					<h3>Core functionality</h3>
 					<ul>
-						<li><a href="#intro">Introduction</a></li>
+						<!--li><a href="#intro">Introduction</a></li-->
 						<li><a href="#gettingStarted">Getting started</a></li>
 						<li><a href="#quadsSprites">Quads and Sprites</a></li>
 						<li><a href="#containers">Containers</a></li>
@@ -44,18 +53,12 @@
 						<li><a href="#textureatlas">Texture atlas</a></li>
 						<li><a href="#reelsets">Reel sets</a></li>
 					</ul>
-				<div>
-			</div>
-		</section>
+				</div><!--/menu-->
 
-		<!--CORE-->
-		<!--INTRODUCTION-->
-		<section>
-			<div class="sectionContent">
-				<h2><a id="intro">Introduction</h2>
 			</div><!--/sectionContent-->
 		</section>
 
+		<!--CORE-->
 		<!--GETTING STARTED-->
 		<section>
 			<div class="sectionContent">
@@ -76,6 +79,7 @@
 	view.startLoop();
 &lt;/script&gt;		</pre>
 					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample01_setup.html" target="_blank" >Run this code</a></span>
+					<div class="codeSampleTitle">Code sample 01: Scene setup with ss2d.View</div>
 				</div><!--/codeContainer-->
 				<p>What we are doing here is creating a canvas element with the id <span class="codeChunk" style="color: #65B042;">"mainCanvas"</span> and a size of 512x512 pixels, you can set any size for canvas, even full screen. Then we add the minified ss2d library, wich brings all ss2d objects you need to draw and interact with the scene. The library can be added in other ways, you can download it and upload to your own server. You can also checkout the source code from the <a href="https://github.com/Galloman/ss2d" target="_blank">github repository</a> and build your own version of the library or build a single file with all the library and your application together, this is a more advanced topic explained <a href="#building">here</a>.
 				</p>
@@ -104,6 +108,7 @@ quad.tick = function(deltaTime)
 
 view.startLoop();	</pre>
 					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample02_quad.html" target="_blank">Run this code</a></span>
+					<div class="codeSampleTitle">Code sample 02: Animated ss2d.Quad</div>
 				</div><!--/codeContainer-->
 				<p>In this code we instanced an <a href="http://galloman.github.com/ss2d/jsdoc/symbols/ss2d.Quad.html" target="_blank">ss2d.Quad</a> object, this contains all the needed information and methods to render a quad on our scene, in the constructor we pass the location, the size and the color of the quad. Then we acces to the current rendering scene with the <span class="codeChunk" style="color: #fff;">mMainScene</span> property from the view and call <span class="codeChunk" style="color: #fff;">addObject</span> method passing the recently created quad object as a parameter.
 				</p>
@@ -147,6 +152,7 @@ sprite.tick = function(deltaTime)
 
 view.startLoop();	</pre>
 					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample03_sprite.html" target="_blank">Run this code</a></span>
+					<div class="codeSampleTitle">Code sample 03: Adding textures to the scene with ss2d.Sprite</div>
 				</div><!--/codeContainer-->
 
 			</div><!--/sectionContent-->

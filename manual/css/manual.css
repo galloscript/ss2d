@@ -22,11 +22,13 @@ header h1
 	font-weight: bold;
 }
 
+
 .menu
 {
 	width: 250px;
 	border: 1px solid #aaaaaa;
 	padding-left: 15px;
+	padding-right: 15px;
 	background-color: #ffffee;
 }
 
@@ -52,13 +54,15 @@ a:link, a:visited, a:hover
 div.sectionContent
 {
 	display: block;
-	max-width: 1020px;
+	max-width: 1000px;
 	margin: auto;
 	text-align: left;
 	padding-top: 15px;
 	font-size: 13px;
 	padding-left: 5px;
-	padding-right: 5px;
+	padding-right: 15px;
+	border-bottom: 1px solid #aaaaaa;
+	padding-bottom: 10px
 }
 
 div.sectionContent p
@@ -93,6 +97,14 @@ div.codeContainer .runCodeLink
 div.codeContainer .runCodeLink a:hover
 {
 	color: #55ccff;
+}
+
+div.codeContainer .codeSampleTitle
+{
+	text-align: center;
+	width: 100%;
+	margin-top: -10px;
+	font-style: italic;
 }
 
 div.codeContainer pre
