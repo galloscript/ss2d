@@ -107,6 +107,13 @@ div.codeContainer .codeSampleTitle
 	font-style: italic;
 }
 
+div.imgFooter
+{
+	text-align: center;
+	width: 100%;
+	font-style: italic;
+}
+
 div.codeContainer pre
 {
     -moz-tab-size: 4;
