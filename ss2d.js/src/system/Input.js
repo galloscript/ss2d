@@ -77,6 +77,11 @@ ss2d.Input = function(view)
 	this.mClicked = false;
 }
 
+ss2d.Input.getInput = function()
+{
+	return ss2d.CURRENT_VIEW.mInput;
+}
+
 //keyboard keys
 ss2d.Input.Keys = {};
 ss2d.Input.Keys.TAB = 9;

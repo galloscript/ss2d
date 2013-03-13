@@ -132,7 +132,6 @@ ss2d.DisplayObjectContainer.prototype.removeObject = function(displayObjects)
 ss2d.DisplayObjectContainer.prototype.hitTestPoint = function(point)
 {
 	var hittedObject = null;
-	
 	for(var ic = this.mChildren.length-1; ic >= 0 && !hittedObject; --ic)
 	{
 		hittedObject = this.mChildren[ic].hitTestPoint(point);
@@ -164,7 +163,7 @@ ss2d.DisplayObjectContainer.prototype.getBounds = function()
 		height = (height > objBounds.mY + objBounds.mHeight)?height:(objBounds.mY + objBounds.mHeight);
 	}
 	
-	return new ss2d.Rectangle(x, y, width - x, height - y);
+	return new ss2d.Rectangle(x, y, (width - x)*this.mScaleX , (height - y)*this.mScaleY);
 };
 
 //*****************

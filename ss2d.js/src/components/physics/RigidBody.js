@@ -45,8 +45,8 @@ ss2d.RigidBody.prototype.reset = function()
 	{
 		case ss2d.RigidBody.Types.BOX:
 			var ownerBounds = this.mOwner.getBounds();
-			this.mOwner.mPivotX = 0.5*ownerBounds.mWidth/this.mOwner.mScaleX;
-			this.mOwner.mPivotY = 0.5*ownerBounds.mHeight/this.mOwner.mScaleY;
+			this.mOwner.mPivotX = 0.5*ownerBounds.mWidth;
+			this.mOwner.mPivotY = 0.5*ownerBounds.mHeight;
 			//var worldLocation = this.mOwner.localToWorld(this.mOwner.mLocation);
 			var worldLocation = this.mOwner.mLocation;
 			this.mBody = world.createBox(worldLocation.mX,

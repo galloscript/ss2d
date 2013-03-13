@@ -111,6 +111,8 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 					this.mGlyphSprite.mWidth =  this.mClip[2];
 					this.mGlyphSprite.mHeight =  this.mClip[3];
 					
+					this.mDisplacement.mX = xTranslation;
+					this.mDisplacement.mY = this.mClip[5];
 					this.displacement(c, charCode, xTranslation, this.mClip[5], this.mDisplacement);
 					
 					//this.mGlyphSprite.mScaleX = this.mGlyphSprite.mScaleY = s;
@@ -138,6 +140,8 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 					xTranslation += this.mClip[4];
 					
 				}
+				this.mWidth = xTranslation;
+				this.mHeight = this.mFontSize;
 			} catch (t) { }
 			renderSupport.popTransform();
 			

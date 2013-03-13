@@ -97,7 +97,7 @@ ss2d.DisplayObject.prototype.getWorldTransformationMatrix = function(targetMatri
 	
 	while(currentParent.mParent)
 	{
-		parentsStack.unshift(currentParent.mParent);
+		parentsStack.push(currentParent.mParent);
 		currentParent = currentParent.mParent;
 	}
 	
