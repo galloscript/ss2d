@@ -1,6 +1,6 @@
 SmoothStep2D Framework
 ======================
-
+-------------------------
 Javascript 2D Game Framework
 
 Author: David Gallardo Moreno <portalg@gmail.com>
@@ -20,7 +20,7 @@ Main Features
 
 - Low level sound playback when available (webkit browsers only at this moment), if not it uses standard html5 audio api.
 
-- Smart resource loader that led you preload all content before start running the game, keeping a reference of already loaded resources and giving the ability to implement custom loaders for any metadata + bindata format type.
+- Smart resource loader that led you preload all content before start running the game, keeping a reference to already loaded resources and giving the ability to implement custom loaders for any metadata + bindata format type.
 
 - Compatible with some well known content creation tools like BMFont / GlyphDesigner for bitmap fonts and Texture Packer for texture atlas.
 
@@ -32,7 +32,7 @@ Main Features
 
 - Compatible with any mobile device that supports canvas 2d context in it’s web-browser (single finger touch at this moment).
 
-- Develop simply including the ss2dLib.js in your html page or go advanced and compile it with google closure builder, getting all the need pieces of the framework plus your game or application.in a single compressed, optimized and obfuscated javascript file, the framework include the needed configurable command-line tools.
+- Develop simply including the ss2dLib.js in your html page or go advanced and compile it with google closure builder, getting all the needed pieces of the framework plus your game or application.in a single compressed, optimized and obfuscated javascript file, the framework include the needed configurable command-line tools.
 
 Changelog
 ---------
