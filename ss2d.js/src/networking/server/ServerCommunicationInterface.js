@@ -60,14 +60,27 @@ ss2d.ServerCommunicationInterface = function(serverView, serverPort, userLimit)
     	connection.mServer = this;
     	connection.mInput = new ss2d.InputProxy();
     	connection.mConnectionId = ss2d.ServerCommunicationInterface.CONNECTIONS_COUNT++;
+    	connection.mErrorCount = 0;
     	
     	this.mInterface.mServerView.mMainScene.onUserConnect(connection);
     	
     	connection['on']('message', function(message) 
     	{
     		//var commandPackage = JSON.parse(ss2d.Object.convertArrayBufferToString(data));
-    		var commandPackage = JSON.parse(message['utf8Data']);
-    		this.mServer.mInterface.processClientCommand(commandPackage, this);
+    		try
+    		{
+    			var commandPackage = JSON.parse(message['utf8Data']);
+    			this.mServer.mInterface.processClientCommand(commandPackage, this);
+    		} 
+    		catch(t)
+    		{
+    			this.mErrorCount++;
+    			console.log('Exception '+t);
+    			if(this.mErrorCount > 4)
+    			{
+    				this.close();
+    			}
+    		}
     	});
     	
 		connection['on']('close', function(con) 

@@ -5,7 +5,7 @@
 
 goog.provide('XML.ObjTree');
 
-var XML = XML || {};
+//var XML = XML || {};
 
 /** @constructor */
 XML.ObjTree = function () {

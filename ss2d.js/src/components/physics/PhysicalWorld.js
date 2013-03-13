@@ -114,10 +114,11 @@ ss2d.PhysicalWorld.prototype.createBox = function(x, y, width, height, fixed, fi
 /**
  * Create a mouse joint for target body
  * @param {ss2d.RigidBody} body Target body
+ * @param {ss2d.InputProxy} playerInput multiplayer input
  */
-ss2d.PhysicalWorld.prototype.createMouseJoint = function(rigidBody) 
+ss2d.PhysicalWorld.prototype.createMouseJoint = function(rigidBody, playerInput) 
 {  
-	var input = ss2d.CURRENT_VIEW.mInput;
+	var input = playerInput||ss2d.CURRENT_VIEW.mInput;
 	md = new box2d.MouseJointDef();
 	md.body1 = this.mWorld.m_groundBody;
 	md.body2 = rigidBody.mBody;
@@ -125,6 +126,6 @@ ss2d.PhysicalWorld.prototype.createMouseJoint = function(rigidBody)
 	md.target.Set(localMouse.mX, localMouse.mY);
 	md.maxForce = 1000.0 * rigidBody.mBody.m_mass;
 	md.m_collideConnected = true;
-	md.timeStep = 1.0/ss2d.CURRENT_VIEW.mFrameRate;
+	md.timeStep = 1.0/60.0;
 	return this.mWorld.CreateJoint(md);
 };

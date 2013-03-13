@@ -195,7 +195,7 @@ if(COMPILING_CLIENT)
 		return newObj;
 	}
 	
-	ss2d.Sprite.prototype.interpolateState = function(prevState, nextState, part)
+	ss2d.Sprite.prototype.interpolateState = function(prevState, nextState, part, deltaTime)
 	{
 		ss2d.Quad.prototype.interpolateState.call(this, prevState, nextState, part, deltaTime);
 		this.mTexture = (prevState['t'] && prevState['t'] != this.mTexture.mName)?ss2d.ResourceManager.loadTexture(prevState['t']):this.mTexture;

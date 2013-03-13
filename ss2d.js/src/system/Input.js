@@ -264,13 +264,29 @@ ss2d.Input.prototype.isKeyPressed = function(keycode)
 	return (this.mPressedKeys['_'+keycode] != null)?true:false;
 };
 
+ss2d.Input.prototype.getTransformedMousePoint = function()
+{
+	if(ss2d.CURRENT_VIEW.mMainScene instanceof ss2d.DisplayObjectContainer)
+	{
+		return ss2d.CURRENT_VIEW.mMainScene.getTransformationMatrix().invert().transformPoint(this.mMousePoint);
+	} else {
+		return this.mMousePoint;
+	}
+}
 
 ss2d.Input.prototype.toJSON = function()
 {
+	var transMouse = this.getTransformedMousePoint();
+	
+	if(isNaN(transMouse.mX) || isNaN(transMouse.mY))
+	{
+		transMouse = this.mMousePoint;
+	}
+	
 	var str = '{';
 	str += '"keys":'+JSON.stringify(this.mPressedKeys)+',';
-	str += '"mx":'+this.mMouseX+',';
-	str += '"my":'+this.mMouseY+',';
+	str += '"mx":'+transMouse.mX+',';
+	str += '"my":'+transMouse.mY+',';
 	str += '"md":'+this.mMouseDown;
 	return str+'}';
 }

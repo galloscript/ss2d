@@ -34,7 +34,12 @@ if(COMPILING_CLIENT)
 	 */
 	ss2d.MultiplayerScene.prototype.interpolateState = function(prevState, nextState, part, deltaTime, childrenOnly)
 	{
-		ss2d.DisplayObjectContainer.prototype.interpolateState.call(this, prevState, nextState, part, deltaTime, true)
+		ss2d.DisplayObjectContainer.prototype.interpolateState.call(this, prevState, nextState, part, deltaTime, true);
+		
+		if(this.tick)
+		{
+			this.tick(deltaTime);
+		}
 	}
 }
 

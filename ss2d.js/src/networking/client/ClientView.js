@@ -76,7 +76,7 @@ ss2d.ClientView.prototype.nextFrame = function()
 	//interpolate scene
 	if(this.mSceneQueue.length > 1)
 	{
-		this.updateSceneState(now);
+		this.updateSceneState(now, timePassed/1000.0);
 		
 		//clean background
 		this.mContext.fillStyle = this.mBackgroundFillStyle;  
@@ -121,7 +121,7 @@ ss2d.ClientView.prototype.nextInputUpdate = function()
  * Called by the nextFrame method to interpolate scene elements state.
  * @param {number} currentTime
  */
-ss2d.ClientView.prototype.updateSceneState = function(currentTime)
+ss2d.ClientView.prototype.updateSceneState = function(currentTime, deltaTime)
 {
     var renderTime = currentTime - this.mDelay;
     
@@ -158,16 +158,16 @@ ss2d.ClientView.prototype.updateSceneState = function(currentTime)
     	//interpolate all previous states, then the current 
     	for(var istates = 0; istates < prevStateIndex; ++istates)
     	{
-    		this.interpolateSeceneStates(istates, prevStateIndex, renderTime);
+    		this.interpolateSeceneStates(istates, prevStateIndex, renderTime, deltaTime);
     	}
     	
-    	this.interpolateSeceneStates(prevStateIndex, nextStateIndex, renderTime);
+    	this.interpolateSeceneStates(prevStateIndex, nextStateIndex, renderTime, deltaTime);
     }
     
     this.mSceneQueue.splice(0, prevStateIndex);
 }
 
-ss2d.ClientView.prototype.interpolateSeceneStates = function(prevStateIndex, nextStateIndex, renderTime)
+ss2d.ClientView.prototype.interpolateSeceneStates = function(prevStateIndex, nextStateIndex, renderTime, deltaTime)
 {
 	var prevStateTime = this.mSceneQueue[prevStateIndex][0];
 	var nextStateTime = this.mSceneQueue[nextStateIndex][0];
@@ -180,7 +180,7 @@ ss2d.ClientView.prototype.interpolateSeceneStates = function(prevStateIndex, nex
 		console.debug('main scene created');
 	}
 	
-	this.mMainScene.interpolateState(this.mSceneQueue[prevStateIndex][1], this.mSceneQueue[nextStateIndex][1], fraction);
+	this.mMainScene.interpolateState(this.mSceneQueue[prevStateIndex][1], this.mSceneQueue[nextStateIndex][1], fraction, deltaTime);
 }
 
 /**

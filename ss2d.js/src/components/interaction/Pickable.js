@@ -34,10 +34,11 @@ ss2d.Pickable.PICKED_COMPONENT = null;
 /**
  * Called on every frame by the owner with the delta time
  * @param {number} deltaTime
+ * @param {ss2d.InputProxy} playerInput Input of one connected player (multiplayer feature)
  */
-ss2d.Pickable.prototype.tick = function(deltaTime)
+ss2d.Pickable.prototype.tick = function(deltaTime, playerInput)
 {
-	var input = ss2d.CURRENT_VIEW.mInput;
+	var input = playerInput||ss2d.CURRENT_VIEW.mInput;
 	this.mJustPicked = false;
 	if(input.mMouseDown && !input.mPreviousMouseDown)
 	{
@@ -51,6 +52,7 @@ ss2d.Pickable.prototype.tick = function(deltaTime)
 				{
 					ss2d.PhysicalWorld.getWorld().mWorld.DestroyJoint(this.mMouseJoint);
 					this.mMouseJoint  = null;
+					this.mInput = null;
 				}
 
 				ss2d.Pickable.PICKED_COMPONENT.mPicked = false;
@@ -58,6 +60,7 @@ ss2d.Pickable.prototype.tick = function(deltaTime)
 			
 			this.mJustPicked = true;
 			this.mPicked = true;
+			this.mInput = input;
 			ss2d.Pickable.PICKED_COMPONENT = this;
 			var localMouse = this.mOwner.worldToLocal(input.mMousePoint);
 			this.mOffset.set(this.mOwner.mLocation.mX - localMouse.mX, 
@@ -65,16 +68,17 @@ ss2d.Pickable.prototype.tick = function(deltaTime)
 							 
 			if(this.mRigidBody)
 			{
-				this.mMouseJoint = ss2d.PhysicalWorld.getWorld().createMouseJoint(this.mRigidBody);
+				this.mMouseJoint = ss2d.PhysicalWorld.getWorld().createMouseJoint(this.mRigidBody, this.mInput);
     			this.mRigidBody.mBody.WakeUp();
 			}
 		}
 	}
 	
-	this.mPicked = (ss2d.Pickable.PICKED_COMPONENT == this) && input.mMouseDown;
+	this.mPicked = (ss2d.Pickable.PICKED_COMPONENT == this) && this.mInput && this.mInput.mMouseDown;
 	
 	if(this.mPicked)
 	{
+		input = this.mInput;
 		if(this.mMoveObject)
 		{
 			var localMouse = this.mOwner.worldToLocal(input.mMousePoint);
@@ -99,6 +103,7 @@ ss2d.Pickable.prototype.tick = function(deltaTime)
 		{
 			ss2d.PhysicalWorld.getWorld().mWorld.DestroyJoint(this.mMouseJoint);
         	this.mMouseJoint = null;
+        	this.mInput = null;
         }
 	}
 	
