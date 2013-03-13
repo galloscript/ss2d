@@ -11,85 +11,121 @@
         - Hold 1 + click: Create a long bar stone.<br/>
         - Hold 2 + click: Create a short bar stone.<br/>
         - Shift + 1 or 2 + click: Create a static bar.<br/>
+        - W,A,S or D: move world.<br/>
+        - Z or X: zoom world.<br/>
+        - R: Reset world transformation.<br/>
         <br /><br />
         <div></div>
         <canvas id="mainCanvas" width="512" height="512">No canvas Support!</canvas>
         <script src="http://galloman.github.com/ss2d/lib/ss2dLib-min.js"></script>
 <script id="phys">
 
-  //demo namespace
-  var demo = {};
+//demo namespace
+var demo = {};
 
-  demo.Box = function(x, y, isFloor, dynamicBody)
-  {
-    ss2d.DisplayObjectContainer.call(this, x, y);
-
-    if(isFloor == 1)
-    {
-      this.addObject(new ss2d.Sprite(0, 0, 203, 20, 'assets/textures/stoneblocks.png'));
-      this.mChildren[0].mClip = [255, 203, 203, 20];
-    }
-    else if(isFloor == 2)
-    {
-      this.addObject(new ss2d.Sprite(0, 0, 168, 20, 'assets/textures/stoneblocks.png'));
-      this.mChildren[0].mClip = [255, 203, 203, 20];
-    }
-    else
-    {
-      this.addObject(new ss2d.Sprite(0, 0, 40, 40, 'assets/textures/stoneblocks.png'));
-      this.mChildren[0].mClip = [171, 290, 40, 40];
-      dynamicBody = true; //boxes always dynamic
-    }
-
-    if(typeof dynamicBody == 'undefined')
-    {
-      dynamicBody = true;
-    }
-
-    this.mRB = new ss2d.RigidBody(this, null, dynamicBody);
-    this.mPickable = new ss2d.Pickable(this, this.mRB);
-  }
-
-  goog.inherits(demo.Box, ss2d.DisplayObjectContainer);
-
-  demo.Box.prototype.tick = function(dt)
-  {
-    this.mRB.tick(dt); 
-    this.mPickable.tick(dt);
-    this.tickChildren(dt);
-  }
-
-  var worldContainer = new ss2d.DisplayObjectContainer();
-  var view = new ss2d.View('mainCanvas', worldContainer);
-  view.mBackgroundFillStyle = '#cccccc';
+demo.Box = function(x, y, isFloor, dynamicBody)
+{
+  ss2d.DisplayObjectContainer.call(this, x, y);
   
-  //boxes
-  worldContainer.addObject(new demo.Box(65, 20));
-  worldContainer.addObject(new demo.Box(215, 20));
 
-  //floor
-  worldContainer.addObject(new demo.Box(150, 450, 1, false));
-  worldContainer.addObject(new demo.Box(400, 450, 2, false));
-
-
-  worldContainer.tick = function(dt)
+  if(isFloor == 1)
   {
-    this.tickChildren(dt);
-    var input = ss2d.CURRENT_VIEW.mInput;
-    if(input.mMouseDown && !input.mPreviousMouseDown && !this.hitTestPoint(input.mMousePoint))
-    {
-      var locX = input.mMouseX - this.mLocation.mX;
-      var locY = input.mMouseY - this.mLocation.mY;
-      var dynamicBody = !input.isKeyPressed(ss2d.Input.Keys.SHIFT);
+    this.addObject(new ss2d.Sprite(0, 0, 203, 20, 'assets/textures/stoneblocks.png'));
+    this.mChildren[0].mClip = [255, 203, 203, 20];
 
-      var floor1 = input.isKeyPressed(ss2d.Input.Keys.ONE);
-      var floor2 = input.isKeyPressed(ss2d.Input.Keys.TWO);
-      var floorType = (floor1)?1:(floor2)?2:0;
-      worldContainer.addObject(new demo.Box(locX, locY, floorType, dynamicBody));
-    }
+  }
+  else if(isFloor == 2)
+  {
+    this.addObject(new ss2d.Sprite(0, 0, 168, 20, 'assets/textures/stoneblocks.png'));
+    this.mChildren[0].mClip = [255, 203, 203, 20];
+  }
+  else
+  {
+    this.addObject(new ss2d.Sprite(0, 0, 40, 40, 'assets/textures/stoneblocks.png'));
+    this.mChildren[0].mClip = [171, 290, 40, 40];
+    dynamicBody = true; //boxes always dynamic
   }
 
-  view.startLoop();
+  if(typeof dynamicBody == 'undefined')
+  {
+    dynamicBody = true;
+  }
+
+  this.mRB = new ss2d.RigidBody(this, null, dynamicBody);
+  this.mPickable = new ss2d.Pickable(this, this.mRB);
+}
+
+goog.inherits(demo.Box, ss2d.DisplayObjectContainer);
+
+demo.Box.prototype.tick = function(dt)
+{
+  this.mRB.tick(dt); 
+  this.mPickable.tick(dt);
+  this.tickChildren(dt);
+}
+
+var worldContainer = new ss2d.DisplayObjectContainer();
+var view = new ss2d.View('mainCanvas', worldContainer);
+view.mBackgroundFillStyle = '#cccccc';
+
+//boxes
+worldContainer.addObject(new demo.Box(65, 20));
+worldContainer.addObject(new demo.Box(215, 20));
+
+//floor
+worldContainer.addObject(new demo.Box(150, 450, 1, false));
+worldContainer.addObject(new demo.Box(400, 450, 2, false));
+
+
+worldContainer.tick = function(dt)
+{
+  this.tickChildren(dt);
+  var input = ss2d.CURRENT_VIEW.mInput;
+  if(input.mMouseDown && !input.mPreviousMouseDown && !this.hitTestPoint(input.mMousePoint))
+  {
+    var locX = (input.mMouseX - this.mLocation.mX)/this.mScaleX;
+    var locY = (input.mMouseY - this.mLocation.mY)/this.mScaleY;
+    var dynamicBody = !input.isKeyPressed(ss2d.Input.Keys.SHIFT);
+    var floor1 = input.isKeyPressed(ss2d.Input.Keys.ONE);
+    var floor2 = input.isKeyPressed(ss2d.Input.Keys.TWO);
+    var floorType = (floor1)?1:(floor2)?2:0;
+    worldContainer.addObject(new demo.Box(locX, locY, floorType, dynamicBody));
+  }
+  
+  if(input.isKeyPressed(ss2d.Input.Keys.D))
+    this.mLocation.mX -= 200*dt;
+
+  if(input.isKeyPressed(ss2d.Input.Keys.A))
+    this.mLocation.mX += 200*dt;
+
+  if(input.isKeyPressed(ss2d.Input.Keys.W))
+    this.mLocation.mY += 200*dt;
+
+  if(input.isKeyPressed(ss2d.Input.Keys.S))
+    this.mLocation.mY -= 200*dt;
+
+  //zoom
+  if(input.isKeyPressed(ss2d.Input.Keys.Z))
+  {
+    this.mScaleX += 0.5*dt;
+    this.mScaleY = this.mScaleX;
+  }
+
+  if(input.isKeyPressed(ss2d.Input.Keys.X))
+  {
+    this.mScaleX -= 0.5*dt;
+    this.mScaleY = this.mScaleX;
+  }
+
+  if(input.isKeyPressed(ss2d.Input.Keys.R))
+  {
+    this.mLocation.mX = 0;
+    this.mLocation.mY = 0;
+    this.mScaleY = this.mScaleX = 1;
+  }
+}
+
+view.startLoop();
 
 </script>
           <pre class="prettyprint" id="code1">
