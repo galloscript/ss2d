@@ -5,11 +5,18 @@ goog.require('phys.World');
 goog.require('ss2d.ClientView');
 
 phys.client = new ss2d.ClientView('mainScene', 
-								  phys.Config.CANVAS_WIDTH, 
-								  phys.Config.CANVAS_HEIGHT, 
+								  window.innerWidth, 
+								  window.innerHeight, 
 								  phys.Config.CLIENT_FRAME_RATE, 
-								  20.0, 
-								  100.0);
+								  30.0, 
+								  120.0);
+
+/** @this(ss2d.ClientView) */
+phys.client.resizeCanvas = function(cw, ch)
+{
+	this.mCanvas.width = window.innerWidth;
+	this.mCanvas.height = window.innerHeight;
+};
 
 phys.client.onConnect = function(connection)
 {

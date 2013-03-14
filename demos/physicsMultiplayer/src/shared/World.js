@@ -5,7 +5,7 @@ goog.require('ss2d.MultiplayerScene');
 goog.require('phys.Crate');
 goog.require('phys.UserAvatar');
 goog.require('ss2d.RigidBody');
-
+goog.require('ss2d.TextSprite');
 /** 
  * @constructor 
  * @extends {ss2d.MultiplayerScene}
@@ -14,9 +14,20 @@ phys.World = function()
 {
 	ss2d.MultiplayerScene.call(this);
 	
+	if(COMPILING_CLIENT)
+	{
+		this.mLocalBackground = new ss2d.DisplayObjectContainer();
+		this.mLocalForeground = new ss2d.DisplayObjectContainer();
+		this.mGUI = new ss2d.DisplayObjectContainer();
+		
+		this.mGUI.addObject(new ss2d.TextSprite(20, 20, 'Press W, A, S, or D to move.', '#ffffff', 18));
+		this.mGUI.addObject(new ss2d.TextSprite(20, 40, 'Press Z or X to zoom in or out your viewport.','#ffffff', 18));
+		this.mGUI.addObject(new ss2d.TextSprite(20, 60, 'Click our toch an object to move it.', '#ffffff', 18));
+	}
+	
 	if(COMPILING_SERVER)
 	{
-		var c=20;
+		var c=30;
 		while(c--)
 		{
 			var newCrate = new phys.Crate(0.5*phys.Config.CANVAS_WIDTH + Math.random()*10, 
@@ -24,7 +35,19 @@ phys.World = function()
 			this.addObject(newCrate);  
 		}
 		
-		var floor = new ss2d.Quad(350, 400, 700, 30, '#ff0000');
+		var floor = new ss2d.Quad(500, 650, 1000, 30, '#ff0000');
+		this.addObject(floor);
+		floor.mRB = new ss2d.RigidBody(floor, null, false);
+		
+		var floor = new ss2d.Quad(500, -500, 1000, 30, '#ff0000');
+		this.addObject(floor);
+		floor.mRB = new ss2d.RigidBody(floor, null, false);
+		
+		var floor = new ss2d.Quad(0, 0, 30, 1400, '#ff0000');
+		this.addObject(floor);
+		floor.mRB = new ss2d.RigidBody(floor, null, false);
+		
+		var floor = new ss2d.Quad(1000, 0, 30, 1400, '#ff0000');
 		this.addObject(floor);
 		floor.mRB = new ss2d.RigidBody(floor, null, false);
 		
@@ -93,6 +116,19 @@ if(COMPILING_CLIENT)
 			this.mScaleX = 1;
 			this.mScaleY = 1;
 		}
+	};
+
+	phys.World.prototype.render = function(renderSupport)
+	{
+		renderSupport.pushTransform(this);
+		this.mLocalBackground.render(renderSupport);
+		for(var childIndex in this.mChildren)
+		{
+			this.mChildren[childIndex].render(renderSupport);
+		}
+		this.mLocalForeground.render(renderSupport);
+		renderSupport.popTransform();
+		this.mGUI.render(renderSupport);
 	};
 }
 

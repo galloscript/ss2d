@@ -273,16 +273,19 @@ if(COMPILING_CLIENT)
 	 */
 	ss2d.DisplayObject.prototype.interpolateState = function(prevState, nextState, part, deltaTime)
 	{	
-		this.mLocation.mX = prevState['x'] + (nextState['x'] - prevState['x']) * part;
-		this.mLocation.mY = prevState['y'] + (nextState['y'] - prevState['y']) * part;
-		this.mRotation = prevState['r'] + (nextState['r'] - prevState['r']) * part;
-		this.mPivotX = prevState['px'] + (nextState['px'] - prevState['px']) * part;
-		this.mPivotY = prevState['py'] + (nextState['py'] - prevState['py']) * part;
-		this.mScaleX = prevState['sx'] + (nextState['sx'] - prevState['sx']) * part;
-		this.mScaleY = prevState['sy'] + (nextState['sy'] - prevState['sy']) * part;
-		var ca = ss2d.Color.interpolate(prevState['c'], nextState['c'], part).getRGBArray();
-		this.mColor.setRGB(ca[0],ca[1],ca[2]);
-		this.mAlpha = prevState['a'] + (nextState['a'] - prevState['a']) * part;
+		this.mLocation.mX = (prevState['x']) ? prevState['x'] + (nextState['x'] - prevState['x']) * part : this.mLocation.mX;
+		this.mLocation.mY = (prevState['y']) ? prevState['y'] + (nextState['y'] - prevState['y']) * part : this.mLocation.mY;
+		this.mRotation = (prevState['r']) ? prevState['r'] + (nextState['r'] - prevState['r']) * part : this.mRotation;
+		this.mPivotX = (prevState['px']) ? prevState['px'] + (nextState['px'] - prevState['px']) * part : this.mPivotX;
+		this.mPivotY = (prevState['py']) ? prevState['py'] + (nextState['py'] - prevState['py']) * part : this.mPivotY;
+		this.mScaleX = (prevState['sx']) ? prevState['sx'] + (nextState['sx'] - prevState['sx']) * part : this.mScaleX;
+		this.mScaleY = (prevState['sy']) ? prevState['sy'] + (nextState['sy'] - prevState['sy']) * part : this.mScaleY;
+		if(prevState['c'])
+		{
+			var ca = ss2d.Color.interpolate(prevState['c'], nextState['c'], part).getRGBArray();
+			this.mColor.setRGB(ca[0],ca[1],ca[2]);
+		}
+		this.mAlpha = (prevState['a']) ? prevState['a'] + (nextState['a'] - prevState['a']) * part : this.mAlpha;
 		
 		this.playSoundList(prevState);
 		

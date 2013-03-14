@@ -72,10 +72,13 @@ ss2d.ClientView.prototype.nextFrame = function()
 	//get current time in miliseconds
 	var now = new Date().getTime();
 	var timePassed = now - this.mLastFrameTimestamp;
-
+	
+	//called with canvas width and height every frame
+	this.resizeCanvas(this.mCanvas.width, this.mCanvas.height);
+	
 	//interpolate scene
-	if(this.mSceneQueue.length > 1)
-	{
+	//if(this.mSceneQueue.length > 1)
+	//{
 		this.updateSceneState(now, timePassed/1000.0);
 		
 		//clean background
@@ -87,7 +90,7 @@ ss2d.ClientView.prototype.nextFrame = function()
 		{
 			this.mMainScene.render(this.mRenderSupport);
 		}
-	}
+	//}
 	
 	//update input
 	this.mInput.tick(timePassed/1000.0);
@@ -153,6 +156,11 @@ ss2d.ClientView.prototype.updateSceneState = function(currentTime, deltaTime)
    	 	}
     }
     
+    //if(nextStateIndex == -1)
+    //{
+    	//nextStateIndex = prevStateIndex;
+    //}
+    
     if(prevStateIndex != -1 && nextStateIndex != -1)
     {
     	//interpolate all previous states, then the current 
@@ -203,6 +211,14 @@ ss2d.ClientView.prototype.stopLoop = function()
 {
 	this.mRunning = false;	
 };
+
+/**
+ * A callback function to resize the canvas. Receives canvas width and height every frame.
+ * Implemented by the user
+ * @param {Object} cw canvas width
+ * @param {Object} ch canvas height
+ */
+ss2d.ClientView.prototype.resizeCanvas = function(cw, ch){};
 
 /**
  * Create a new ss2d.ClientCommunicationInterface connection.

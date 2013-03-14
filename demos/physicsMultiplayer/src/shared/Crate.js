@@ -47,5 +47,20 @@ if(COMPILING_SERVER) //server only functions
 		
 		this.mRigidBody.tick(deltaTime);
 	}
+	
+	ss2d.Crate.prototype.getPropertiesJSON = function()
+	{
+		var str = '';
+		str += '"cid":'+this.CLASS_ID+',';
+		str += '"doid":'+this.mObjectId+',';
+		str += '"x":'+Math.floor(this.mLocation.mX*1000.0)/1000.0+',';
+		str += '"y":'+Math.floor(this.mLocation.mY*1000.0)/1000.0+',';
+		str += '"r":'+(Math.floor(this.mRotation*100)/100)+',';
+		str += '"px":'+this.mPivotX+',';
+		str += '"py":'+this.mPivotY+',';
+		str += '"w": '+this.getWidth()+',';
+		str += '"h": '+this.getHeight();
+		return str;
+	};
 }
 

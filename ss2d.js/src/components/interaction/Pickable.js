@@ -29,7 +29,7 @@ ss2d.Pickable = function(owner, rb)
 	this.mInput = null;
 };
 
-ss2d.Pickable.PICKED_COMPONENT = null;
+//ss2d.Pickable.PICKED_COMPONENT = null;
 
 /**
  * Called on every frame by the owner with the delta time
@@ -44,9 +44,17 @@ ss2d.Pickable.prototype.tick = function(deltaTime, playerInput)
 	{
 		//picking
 		if(this.mOwner.hitTestPoint(input.mMousePoint))
-		{
+		{	
+			if(this.mInput)
+			{
+				ss2d.PhysicalWorld.getWorld().mWorld.DestroyJoint(this.mMouseJoint);
+				this.mMouseJoint  = null;
+				this.mInput.PICKED_COMPONENT = null;
+				this.mInput = null;
+			}
+			
 			//last elements are near in z
-			if(ss2d.Pickable.PICKED_COMPONENT)
+			if(input.PICKED_COMPONENT)
 			{
 				if(this.mRigidBody && this.mMouseJoint)
 				{
@@ -55,13 +63,15 @@ ss2d.Pickable.prototype.tick = function(deltaTime, playerInput)
 					this.mInput = null;
 				}
 
-				ss2d.Pickable.PICKED_COMPONENT.mPicked = false;
+				input.PICKED_COMPONENT.mPicked = false;
 			}
+			
+			
 			
 			this.mJustPicked = true;
 			this.mPicked = true;
 			this.mInput = input;
-			ss2d.Pickable.PICKED_COMPONENT = this;
+			input.PICKED_COMPONENT = this;
 			var localMouse = this.mOwner.worldToLocal(input.mMousePoint);
 			this.mOffset.set(this.mOwner.mLocation.mX - localMouse.mX, 
 							 this.mOwner.mLocation.mY - localMouse.mY);
@@ -74,7 +84,7 @@ ss2d.Pickable.prototype.tick = function(deltaTime, playerInput)
 		}
 	}
 	
-	this.mPicked = (ss2d.Pickable.PICKED_COMPONENT == this) && this.mInput && this.mInput.mMouseDown;
+	this.mPicked = (input.PICKED_COMPONENT == this) && this.mInput && this.mInput.mMouseDown;
 	
 	if(this.mPicked)
 	{
@@ -96,9 +106,9 @@ ss2d.Pickable.prototype.tick = function(deltaTime, playerInput)
 			}
 		}
 	}
-	else if(ss2d.Pickable.PICKED_COMPONENT == this)
+	else if(input.PICKED_COMPONENT == this)
 	{
-		ss2d.Pickable.PICKED_COMPONENT = null;
+		input.PICKED_COMPONENT = null;
 		if(this.mRigidBody && this.mMouseJoint)
 		{
 			ss2d.PhysicalWorld.getWorld().mWorld.DestroyJoint(this.mMouseJoint);

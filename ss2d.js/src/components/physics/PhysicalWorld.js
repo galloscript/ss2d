@@ -26,7 +26,11 @@ ss2d.PhysicalWorld = function()
 	this.mWorld = new box2d.World(worldAABB, gravity, doSleep);
 };
 
+/** @type {ss2d.PhysicalWorld} Current world instance*/
 ss2d.PhysicalWorld.WORLD_INSTANCE = null;
+
+/** @type {number} world updates per second */
+ss2d.PhysicalWorld.UPDATE_RATE = 30;
 
 ss2d.PhysicalWorld.getWorld = function()
 {
@@ -126,6 +130,6 @@ ss2d.PhysicalWorld.prototype.createMouseJoint = function(rigidBody, playerInput)
 	md.target.Set(localMouse.mX, localMouse.mY);
 	md.maxForce = 1000.0 * rigidBody.mBody.m_mass;
 	md.m_collideConnected = true;
-	md.timeStep = 1.0/60.0;
+	md.timeStep = 1.0/ss2d.PhysicalWorld.UPDATE_RATE;
 	return this.mWorld.CreateJoint(md);
 };

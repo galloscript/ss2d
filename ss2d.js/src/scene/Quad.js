@@ -141,8 +141,8 @@ if(COMPILING_CLIENT)
 	ss2d.Quad.prototype.interpolateState = function(prevState, nextState, part, deltaTime)
 	{
 		ss2d.DisplayObject.prototype.interpolateState.call(this, prevState, nextState, part, deltaTime);
-		this.mWidth = prevState['w'] + (nextState['w'] - prevState['w']) * part;
-		this.mHeight = prevState['h'] + (nextState['h'] - prevState['h']) * part;
+		this.mWidth = (prevState['w']) ? prevState['w'] + (nextState['w'] - prevState['w']) * part : this.mWidth;
+		this.mHeight = (prevState['h']) ? prevState['h'] + (nextState['h'] - prevState['h']) * part : this.mHeight;
 	}
 }
 

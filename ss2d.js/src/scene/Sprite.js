@@ -225,7 +225,7 @@ if(COMPILING_SERVER)
 		{
 			str += ',"t": "'+this.mTexture.mName+'"';
 		}
-		if(this.mClip)
+		if(this.mClip && this.mClip.length > 3)
 		{
 			str += ',"clip": '+JSON.stringify(this.mClip);
 		}

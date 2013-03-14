@@ -128,6 +128,14 @@ ss2d.DisplayObjectContainer.prototype.removeObject = function(displayObjects)
 	}
 };
 
+/**
+ * Remove all objects from the container
+ */
+ss2d.DisplayObjectContainer.prototype.removeAll = function()
+{
+	this.removeObject(this.mChildren.slice());
+};
+
 /** @override */
 ss2d.DisplayObjectContainer.prototype.hitTestPoint = function(point)
 {

@@ -52,7 +52,7 @@ ss2d.ServerView.prototype.nextFrame = function()
 	this.mMainScene.tick(timePassed/1000.0);
 	
 	//update physics
-	var worldUpdates = Math.floor(Math.max(1, timePassed/(1000.0/60.0)));
+	var worldUpdates = Math.floor(Math.max(1, timePassed/(1000.0/ss2d.PhysicalWorld.UPDATE_RATE)));
 	for(var i = 0; i < worldUpdates; ++i)
 	{
 		this.mPhysicalWorld.tick((timePassed/worldUpdates)/1000.0);
