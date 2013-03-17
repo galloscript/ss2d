@@ -154,10 +154,12 @@ if(COMPILING_CLIENT || COMPILING_OFFLINE)
 				}
 				
 				var currentFrame = this.mPlayingReel.mFrames[this.mFrameCount];
-				
-				currentFrame.dumpClip(this.mClip);
-				this.mOffsetX = currentFrame.mOffsetX;
-				this.mOffsetY = currentFrame.mOffsetY;
+				if(currentFrame)
+				{
+					currentFrame.dumpClip(this.mClip);
+					this.mOffsetX = currentFrame.mOffsetX;
+					this.mOffsetY = currentFrame.mOffsetY;
+				}
 			}
 		}
 	};
