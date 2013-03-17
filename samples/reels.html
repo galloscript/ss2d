@@ -6,10 +6,12 @@
     </head>
     <body>
         <div></div>
+        <p>- Move the fire explosion with the mouse</p>
+        <p>- Move the knight with WASD keys</p>
         <canvas id="mainCanvas" width="640" height="480">No canvas Support!</canvas>
         <script src="http://galloman.github.com/ss2d/lib/ss2dLib-min.js"></script>
         <!--script src="../ss2dRepo/ss2d.js/lib/ss2dLib.js"></script-->
-<script>
+<script id="reelsdemo">
 
 var view = new ss2d.View('mainCanvas');
 view.mBackgroundFillStyle = '#003300';
@@ -86,7 +88,7 @@ view.startLoop();
       <pre class="prettyprint" id="code1">
       </pre>
       <script>
-        var c1 = document.getElementById('textDemo').innerHTML;
+        var c1 = document.getElementById('reelsdemo').innerHTML;
         document.getElementById('code1').innerHTML = c1;
       </script>
       <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
