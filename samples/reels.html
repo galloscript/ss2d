@@ -7,8 +7,16 @@
     </head>
     <body>
         <h3>Sprite Reel Demo</h3>
-        <p>- Move the fire explosion with the mouse<br/>
-        - Move the knight with WASD keys</p>
+        <p>
+          - Move the fire explosion with the mouse<br/>
+          - Move the knight with WASD keys
+        </p>
+        <p>
+          Fire explosion reel time dilation: 
+          <span id="dilationValue">1.0</span>
+          <button value="-" onclick="modifyDilation(-0.1);"/>
+          <button value="+" onclick="modifyDilation(0.1);" />
+        </p>
         <canvas id="mainCanvas" width="640" height="480">No canvas Support!</canvas>
         <script src="http://galloman.github.com/ss2d/lib/ss2dLib-min.js"></script>
         <!--script src="../ss2dRepo/ss2d.js/lib/ss2dLib.js"></script-->
@@ -86,11 +94,29 @@
   view.startLoop();
 
 </script>
+<script id="firedilation">
+  // [ - ]: addDilationToFire(-0.1);
+  // [ + ]: addDilationToFire(0.1);
+  function addDilationToFire(dilation)
+  {
+    fire.mTimeDilation += dilation;
+  }
+</script>
+<script>
+  function modifyDilation(dilation)
+  {
+    addDilationToFire(dilation)
+    document.getElementById('dilationValue').innerHTML = fire.mTimeDilation;
+  }
+</scripT>
       <pre class="prettyprint" id="code1">
+      <pre class="prettyprint" id="code2">
       </pre>
       <script>
         var c1 = document.getElementById('reelsdemo').innerHTML;
         document.getElementById('code1').innerHTML = c1;
+        var c2 = document.getElementById('firedilation').innerHTML;
+        document.getElementById('code2').innerHTML = c1;
       </script>
       <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
       <link rel="stylesheet" type="text/css" href="http://google-code-prettify.googlecode.com/svn/trunk/styles/desert.css" />
