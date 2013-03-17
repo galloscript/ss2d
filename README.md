@@ -37,6 +37,9 @@ Main Features
 Changelog
 ---------
 
+17-03-2013<br>
+Added Sprite Reels
+
 14-03-2013<br>
 Lots of bug fixes since the last changelog update and a new demo source code added: physicsMultiplayer, a multiplayer world with 2d physics objects and free world transformation in client side, it means that every user can move and scale the world viewport and interact with succes with the scene elements.
 
