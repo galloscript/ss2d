@@ -189,7 +189,7 @@ ul.inheritsList
 <h2>Classes</h2>
 <ul class="classList">
 	
-	<li><i><a href="../symbols/global_.html">global_</a></i></li>
+	<li><i><a href="../symbols/GLOBAL_.html">GLOBAL_</a></i></li>
 	
 	<li><a href="../symbols/ss2d.html">ss2d</a></li>
 	
@@ -250,6 +250,8 @@ ul.inheritsList
 	<li><a href="../symbols/ss2d.ReelFrame.html">ss2d.ReelFrame</a></li>
 	
 	<li><a href="../symbols/ss2d.ReelSet.html">ss2d.ReelSet</a></li>
+	
+	<li><a href="../symbols/ss2d.ReelSetLoader.html">ss2d.ReelSetLoader</a></li>
 	
 	<li><a href="../symbols/ss2d.ReelSprite.html">ss2d.ReelSprite</a></li>
 	
@@ -429,7 +431,7 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.loadBitmapFont">loadBitmapFont</a></b>(bitmapFont, bitmapLoadedCallback)
+								<div class="fixedFont">ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.loadBitmapFont">loadBitmapFont</a></b>(bitmapFont, bitmapLoadedCallback, callbackTarget)
 								</div>
 								<div class="description"></div>
 							</td>
@@ -441,6 +443,15 @@ ul.inheritsList
 								<div class="fixedFont">ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.loadEndsCallback">loadEndsCallback</a></b>(resource)
 								</div>
 								<div class="description">Called by loadResources every time a resource is loaded</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.loadReelSet">loadReelSet</a></b>(reelSet, reelSetLoadedCallback, callbackTarget)
+								</div>
+								<div class="description"></div>
 							</td>
 						</tr>
 					
@@ -484,7 +495,7 @@ function()
 						<tr>
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.loadResourceWithLoader">loadResourceWithLoader</a></b>(loader, name, loadedCallback)
+								<div class="fixedFont">ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.loadResourceWithLoader">loadResourceWithLoader</a></b>(loader, name, loadedCallback, callbackTarget)
 								</div>
 								<div class="description">Loads a resource with the specified loader.</div>
 							</td>
@@ -493,7 +504,7 @@ function()
 						<tr>
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.loadSound">loadSound</a></b>(soudName, soundLoadedCallback)
+								<div class="fixedFont">ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.loadSound">loadSound</a></b>(soudName, soundLoadedCallback, callbackTarget)
 								</div>
 								<div class="description"></div>
 							</td>
@@ -502,7 +513,7 @@ function()
 						<tr>
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.loadTexture">loadTexture</a></b>(textureName, textureLoadedCallback)
+								<div class="fixedFont">ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.loadTexture">loadTexture</a></b>(textureName, textureLoadedCallback, callbackTarget)
 								</div>
 								<div class="description"></div>
 							</td>
@@ -511,7 +522,7 @@ function()
 						<tr>
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont">ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.loadTextureAtlas">loadTextureAtlas</a></b>(atlasName, atlasLoadedCallback)
+								<div class="fixedFont">ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.loadTextureAtlas">loadTextureAtlas</a></b>(atlasName, atlasLoadedCallback, callbackTarget)
 								</div>
 								<div class="description"></div>
 							</td>
@@ -732,7 +743,7 @@ function()
 					<div class="fixedFont">&lt;static&gt; 
 					
 					
-					<span class="light">ss2d.ResourceManager.</span><b>loadBitmapFont</b>(bitmapFont, bitmapLoadedCallback)
+					<span class="light">ss2d.ResourceManager.</span><b>loadBitmapFont</b>(bitmapFont, bitmapLoadedCallback, callbackTarget)
 					
 					</div>
 					<div class="description">
@@ -755,6 +766,12 @@ function()
 							
 								<dt>
 									<span class="light fixedFont">{function}</span> <b>bitmapLoadedCallback</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<b>callbackTarget</b>
 									
 								</dt>
 								<dd></dd>
@@ -791,6 +808,54 @@ function()
 							
 								<dt>
 									<span class="light fixedFont">{Object}</span> <b>resource</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".loadReelSet"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">ss2d.ResourceManager.</span><b>loadReelSet</b>(reelSet, reelSetLoadedCallback, callbackTarget)
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{string}</span> <b>reelSet</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{function}</span> <b>reelSetLoadedCallback</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<b>callbackTarget</b>
 									
 								</dt>
 								<dd></dd>
@@ -887,7 +952,7 @@ function()
 					<div class="fixedFont">&lt;static&gt; 
 					
 					
-					<span class="light">ss2d.ResourceManager.</span><b>loadResourceWithLoader</b>(loader, name, loadedCallback)
+					<span class="light">ss2d.ResourceManager.</span><b>loadResourceWithLoader</b>(loader, name, loadedCallback, callbackTarget)
 					
 					</div>
 					<div class="description">
@@ -920,6 +985,12 @@ function()
 								</dt>
 								<dd></dd>
 							
+								<dt>
+									<b>callbackTarget</b>
+									
+								</dt>
+								<dd></dd>
+							
 							</dl>
 						
 						
@@ -935,7 +1006,7 @@ function()
 					<div class="fixedFont">&lt;static&gt; 
 					
 					
-					<span class="light">ss2d.ResourceManager.</span><b>loadSound</b>(soudName, soundLoadedCallback)
+					<span class="light">ss2d.ResourceManager.</span><b>loadSound</b>(soudName, soundLoadedCallback, callbackTarget)
 					
 					</div>
 					<div class="description">
@@ -962,6 +1033,12 @@ function()
 								</dt>
 								<dd></dd>
 							
+								<dt>
+									<b>callbackTarget</b>
+									
+								</dt>
+								<dd></dd>
+							
 							</dl>
 						
 						
@@ -977,7 +1054,7 @@ function()
 					<div class="fixedFont">&lt;static&gt; 
 					
 					
-					<span class="light">ss2d.ResourceManager.</span><b>loadTexture</b>(textureName, textureLoadedCallback)
+					<span class="light">ss2d.ResourceManager.</span><b>loadTexture</b>(textureName, textureLoadedCallback, callbackTarget)
 					
 					</div>
 					<div class="description">
@@ -1004,6 +1081,12 @@ function()
 								</dt>
 								<dd></dd>
 							
+								<dt>
+									<b>callbackTarget</b>
+									
+								</dt>
+								<dd></dd>
+							
 							</dl>
 						
 						
@@ -1019,7 +1102,7 @@ function()
 					<div class="fixedFont">&lt;static&gt; 
 					
 					
-					<span class="light">ss2d.ResourceManager.</span><b>loadTextureAtlas</b>(atlasName, atlasLoadedCallback)
+					<span class="light">ss2d.ResourceManager.</span><b>loadTextureAtlas</b>(atlasName, atlasLoadedCallback, callbackTarget)
 					
 					</div>
 					<div class="description">
@@ -1042,6 +1125,12 @@ function()
 							
 								<dt>
 									<span class="light fixedFont">{function}</span> <b>atlasLoadedCallback</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<b>callbackTarget</b>
 									
 								</dt>
 								<dd></dd>
@@ -1094,7 +1183,7 @@ function()
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Mar 06 2013 03:17:18 GMT+0100 (CET)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Sun Mar 17 2013 18:00:37 GMT+0100 (CET)
 		</div>
 	</body>
 </html>

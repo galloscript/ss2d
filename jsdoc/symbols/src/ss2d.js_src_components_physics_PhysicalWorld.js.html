@@ -8,7 +8,7 @@
 	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">// Copyright (c) 2013 David Gallardo Moreno. All rights reserved.</span><span class="WHIT">
 <span class='line'>  2</span> 
 <span class='line'>  3</span> </span><span class="COMM">/**
-<span class='line'>  4</span>  * @fileoverview A singleton class that represents a box2d physic world
+<span class='line'>  4</span>  * @fileoverview A singleton class that represents a box2d world
 <span class='line'>  5</span>  * @author David Gallardo Moreno (portalg@gmail.com)
 <span class='line'>  6</span>  */</span><span class="WHIT">
 <span class='line'>  7</span> 
@@ -20,100 +20,123 @@
 <span class='line'> 13</span> </span><span class="NAME">goog.require</span><span class="PUNC">(</span><span class="STRN">'box2d.BoxDef'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 14</span> </span><span class="NAME">goog.require</span><span class="PUNC">(</span><span class="STRN">'box2d.CircleDef'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 15</span> </span><span class="NAME">goog.require</span><span class="PUNC">(</span><span class="STRN">'box2d.BodyDef'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 16</span> 
-<span class='line'> 17</span> </span><span class="COMM">/** @constructor */</span><span class="WHIT">
-<span class='line'> 18</span> </span><span class="NAME">ss2d.PhysicalWorld</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'> 19</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 20</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">worldAABB</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">box2d.AABB</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'> 21</span> 	</span><span class="NAME">worldAABB.minVertex.Set</span><span class="PUNC">(</span><span class="PUNC">-</span><span class="NUMB">1024</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="NUMB">1024</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'> 22</span> 	</span><span class="NAME">worldAABB.maxVertex.Set</span><span class="PUNC">(</span><span class="NUMB">1024</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">1024</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'> 23</span> 	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">gravity</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">box2d.Vec2</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">300</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'> 24</span> 	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">doSleep</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'> 25</span> 	</span><span class="NAME">this.mWorld</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">box2d.World</span><span class="PUNC">(</span><span class="NAME">worldAABB</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">gravity</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">doSleep</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 26</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 27</span> 
-<span class='line'> 28</span> </span><span class="NAME">ss2d.PhysicalWorld.WORLD_INSTANCE</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 29</span> 
-<span class='line'> 30</span> </span><span class="NAME">ss2d.PhysicalWorld.getWorld</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'> 31</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 32</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">ss2d.PhysicalWorld.WORLD_INSTANCE</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'> 33</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 34</span> </span><span class="WHIT">		</span><span class="NAME">ss2d.PhysicalWorld.WORLD_INSTANCE</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">ss2d.PhysicalWorld</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 35</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'> 36</span> </span><span class="WHIT">	
-<span class='line'> 37</span> 	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">ss2d.PhysicalWorld.WORLD_INSTANCE</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 38</span> </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'> 39</span> 
-<span class='line'> 40</span> </span><span class="COMM">/**
-<span class='line'> 41</span>  * Sets the world gravity
-<span class='line'> 42</span>  * @param {number} x Gravity force in X axis
-<span class='line'> 43</span>  * @param {number} y Gravity force in Y axis
-<span class='line'> 44</span>  */</span><span class="WHIT">
-<span class='line'> 45</span> </span><span class="NAME">ss2d.PhysicalWorld.prototype.setGravity</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">x</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">y</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'> 46</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 47</span> </span><span class="WHIT">	</span><span class="NAME">this.mWorld.m_gravity.x</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">x</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 48</span> </span><span class="WHIT">	</span><span class="NAME">this.mWorld.m_gravity.y</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">y</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 49</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 50</span> 
-<span class='line'> 51</span> </span><span class="COMM">/**
-<span class='line'> 52</span>  * @param {number} deltaTime Time passed since the last update
-<span class='line'> 53</span>  */</span><span class="WHIT">
-<span class='line'> 54</span> </span><span class="NAME">ss2d.PhysicalWorld.prototype.tick</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">deltaTime</span><span class="PUNC">)</span><span class="WHIT">  
-<span class='line'> 55</span> </span><span class="PUNC">{</span><span class="WHIT">  
-<span class='line'> 56</span>     </span><span class="NAME">this.mWorld.Step</span><span class="PUNC">(</span><span class="NAME">deltaTime</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'> 57</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 58</span> 
-<span class='line'> 59</span> </span><span class="COMM">/**
-<span class='line'> 60</span>  * Creates and returns a circle body
-<span class='line'> 61</span>  * @param {number} x
-<span class='line'> 62</span>  * @param {number} y
-<span class='line'> 63</span>  * @param {number} radius
-<span class='line'> 64</span>  * @return {Object} A ball
-<span class='line'> 65</span>  */</span><span class="WHIT">
-<span class='line'> 66</span> </span><span class="NAME">ss2d.PhysicalWorld.prototype.createBall</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">x</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">y</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">radius</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">  
-<span class='line'> 67</span>     </span><span class="NAME">radius</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">radius</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NUMB">20</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'> 68</span>     </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ballSd</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">box2d.CircleDef</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'> 69</span>     </span><span class="NAME">ballSd.density</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">1.0</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'> 70</span>     </span><span class="NAME">ballSd.radius</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">radius</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'> 71</span>     </span><span class="NAME">ballSd.restitution</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0.8</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'> 72</span>     </span><span class="NAME">ballSd.friction</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0.9</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'> 73</span>     </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ballBd</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">box2d.BodyDef</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'> 74</span>     </span><span class="NAME">ballBd.AddShape</span><span class="PUNC">(</span><span class="NAME">ballSd</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'> 75</span>     </span><span class="NAME">ballBd.position.Set</span><span class="PUNC">(</span><span class="NAME">x</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">y</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'> 76</span>     </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.mWorld.CreateBody</span><span class="PUNC">(</span><span class="NAME">ballBd</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'> 77</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'> 78</span> 
-<span class='line'> 79</span> </span><span class="COMM">/**
-<span class='line'> 80</span>  * Creates and returns a box body
-<span class='line'> 81</span>  * @param {number} x Origin of the box in X axis
-<span class='line'> 82</span>  * @param {number} y Origin of the box in Y axis
-<span class='line'> 83</span>  * @param {number} width
-<span class='line'> 84</span>  * @param {number} height
-<span class='line'> 85</span>  * @param {boolean} fixed
-<span class='line'> 86</span>  * @param {boolean} filled
-<span class='line'> 87</span>  * @return {Object} A box
-<span class='line'> 88</span>  */</span><span class="WHIT">
-<span class='line'> 89</span> </span><span class="NAME">ss2d.PhysicalWorld.prototype.createBox</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">x</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">y</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">width</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">height</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">fixed</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">filled</span><span class="PUNC">)</span><span class="WHIT"> 
-<span class='line'> 90</span> </span><span class="PUNC">{</span><span class="WHIT">  
-<span class='line'> 91</span> 	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">fixed</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">'undefined'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">  
-<span class='line'> 92</span> 		</span><span class="NAME">fixed</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'> 93</span> 	</span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'> 94</span> </span><span class="WHIT">	 
-<span class='line'> 95</span> 	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">filled</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">'undefined'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">  
-<span class='line'> 96</span> 		</span><span class="NAME">filled</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'> 97</span> 	</span><span class="PUNC">}</span><span class="WHIT"> 
-<span class='line'> 98</span>     
-<span class='line'> 99</span> 	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">boxSd</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">box2d.BoxDef</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'>100</span> 	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">fixed</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">  
-<span class='line'>101</span> 	    </span><span class="NAME">boxSd.density</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">1.0</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'>102</span> 	</span><span class="PUNC">}</span><span class="WHIT">  
-<span class='line'>103</span> 	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">filled</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">  
-<span class='line'>104</span> 	    </span><span class="NAME">boxSd.userData</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">'filled'</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'>105</span> 	</span><span class="PUNC">}</span><span class="WHIT">  
-<span class='line'>106</span> 	</span><span class="NAME">boxSd.extents.Set</span><span class="PUNC">(</span><span class="NAME">width</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">height</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'>107</span> 	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">boxBd</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">box2d.BodyDef</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'>108</span> 	</span><span class="NAME">boxBd.AddShape</span><span class="PUNC">(</span><span class="NAME">boxSd</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'>109</span> 	</span><span class="NAME">boxBd.position.Set</span><span class="PUNC">(</span><span class="NAME">x</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">y</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'>110</span> 	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.mWorld.CreateBody</span><span class="PUNC">(</span><span class="NAME">boxBd</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
-<span class='line'>111</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>112</span> </span></pre></body></html>
+<span class='line'> 16</span> </span><span class="NAME">goog.require</span><span class="PUNC">(</span><span class="STRN">'box2d.MouseJointDef'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 17</span> 
+<span class='line'> 18</span> </span><span class="COMM">/** @constructor */</span><span class="WHIT">
+<span class='line'> 19</span> </span><span class="NAME">ss2d.PhysicalWorld</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 20</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 21</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">worldAABB</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">box2d.AABB</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'> 22</span> 	</span><span class="NAME">worldAABB.minVertex.Set</span><span class="PUNC">(</span><span class="PUNC">-</span><span class="NUMB">2048</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="NUMB">2048</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'> 23</span> 	</span><span class="NAME">worldAABB.maxVertex.Set</span><span class="PUNC">(</span><span class="NUMB">2048</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">2048</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'> 24</span> 	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">gravity</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">box2d.Vec2</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">300</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'> 25</span> 	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">doSleep</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'> 26</span> 	</span><span class="NAME">this.mWorld</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">box2d.World</span><span class="PUNC">(</span><span class="NAME">worldAABB</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">gravity</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">doSleep</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 28</span> 
+<span class='line'> 29</span> </span><span class="COMM">/** @type {ss2d.PhysicalWorld} Current world instance*/</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="NAME">ss2d.PhysicalWorld.WORLD_INSTANCE</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 31</span> 
+<span class='line'> 32</span> </span><span class="COMM">/** @type {number} world updates per second */</span><span class="WHIT">
+<span class='line'> 33</span> </span><span class="NAME">ss2d.PhysicalWorld.UPDATE_RATE</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">30</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 34</span> 
+<span class='line'> 35</span> </span><span class="NAME">ss2d.PhysicalWorld.getWorld</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 37</span> </span><span class="WHIT">	</span><span class="KEYW">if</span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">ss2d.PhysicalWorld.WORLD_INSTANCE</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 38</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 39</span> </span><span class="WHIT">		</span><span class="NAME">ss2d.PhysicalWorld.WORLD_INSTANCE</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">ss2d.PhysicalWorld</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 40</span> </span><span class="WHIT">	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 41</span> </span><span class="WHIT">	
+<span class='line'> 42</span> 	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">ss2d.PhysicalWorld.WORLD_INSTANCE</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 43</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 44</span> 
+<span class='line'> 45</span> </span><span class="COMM">/**
+<span class='line'> 46</span>  * Sets the world gravity
+<span class='line'> 47</span>  * @param {number} x Gravity force in X axis
+<span class='line'> 48</span>  * @param {number} y Gravity force in Y axis
+<span class='line'> 49</span>  */</span><span class="WHIT">
+<span class='line'> 50</span> </span><span class="NAME">ss2d.PhysicalWorld.prototype.setGravity</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">x</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">y</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 51</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 52</span> </span><span class="WHIT">	</span><span class="NAME">this.mWorld.m_gravity.x</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">x</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 53</span> </span><span class="WHIT">	</span><span class="NAME">this.mWorld.m_gravity.y</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">y</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 54</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 55</span> 
+<span class='line'> 56</span> </span><span class="COMM">/**
+<span class='line'> 57</span>  * @param {number} deltaTime Time passed since the last update
+<span class='line'> 58</span>  */</span><span class="WHIT">
+<span class='line'> 59</span> </span><span class="NAME">ss2d.PhysicalWorld.prototype.tick</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">deltaTime</span><span class="PUNC">)</span><span class="WHIT">  
+<span class='line'> 60</span> </span><span class="PUNC">{</span><span class="WHIT">  
+<span class='line'> 61</span>     </span><span class="NAME">this.mWorld.Step</span><span class="PUNC">(</span><span class="NAME">deltaTime</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'> 62</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 63</span> 
+<span class='line'> 64</span> </span><span class="COMM">/**
+<span class='line'> 65</span>  * Creates and returns a circle body
+<span class='line'> 66</span>  * @param {number} x
+<span class='line'> 67</span>  * @param {number} y
+<span class='line'> 68</span>  * @param {number} radius
+<span class='line'> 69</span>  * @return {Object} A ball
+<span class='line'> 70</span>  */</span><span class="WHIT">
+<span class='line'> 71</span> </span><span class="NAME">ss2d.PhysicalWorld.prototype.createBall</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">x</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">y</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">radius</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">  
+<span class='line'> 72</span>     </span><span class="NAME">radius</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">radius</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="NUMB">20</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'> 73</span>     </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ballSd</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">box2d.CircleDef</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'> 74</span>     </span><span class="NAME">ballSd.density</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">1.0</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'> 75</span>     </span><span class="NAME">ballSd.radius</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">radius</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'> 76</span>     </span><span class="NAME">ballSd.restitution</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0.8</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'> 77</span>     </span><span class="NAME">ballSd.friction</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0.9</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'> 78</span>     </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ballBd</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">box2d.BodyDef</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'> 79</span>     </span><span class="NAME">ballBd.AddShape</span><span class="PUNC">(</span><span class="NAME">ballSd</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'> 80</span>     </span><span class="NAME">ballBd.position.Set</span><span class="PUNC">(</span><span class="NAME">x</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">y</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'> 81</span>     </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.mWorld.CreateBody</span><span class="PUNC">(</span><span class="NAME">ballBd</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'> 82</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'> 83</span> 
+<span class='line'> 84</span> </span><span class="COMM">/**
+<span class='line'> 85</span>  * Creates and returns a box body
+<span class='line'> 86</span>  * @param {number} x Origin of the box in X axis
+<span class='line'> 87</span>  * @param {number} y Origin of the box in Y axis
+<span class='line'> 88</span>  * @param {number} width
+<span class='line'> 89</span>  * @param {number} height
+<span class='line'> 90</span>  * @param {boolean} fixed
+<span class='line'> 91</span>  * @param {boolean} filled
+<span class='line'> 92</span>  * @return {Object} A box
+<span class='line'> 93</span>  */</span><span class="WHIT">
+<span class='line'> 94</span> </span><span class="NAME">ss2d.PhysicalWorld.prototype.createBox</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">x</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">y</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">width</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">height</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">fixed</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">filled</span><span class="PUNC">)</span><span class="WHIT"> 
+<span class='line'> 95</span> </span><span class="PUNC">{</span><span class="WHIT">  
+<span class='line'> 96</span> 	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">fixed</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">'undefined'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">  
+<span class='line'> 97</span> 		</span><span class="NAME">fixed</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'> 98</span> 	</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 99</span> </span><span class="WHIT">	 
+<span class='line'>100</span> 	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">filled</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">'undefined'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">  
+<span class='line'>101</span> 		</span><span class="NAME">filled</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'>102</span> 	</span><span class="PUNC">}</span><span class="WHIT"> 
+<span class='line'>103</span>     
+<span class='line'>104</span> 	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">boxSd</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">box2d.BoxDef</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'>105</span> 	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">fixed</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">  
+<span class='line'>106</span> 	    </span><span class="NAME">boxSd.density</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">1.0</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'>107</span> 	</span><span class="PUNC">}</span><span class="WHIT">  
+<span class='line'>108</span> 	</span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">filled</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">  
+<span class='line'>109</span> 	    </span><span class="NAME">boxSd.userData</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">'filled'</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'>110</span> 	</span><span class="PUNC">}</span><span class="WHIT">  
+<span class='line'>111</span> 	</span><span class="NAME">boxSd.extents.Set</span><span class="PUNC">(</span><span class="NAME">width</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">height</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'>112</span> 	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">boxBd</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">box2d.BodyDef</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'>113</span> 	</span><span class="NAME">boxBd.AddShape</span><span class="PUNC">(</span><span class="NAME">boxSd</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'>114</span> 	</span><span class="NAME">boxBd.position.Set</span><span class="PUNC">(</span><span class="NAME">x</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">y</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'>115</span> 	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.mWorld.CreateBody</span><span class="PUNC">(</span><span class="NAME">boxBd</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">  
+<span class='line'>116</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>117</span> 
+<span class='line'>118</span> </span><span class="COMM">/**
+<span class='line'>119</span>  * Create a mouse joint for target body
+<span class='line'>120</span>  * @param {ss2d.RigidBody} body Target body
+<span class='line'>121</span>  * @param {ss2d.InputProxy} playerInput multiplayer input
+<span class='line'>122</span>  */</span><span class="WHIT">
+<span class='line'>123</span> </span><span class="NAME">ss2d.PhysicalWorld.prototype.createMouseJoint</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">rigidBody</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">playerInput</span><span class="PUNC">)</span><span class="WHIT"> 
+<span class='line'>124</span> </span><span class="PUNC">{</span><span class="WHIT">  
+<span class='line'>125</span> 	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">input</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">playerInput</span><span class="PUNC">||</span><span class="NAME">ss2d.CURRENT_VIEW.mInput</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>126</span> </span><span class="WHIT">	</span><span class="NAME">md</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">box2d.MouseJointDef</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>127</span> </span><span class="WHIT">	</span><span class="NAME">md.body1</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">this.mWorld.m_groundBody</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>128</span> </span><span class="WHIT">	</span><span class="NAME">md.body2</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">rigidBody.mBody</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>129</span> </span><span class="WHIT">	</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">localMouse</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">rigidBody.mOwner.worldToLocal</span><span class="PUNC">(</span><span class="NAME">input.mMousePoint</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>130</span> </span><span class="WHIT">	</span><span class="NAME">md.target.Set</span><span class="PUNC">(</span><span class="NAME">localMouse.mX</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">localMouse.mY</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>131</span> </span><span class="WHIT">	</span><span class="NAME">md.maxForce</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">1000.0</span><span class="WHIT"> </span><span class="PUNC">*</span><span class="WHIT"> </span><span class="NAME">rigidBody.mBody.m_mass</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>132</span> </span><span class="WHIT">	</span><span class="NAME">md.m_collideConnected</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>133</span> </span><span class="WHIT">	</span><span class="NAME">md.timeStep</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">1.0</span><span class="PUNC">/</span><span class="NAME">ss2d.PhysicalWorld.UPDATE_RATE</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>134</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">this.mWorld.CreateJoint</span><span class="PUNC">(</span><span class="NAME">md</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>135</span> </span><span class="PUNC">}</span><span class="PUNC">;</span></pre></body></html>

@@ -21,7 +21,7 @@
 <span class='line'> 14</span>  * @param {string} textureFile The resource name
 <span class='line'> 15</span>  * @param {function} callbackFunction Called when the texture is loaded
 <span class='line'> 16</span>  */</span><span class="WHIT">
-<span class='line'> 17</span> </span><span class="NAME">ss2d.Texture</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">textureFile</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">callbackFunction</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 17</span> </span><span class="NAME">ss2d.Texture</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">textureFile</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">callbackFunction</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">callbackTarget</span><span class="PUNC">)</span><span class="WHIT">
 <span class='line'> 18</span> </span><span class="PUNC">{</span><span class="WHIT">	
 <span class='line'> 19</span> 	</span><span class="COMM">//resource loading info</span><span class="WHIT">
 <span class='line'> 20</span> </span><span class="WHIT">	</span><span class="NAME">this.mName</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">textureFile</span><span class="PUNC">;</span><span class="WHIT">
@@ -30,8 +30,8 @@
 <span class='line'> 23</span> </span><span class="WHIT">	</span><span class="NAME">this.mTextureElement</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Image</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 24</span> </span><span class="WHIT">	</span><span class="NAME">this.mTextureElement.mTexture</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 25</span> </span><span class="WHIT">	</span><span class="NAME">this.mCallbackFunction</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">callbackFunction</span><span class="WHIT"> </span><span class="PUNC">||</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 26</span> </span><span class="WHIT">	
-<span class='line'> 27</span> 	</span><span class="NAME">this.mTextureElement.onload</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 26</span> </span><span class="WHIT">	</span><span class="NAME">this.mCallbackTarget</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">callbackTarget</span><span class="PUNC">||</span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 27</span> </span><span class="WHIT">	</span><span class="NAME">this.mTextureElement.onload</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
 <span class='line'> 28</span> </span><span class="WHIT">	</span><span class="PUNC">{</span><span class="WHIT"> 
 <span class='line'> 29</span> 		</span><span class="NAME">this.mTexture.handleLoadedTexture</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> 
 <span class='line'> 30</span> 	</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
@@ -44,7 +44,7 @@
 <span class='line'> 37</span>  */</span><span class="WHIT">
 <span class='line'> 38</span> </span><span class="NAME">ss2d.Texture.prototype.handleLoadedTexture</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
 <span class='line'> 39</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 40</span> </span><span class="WHIT">	</span><span class="NAME">this.mCallbackFunction.call</span><span class="PUNC">(</span><span class="KEYW">null</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> 
+<span class='line'> 40</span> </span><span class="WHIT">	</span><span class="NAME">this.mCallbackFunction.call</span><span class="PUNC">(</span><span class="NAME">this.mCallbackTarget</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> 
 <span class='line'> 41</span> 	</span><span class="COMM">//if(RENDER_CONTEXT == 'webgl')</span><span class="WHIT">
 <span class='line'> 42</span> </span><span class="WHIT">	</span><span class="COMM">//{</span><span class="WHIT">
 <span class='line'> 43</span> </span><span class="WHIT">		</span><span class="COMM">//create texture in webgl</span><span class="WHIT">

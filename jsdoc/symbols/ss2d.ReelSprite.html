@@ -189,7 +189,7 @@ ul.inheritsList
 <h2>Classes</h2>
 <ul class="classList">
 	
-	<li><i><a href="../symbols/global_.html">global_</a></i></li>
+	<li><i><a href="../symbols/GLOBAL_.html">GLOBAL_</a></i></li>
 	
 	<li><a href="../symbols/ss2d.html">ss2d</a></li>
 	
@@ -250,6 +250,8 @@ ul.inheritsList
 	<li><a href="../symbols/ss2d.ReelFrame.html">ss2d.ReelFrame</a></li>
 	
 	<li><a href="../symbols/ss2d.ReelSet.html">ss2d.ReelSet</a></li>
+	
+	<li><a href="../symbols/ss2d.ReelSetLoader.html">ss2d.ReelSetLoader</a></li>
 	
 	<li><a href="../symbols/ss2d.ReelSprite.html">ss2d.ReelSprite</a></li>
 	
@@ -324,7 +326,7 @@ ul.inheritsList
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/ss2d.ReelSprite.html#constructor">ss2d.ReelSprite</a></b>(x, y, w, h, descriptor)
+								<b><a href="../symbols/ss2d.ReelSprite.html#constructor">ss2d.ReelSprite</a></b>(x, y, w, h, reelSet, playingReel)
 							</div>
 							<div class="description"></div>
 						</td>
@@ -353,7 +355,7 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/ss2d.ReelSprite.html#pauseAnimation">pauseAnimation</a></b>()
+								<div class="fixedFont"><b><a href="../symbols/ss2d.ReelSprite.html#pauseReel">pauseReel</a></b>()
 								</div>
 								<div class="description"></div>
 							</td>
@@ -362,9 +364,36 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/ss2d.ReelSprite.html#playAnimation">playAnimation</a></b>(descriptor)
+								<div class="fixedFont"><b><a href="../symbols/ss2d.ReelSprite.html#playReel">playReel</a></b>(reelName)
 								</div>
 								<div class="description"></div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/ss2d.ReelSprite.html#render">render</a></b>(renderSupport)
+								</div>
+								<div class="description"></div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/ss2d.ReelSprite.html#resumeReel">resumeReel</a></b>()
+								</div>
+								<div class="description"></div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/ss2d.ReelSprite.html#setup">setup</a></b>()
+								</div>
+								<div class="description">Prepare teh ReelSprite to play animations once the reelset is loaded.</div>
 							</td>
 						</tr>
 					
@@ -372,6 +401,15 @@ ul.inheritsList
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/ss2d.ReelSprite.html#tick">tick</a></b>(deltaTime)
+								</div>
+								<div class="description"></div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/ss2d.ReelSprite.html#updateReelAnimation">updateReelAnimation</a></b>(deltaTime)
 								</div>
 								<div class="description"></div>
 							</td>
@@ -394,7 +432,7 @@ ul.inheritsList
 				</div>
 				
 				<div class="fixedFont">
-						<b>ss2d.ReelSprite</b>(x, y, w, h, descriptor)
+						<b>ss2d.ReelSprite</b>(x, y, w, h, reelSet, playingReel)
 				</div>
 				
 				<div class="description">
@@ -410,31 +448,37 @@ ul.inheritsList
 						<dt class="heading">Parameters:</dt>
 						
 							<dt>
-								 <b>x</b>
+								<span class="light fixedFont">{number}</span>  <b>x</b>
 								
 							</dt>
 								<dd></dd>
 						
 							<dt>
-								 <b>y</b>
+								<span class="light fixedFont">{number}</span>  <b>y</b>
 								
 							</dt>
 								<dd></dd>
 						
 							<dt>
-								 <b>w</b>
+								<span class="light fixedFont">{number}</span>  <b>w</b>
 								
 							</dt>
 								<dd></dd>
 						
 							<dt>
-								 <b>h</b>
+								<span class="light fixedFont">{number}</span>  <b>h</b>
 								
 							</dt>
 								<dd></dd>
 						
 							<dt>
-								 <b>descriptor</b>
+								<span class="light fixedFont">{string}</span>  <b>reelSet</b>
+								
+							</dt>
+								<dd></dd>
+						
+							<dt>
+								<span class="light fixedFont">{string}</span>  <b>playingReel</b>
 								
 							</dt>
 								<dd></dd>
@@ -460,11 +504,11 @@ ul.inheritsList
 					Method Detail
 				</div>
 				
-					<a name="pauseAnimation"> </a>
+					<a name="pauseReel"> </a>
 					<div class="fixedFont">
 					
 					
-					<b>pauseAnimation</b>()
+					<b>pauseReel</b>()
 					
 					</div>
 					<div class="description">
@@ -485,11 +529,11 @@ ul.inheritsList
 
 					<hr />
 				
-					<a name="playAnimation"> </a>
+					<a name="playReel"> </a>
 					<div class="fixedFont">
 					
 					
-					<b>playAnimation</b>(descriptor)
+					<b>playReel</b>(reelName)
 					
 					</div>
 					<div class="description">
@@ -505,12 +549,98 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<b>descriptor</b>
+									<span class="light fixedFont">{string}</span> <b>reelName</b>
 									
 								</dt>
 								<dd></dd>
 							
 							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="render"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>render</b>(renderSupport)
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>renderSupport</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="resumeReel"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>resumeReel</b>()
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="setup"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>setup</b>()
+					
+					</div>
+					<div class="description">
+						Prepare teh ReelSprite to play animations once the reelset is loaded.
+						
+						
+					</div>
+					
+					
+					
 						
 						
 						
@@ -555,6 +685,42 @@ ul.inheritsList
 						
 						
 
+					<hr />
+				
+					<a name="updateReelAnimation"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>updateReelAnimation</b>(deltaTime)
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>deltaTime</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
 					
 				
 			
@@ -569,7 +735,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Mar 06 2013 03:17:18 GMT+0100 (CET)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Sun Mar 17 2013 18:00:37 GMT+0100 (CET)
 		</div>
 	</body>
 </html>
