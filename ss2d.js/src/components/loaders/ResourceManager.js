@@ -11,6 +11,7 @@ goog.require('ss2d.TextureLoader');
 goog.require('ss2d.TextureAtlasLoader');
 goog.require('ss2d.AudioLoader');
 goog.require('ss2d.BitmapFontLoader');
+goog.require('ss2d.ReelSetLoader');
 
 /** 
  * @class 
@@ -44,7 +45,8 @@ ss2d.ResourceManager.Loaders = {
 	TEXTURE: ss2d.TextureLoader,
 	SOUND: ss2d.AudioLoader,
 	TEXTURE_ATLAS: ss2d.TextureAtlasLoader,
-	BITMAP_FONT: ss2d.BitmapFontLoader
+	BITMAP_FONT: ss2d.BitmapFontLoader,
+	REEL_SET: ss2d.ReelSetLoader
 };
 
 /**
@@ -126,13 +128,13 @@ ss2d.ResourceManager.loadResources = function(resources, oneElementLoadedCallbac
  * @param {string} name Resource file name
  * @param {function=} loadedCallback
  */
-ss2d.ResourceManager.loadResourceWithLoader = function(loaderClass, resourceName, loadedCallback)
+ss2d.ResourceManager.loadResourceWithLoader = function(loaderClass, resourceName, loadedCallback, callbackTarget)
 {
 	var lrArray = ss2d.ResourceManager.LOADED_RESOURCES;
 	var resHash = resourceName+'.'+loaderClass.RESOURCE_EXTENSION;
 	if(!lrArray[resHash])
 	{	
-		lrArray[resHash] = loaderClass.loadResource(resourceName, loadedCallback);
+		lrArray[resHash] = loaderClass.loadResource(resourceName, loadedCallback, callbackTarget||null);
 	}
 	
 	return lrArray[resHash];
@@ -164,36 +166,45 @@ ss2d.ResourceManager.loadEndsCallback = function(resource)
  * @param {string} textureName
  * @param {function} textureLoadedCallback
  */
-ss2d.ResourceManager.loadTexture = function(textureName, textureLoadedCallback)
+ss2d.ResourceManager.loadTexture = function(textureName, textureLoadedCallback, callbackTarget)
 {	
-	return ss2d.ResourceManager.loadResourceWithLoader(ss2d.TextureLoader, textureName, textureLoadedCallback);
+	return ss2d.ResourceManager.loadResourceWithLoader(ss2d.TextureLoader, textureName, textureLoadedCallback, callbackTarget);
 };
 
 /**
  * @param {string} atlasName
  * @param {function} atlasLoadedCallback
  */
-ss2d.ResourceManager.loadTextureAtlas = function(atlasName, atlasLoadedCallback)
+ss2d.ResourceManager.loadTextureAtlas = function(atlasName, atlasLoadedCallback, callbackTarget)
 {
-	return ss2d.ResourceManager.loadResourceWithLoader(ss2d.TextureAtlasLoader, atlasName, atlasLoadedCallback);
+	return ss2d.ResourceManager.loadResourceWithLoader(ss2d.TextureAtlasLoader, atlasName, atlasLoadedCallback, callbackTarget);
 };
 
 /**
  * @param {string} soudName
  * @param {function} soundLoadedCallback
  */
-ss2d.ResourceManager.loadSound = function(soudName, soundLoadedCallback)
+ss2d.ResourceManager.loadSound = function(soudName, soundLoadedCallback, callbackTarget)
 {	
-	return ss2d.ResourceManager.loadResourceWithLoader(ss2d.AudioLoader, soudName, soundLoadedCallback);
+	return ss2d.ResourceManager.loadResourceWithLoader(ss2d.AudioLoader, soudName, soundLoadedCallback, callbackTarget);
 };
 
 /**
  * @param {string} bitmapFont
  * @param {function} bitmapLoadedCallback
  */
-ss2d.ResourceManager.loadBitmapFont = function(bitmapFont, bitmapLoadedCallback)
+ss2d.ResourceManager.loadBitmapFont = function(bitmapFont, bitmapLoadedCallback, callbackTarget)
 {
-	return ss2d.ResourceManager.loadResourceWithLoader(ss2d.BitmapFontLoader, bitmapFont, bitmapLoadedCallback);
+	return ss2d.ResourceManager.loadResourceWithLoader(ss2d.BitmapFontLoader, bitmapFont, bitmapLoadedCallback, callbackTarget);
+};
+
+/**
+ * @param {string} reelSet
+ * @param {function} reelSetLoadedCallback
+ */
+ss2d.ResourceManager.loadReelSet = function(reelSet, reelSetLoadedCallback, callbackTarget)
+{
+	return ss2d.ResourceManager.loadResourceWithLoader(ss2d.ReelSetLoader, reelSet, reelSetLoadedCallback, callbackTarget);
 };
 
 

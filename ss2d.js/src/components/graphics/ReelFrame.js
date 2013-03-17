@@ -7,7 +7,6 @@
 
 goog.provide('ss2d.ReelFrame');
 
-goog.require('ss2d.ResourceManager');
 
 /**
  * @constructor
@@ -20,7 +19,7 @@ goog.require('ss2d.ResourceManager');
  * @param {number=} oy Vertical offset (optional)
  * The offsets are used by the ss2d.SpriteReelPlayer to "center" the position of the figure.
  */
-ss2d.ReelFrame = function(x, y, width, height, texture, offsetX, offsetY)
+ss2d.ReelFrame = function(x, y, width, height, offsetX, offsetY)
 {
 	this.mX = x;
 	this.mY = y;
@@ -29,9 +28,6 @@ ss2d.ReelFrame = function(x, y, width, height, texture, offsetX, offsetY)
 	
 	this.mOffsetX = offsetX||0;
 	this.mOffsetY = offsetY||0;
-	
-	//reference to the texture for this frame
-	this.mTexture = (texture instanceof ss2d.Texture) ? texture : ss2d.ResourceManager.loadTexture(texture);
 };
 
 /**

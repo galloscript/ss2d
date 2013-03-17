@@ -8,37 +8,45 @@
 goog.provide('ss2d.ReelSprite');
 
 goog.require('ss2d.Sprite');
-goog.require('ss2d.ReelFrame');
 goog.require('ss2d.ReelSet');
+goog.require('ss2d.ResourceManager');
 
 /** @constructor */
-ss2d.ReelSprite = function(x, y, w, h, descriptor)
+ss2d.ReelSprite = function(x, y, w, h, reelSet, playingReel)
 {
-	//not Sprite constructor, we only need methods
-	ss2d.Quad.call(this, x, y, w, h);
+
+	ss2d.Sprite.call(this, x, y, w, h);
 	
-	if(!descriptor)
+	if(!reelSet)
 	{
-		throw 'Trying to create a sprite reel without a SpriteReelDescriptor';
+		throw 'Trying to create a sprite reel without specifying a ss2d.ReelSet';
 	}
 	
+
+	
 	//Animation info
-	this.mDescriptor = descriptor;
-	this.mFirstFrame = this.mDescriptor.mFrames[0];
+	this.mReelSetName = reelSet;
+	this.mReelSet = null;
+	this.mPlayingReel = null;
+	this.mDefaultReel = playingReel||false;	
 	this.mLoop = true;
 	this.mTimeDilation = 1.0;
 	
-	//Sprite
-	this.mTexture = this.mFirstFrame.mTexture;
-	this.mClip = this.mFirstFrame.copyClip(new Array(4));
-	this.mOffsetX = 0;
-	this.mOffsetY = 0;
-				
 	//Animation state
-	this.mPlaying = true;
+	this.mPlaying = false;
 	this.mComplete = false;
 	this.mFrameCount = 0; 
 	this.mElapsedTimeCurrentFrame = 0;
+	
+	//Sprite
+	this.mTexture = null;
+	this.mClip = [0, 0, 0, 0];
+	this.mOffsetX = 0;
+	this.mOffsetY = 0;
+	
+	//setup
+	ss2d.ResourceManager.loadReelSet(reelSet, this.setup, this);
+
 };
 
 goog.inherits(ss2d.ReelSprite, ss2d.Sprite);
@@ -46,42 +54,82 @@ goog.inherits(ss2d.ReelSprite, ss2d.Sprite);
 //static
 ss2d.Object.assignClassId(ss2d.ReelSprite, 1005);
 
-//prototype
-ss2d.ReelSprite.prototype.playAnimation = function(descriptor)
+ss2d.ReelSprite.prototype.setup = function()
 {
-	this.mDescriptor = descriptor || this.mDescriptor;
+	this.mReelSet = ss2d.ResourceManager.loadReelSet(this.mReelSetName);
+	if(!this.mDefaultReel)
+	{
+		for(var reelName in this.mReelSet.mReels)
+		{
+			//first reel
+			this.playReel(reelName);
+			break;
+		}
+	} else {
+		this.playReel(this.mDefaultReel);
+	}
+	
+	this.mTexture = this.mReelSet.mTexture;
+	var firstFrame = this.mPlayingReel.mFrames[0];
+	firstFrame.dumpClip(this.mClip);
+}
+
+/**
+ * @param {string} reelName
+ */
+ss2d.ReelSprite.prototype.playReel = function(reelName)
+{
+	if(this.mReelSet)
+	{
+		this.mPlayingReel = (reelName && this.mReelSet.mReels[reelName]) ? this.mReelSet.mReels[reelName] : this.mPlayingReel;
+		var firstFrame = this.mPlayingReel.mFrames[0];
+		firstFrame.dumpClip(this.mClip);
+	}
+	
 	this.mPlaying = true;
 	this.mComplete = false;
 	this.mFrameCount = 0; 
 	this.mElapsedTimeCurrentFrame = 0;
 }
 
-ss2d.ReelSprite.prototype.pauseAnimation = function()
+ss2d.ReelSprite.prototype.pauseReel = function()
 {
 	this.mPlaying = false;
+}
+
+ss2d.ReelSprite.prototype.resumeReel = function()
+{
+	this.mPlaying = true;
 }
 
 if(COMPILING_CLIENT || COMPILING_OFFLINE)
 {
 	ss2d.ReelSprite.prototype.tick = function(deltaTime)
 	{
-		if(this.mPlaying)
+		if(this.mReelSet && !this.mTexture)
 		{
-			var timePerFrame = this.mDescriptor.getTimePerFrame() * this.mTimeDilation;	
+			this.mTexture = this.mReelSet.mTexture;
+		}
+		
+		if(this.mPlaying && this.mReelSet)
+		{
+			var timePerFrame = this.mPlayingReel.getTimePerFrame() * this.mTimeDilation;	
 			
 			this.mElapsedTimeCurrentFrame += deltaTime;
 			
 			//a frame change
 			if(this.mElapsedTimeCurrentFrame >= timePerFrame)
 			{
-				this.mFrameCount++;
+				var framesToAdd = Math.floor(this.mElapsedTimeCurrentFrame / timePerFrame);
+				this.mFrameCount += framesToAdd;
 				this.mElapsedTimeCurrentFrame -= timePerFrame;
 				
-				if(this.mFrameCount >= this.mDescriptor.mFrames.length)
+				if(this.mFrameCount >= this.mPlayingReel.mFrames.length)
 				{
 					if(this.mLoop)
 					{	
 						this.mFrameCount = 0;
+						this.mElapsedTimeCurrentFrame = 0;
 					}
 					else
 					{
@@ -90,13 +138,24 @@ if(COMPILING_CLIENT || COMPILING_OFFLINE)
 					}
 				}
 				
-				var currentFrame = this.mDescriptor.mFrames[this.mFrameCount];
+				var currentFrame = this.mPlayingReel.mFrames[this.mFrameCount];
 				
 				currentFrame.dumpClip(this.mClip);
-				this.mTexture = currentFrame.mTexture;
 				this.mOffsetX = currentFrame.mOffsetX;
 				this.mOffsetY = currentFrame.mOffsetY;
 			}
+		}
+	};
+	
+	ss2d.ReelSprite.prototype.render = function(renderSupport)
+	{
+		if(this.mTexture)
+		{
+			this.mLocation.mX += this.mOffsetX;
+			this.mLocation.mY += this.mOffsetY;
+			ss2d.Sprite.prototype.render.call(this, renderSupport);
+			this.mLocation.mX -= this.mOffsetX;
+			this.mLocation.mY -= this.mOffsetY;
 		}
 	};
 }

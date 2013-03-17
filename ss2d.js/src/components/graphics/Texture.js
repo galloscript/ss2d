@@ -14,7 +14,7 @@ goog.require('ss2d.Defines');
  * @param {string} textureFile The resource name
  * @param {function} callbackFunction Called when the texture is loaded
  */
-ss2d.Texture = function(textureFile, callbackFunction)
+ss2d.Texture = function(textureFile, callbackFunction, callbackTarget)
 {	
 	//resource loading info
 	this.mName = textureFile;
@@ -23,7 +23,7 @@ ss2d.Texture = function(textureFile, callbackFunction)
 	this.mTextureElement = new Image();
 	this.mTextureElement.mTexture = this;
 	this.mCallbackFunction = callbackFunction || function(){};
-	
+	this.mCallbackTarget = callbackTarget||null;
 	this.mTextureElement.onload = function()
 	{ 
 		this.mTexture.handleLoadedTexture(); 
@@ -37,7 +37,7 @@ ss2d.Texture = function(textureFile, callbackFunction)
  */
 ss2d.Texture.prototype.handleLoadedTexture = function()
 {
-	this.mCallbackFunction.call(null, this); 
+	this.mCallbackFunction.call(this.mCallbackTarget, this); 
 	//if(RENDER_CONTEXT == 'webgl')
 	//{
 		//create texture in webgl

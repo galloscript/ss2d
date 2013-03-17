@@ -13,22 +13,61 @@ goog.require('ss2d.Reel');
  * @constructor
  * @param {ss2d.Reel[]} rsFileName
  */
-ss2d.ReelSet = function(rsFileName, callbackFunction)
+ss2d.ReelSet = function(rsFileName, callbackFunction, callbackTarget)
 {
+	this.mName = rsFileName;
 	this.mCallbackFunction = callbackFunction;
+	this.mCallbackTarget = callbackTarget||null;
+	this.mReelSetDescriptor = null;
+	this.mReels = {};
+	this.mTexture = null; 
 	
-	//Reels are stored in an object by name.
-	this.mReels = (rsFileName)?this.loadFromFile(rsFileName):{};
+	var rsFileRequest = new XMLHttpRequest();
+	rsFileRequest.mReelSet = this;
+	rsFileRequest.open("GET", rsFileName, true);
+	rsFileRequest.responseType = "text";
+	rsFileRequest.onload = function() 
+	{
+		this.mReelSet.reelSetLoaded(this.response);
+	};
+	
+	rsFileRequest.send();
 };
 
-/**
- * 
- * @param {Object} rsFileName
- */
-ss2d.ReelSet.prototype.loadFromFile = function(rsFileName)
+ss2d.ReelSet.prototype.reelSetLoaded = function(fileData)
 {
-	//TODO: implement a file specification for sprite animations
+	this.mReelSetDescriptor = JSON.parse(fileData);
 	
-	this.mCallbackFunction.call(this);
-	return {};
+	this.mReels = {};
+	
+	for(var reelName in this.mReelSetDescriptor['reels'])
+	{
+		
+		var reelInfo = this.mReelSetDescriptor['reels'][reelName];
+		var reel = new ss2d.Reel(reelName, reelInfo['duration']);
+		var frames = reelInfo['frames'];
+		
+		for(var f = 0; f < frames.length; ++f)
+		{
+			var frameInfo = frames[f];
+			//x, y, width, height, offsetX, offsetY
+			reel.mFrames.push(new ss2d.ReelFrame(frameInfo[0],
+												 frameInfo[1],
+												 frameInfo[2],
+												 frameInfo[3],
+												 frameInfo[4],
+												 frameInfo[5]));
+		}
+		
+		this.mReels[reelName] = reel;
+	}
+	
+	
+	var pathEnd = this.mName.lastIndexOf('/') + 1;
+	var img = this.mReelSetDescriptor['image'];
+	var texturePath = (pathEnd > 0)?this.mName.substring(0, pathEnd)+img:img;
+	
+	this.mTexture = new ss2d.Texture(texturePath, this.mCallbackFunction, this.mCallbackTarget);
 };
+
+
