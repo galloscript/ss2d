@@ -11,7 +11,15 @@ goog.require('ss2d.Sprite');
 goog.require('ss2d.ReelSet');
 goog.require('ss2d.ResourceManager');
 
-/** @constructor */
+/**
+ * @constructor
+ * @param {number} x
+ * @param {number} y
+ * @param {number} w
+ * @param {number} h
+ * @param {string} reelSet
+ * @param {string} playingReel
+ */
 ss2d.ReelSprite = function(x, y, w, h, reelSet, playingReel)
 {
 
@@ -21,9 +29,7 @@ ss2d.ReelSprite = function(x, y, w, h, reelSet, playingReel)
 	{
 		throw 'Trying to create a sprite reel without specifying a ss2d.ReelSet';
 	}
-	
 
-	
 	//Animation info
 	this.mReelSetName = reelSet;
 	this.mReelSet = null;
@@ -54,6 +60,9 @@ goog.inherits(ss2d.ReelSprite, ss2d.Sprite);
 //static
 ss2d.Object.assignClassId(ss2d.ReelSprite, 1005);
 
+/**
+ * Prepare teh ReelSprite to play animations once the reelset is loaded. 
+ */
 ss2d.ReelSprite.prototype.setup = function()
 {
 	this.mReelSet = ss2d.ResourceManager.loadReelSet(this.mReelSetName);
@@ -106,13 +115,18 @@ if(COMPILING_CLIENT || COMPILING_OFFLINE)
 {
 	ss2d.ReelSprite.prototype.tick = function(deltaTime)
 	{
-		if(this.mReelSet && !this.mTexture)
-		{
-			this.mTexture = this.mReelSet.mTexture;
-		}
-		
+		this.updateReelAnimation(deltaTime);
+	};
+	
+	ss2d.ReelSprite.prototype.updateReelAnimation = function(deltaTime)
+	{	
 		if(this.mPlaying && this.mReelSet)
 		{
+			if(!this.mTexture)
+			{
+				this.mTexture = this.mReelSet.mTexture;
+			}
+			
 			var timePerFrame = this.mPlayingReel.getTimePerFrame() * this.mTimeDilation;	
 			
 			this.mElapsedTimeCurrentFrame += deltaTime;
@@ -135,6 +149,7 @@ if(COMPILING_CLIENT || COMPILING_OFFLINE)
 					{
 						this.mFrameCount--;
 						this.mComplete = true;
+						this.mPlaying = false;
 					}
 				}
 				
