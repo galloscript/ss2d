@@ -3,86 +3,87 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Experiment</title>
+        <style>body{ font-family: Verdana }</style>
     </head>
     <body>
-        <div></div>
-        <p>- Move the fire explosion with the mouse</p>
-        <p>- Move the knight with WASD keys</p>
+        <h3>Text Rendering Demo</h3>
+        <p>- Move the fire explosion with the mouse<br/>
+        - Move the knight with WASD keys</p>
         <canvas id="mainCanvas" width="640" height="480">No canvas Support!</canvas>
         <script src="http://galloman.github.com/ss2d/lib/ss2dLib-min.js"></script>
         <!--script src="../ss2dRepo/ss2d.js/lib/ss2dLib.js"></script-->
 <script id="reelsdemo">
 
-var view = new ss2d.View('mainCanvas');
-view.mBackgroundFillStyle = '#003300';
+  var view = new ss2d.View('mainCanvas');
+  view.mBackgroundFillStyle = '#003300';
 
-view.mMainScene.addObject(new ss2d.Sprite(0, 0, 640, 480, 'assets/textures/TEST6.bmp'));
+  view.mMainScene.addObject(new ss2d.Sprite(0, 0, 640, 480, 'assets/textures/TEST6.png'));
 
-var fire = new ss2d.ReelSprite(-10, -40, 200, 200, 'assets/reels/boom3.reelset');
-view.mMainScene.addObject(fire);
-fire.mPickable = new ss2d.Pickable(fire);
+  var fire = new ss2d.ReelSprite(-10, -40, 200, 200, 'assets/reels/boom3.reelset');
+  view.mMainScene.addObject(fire);
+  fire.mPickable = new ss2d.Pickable(fire);
 
-fire.tick = function(deltaTime)
-{
-  //updateReelAnimation must be called if you override the tick method
-  this.updateReelAnimation(deltaTime);
-  this.mPickable.tick(deltaTime);
-}
-
-var knight = new ss2d.ReelSprite(90, 250, 90, 90, 'assets/reels/goldknight.reelset', 'walk_right_stop');
-knight.mPivotX = knight.mPivotY = 45;
-view.mMainScene.addObject(knight);
-knight.mNextStopAnimation = 'walk_right_stop';
-knight.tick = function(deltaTime)
-{
-  this.updateReelAnimation(deltaTime);
-  if(this.mPlayingReel)
+  fire.tick = function(deltaTime)
   {
-    var stopped = true;
-    var input = ss2d.CURRENT_VIEW.mInput;
-
-    //if W key is pressed
-    if(input.isKeyPressed(ss2d.Input.Keys.W))
-    {
-      this.mLocation.mY -= 200 * deltaTime;
-      stopped = false;
-      this.mNextStopAnimation = 'walk_top_stop';
-      if(this.mPlayingReel.mName != 'walk_top'){ this.playReel('walk_top'); }
-    }
-   
-    //if S key is pressed
-    else if(input.isKeyPressed(ss2d.Input.Keys.S))
-    { 
-      this.mLocation.mY += 200 * deltaTime;
-      stopped = false;
-      this.mNextStopAnimation = 'walk_buttom_stop';
-      if(this.mPlayingReel.mName != 'walk_buttom'){ this.playReel('walk_buttom'); }
-    }
-   
-    //if A key is pressed
-    else if(input.isKeyPressed(ss2d.Input.Keys.A))
-    { 
-      this.mLocation.mX -= 200 * deltaTime;
-      stopped = false;
-      this.mNextStopAnimation = 'walk_left_stop';
-      if(this.mPlayingReel.mName != 'walk_left'){ this.playReel('walk_left'); }
-    }
-   
-    //if D key is pressed
-    else if(input.isKeyPressed(ss2d.Input.Keys.D))
-    { 
-      this.mLocation.mX += 200 * deltaTime;
-      stopped = false;
-      this.mNextStopAnimation = 'walk_right_stop';
-      if(this.mPlayingReel.mName != 'walk_right'){ this.playReel('walk_right'); }
-    }
-
-    if(stopped)
-      this.playReel(this.mNextStopAnimation);
+    //updateReelAnimation must be called if you override the tick method
+    this.updateReelAnimation(deltaTime);
+    this.mPickable.tick(deltaTime);
   }
-}
 
-view.startLoop();
+  var knight = new ss2d.ReelSprite(90, 250, 90, 90, 'assets/reels/goldknight.reelset', 'walk_right_stop');
+  knight.mPivotX = knight.mPivotY = 45;
+  view.mMainScene.addObject(knight);
+  knight.mNextStopAnimation = 'walk_right_stop';
+  knight.tick = function(deltaTime)
+  {
+    this.updateReelAnimation(deltaTime);
+    if(this.mPlayingReel)
+    {
+      var stopped = true;
+      var input = ss2d.CURRENT_VIEW.mInput;
+
+      //if W key is pressed
+      if(input.isKeyPressed(ss2d.Input.Keys.W))
+      {
+        this.mLocation.mY -= 200 * deltaTime;
+        stopped = false;
+        this.mNextStopAnimation = 'walk_top_stop';
+        if(this.mPlayingReel.mName != 'walk_top'){ this.playReel('walk_top'); }
+      }
+     
+      //if S key is pressed
+      else if(input.isKeyPressed(ss2d.Input.Keys.S))
+      { 
+        this.mLocation.mY += 200 * deltaTime;
+        stopped = false;
+        this.mNextStopAnimation = 'walk_buttom_stop';
+        if(this.mPlayingReel.mName != 'walk_buttom'){ this.playReel('walk_buttom'); }
+      }
+     
+      //if A key is pressed
+      else if(input.isKeyPressed(ss2d.Input.Keys.A))
+      { 
+        this.mLocation.mX -= 200 * deltaTime;
+        stopped = false;
+        this.mNextStopAnimation = 'walk_left_stop';
+        if(this.mPlayingReel.mName != 'walk_left'){ this.playReel('walk_left'); }
+      }
+     
+      //if D key is pressed
+      else if(input.isKeyPressed(ss2d.Input.Keys.D))
+      { 
+        this.mLocation.mX += 200 * deltaTime;
+        stopped = false;
+        this.mNextStopAnimation = 'walk_right_stop';
+        if(this.mPlayingReel.mName != 'walk_right'){ this.playReel('walk_right'); }
+      }
+
+      if(stopped)
+        this.playReel(this.mNextStopAnimation);
+    }
+  }
+
+  view.startLoop();
 
 </script>
       <pre class="prettyprint" id="code1">
