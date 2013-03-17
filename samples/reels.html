@@ -106,7 +106,7 @@
   function modifyDilation(dilation)
   {
     addDilationToFire(dilation)
-    document.getElementById('dilationValue').innerHTML = fire.mTimeDilation;
+    document.getElementById('dilationValue').innerHTML = Math.floor(fire.mTimeDilation*100)/100;
   }
 </script>
       <pre class="prettyprint" id="code1">
