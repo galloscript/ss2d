@@ -15,15 +15,16 @@ goog.require('ss2d.ResourceManager');
  * @constructor
  * @param {number} x
  * @param {number} y
- * @param {number} w
- * @param {number} h
+ * @param {number} w boundaries
+ * @param {number} h boundaries
  * @param {string} reelSet
  * @param {string} playingReel
  */
-ss2d.ReelSprite = function(x, y, w, h, reelSet, playingReel)
+ss2d.ReelSprite = function(x, y, reelScale, reelSet, playingReel)
 {
-
-	ss2d.Sprite.call(this, x, y, w, h);
+	ss2d.Sprite.call(this, x, y, 1.0, 1.0);
+	
+	this.mScaleX = this.mScaleY = reelScale||1.0;
 	
 	if(!reelSet)
 	{
@@ -159,6 +160,9 @@ if(COMPILING_CLIENT || COMPILING_OFFLINE)
 					currentFrame.dumpClip(this.mClip);
 					this.mOffsetX = currentFrame.mOffsetX;
 					this.mOffsetY = currentFrame.mOffsetY;
+					
+					this.mWidth = this.mClip[2];
+					this.mHeight = this.mClip[3];
 				}
 			}
 		}
