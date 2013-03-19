@@ -38,8 +38,7 @@
     this.mPickable.tick(deltaTime);
   }
 
-  var knight = new ss2d.ReelSprite(90, 250, 90, 90, 'assets/reels/goldknight.reelset', 'walk_right_stop');
-  knight.mPivotX = knight.mPivotY = 45;
+  var knight = new ss2d.ReelSprite(90, 220, 1.5, 'assets/reels/goldknight.reelset', 'walk_right_stop');
   view.mMainScene.addObject(knight);
   knight.mNextStopAnimation = 'walk_right_stop';
   knight.tick = function(deltaTime)
