@@ -39,13 +39,13 @@
 				[512,64,64,64,0,0]
 			]
 		},
-		"walk_buttom_stop": {
+		"walk_bottom_stop": {
 			"duration": 0,
 			"frames":[
 				[0,128,64,64,0,0]
 			]
 		},
-		"walk_buttom": {
+		"walk_bottom": {
 			"duration": 0.5,
 			"frames": [
 				[64,128,64,64,0,0],
