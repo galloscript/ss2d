@@ -72,6 +72,15 @@ div.sectionContent p
 	text-align: justify;
 }
 
+div.sectionContent li
+{
+	margin-left: 12px;
+	margin-bottom: 8px;
+	margin-right: 25px;
+	font-size: 15px;
+	text-align: justify;
+}
+
 span.codeChunk
 {
 	background-color: #000;

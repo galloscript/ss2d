@@ -64,6 +64,44 @@
 		<section>
 			<div class="sectionContent">
 				<h2><a id="intro"></a>Introduction</h2>
+				<p> SmoothStep2D is a 2D Game development framework, written in javascript that uses HTML5 Canvas element for rendering, all available web browser features like WebAudio, XMLRequest, etc. and a set of classes for real time and math operations to provide a complete and flexible API, that let you focus your effort in implementing gameplay.
+				</p>
+				<p> The feature list of SmoothStep2D is constantly growing, since it's release one or more new features has been added per week and a lot of bug and design fixes has been done. There is a list of some of it's main features:
+					<ul>
+						<li>Free and open source. No charge for any indie, free, open source, or commercial projects.</li>
+
+						<li>Easy management of your scene tree, scene objects transformations, collision detection, method tirggering and other gameplay related utilities.</li>
+
+						<li>Low level sound playback when available (webkit browsers only at this moment), if not it uses standard html5 audio api.</li>
+
+						<li>Smart resource loader that led you preload all content before start running the game, keeping a reference to already loaded resources and giving the ability to implement custom loaders for any metadata + bindata format type.</li>
+
+						<li>Compatible with some well known content creation tools like BMFont / GlyphDesigner for bitmap fonts and Texture Packer for texture atlas.</li>
+
+						<li>Include a client / server communication interface based on node.js and websockets that brings the ability to implement real-time multiplayer online games.</li>
+
+						<li>Realistic 2D physics with easy to use components that wraps box2d api.</li>
+
+						<li>Compatible with windows 8 for desktop apps and touchscreen input.</li>
+
+						<li>Compatible with any mobile device that supports canvas 2d context in it’s web-browser (single finger touch at this moment).</li>
+
+						<li>Develop simply including the ss2dLib.js in your html page or go advanced and compile it with <b>Google Closure Builder</b>, getting all the needed pieces of the framework plus your game or application.in a single compressed, optimized and obfuscated javascript file, the framework include the needed configurable command-line tools.</li>
+					</ul>
+				</p>
+				<p> There are a list of planned features for SmoothStep2D, this list is planned from the day one and is being gradually implemented. This are some of this planned features that some day will be available in SmoothStep2D:
+					<ul>
+						<li>Implementation of a WebGL rendering mode, avoiding the limitations of 2d context. The complexity in the implementation of WebGL is not technical, is more about the class design to provide a clean and well featured access to custom shaders and buffers. When available, WebGL will open a box of new exclusive features, but 2d context rendering will be still available without this features.</li>
+
+						<li>Image tinting seems like a really basic feature but 2d context lacks of a mechanism to do that efficiently in real-time. Probably an offline method for image tinting will be provided for 2d context, but the realtime image tinting will be available with WebGL.</li>
+
+						<li>The particle systems are one of the very first features planned for SmoothStep2D, the problem are, as mentioned above, the limitations of 2d context in terms of the real time image tinting or the ability to draw a lot of similar objects with a single draw call, passing the transformation data using a buffer. When available it will be compatible with the <a href="http://www.71squared.com/particledesigner" target="_blank">Particle Designer</a> app.</li>
+
+						<li>A bone or key-frame animation system, a very useful feature to animate characters or anything with bones, with very detalied and beautiful movements with no addition cost in texture data. There are some tools for creating 2D bone animations or simply key frame animations but none has been choosen yet for SmoothStep2D.</li>
+					</ul>
+				</p>
+				<p> Of course the implementation of all this features and the always present bug fixes, require a lot of work, if you want to collaborate with SmoothStep2D project you can report issues or sugerences in the <a href="https://github.com/Galloman/ss2d/issues" target="_blank">Github Issue Tracker</a>, if you are interested in contribute to SmoothStep2D in another way, make me know anyway with the issue tracker or an email.
+				</p>
 			</div><!--/sectionContent-->
 		</section>
 		
@@ -289,6 +327,8 @@ view.startLoop();	</pre>
 		<section>
 			<div class="sectionContent">
 				<h2><a id="containers"></a>Containers and Scene</h2>
+				<p>
+				</p>
 			</div><!--/sectionContent-->
 		</section>
 
