@@ -151,16 +151,25 @@ ss2d.Input.handleEventCaller = function(e)
 //catch mobile events
 ss2d.Input.windowMouseEventHandler = function(e)
 {
+	e = e||window.event;
 	var input = ss2d.CURRENT_VIEW.mInput;
-	if(input.mView.mHaveFocus)
+	
+	if((typeof e.toElement != 'undefined' && e.toElement != ss2d.CURRENT_VIEW.mCanvas) ||
+	   (typeof e.target != 'undefined' && e.target != ss2d.CURRENT_VIEW.mCanvas) && 
+	   input.mView.mHaveFocus)
 	{
 		input.onFocusOut();
+	} 
+	else
+	{
+		input.mView.mHaveFocus = true;
 	}
 }
 
 /** @override */
 ss2d.Input.prototype.handleEvent = function(event)
 {
+	event = event||window.event;
 	var r = true;
 	switch(event.type){
 	case 'mousedown': case 'touchstart': case "MSPointerDown": r = this.onMouseDown(event); break;
@@ -240,12 +249,12 @@ ss2d.Input.prototype.onFocusOut = function(event)
 {
 	this.mView.mHaveFocus = false;
 	this.mClicked = false;
-	/*
+	
 	for(var key in this.mPressedKeys)
     {
         this.mPressedKeys[key] = false;
 		delete this.mPressedKeys[key];
-    }*/
+    }
 }
 
 ss2d.Input.prototype.onMouseMove = function(pe)
