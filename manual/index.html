@@ -329,7 +329,7 @@ var smallQuad = new ss2d.Quad(0, 0, 20,  20, '#3356ff');
 //create a red quad that will be at 20,50 location relative to the container location
 var bigQuad = new ss2d.Quad(20, 50, 40,  40, '#ff0000'); 
 
-//now create the container at 20,20 location relative to the secen (scene is another container located at 0,0 relative to the canvas)
+//now create the container at 20,20 location relative to the scene (scene is another container located at 0,0 relative to the canvas)
 var container = new ss2d.DisplayObjectContainer(20, 20);
 
 //adding the container to the main scene
@@ -353,7 +353,7 @@ view.startLoop();	</pre>
 					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample4.1_container.html" target="_blank">Run this code</a></span>
 					<div class="codeSampleTitle">Code sample 4.1: Inherited transformation</div>
 				</div><!--/codeContainer-->
-				<p>In sample 4.1 we have two quads at different locations, one at 0,0 and another at 20,50. Then we add a new container at 20,20 to teh main scene and add the two quads to this container. Finally we add a text sprite that will follow the mouse and tells us the mouse location. If you run this code and use the mouse to check the location of each quad, you will see how the container location has been added to both quads, the quad at 0,0 will be drawn at 20,20 and the quad at 20,50 will be drawn at 40,70. 
+				<p>In sample 4.1 we have two quads at different locations, one at 0,0 and another at 20,50. Then we add a new container at 20,20 to the main scene and add the two quads to this container. Finally we add a text sprite that will follow the mouse and tells us the mouse location. If you run this code and use the mouse to check the location of each quad, you will see how the container location has been added to both quads, the quad at 0,0 will be drawn at 20,20 and the quad at 20,50 will be drawn at 40,70. 
 				</p>
 				<p>The properties actually affected by the object's parent transformation are location, rotation, scale and alpha, but this object's properties in fact remains unaffected, what happens is that when the DisplayObjectContainer <span class="codeChunk" style="color: #fff;">render</span> method is called we use the <a href="http://galloman.github.com/ss2d/jsdoc/symbols/ss2d.RenderSupport" target="_blank">ss2d.RenderSupport</a> <span class="codeChunk" style="color: #fff;">pushTransform</span> method to load this transformation and alpha values as the current scene state, then all next transformations and render operations will be done with the previous transformation applied until the ss2d.RenderSupport <span class="codeChunk" style="color: #fff;">popTransform</span> method is called. 
 				</p>
@@ -376,55 +376,62 @@ view.startLoop();	</pre>
 var view = new ss2d.View('mainCanvas');
 view.mBackgroundFillStyle = '#cccccc';
 
+//block sprite
 var block = new ss2d.Sprite(0, 50, 101, 171, 'assets/textures/Wall Block.png'); 
 
+//tree sprite, set the pivot on the middle bottom.
 var tree = new ss2d.Sprite(50, 151, 101, 171, 'assets/textures/Tree Short.png'); 
 tree.mPivotX = tree.mWidth * 0.5;
 tree.mPivotY = tree.mHeight;
 
-//create a container with the block and tree sprites as children
-var treeBlockContainer = new ss2d.DisplayObjectContainer(120, 120);
-treeBlockContainer.addObject(block);
-treeBlockContainer.addObject(tree);
-
-//make the tree suddenly grow every every few seconds
+//make the tree suddenly grows every every few seconds
 //juggler will control the growing effect
 tree.mJuggler = new ss2d.Juggler();
 tree.tick = function(deltaTime)
 {
+	//if juggler isn't playing any transition
     if(this.mJuggler.mObjects.length == 0)
 	{
-		//first resize it to 0
-        var reduceToZero = new ss2d.Tween(this, 0.1, ss2d.Transitions.linear, 1.8);
-        reduceToZero.resizeTo(0, 0);
-        this.mJuggler.addObject(reduceToZero);
+		//first resize it to 0 in 0.1 seconds with a delay of 1.8 seconds
+        var resizeToZero = new ss2d.Tween(this, 0.1, ss2d.Transitions.linear, 1.8);
+        resizeToZero.resizeTo(0, 0);
+        this.mJuggler.addObject(resizeToZero);
         
-        //then resize to it's original boundaries
+        //then resize to it's original size in 1 second with a delay of 2.5 seconds
 		var growTween = new ss2d.Tween(this, 1.0, ss2d.Transitions.easeInOut, 2.5);
         growTween.resizeTo(101, 171);
 		this.mJuggler.addObject(growTween);
 	}
 
-	//update the juggler
+	//update the juggler, when transitions are done juggler will remove it
 	this.mJuggler.tick(deltaTime);
 
-	//change the pivot to be centered on the middle of the block
+	//change the pivot to be centered on the middle bottom of the block
 	this.mPivotX = this.mWidth * 0.5;
 	this.mPivotY = this.mHeight - (0.15 * this.mHeight);
 }
+
+//create a container and add the block and tree sprites as children
+var treeBlockContainer = new ss2d.DisplayObjectContainer(120, 120);
+treeBlockContainer.addObject(block);
+treeBlockContainer.addObject(tree);
 
 //add the pickable component in a custom property
 treeBlockContainer.mPickable = new ss2d.Pickable(treeBlockContainer);
 view.mMainScene.addObject(treeBlockContainer);
 
+//change the pivot of the container to the center of the block
+treeBlockContainer.mPivotX = block.mWidth * 0.5;
+treeBlockContainer.mPivotY = block.mHeight * 0.75;
+
 //update
 treeBlockContainer.tick = function(deltaTime)
 {	
-	//update pickable component state
-	this.mPickable.tick(deltaTime);
-
 	//update state of all children
     this.tickChildren(deltaTime);
+
+	//update pickable component state
+	this.mPickable.tick(deltaTime);
 
     //change the alpha if picked
     this.mAlpha = (this.mPickable.mPicked)?0.5:1;
@@ -435,23 +442,109 @@ treeBlockContainer.tick = function(deltaTime)
         this.mScaleX = this.mScaleY += deltaTime;
     if(input.isKeyPressed(ss2d.Input.Keys.X))
         this.mScaleX = this.mScaleY -= deltaTime;
-
-    //change the pivot to the center of the block
-    this.mPivotX = block.mWidth * 0.5;
-    this.mPivotY = block.mHeight * 0.75;
 };
 
 view.startLoop();	</pre>
 					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample4.2_pickablecontainer.html" target="_blank">Run this code</a></span>
 					<div class="codeSampleTitle">Code sample 4.2: Container behaviour</div>
 				</div><!--/codeContainer-->
+				<p>The first thing we do in sample 4.2 is create twe sprites that will be insidie a container. The sprite that represents the Wall Block.png image has nothing special, only note that is first added to the container because it must be rendered before the tree sprite, that way the tree will be rendered over the block. The tree has a special behaviour, we override the <span class="codeChunk" style="color: #fff;">tick</span> to make the tree disappear and grow every few seconds. To achieve that effect with a few lines of code we are using the <a href="http://galloman.github.com/ss2d/jsdoc/symbols/ss2d.Tween.html" target="_blank">ss2d.Tween</a> class to create the transitions that resize the tree, and the <a href="http://galloman.github.com/ss2d/jsdoc/symbols/ss2d.Juggler.html" target="_blank">ss2d.Juggler</a> class to control both transitions. To read more about property animations with transition clases, go to the <a href="#transitions">Transitions</a> section.
+				</p>
+				<p>Once the treeBlockContainer is created, we add both sprites and then define a behaviour for the container. First we make it piackble with the <a href="http://galloman.github.com/ss2d/jsdoc/symbols/ss2d.Pickable.html" target="_blank">ss2d.Pickable</a> component, this component will automatically check if an object is hitted when the user click with the mouse or touch on the scene, making the object move with the mouse while picked. Inside the <span class="codeChunk" style="color: #fff;">tick</span> we update all children state calling <span class="codeChunk" style="color: #fff;">tickChildren</span> method, this is necessary because we a re overriding the <span class="codeChunk" style="color: #fff;">tick</span> method of the container. Then we update the ss2d.Pickable component object, then we also use the <span class="codeChunk" style="color: #fff;">mPicked</span> property from the ss2d.Pickable object to change the <span class="codeChunk" style="color: #fff;">mAlpha</span> property of our container, meaning that everithing inside this container will have this level of transparency applied too. Next thing is to check if Z or X keys are pressed to change the scale of the container, with the same side effect as changing the alpha.
+				</p>
+				<p>If you run the code sample, you will see how you move and scale the container and how it's children are affected by this behaviour too. At the same time, you can see how independently of what you are doing to the container, the tree sprite still grows and diesappear by it's own beheaviour. As a final comment about containers, note that the scene itself is a container, it means that you can zoom in or out the scene or move what zone of the scene you can see in the canvas by transforming the <span class="codeChunk" style="color: #fff;">mMainScene</span>.
+				</p>
 			</div><!--/sectionContent-->
 		</section>
-
 		<!--COLLISION DETECTION-->
 		<section>
 			<div class="sectionContent">
 				<h2><a id="collision"></a>Collision detection</h2>
+				<p> Collision and hit tests are very common operations in game programming, so SmoothStep2D has implemented some useful methods in ss2d.DisplayObject and built-in derived prototypes like ss2d.Quad and ss2d.DisplayObjectContainer to perform this operations in an easy way. For example, if we want to check if a point hits any ss2d.DisplayObject of the scene, we can call the <span class="codeChunk" style="color: #fff;">hitTestPoint</span> method. This method accepts a ss2d.Point object as a paramenter and return the object that is hitting by this point or null if the point doesn't hit anything. It means that if you call this method from a non-container object, it will return the object itself if it is being hitted or null if it doesn't, and if you call this method from a container object, it will return wich non-container object inside this container is hitted or null if none of it's children is hitted. At the same time <span class="codeChunk" style="color: #fff;">hitTestPoint</span> takes care of transforming the point to the appropiate coordinate space for every tested object. You can override this method on you own objects to define a custom hit testing, for example, if your object is a circle, you wourld want to check if the distance between the point and the center of your object is less or equal to the circle radius. See a little sample here of how we use the mouse location to change the color property of some objects.
+				</p>
+
+				<div class="codeContainer">
+					<pre class="prettyprint linenums">
+var view = new ss2d.View('mainCanvas');
+view.mBackgroundFillStyle = '#cccccc';
+
+//add some objects to the scene
+view.mMainScene.addObject(new ss2d.Quad(20, 220, 50,  30, '#3356aa'));
+view.mMainScene.addObject(new ss2d.Quad(120, 320, 130,  30, '#3356aa'));
+view.mMainScene.addObject(new ss2d.Quad(320, 400, 30,  70, '#3356aa'));
+view.mMainScene.addObject(new ss2d.Quad(350, 120, 80,  30, '#3356aa'));
+view.mMainScene.addObject(new ss2d.Quad(90, 20, 30,  80, '#3356aa'));
+
+//save the hitted object
+view.mMainScene.mHittedObject = null;
+
+//override the tick method for all ss2d.Quads
+ss2d.Quad.prototype.tick = function(deltaTime)
+{
+    var input = ss2d.CURRENT_VIEW.mInput;
+    if(this.hitTestPoint(input.mMousePoint))
+    {
+        this.mColor.setValue('#ff0000');
+        this.mParent.mHittedObject = this;
+    } 
+    else if(this.mParent.mHittedObject == this)
+    {
+        this.mColor.setValue('#3356aa');
+        this.mParent.mHittedObject = null;
+    }
+};
+
+view.startLoop();	</pre>
+					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample5.1_hittest.html" target="_blank">Run this code</a></span>
+					<div class="codeSampleTitle">Code sample 5.1: Hit test</div>
+				</div><!--/codeContainer-->
+				<p> Another useful method is <span class="codeChunk" style="color: #fff;">getBounds</span>, this method returns an <a href="http://galloman.github.com/ss2d/jsdoc/symbols/ss2d.Rectangle.html" target="_blank">ss2d.Rectangle</a> object with the boundaries of the object or the area covered by a container's children. The ss2d.Rectangle is a math component that you can use to check collisions between objects using the <span class="codeChunk" style="color: #fff;">intersectsRectangle</span> method, that returns true if the rectangle intersects with the other rectangle passed as a parameter. Let's see an example of how to use this collision detection way.
+				</p>
+				<div class="codeContainer">
+					<pre class="prettyprint linenums">
+var view = new ss2d.View('mainCanvas');
+view.mBackgroundFillStyle = '#cccccc';
+
+//create two quads representing two walls
+var leftWall = new ss2d.Quad(20, 20, 30,  200, '#3356ff'); 
+var rightWall = new ss2d.Quad(300, 20, 30,  200, '#3356ff'); 
+view.mMainScene.addObject(leftWall);
+view.mMainScene.addObject(rightWall);
+
+//create a quad that will move between this two walls
+var collider = new ss2d.Quad(100, 100, 20, 20, '#ff0000');
+view.mMainScene.addObject(collider);
+
+//this custom property tells us the direction to move
+collider.mDirection = 1;
+collider.tick = function(deltaTime)
+{       
+    //add the displacement
+    this.mLocation.mX += 200*deltaTime*this.mDirection;
+
+    //check if this object collides with other objects in the same container
+    var colliderBounds = this.getBounds();
+    for(var childIndex in this.mParent.mChildren)
+    {
+        var brother = this.mParent.mChildren[childIndex];
+        //check that the other object is not itself
+        if(brother != this)
+        {
+            //if the objects collide change the direction.
+            if(colliderBounds.intersectsRectangle(brother.getBounds()))
+            {
+                collider.mDirection *= -1;
+            }
+        }
+    }
+}
+
+view.startLoop();	</pre>
+					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample5.2_collisions.html" target="_blank">Run this code</a></span>
+					<div class="codeSampleTitle">Code sample 5.2: Collision detection</div>
+				</div><!--/codeContainer-->
+				<p>
+				</p>
 			</div><!--/sectionContent-->
 		</section>
 
