@@ -30,7 +30,7 @@ ss2d.Tween = function(target, time, transitionMethod, delay, looptype)
 	if(transitionMethod) this.mTransitionMethod = transitionMethod;
 	
 	this.mTotalTime = time;
-	this.mCurrentTime = 0.0;
+	this.mCurrentTime = -delay;
 	this.mDelay = 0;
 	if(delay) this.mDelay = delay;
 	
@@ -66,7 +66,7 @@ ss2d.Tween.prototype.animateProperty = function(propertyGetter, propertySetter, 
 };
 
 /**
- * Created the needed ss2d.TweenedProperty objects to move a ss2d.DisplayObject to the specified coords.
+ * Create the needed ss2d.TweenedProperty objects to move an ss2d.DisplayObject to the specified coords.
  * @param {number} x coord
  * @param {number} y coord
  */
@@ -74,6 +74,17 @@ ss2d.Tween.prototype.moveTo = function(x, y)
 {
 	this.animateProperty(this.mTarget.getX, this.mTarget.setX, x);
 	this.animateProperty(this.mTarget.getY, this.mTarget.setY, y);
+};
+
+/**
+ * Create the needed ss2d.TweenedProperty objects to resize an ss2d.DisplayObject.
+ * @param {number} x coord
+ * @param {number} y coord
+ */
+ss2d.Tween.prototype.resizeTo = function(w, h)
+{
+	this.animateProperty(this.mTarget.getWidth, this.mTarget.setWidth, w);
+	this.animateProperty(this.mTarget.getHeight, this.mTarget.setHeight, h);
 };
 
 /**

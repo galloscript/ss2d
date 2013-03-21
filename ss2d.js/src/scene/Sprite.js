@@ -114,26 +114,6 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 	};
 }
 
-/** @override */
-ss2d.Sprite.prototype.setWidth = function(w, excludeClip)
-{ 
-	this.mWidth = w;
-	if(!excludeClip)
-	{
-		this.mClip[2] = w;
-	}
-};
-
-/** @override */
-ss2d.Sprite.prototype.setHeight = function(h, excludeClip)
-{ 
-	this.mHeight = h;
-	if(!excludeClip)
-	{
-		this.mClip[3] = h;
-	}
-};
-
 /**
  * Sets a clipping frame for the image.
  * @param {number} x

@@ -30,6 +30,10 @@ goog.require('ss2d.PhysicalWorld');
  * @property {ss2d.RenderSupport} mRenderSupport Rendering support
  * @property {string} mBackgroundFillStyle Background fill style mapped to Context fillstyle
  * @property {ss2d.PhysicalWorld} mPhysicalWorld A box2d physical world
+ * @property {Array} mPreTickFunctions Functions called every frame before the main scene tick method.
+ * @property {Array} mPostTickFunctions Functions called every frame after the main scene tick method.
+ * @property {Array} mPreRenderFunctions Functions called every frame before the main scene render method.
+ * @property {Array} mPostRenderFunctions Functions called every frame after the main scene render method.
  */
 ss2d.View = function(canvasId, mainScene, canvasWidth, canvasHeight, frameRate)
 {
@@ -55,6 +59,12 @@ ss2d.View = function(canvasId, mainScene, canvasWidth, canvasHeight, frameRate)
 	this.mBackgroundFillStyle = '#202020';
 	
 	this.mPhysicalWorld = ss2d.PhysicalWorld.getWorld();
+	
+	//plug-in development
+	this.mPreTickFunctions = [];
+	this.mPostTickFunctions = [];
+	this.mPreRenderFunctions = [];
+	this.mPostRenderFunctions = [];
 };
 
 /** @type {Object} */
@@ -75,12 +85,6 @@ ss2d.View.prototype.nextFrame = function()
 	//called with canvas width and height every frame
 	this.resizeCanvas(this.mCanvas.width, this.mCanvas.height);
 	
-	//update scene
-	this.mMainScene.tick(timePassed/1000.0);
-	
-	//update input
-	this.mInput.tick(timePassed/1000.0);
-	
 	//update physics
 	var worldUpdates = Math.floor(Math.max(1, timePassed/(1000.0/ss2d.PhysicalWorld.UPDATE_RATE)));
 	for(var i = 0; i < worldUpdates; ++i)
@@ -88,12 +92,40 @@ ss2d.View.prototype.nextFrame = function()
 		this.mPhysicalWorld.tick((timePassed/worldUpdates)/1000.0);
 	}
 	
+	var timePassedInSeconds = timePassed / 1000.0;
+	
+	//update input
+	this.mInput.tick(timePassedInSeconds);
+	
+	for(var methodIndex in this.mPreTickFunctions)
+	{ 
+		this.mPreTickFunctions[methodIndex].call(null, timePassedInSeconds); 
+	}
+	
+	//update scene
+	this.mMainScene.tick(timePassedInSeconds);
+
+	for(var methodIndex in this.mPostTickFunctions)
+	{ 
+		this.mPostTickFunctions[methodIndex].call(null, timePassedInSeconds); 
+	}
+	
 	//clean background
 	this.mContext.fillStyle = this.mBackgroundFillStyle;  
 	this.mContext.fillRect(0, 0, this.mCanvas.width, this.mCanvas.height); 
 	
+	for(var methodIndex in this.mPreRenderFunctions)
+	{ 
+		this.mPreRenderFunctions[methodIndex].call(null, this.mRenderSupport); 
+	}
+	
 	//render scene
 	this.mMainScene.render(this.mRenderSupport);
+	
+	for(var methodIndex in this.mPostRenderFunctions)
+	{ 
+		this.mPostRenderFunctions[methodIndex].call(null, this.mRenderSupport); 
+	}
 	
 	//calculate the delay time for the nextFrame call based on the 
 	//frameRate and time spend in update and render operations.
@@ -134,3 +166,4 @@ ss2d.View.prototype.stopLoop = function()
  * @param {Object} ch canvas height
  */
 ss2d.View.prototype.resizeCanvas = function(cw, ch){};
+

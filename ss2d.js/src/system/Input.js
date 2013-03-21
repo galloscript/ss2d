@@ -20,6 +20,7 @@ goog.provide('ss2d.Input');
  * @property {ss2d.Point} mPreviousMousePoint Last frame mouse location point
  * @property {boolean} mMouseDown Is mouse left button down?
  * @property {boolean} mPreviousMouseDown Was mouse left button down last frame?
+ * @property {boolean} mCleanKeysOnFocusOut Set if the pressed keys list must be cleaned when the canvas element lost it's focus.
  */
 ss2d.Input = function(view)
 {
@@ -75,6 +76,9 @@ ss2d.Input = function(view)
 	this.mPreviousMousePoint = new ss2d.Point(this.mPreviousMouseX, this.mPreviousMouseY);
 	this.mPreviousMouseDown = false;
 	this.mClicked = false;
+	
+	//configuration
+	this.mCleanKeysOnFocusOut = true;
 }
 
 ss2d.Input.getInput = function()
@@ -231,13 +235,10 @@ ss2d.Input.prototype.onKeyDown = function(event)
 
 ss2d.Input.prototype.onKeyUp = function(event)
 {
-	if(this.mView.mHaveFocus)
-	{ 
-		this.mPressedKeys['_'+parseInt(event.keyCode)] = false;
-		delete this.mPressedKeys['_'+parseInt(event.keyCode)];
-		return false;
-	}
-	return true;
+	this.mPressedKeys['_'+parseInt(event.keyCode)] = false;
+	delete this.mPressedKeys['_'+parseInt(event.keyCode)];
+		
+	return !this.mView.mHaveFocus
 }
 
 ss2d.Input.prototype.onFocusIn = function(event)
@@ -250,11 +251,14 @@ ss2d.Input.prototype.onFocusOut = function(event)
 	this.mView.mHaveFocus = false;
 	this.mClicked = false;
 	
-	for(var key in this.mPressedKeys)
-    {
-        this.mPressedKeys[key] = false;
-		delete this.mPressedKeys[key];
-    }
+	if(this.mCleanKeysOnFocusOut)
+	{
+		for(var key in this.mPressedKeys)
+	    {
+	        this.mPressedKeys[key] = false;
+			delete this.mPressedKeys[key];
+	    }
+	}
 }
 
 ss2d.Input.prototype.onMouseMove = function(pe)

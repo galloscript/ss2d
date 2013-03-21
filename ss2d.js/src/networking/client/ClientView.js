@@ -52,7 +52,12 @@ ss2d.ClientView = function(canvasId, canvasWidth, canvasHeight, frameRate, input
 	
 	this.mDelay = delay || 100;
 	this.mInputRate = inputRate || 20.0;
-	window['wastedTimePerFrame'] = 0;
+	
+	//plug-in development
+	this.mPreTickFunctions = [];
+	this.mPostTickFunctions = [];
+	this.mPreRenderFunctions = [];
+	this.mPostRenderFunctions = [];
 };
 
 /** @type {Object} */
@@ -76,24 +81,44 @@ ss2d.ClientView.prototype.nextFrame = function()
 	//called with canvas width and height every frame
 	this.resizeCanvas(this.mCanvas.width, this.mCanvas.height);
 	
+	//update input
+	this.mInput.tick(timePassed/1000.0);
+	
 	//interpolate scene
 	//if(this.mSceneQueue.length > 1)
 	//{
+		for(var methodIndex in this.mPreTickFunctions)
+		{ 
+			this.mPreTickFunctions[methodIndex].call(null, timePassedInSeconds); 
+		}
+	
 		this.updateSceneState(now, timePassed/1000.0);
+		
+		for(var methodIndex in this.mPostTickFunctions)
+		{ 
+			this.mPostTickFunctions[methodIndex].call(null, timePassedInSeconds); 
+		}
 		
 		//clean background
 		this.mContext.fillStyle = this.mBackgroundFillStyle;  
 		this.mContext.fillRect(0, 0, this.mCanvas.width, this.mCanvas.height); 
 		
+		for(var methodIndex in this.mPreRenderFunctions)
+		{ 
+			this.mPreRenderFunctions[methodIndex].call(null, this.mRenderSupport); 
+		}
+	
 		//render scene
 		if(this.mMainScene != null)
 		{
 			this.mMainScene.render(this.mRenderSupport);
 		}
+		
+		for(var methodIndex in this.mPostRenderFunctions)
+		{ 
+			this.mPostRenderFunctions[methodIndex].call(null, this.mRenderSupport); 
+		}
 	//}
-	
-	//update input
-	this.mInput.tick(timePassed/1000.0);
 
 	//calculate the delay time for the nextFrame call based on the 
 	//frameRate and time spend in update and render operations.

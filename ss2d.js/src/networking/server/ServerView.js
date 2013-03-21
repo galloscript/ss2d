@@ -34,6 +34,12 @@ ss2d.ServerView = function(mainScene, serverPort, updateRate)
 	//this.mDeletedObjectList = [];
 	
 	this.mPhysicalWorld = ss2d.PhysicalWorld.getWorld();
+	
+	//plug-in development
+	this.mPreTickFunctions = [];
+	this.mPostTickFunctions = [];
+	this.mPreRenderFunctions = [];
+	this.mPostRenderFunctions = [];
 };
 
 /** @type {function} */
@@ -48,8 +54,18 @@ ss2d.ServerView.prototype.nextFrame = function()
 	var now = new Date().getTime();
 	var timePassed = now - this.mLastFrameTimestamp;
 	
+	for(var methodIndex in this.mPreTickFunctions)
+	{ 
+		this.mPreTickFunctions[methodIndex].call(null, timePassedInSeconds); 
+	}
+	
 	//update scene
 	this.mMainScene.tick(timePassed/1000.0);
+	
+	for(var methodIndex in this.mPostTickFunctions)
+	{ 
+		this.mPostTickFunctions[methodIndex].call(null, timePassedInSeconds); 
+	}
 	
 	//update physics
 	var worldUpdates = Math.floor(Math.max(1, timePassed/(1000.0/ss2d.PhysicalWorld.UPDATE_RATE)));
