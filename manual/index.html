@@ -38,7 +38,7 @@
 						<li><a href="#text">Displaying text</a></li>
 						<li><a href="#audio">Playing audio files</a></li>
 						<li><a href="#resourcemanager">Loading content</a></li>
-						<li><a href="#animations">Animations and timers</a></li>
+						<li><a href="#transitions">Transitions</a></li>
 						<li><a href="#reelsprites">Reel sprites</a></li>
 					</ul>
 					<h3>Advanced features</h3>
@@ -327,8 +327,135 @@ view.startLoop();	</pre>
 		<section>
 			<div class="sectionContent">
 				<h2><a id="containers"></a>Containers and Scene</h2>
-				<p>
+				<p>As you can see in previous samples, if you need to show and update a DisplayObject like a Sprite or Quad you must add it to the scene. The scene is in fact another object of a type that inherits from ss2d.DisplayObject, the <a href="http://galloman.github.com/ss2d/jsdoc/symbols/ss2d.DisplayObjectContainer.html" target="_blank">ss2d.DisplayObjectContainer</a>. When you add any DisplayObject to a DisplayObjectContainer it becomes a children of this container, and inherits all transformations applied to it's parent. What it means is that if you have a container with three child objects and you rotate or set a location for the container all it's children will be rendered with this transformation applied plus their own transformation. Let's illustrate the explanation with a sample:
 				</p>
+				<div class="codeContainer">
+					<pre class="prettyprint linenums">
+var view = new ss2d.View('mainCanvas');
+view.mBackgroundFillStyle = '#cccccc';
+
+//create a small blue quad that will be at the 0,0 location relative to the container location
+var smallQuad = new ss2d.Quad(0, 0, 20,  20, '#3356ff'); 
+
+//create a red quad that will be at 20,50 location relative to the container location
+var bigQuad = new ss2d.Quad(20, 50, 40,  40, '#ff0000'); 
+
+//now create the container at 20,20 location relative to the secen (scene is another container located at 0,0 relative to the canvas)
+var container = new ss2d.DisplayObjectContainer(20, 20);
+
+//adding the container to the main scene
+view.mMainScene.addObject(container);
+
+//adding the two quads to the container
+container.addObject(smallQuad);
+container.addObject(bigQuad);
+
+//text object that tells us the mouse location
+var mouseLocText = new ss2d.TextSprite(0, 0, '', '#000000', 14);
+view.mMainScene.addObject(mouseLocText);
+mouseLocText.tick = function(deltaTime)
+{
+	var input = ss2d.CURRENT_VIEW.mInput;
+	this.mTextString = input.mMouseX+','+input.mMouseY;
+	this.mLocation.set(input.mMouseX + 10, input.mMouseY);
+};
+
+view.startLoop();	</pre>
+					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample4.1_container.html" target="_blank">Run this code</a></span>
+					<div class="codeSampleTitle">Code sample 4.1: Inherited transformation</div>
+				</div><!--/codeContainer-->
+				<p>In sample 4.1 we have two quads at different locations, one at 0,0 and another at 20,50. Then we add a new container at 20,20 to teh main scene and add the two quads to this container. Finally we add a text sprite that will follow the mouse and tells us the mouse location. If you run this code and use the mouse to check the location of each quad, you will see how the container location has been added to both quads, the quad at 0,0 will be drawn at 20,20 and the quad at 20,50 will be drawn at 40,70. 
+				</p>
+				<p>The properties actually affected by the object's parent transformation are location, rotation, scale and alpha, but this object's properties in fact remains unaffected, what happens is that when the DisplayObjectContainer <span class="codeChunk" style="color: #fff;">render</span> method is called we use the <a href="http://galloman.github.com/ss2d/jsdoc/symbols/ss2d.RenderSupport" target="_blank">ss2d.RenderSupport</a> <span class="codeChunk" style="color: #fff;">pushTransform</span> method to load this transformation and alpha values as the current scene state, then all next transformations and render operations will be done with the previous transformation applied until the ss2d.RenderSupport <span class="codeChunk" style="color: #fff;">popTransform</span> method is called. 
+				</p>
+				<p>Thats the type of operations that you don't need to worry about because it is all managed internally by SmoothStep2D, but there are some situations where a conversion between local and world coordinate spaces must be done. For exampe if you need to perform a hit test between a point and an object that is within a container or a hirearchy of containers, it requires that you take care to transform this global location point to the local coordinate space of the object. Of course as this is a tipical vector math operation in game programming the ss2d.DisplayObject has a method called <span class="codeChunk" style="color: #fff;">hitTestPoint</span> that already performs a hit test taking care of that conversions. If you need to perform more complex operations between several coordinate spaces check methods like <span class="codeChunk" style="color: #fff;">hitTestPoint</span>, <span class="codeChunk" style="color: #fff;">worldToLocal</span>, <span class="codeChunk" style="color: #fff;">localToWorld</span>, <span class="codeChunk" style="color: #fff;">getWorldTransformationMatrix</span> or <span class="codeChunk" style="color: #fff;">getBounds</span> defined in ss2d.DisplayObject, ss2d.Quad and ss2d.DisplayObjectContainer.
+				</p>
+				<p>As you can supose, if you give a behaviour to your container, the objects within it will be affected by it's state changes. Objects inside a container can have individual behaviour because each of the has his own <span class="codeChunk" style="color: #fff;">tick</span> method and change it's own state but that doesn't override the transformations inherited from parent containers. An important note about the <span class="codeChunk" style="color: #fff;">tick</span> method is that the default implementation of this method in the container takes care of calling the <span class="codeChunk" style="color: #fff;">tick</span> method of all it's children, so, if you override the <span class="codeChunk" style="color: #fff;">tick</span> method of a container you must add a call to the <span class="codeChunk" style="color: #fff;">tickChildren</span> method with the deltaTime. Let's see an example of that moving two objects at the same time, giving a behaviour to it's parent container.
+				</p>
+				<center>
+					<div class="imgContainer">
+						<img src="images/Tree Short.png" style="border: 1px solid #ababab;" />
+						<div class="imgFooter"> Three Short.png</div>
+					</div>
+					<div style="display: inline-table">
+						<img src="images/Wall Block.png" style="border: 1px solid #ababab;" />
+						<div class="imgFooter"> Wall Block.png</div>
+					</div>
+				</center>
+				<div class="codeContainer">
+					<pre class="prettyprint linenums">
+var view = new ss2d.View('mainCanvas');
+view.mBackgroundFillStyle = '#cccccc';
+
+var block = new ss2d.Sprite(0, 50, 101, 171, 'assets/textures/Wall Block.png'); 
+
+var tree = new ss2d.Sprite(50, 151, 101, 171, 'assets/textures/Tree Short.png'); 
+tree.mPivotX = tree.mWidth * 0.5;
+tree.mPivotY = tree.mHeight;
+
+//create a container with the block and tree sprites as children
+var treeBlockContainer = new ss2d.DisplayObjectContainer(120, 120);
+treeBlockContainer.addObject(block);
+treeBlockContainer.addObject(tree);
+
+//make the tree suddenly grow every every few seconds
+//juggler will control the growing effect
+tree.mJuggler = new ss2d.Juggler();
+tree.tick = function(deltaTime)
+{
+    if(this.mJuggler.mObjects.length == 0)
+	{
+		//first resize it to 0
+        var reduceToZero = new ss2d.Tween(this, 0.1, ss2d.Transitions.linear, 1.8);
+        reduceToZero.resizeTo(0, 0);
+        this.mJuggler.addObject(reduceToZero);
+        
+        //then resize to it's original boundaries
+		var growTween = new ss2d.Tween(this, 1.0, ss2d.Transitions.easeInOut, 2.5);
+        growTween.resizeTo(101, 171);
+		this.mJuggler.addObject(growTween);
+	}
+
+	//update the juggler
+	this.mJuggler.tick(deltaTime);
+
+	//change the pivot to be centered on the middle of the block
+	this.mPivotX = this.mWidth * 0.5;
+	this.mPivotY = this.mHeight - (0.15 * this.mHeight);
+}
+
+//add the pickable component in a custom property
+treeBlockContainer.mPickable = new ss2d.Pickable(treeBlockContainer);
+view.mMainScene.addObject(treeBlockContainer);
+
+//update
+treeBlockContainer.tick = function(deltaTime)
+{	
+	//update pickable component state
+	this.mPickable.tick(deltaTime);
+
+	//update state of all children
+    this.tickChildren(deltaTime);
+
+    //change the alpha if picked
+    this.mAlpha = (this.mPickable.mPicked)?0.5:1;
+
+    //change the scale of the container with Z and X keys
+    var input = ss2d.CURRENT_VIEW.mInput;
+    if(input.isKeyPressed(ss2d.Input.Keys.Z))
+        this.mScaleX = this.mScaleY += deltaTime;
+    if(input.isKeyPressed(ss2d.Input.Keys.X))
+        this.mScaleX = this.mScaleY -= deltaTime;
+
+    //change the pivot to the center of the block
+    this.mPivotX = block.mWidth * 0.5;
+    this.mPivotY = block.mHeight * 0.75;
+};
+
+view.startLoop();	</pre>
+					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample4.2_pickablecontainer.html" target="_blank">Run this code</a></span>
+					<div class="codeSampleTitle">Code sample 4.2: Container behaviour</div>
+				</div><!--/codeContainer-->
 			</div><!--/sectionContent-->
 		</section>
 
@@ -363,7 +490,7 @@ view.startLoop();	</pre>
 		<!--TRANSITIONS-->
 		<section>
 			<div class="sectionContent">
-				<h2><a id="animations"></a>Animations and timers</h2>
+				<h2><a id="transitions"></a>Transitions</h2>
 			</div><!--/sectionContent-->
 		</section>
 

@@ -81,6 +81,12 @@ div.sectionContent li
 	text-align: justify;
 }
 
+div.sectionContent .imgContainer
+{
+	display: inline-table;
+	margin: 0 10px 0 10px;
+}
+
 span.codeChunk
 {
 	background-color: #000;
@@ -115,6 +121,8 @@ div.codeContainer .codeSampleTitle
 	margin-top: -10px;
 	font-style: italic;
 }
+
+
 
 div.imgFooter
 {
