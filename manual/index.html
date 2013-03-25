@@ -36,10 +36,10 @@
 						<li><a href="#containers">Containers and Scene</a></li>
 						<li><a href="#collision">Collision detection</a></li>
 						<li><a href="#text">Displaying text</a></li>
+						<li><a href="#reelsprites">Reel sprites</a></li>
 						<li><a href="#audio">Playing audio files</a></li>
 						<li><a href="#resourcemanager">Loading content</a></li>
 						<li><a href="#transitions">Transitions</a></li>
-						<li><a href="#reelsprites">Reel sprites</a></li>
 					</ul>
 					<h3>Advanced features</h3>
 					<ul>
@@ -552,6 +552,107 @@ view.startLoop();	</pre>
 		<section>
 			<div class="sectionContent">
 				<h2><a id="text"></a>Displaying text</h2>
+				<p> There are three ways in SmoothStep2D to display text inside your canvas, the first one is using an html element like a div, simply as that, you are inside a web browser, so you still have the ability to create DOM elements with javascript, don't forget that for any element available in the DOM like text input fields, buttons, etc, html+css+javascirpt is one the most powerful tools for creating graphic user interfaces and it's the way to go when creating GUIs on a SmoothStep2D view. Perhaps, there are situations where the html DOM elements are not enought because the transformations we need to apply to our text, are much more complex or 
+				 expensive in terms of computation when working with DOM elements, in this cases SmoothStep2D provides two scene elements: <a href="http://galloman.github.com/ss2d/jsdoc/symbols/ss2d.TextSprite.html" target="_blank">ss2d.TextSprite</a> and <a href="http://galloman.github.com/ss2d/jsdoc/symbols/ss2d.BitmapTextSprite.html" target="_blank">ss2d.BitmapTextSprite</a>.
+				</p>
+				<p> Let's start with ss2d.TextSprite, with this class you can place any text on canvas, specifiying in the constructor the location, the text string, the color, the font size, the font name, and the style. The last four mentioned parameters are optional, ss2d.TextSprite will use white color, 16px height and Verdana font as default values without any decoration like italic or bold characters. It also has an interesting property called <span class="codeChunk" style="color: #fff;">mDisplayChars</span> with it's two accesors <span class="codeChunk" style="color: #fff;">getDisplayChars</span> and <span class="codeChunk" style="color: #fff;">setDisplayChars</span>, this property is the number of characters that are currently displayed, it's default value is -1 wich will show all of them. The main idea behind the <span class="codeChunk" style="color: #fff;">mDisplayChars</span> property, is to "animate" the text creating the classical scrolling effect. Let's see an example of a scrolling text following the mouse location.
+				</p>
+				<div class="codeContainer">
+					<pre class="prettyprint linenums">
+var view = new ss2d.View('mainCanvas');
+view.mBackgroundFillStyle = '#cccccc';
+
+//create the text element
+var text = new ss2d.TextSprite(0, 0, 'This is a ss2d.TextSprite object', '#550000', 16, 'Verdana', 'italic');
+view.mMainScene.addObject(text);
+
+//set the number of currenlty displaying chars
+text.mDisplayChars = 0;
+
+//animate the mDisplayChars property to get a scrolling effect.
+text.tick = function(deltaTime)
+{
+	//it will show 10 characters per second
+	this.mDisplayChars += 10*deltaTime;
+
+	//if we are showing all text plus some extra seconds, reset.
+	if(this.mDisplayChars >= this.mTextString.length + 20)
+	{
+		this.mDisplayChars = 0;
+	}
+
+	//transform like any other display object
+	var input = ss2d.CURRENT_VIEW.mInput;
+	this.mLocation.set(input.mMouseX + 15, input.mMouseY);
+};
+
+view.startLoop();	</pre>
+					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample6.1_text.html" target="_blank">Run this code</a></span>
+				<div class="codeSampleTitle">Code sample 6.1: Text sprite</div>	
+				<p>In the above sample we call the constructor specifiying all possible parameters, 0,0 as location, the text string we want to display, #550000 as color, 16px of height, Verdana font and italic style. Then we change the number of characterst that the text must show and give it a behaviour to increment this property and then reset. We also move the text sprite to follow the mouse location.
+				</P>
+				<p> The other option for displaying text is using a ss2d.BitmapTextSprite object, this object can load bitmap fonts in XML BMFont format, generated with software like <a href="http://www.angelcode.com/products/bmfont/" target="_blank">BMFont</a> or <a href="http://www.71squared.com/glyphdesigner" target="_blank">Glyph Designer</a>. This applications generate a texture file with all characters, plus an XML metada file with all character coords and spacing data. The ss2d.BitmapTextSprite constructor loads all this data to write any string using this characters. Let's see an example, <a href="https://c9.io/gallo/ss2dsamples/workspace/assets/fonts/fun02.txt" target="_blank">click here</a> to see the BMFont XML metadata file that we will use, and <a href="https://c9.io/gallo/ss2dsamples/workspace/assets/fonts/fun02.png" target="_blank">here</a> to see the texture that pairs with the XML file.
+				</p>
+				<div class="codeContainer">
+					<pre class="prettyprint linenums">
+var view = new ss2d.View('mainCanvas');
+view.mBackgroundFillStyle = '#cccccc';
+
+//create bitmap text sprite object
+var bmtext = new ss2d.BitmapTextSprite(40, 60, 'Text with a', 'assets/fonts/fun02.fnt', 45);
+view.mMainScene.addObject(bmtext);
+
+//create another bitmap text sprite object
+var bmtext2 = new ss2d.BitmapTextSprite(40, 115, 'bitmap font', 'assets/fonts/fun02.fnt', 45);
+view.mMainScene.addObject(bmtext2);
+
+view.startLoop(); </pre>
+					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample6.2_bmtext.html" target="_blank">Run this code</a></span>
+				<div class="codeSampleTitle">Code sample 6.2: BMFont XML file generated with Glyph Designer</div>
+				<p> We used two ss2d.BitmapTextSprite objects to compose a multi-line text string, there is no multi-line support in ss2d.BitmapTextSprite or ss2d.TextSprite, so that's a way to do it. The ss2d.BitmapTextsprite takes five parameters: the x and y location, the text string, the bitmap font xml path and the font size, note that the bmt font xml and texture are in the same directory. Another way to do miltine text or manipulate every character position with a custom algorithm is overriding a hook method called <span class="codeChunk" style="color: #fff;">displacement</span>, this method receives five parameters: the character index in the text string, the character code in ascii table, the default x and y coords where the character will be drawn, and an output parameter of type ss2d.Point called targetDisplacement that represent the final location of the character. By default this method maps the x and y parameters to <span class="codeChunk" style="color: #fff;">mX</span> and <span class="codeChunk" style="color: #fff;">mY</span> properties from targetDisplacement output parameter. Let's see an example of how to use this method to create some effects.
+				</p>	
+				<div class="codeContainer">
+					<pre class="prettyprint linenums">
+var view = new ss2d.View('mainCanvas');
+view.mBackgroundFillStyle = '#cccccc';
+
+//create bitmap text sprite object
+var shakeText = new ss2d.BitmapTextSprite(40, 160, 'Shake text', 'assets/fonts/fun02.fnt', 46);
+view.mMainScene.addObject(shakeText);
+
+//make it pickable and update the pickable component state.
+shakeText.mPickable = new ss2d.Pickable(shakeText);
+shakeText.tick = function(dt){ this.mPickable.tick(dt); };
+
+//override displacement method making the text shake.
+shakeText.displacement = function(charIndex, charCode, x, y, targetDisplacement)
+{
+    targetDisplacement.mX = x + Math.sin(charIndex*-3 + ss2d.CURRENT_VIEW.mTotalTime*26)*3;
+    targetDisplacement.mY = y + Math.sin(charIndex*8 + ss2d.CURRENT_VIEW.mTotalTime*36)*6;
+};
+
+//bitmap text sprite with wave effect and transparent
+var waveText = new ss2d.BitmapTextSprite(40, 280, 'wave text', 'assets/fonts/gold01.fnt', 46);
+view.mMainScene.addObject(waveText);
+waveText.mAlpha = 0.8;
+waveText.displacement = function(charIndex, charCode, x, y, targetDisplacement)
+{
+    targetDisplacement.mX = x;
+    targetDisplacement.mY = y + Math.sin(charIndex*0.5 + ss2d.CURRENT_VIEW.mTotalTime*8)*16;
+};
+
+view.startLoop();	</pre>
+					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample6.3_displacement.html" target="_blank">Run this code</a></span>
+				<div class="codeSampleTitle">Code sample 6.3: Bitmap text displacement effects</div>
+				<p> As you can see, Bitmap text sprites are like any other display object and it's state can be changed in the same way, like the ss2d.Pickable component does, but there are some limitations, for example the boundaries of the text sprite are not affected by the <span class="codeChunk" style="color: #fff;">displacement</span> method, in this case the shake effect only moves a few pixels from character's original location, so it is negligible, but if we try to apply the ss2d.Pickable component to the wave text we probably perceive a lot of hit fails.
+				</p>
+			</div><!--/sectionContent-->
+		</section>
+
+		<!--REEL SPRITES-->
+		<section>
+			<div class="sectionContent">
+				<h2><a id="reelsprites"></a>Reel sprites</h2>
 			</div><!--/sectionContent-->
 		</section>
 
@@ -576,12 +677,7 @@ view.startLoop();	</pre>
 			</div><!--/sectionContent-->
 		</section>
 
-		<!--REEL SPRITES-->
-		<section>
-			<div class="sectionContent">
-				<h2><a id="reelsprites"></a>Reel sprites</h2>
-			</div><!--/sectionContent-->
-		</section>
+
 
 		<!--ADVANCED-->
 		<!--PHYSICS-->
