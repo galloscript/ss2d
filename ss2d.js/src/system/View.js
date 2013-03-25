@@ -34,6 +34,7 @@ goog.require('ss2d.PhysicalWorld');
  * @property {Array} mPostTickFunctions Functions called every frame after the main scene tick method.
  * @property {Array} mPreRenderFunctions Functions called every frame before the main scene render method.
  * @property {Array} mPostRenderFunctions Functions called every frame after the main scene render method.
+ * @property {number} mTotalTime Time passed since the view loop starts.
  */
 ss2d.View = function(canvasId, mainScene, canvasWidth, canvasHeight, frameRate)
 {
@@ -65,6 +66,8 @@ ss2d.View = function(canvasId, mainScene, canvasWidth, canvasHeight, frameRate)
 	this.mPostTickFunctions = [];
 	this.mPreRenderFunctions = [];
 	this.mPostRenderFunctions = [];
+	
+	this.mTotalTime = 0;
 };
 
 /** @type {Object} */
@@ -85,6 +88,8 @@ ss2d.View.prototype.nextFrame = function()
 	//called with canvas width and height every frame
 	this.resizeCanvas(this.mCanvas.width, this.mCanvas.height);
 	
+	
+	
 	//update physics
 	var worldUpdates = Math.floor(Math.max(1, timePassed/(1000.0/ss2d.PhysicalWorld.UPDATE_RATE)));
 	for(var i = 0; i < worldUpdates; ++i)
@@ -93,6 +98,8 @@ ss2d.View.prototype.nextFrame = function()
 	}
 	
 	var timePassedInSeconds = timePassed / 1000.0;
+	
+	this.mTotalTime += timePassedInSeconds;
 	
 	//update input
 	this.mInput.tick(timePassedInSeconds);

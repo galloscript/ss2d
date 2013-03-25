@@ -58,6 +58,8 @@ ss2d.ClientView = function(canvasId, canvasWidth, canvasHeight, frameRate, input
 	this.mPostTickFunctions = [];
 	this.mPreRenderFunctions = [];
 	this.mPostRenderFunctions = [];
+	
+	this.mTotalTime = 0;
 };
 
 /** @type {Object} */
@@ -81,8 +83,12 @@ ss2d.ClientView.prototype.nextFrame = function()
 	//called with canvas width and height every frame
 	this.resizeCanvas(this.mCanvas.width, this.mCanvas.height);
 	
+	var timePassedInSeconds = timePassed/1000.0;
+	
+	this.mTotalTime += timePassedInSeconds;
+	
 	//update input
-	this.mInput.tick(timePassed/1000.0);
+	this.mInput.tick(timePassedInSeconds);
 	
 	//interpolate scene
 	//if(this.mSceneQueue.length > 1)
@@ -92,7 +98,7 @@ ss2d.ClientView.prototype.nextFrame = function()
 			this.mPreTickFunctions[methodIndex].call(null, timePassedInSeconds); 
 		}
 	
-		this.updateSceneState(now, timePassed/1000.0);
+		this.updateSceneState(now, timePassedInSeconds);
 		
 		for(var methodIndex in this.mPostTickFunctions)
 		{ 

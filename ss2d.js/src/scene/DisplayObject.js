@@ -159,6 +159,25 @@ ss2d.DisplayObject.prototype.setLocation = function(point)
 };
 
 /**
+ * Returns true if this object bounds intersects with the other object bounds.
+ * @param {ss2d.DisplayObject} otherObject
+ * @return {boolean}
+ */
+ss2d.DisplayObject.prototype.collideWith = function(otherObject)
+{ 
+	var thisBounds = this.getBounds();
+	var otherBounds = otherObject.getBounds();
+	
+	if(thisBounds && otherBounds)
+	{
+		return thisBounds.intersectsRectangle(otherBounds);
+	}
+	
+	return false;
+};
+
+
+/**
  * Called every frame to update object state. Implemented by User.
  * @param {number} deltaTime Seconds passed from the last frame.
  */
@@ -174,7 +193,7 @@ ss2d.DisplayObject.prototype.render = function(support){};
  * Implemented by child classes.
  * @return {ss2d.Rectangle} bounds of the object.
  */
-ss2d.DisplayObject.prototype.getBounds = function(){ return null; };
+ss2d.DisplayObject.prototype.getBounds = function(){ return new ss2d.Rectangle(); };
 
 /**
  * Implemented by child classes.

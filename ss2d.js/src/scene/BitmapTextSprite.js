@@ -98,7 +98,8 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 				{
 					var charCode = this.mTextString.charCodeAt(c);
 					if(charCode == 32){ 
-						ctx.translate(this.mBitmapFont.mMidWidth*0.5, 0);
+						//ctx.translate(this.mBitmapFont.mMidWidth*0.5, 0);
+						xTranslation += this.mBitmapFont.mMidWidth*0.6;
 						continue;
 					}
 					
@@ -141,7 +142,7 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 					
 				}
 				this.mWidth = xTranslation;
-				this.mHeight = this.mFontSize;
+				this.mHeight = this.mFontSize/this.mScaleY;
 			} catch (t) { }
 			renderSupport.popTransform();
 			

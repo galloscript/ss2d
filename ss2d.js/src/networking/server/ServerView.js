@@ -40,6 +40,8 @@ ss2d.ServerView = function(mainScene, serverPort, updateRate)
 	this.mPostTickFunctions = [];
 	this.mPreRenderFunctions = [];
 	this.mPostRenderFunctions = [];
+	
+	this.mTotalTime = 0;
 };
 
 /** @type {function} */
@@ -54,13 +56,17 @@ ss2d.ServerView.prototype.nextFrame = function()
 	var now = new Date().getTime();
 	var timePassed = now - this.mLastFrameTimestamp;
 	
+	var timePassedInSeconds = timePasse/1000.0;
+	
+	this.mTotalTime += timePassedInSeconds;
+	
 	for(var methodIndex in this.mPreTickFunctions)
 	{ 
 		this.mPreTickFunctions[methodIndex].call(null, timePassedInSeconds); 
 	}
 	
 	//update scene
-	this.mMainScene.tick(timePassed/1000.0);
+	this.mMainScene.tick(timePassedInSeconds);
 	
 	for(var methodIndex in this.mPostTickFunctions)
 	{ 
