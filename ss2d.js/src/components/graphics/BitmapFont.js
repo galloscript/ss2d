@@ -83,9 +83,17 @@ ss2d.BitmapFont.prototype.fontFileLoaded = function(fileData)
 	var pathEnd = this.mName.lastIndexOf('/') + 1;
 	texturePage = (pathEnd > 0)?this.mName.substring(0, pathEnd)+texturePage:texturePage;
 	
-	this.mTexture = new ss2d.Texture(texturePage, this.mCallbackFunction);
+	this.mTexture = new ss2d.Texture(texturePage, this.fontTextureLoaded, this);
 };
 
+/**
+ * Called once the texture atlas is loaded
+ */
+ss2d.BitmapFont.prototype.fontTextureLoaded = function(texture)
+{
+	this.mTexture = texture;
+	this.mCallbackFunction.call(this.mCallbackTarget, this);
+}
 
 /** 
  * Retrieve the clip frame information for a given character

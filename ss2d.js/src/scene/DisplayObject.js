@@ -87,21 +87,24 @@ ss2d.DisplayObject.prototype.getTransformationMatrix = function(targetMatrix)
 
 /**
  * @param {ss2d.Matrix3} targetMatrix Matrix where dump the result
+ * @param {ss2d.DisplayObject} upToParent The top of world transformation (not included)
+ * @param {boolean} includeHimself
  * @return {ss2d.Matrix3} The world transformation of the object. 
  */
 //TODO: Modify to accept a top parent to iterate instead of the first one without parent.
-ss2d.DisplayObject.prototype.getWorldTransformationMatrix = function(targetMatrix)
+ss2d.DisplayObject.prototype.getWorldTransformationMatrix = function(targetMatrix, upToParent, includeHimself)
 {
 	var parentsStack = [];
 	var currentParent = this;
-	
-	while(currentParent.mParent)
+	upToParent = upToParent||null;
+	while(currentParent && currentParent.mParent != upToParent)
 	{
 		parentsStack.push(currentParent.mParent);
 		currentParent = currentParent.mParent;
 	}
 	
-	var transMatrix = new ss2d.Matrix3();
+	targetMatrix = targetMatrix||new ss2d.Matrix3();
+	var transMatrix = (includeHimself) ? this.getTransformationMatrix(targetMatrix) : targetMatrix;
 	var curMatrix = new ss2d.Matrix3();
 	
 	for(matIndex in parentsStack)

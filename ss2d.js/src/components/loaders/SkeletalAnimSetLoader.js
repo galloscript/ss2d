@@ -5,33 +5,33 @@
  * @author David Gallardo Moreno (portalg@gmail.com)
  */
 
-goog.provide('ss2d.ReelSetLoader');
+goog.provide('ss2d.SkeletalAnimationLoader');
 
 goog.require('ss2d.ILoader');
-goog.require('ss2d.ReelSet');
+goog.require('ss2d.SkeletalAnimation');
 
 /**
  * @constructor
  * @implements ss2d.ILoader
  * @static
  */
-ss2d.ReelSetLoader = {};
+ss2d.SkeletalAnimationLoader = {};
 
 /**
  * The extension used in ResourceManager class.
  * @static
  * @type {string}
  */
-ss2d.ReelSetLoader.RESOURCE_EXTENSION = 'reelset';
+ss2d.SkeletalAnimationLoader.RESOURCE_EXTENSION = 'sklanim';
 
 /**
  * Load the texture
  * @param {string} resourceFileName
  * @param {function} resourceLoadedCallback
  * @param {Object} callbackTarget
- * @return {ss2d.TextureAtlas} The loaded texture
+ * @return {ss2d.Skeleton}
  */
-ss2d.ReelSetLoader.loadResource = function(resourceFileName, resourceLoadedCallback, callbackTarget)
+ss2d.SkeletalAnimationLoader.loadResource = function(resourceFileName, resourceLoadedCallback, callbackTarget)
 {
-	return new ss2d.ReelSet(resourceFileName, resourceLoadedCallback, callbackTarget);
+	return new ss2d.SkeletalAnimation(resourceFileName, resourceLoadedCallback, callbackTarget);
 };

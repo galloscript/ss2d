@@ -36,9 +36,10 @@ ss2d.AudioLoader.RESOURCE_EXTENSION = 'sound';
  * Load the audio file
  * @param {string} resourceFileName
  * @param {function} resourceLoadedCallback
+ * @param {Object} callbackTarget
  * @return {ss2d.Texture} The loaded texture
  */
-ss2d.AudioLoader.loadResource = function(resourceFileName, resourceLoadedCallback)
+ss2d.AudioLoader.loadResource = function(resourceFileName, resourceLoadedCallback, callbackTarget)
 {
-	return new ss2d.AudioLoader.AUDIO_COMPONENT_CLASS(resourceFileName, resourceLoadedCallback);
+	return new ss2d.AudioLoader.AUDIO_COMPONENT_CLASS(resourceFileName, resourceLoadedCallback, callbackTarget);
 };

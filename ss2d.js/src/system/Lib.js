@@ -46,6 +46,10 @@ goog.require('ss2d.Pickable');
 goog.require('ss2d.PhysicalWorld');
 goog.require('ss2d.RigidBody');
 
+//components/skeleton
+goog.require('ss2d.SkeletalAnimation');
+goog.require('ss2d.Skeleton');
+
 //maths
 goog.require('ss2d.Matrix3');
 goog.require('ss2d.Point');
@@ -72,6 +76,9 @@ goog.require('ss2d.ReelSprite');
 goog.require('ss2d.Sprite');
 goog.require('ss2d.TextSprite');
 goog.require('ss2d.BitmapTextSprite');
+
+//scene/skeletal
+goog.require('ss2d.SkeletalSprite');
 
 //system
 goog.require('ss2d.DefaultConfig');

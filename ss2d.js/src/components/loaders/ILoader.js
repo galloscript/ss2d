@@ -25,6 +25,7 @@ ss2d.ILoader.RESOURCE_EXTENSION = '';
  * Load the resource and returns a component.
  * @param {string} resourceFileName
  * @param {function} resourceLoadedCallback
+ * @param {Object} callbackTarget
  * @return {Object} The loaded component
  */
-ss2d.ILoader.loadResource = function(resourceFileName, resourceLoadedCallback){};
+ss2d.ILoader.loadResource = function(resourceFileName, resourceLoadedCallback, callbackTarget){};

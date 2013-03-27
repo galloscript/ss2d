@@ -28,9 +28,10 @@ ss2d.BitmapFontLoader.RESOURCE_EXTENSION = 'bmfont';
  * Load the texture
  * @param {string} resourceFileName
  * @param {function} resourceLoadedCallback
+ * @param {Object} callbackTarget
  * @return {ss2d.Texture} The loaded texture
  */
-ss2d.BitmapFontLoader.loadResource = function(resourceFileName, resourceLoadedCallback)
+ss2d.BitmapFontLoader.loadResource = function(resourceFileName, resourceLoadedCallback, callbackTarget)
 {
-	return new ss2d.BitmapFont(resourceFileName, resourceLoadedCallback);
+	return new ss2d.BitmapFont(resourceFileName, resourceLoadedCallback, callbackTarget);
 };

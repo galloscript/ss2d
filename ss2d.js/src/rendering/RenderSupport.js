@@ -28,15 +28,20 @@ ss2d.RenderSupport = function(context)
 
 /**
  * Push the transformation matrix of the object being rendered.
- * @param {ss2d.DisplayObject} displayObject 
+ * @param {ss2d.DisplayObject|ss2d.Matrix3} displayObject 
  */
 ss2d.RenderSupport.prototype.pushTransform = function(displayObject){};
 if(RENDER_CONTEXT == 'webgl')
 {
 	ss2d.RenderSupport.prototype.pushTransform = function(displayObject)
 	{
-		this.mAuxMatrix.identity();
-		var curMatrix = displayObject.getTransformationMatrix(this.mAuxMatrix);
+		//this.mAuxMatrix.identity();
+		var curMatrix = displayObject;
+		if(displayObject instanceof ss2d.DisplayObject)
+		{
+			curMatrix = displayObject.getTransformationMatrix();
+		} 
+
 		this.mMatrixStack.push(curMatrix);
 		this.mCurrentMatrix = this.mCurrentMatrix.concatMatrix(curMatrix);
 	};
@@ -45,8 +50,13 @@ else
 {
 	ss2d.RenderSupport.prototype.pushTransform = function(displayObject)
 	{
-		this.mAuxMatrix.identity();
-		var curMatrix = displayObject.getTransformationMatrix(this.mAuxMatrix);
+		//this.mAuxMatrix.identity();
+		var curMatrix = displayObject;
+		if(displayObject instanceof ss2d.DisplayObject)
+		{
+			curMatrix = displayObject.getTransformationMatrix();
+		} 
+		
 		this.mContext.save();
 		this.mContext.globalAlpha *= displayObject.mAlpha;
 		this.mContext.transform(curMatrix.mA,

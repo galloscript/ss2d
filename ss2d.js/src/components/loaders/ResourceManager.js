@@ -12,6 +12,8 @@ goog.require('ss2d.TextureAtlasLoader');
 goog.require('ss2d.AudioLoader');
 goog.require('ss2d.BitmapFontLoader');
 goog.require('ss2d.ReelSetLoader');
+goog.require('ss2d.SkeletonLoader');
+goog.require('ss2d.SkeletalAnimationLoader');
 
 /** 
  * @class 
@@ -46,7 +48,9 @@ ss2d.ResourceManager.Loaders = {
 	SOUND: ss2d.AudioLoader,
 	TEXTURE_ATLAS: ss2d.TextureAtlasLoader,
 	BITMAP_FONT: ss2d.BitmapFontLoader,
-	REEL_SET: ss2d.ReelSetLoader
+	REELSET: ss2d.ReelSetLoader,
+	SKELETON: ss2d.SkeletonLoader,
+	SKELETAL_ANIMATION: ss2d.SkeletalAnimationLoader
 };
 
 /**
@@ -136,6 +140,10 @@ ss2d.ResourceManager.loadResourceWithLoader = function(loaderClass, resourceName
 	{	
 		lrArray[resHash] = loaderClass.loadResource(resourceName, loadedCallback, callbackTarget||null);
 	}
+	else if(loadedCallback)
+	{
+		loadedCallback.call(callbackTarget, lrArray[resHash]);
+	}
 	
 	return lrArray[resHash];
 };
@@ -205,6 +213,24 @@ ss2d.ResourceManager.loadBitmapFont = function(bitmapFont, bitmapLoadedCallback,
 ss2d.ResourceManager.loadReelSet = function(reelSet, reelSetLoadedCallback, callbackTarget)
 {
 	return ss2d.ResourceManager.loadResourceWithLoader(ss2d.ReelSetLoader, reelSet, reelSetLoadedCallback, callbackTarget);
+};
+
+/**
+ * @param {string} skeleton
+ * @param {function} skeletonLoadedCallback
+ */
+ss2d.ResourceManager.loadSkeleton = function(skeleton, skeletonLoadedCallback, callbackTarget)
+{
+	return ss2d.ResourceManager.loadResourceWithLoader(ss2d.SkeletonLoader, skeleton, skeletonLoadedCallback, callbackTarget);
+};
+
+/**
+ * @param {string} SkeletalAnimation
+ * @param {function} animationLoadedCallback
+ */
+ss2d.ResourceManager.loadSkeletalAnimation = function(skeletalAnimation, animationLoadedCallback, callbackTarget)
+{
+	return ss2d.ResourceManager.loadResourceWithLoader(ss2d.SkeletalAnimationLoader, skeletalAnimation, animationLoadedCallback, callbackTarget);
 };
 
 

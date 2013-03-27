@@ -1,7 +1,7 @@
 // Copyright (c) 2013 David Gallardo Moreno. All rights reserved.
 
 /**
- * @fileoverview Collection of ss2d.Reel objects. (NOT IMPLEMENTED YET)
+ * @fileoverview Collection of ss2d.Reel objects.
  * @author David Gallardo Moreno (portalg@gmail.com)
  */
 
@@ -11,7 +11,7 @@ goog.require('ss2d.Reel');
 
 /**
  * @constructor
- * @param {ss2d.Reel[]} rsFileName
+ * @param {string} rsFileName
  */
 ss2d.ReelSet = function(rsFileName, callbackFunction, callbackTarget)
 {

@@ -28,9 +28,10 @@ ss2d.TextureLoader.RESOURCE_EXTENSION = 'texture';
  * Load the texture
  * @param {string} resourceFileName
  * @param {function} resourceLoadedCallback
+ * @param {Object} callbackTarget
  * @return {ss2d.Texture} The loaded texture
  */
-ss2d.TextureLoader.loadResource = function(resourceFileName, resourceLoadedCallback)
+ss2d.TextureLoader.loadResource = function(resourceFileName, resourceLoadedCallback, callbackTarget)
 {
-	return new ss2d.Texture(resourceFileName, resourceLoadedCallback);
+	return new ss2d.Texture(resourceFileName, resourceLoadedCallback, callbackTarget);
 };

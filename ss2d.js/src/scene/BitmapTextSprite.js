@@ -97,14 +97,13 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 				for(var c = 0; c < charsToShow; ++c)
 				{
 					var charCode = this.mTextString.charCodeAt(c);
-					if(charCode == 32){ 
+					if(charCode == 32)
+					{ 
 						//ctx.translate(this.mBitmapFont.mMidWidth*0.5, 0);
 						xTranslation += this.mBitmapFont.mMidWidth*0.6;
 						continue;
 					}
-					
-					
-					
+
 					this.mBitmapFont.getGlyphClip(charCode, this.mClip);
 
 					//this.mGlyphSprite.mRotation = this.mRotation

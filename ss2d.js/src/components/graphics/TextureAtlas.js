@@ -16,10 +16,11 @@ goog.require('ss2d.Texture');
  * @param {string} atlasJSONFileName The resource name
  * @param {function} callbackFunction Called when the textureAtlas is loaded
  */
-ss2d.TextureAtlas = function(atlasJSONFileName, callbackFunction)
+ss2d.TextureAtlas = function(atlasJSONFileName, callbackFunction, callbackTarget)
 {
 	this.mName = atlasJSONFileName;
 	this.mCallbackFunction = callbackFunction;
+	this.mCallbackTarget = callbackTarget;
 	this.mAtlasDescriptor = null;
 	this.mTexture = null; 
 	
@@ -47,9 +48,20 @@ ss2d.TextureAtlas.prototype.atlasFileLoaded = function(fileData)
 	var img = this.mAtlasDescriptor['meta']['image'];
 	var texturePath = (pathEnd > 0)?this.mName.substring(0, pathEnd)+img:img;
 	
-	this.mTexture = new ss2d.Texture(texturePath, this.mCallbackFunction);
+	this.mTexture = new ss2d.Texture(texturePath, this.textureLoaded, this);
 };
 
+/**
+ * Called once texture is loaded
+ */
+ss2d.TextureAtlas.prototype.textureLoaded = function(texture)
+{
+	this.mTexture = texture;
+	if(this.mCallbackFunction)
+	{	
+		this.mCallbackFunction.call(this.mCallbackTarget, this);
+	}
+};
 
 /** 
  * Retrieve the clip frame information for a given frame name.
