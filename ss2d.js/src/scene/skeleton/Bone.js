@@ -29,6 +29,11 @@ ss2d.Bone = function(skeletalSprite, name, x, y, scale, rotation, length)
 	
 	this.mName = name;
 	this.mParentSkeletalSprite = skeletalSprite;
+	
+	this.mRepresentation = new ss2d.Quad(0, 0, 5, length, '#ff0000');
+	this.mRepresentation.mAlpha = 0.7;
+	this.mRepresentation.mRotation = -Math.PI*0.5;
+	this.addObject(this.mRepresentation);
 };
 
 goog.inherits(ss2d.Bone, ss2d.DisplayObjectContainer);
@@ -47,6 +52,7 @@ ss2d.Bone.prototype.interpolateBoneStates = function(prevState, nextState, part)
 /** @override */
 ss2d.Bone.prototype.tick = function(deltaTime)
 {
+	
 	var prevState = null;
 	var nextState = null;
 	var part = 0;

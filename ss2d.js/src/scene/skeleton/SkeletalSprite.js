@@ -72,7 +72,7 @@ ss2d.SkeletalSprite.prototype.setup = function(skeleton)
 		var boneObject = new ss2d.Bone(this, 
 									   bone['name'], 
 									   bone['x']||0, 
-									   bone['y']||0, 
+									   -1*bone['y']||0, 
 									   bone['scale']||1,
 									   bone['rotation']||0,
 									   bone['length']||0);
@@ -92,12 +92,13 @@ ss2d.SkeletalSprite.prototype.setup = function(skeleton)
 		var masterBone = this.mBoneMap[slot['bone']];
 		var slotObject = new ss2d.Slot(masterBone,
 									   skinInfo['x']||0, 
-									   skinInfo['y']||0,
+									   -1*skinInfo['y']||0,
 									   skinInfo['width']||1,
 									   skinInfo['height']||1,
 									   slot['attachment'],
 									   this.mBodyAtlas);
-									   
+		slotObject.mPivotX = slotObject.mWidth*0.5;
+		slotObject.mPivotY = slotObject.mHeight*0.5;							   
 		slotObject.mRotation = skinInfo['rotation']||0;
 		this.mSlots.addObject(slotObject);
 	}
@@ -130,6 +131,7 @@ ss2d.SkeletalSprite.prototype.render = function(support)
 {
 	support.pushTransform(this);
 	this.mSlots.render(support);
+	this.mBones.render(support);
 	support.popTransform();
 };
 
