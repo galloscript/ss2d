@@ -15,20 +15,21 @@
     </head>
     <body>
     	<h4>Skeletal Animations Demo</h4>
-    	<p>Animations created with <a href="http://esotericsoftware.com/" target="_blank">Spine</a>
-    	<p>Atlas created with <a href="http://www.codeandweb.com/texturepacker" target="_blank">Texture Packer</a>
-    	<p>You can pick and move the Snipeboy and Dragon with the mouse.</p>
+    	<p>You can pick and move the Snipeboy and the Dragon with your mouse.</p>
+    	<p>Animations created with <a href="http://esotericsoftware.com/" target="_blank">Spine</a></p>
+    	<p>
+    		Atlas created with <a href="http://www.codeandweb.com/texturepacker" target="_blank">Texture Packer</a><br />
+	        <a href="assets/skeletons/snipeboy/snipeboyBodyparts.png" target="_blank">Snipeboy Atlas</a><br />
+	        <a href="assets/skeletons/dragon/dragon-bodyparts.png" target="_blank">Dragon Atlas</a>
+        <p>
+    	
         <button onclick="showHideBones();">Show/Hide Bones</button>
         <button onclick="playStop();">Play/Stop Animation</button>
         <br />
         Time Dilation: <span id="dilationValue" style="width: 35px; display: inline-block">1.0</span>
         <button onclick="addDilation(-0.1)">-</button>
         <button onclick="addDilation(0.1)">+</button>
-        <br />
-        <a href="assets/skeletons/snipeboy/snipeboyBodyparts.png" target="_blank">Snipeboy Atlas</a><br />
-        <a href="assets/skeletons/dragon/dragon-bodyparts.png" target="_blank">Dragon Atlas</a><br />
         <canvas id="mainCanvas" width="900" height="512">No canvas Support!</canvas>
-   
         <script src="http://galloman.github.com/ss2d/lib/ss2dLib-min.js"></script>
         <script id="skldemo">
 var demo = {};
