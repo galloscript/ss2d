@@ -53,7 +53,7 @@ ss2d.Skeleton.allDegToRad = function(jsonObject)
 		{
 			jsonObject[key] *= -1;
 		}
-		else if(typeof jsonObject[key] == 'object')
+		else if(typeof jsonObject[key] == 'object' && key != 'scale')
 		{
 			ss2d.Skeleton.allDegToRad(jsonObject[key]);
 		}

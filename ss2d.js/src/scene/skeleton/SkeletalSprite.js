@@ -50,6 +50,7 @@ ss2d.SkeletalSprite = function(x, y, scale, skeleton, bodyAtlas)
 	this.mCurrentAnimationTime = 0;
 	this.mCurrentAnimation = null;
 	this.mTimeDilation = 1;
+	this.mCurrentSkin = 'default';
 };
 
 goog.inherits(ss2d.SkeletalSprite, ss2d.DisplayObjectContainer);
@@ -75,7 +76,8 @@ ss2d.SkeletalSprite.prototype.setup = function(skeleton)
 									   bone['name'], 
 									   bone['x']||0, 
 									   bone['y']||0, 
-									   bone['scale']||1,
+									   bone['scaleX']||1,
+									   bone['scaleY']||1,
 									   bone['rotation']||0,
 									   bone['length']||0);
 		this.mBoneMap[bone['name']] = boneObject;
@@ -118,9 +120,39 @@ ss2d.SkeletalSprite.prototype.setDefaultPose = function()
 		targetBone.mLocation.mX = bonePose['x']||0;
 		targetBone.mLocation.mY = bonePose['y']||0;
 		targetBone.mRotation = bonePose['rotation']||0;
-		targetBone.mScaleX = targetBone.mScaleY = bonePose['scale']||1;
+		targetBone.mScaleX = bonePose['scaleX']||1;
+		targetBone.mScaleY = bonePose['scaleY']||1;
 	}
 };
+
+ss2d.SkeletalSprite.prototype.setSkin = function(skinName)
+{
+	this.mCurrentSkin = skinName||this.mCurrentSkin;
+	
+	var skin = this.mSkeleton.mSkeletonData['skins'][this.mCurrentSkin];
+	
+	if(!skin)
+		return;
+		
+	for(var slotIndex in slotList)
+	{
+		var slot = slotList[slotIndex];
+		if(!slot['attachment'])
+			continue;
+		
+		var skinInfo = skin[slot['name']][slot['attachment']];
+		var slotObject = this.mSlotMap[slot['name']];
+		
+		slotObject.mLocation.mX = skinInfo['x']||0;
+		slotObject.mLocation.mY = skinInfo['y']||0;
+		slotObject.mRotation = skinInfo['rotation']||0;
+		slotObject.mWidth = skinInfo['width']||1
+		slotObject.mHeight = skinInfo['height']||1
+		slotObject.setTexture(slot['attachment'], this.mBodyAtlas);					   
+		slotObject.mPivotX = slotObject.mWidth*0.5;
+		slotObject.mPivotY = slotObject.mHeight*0.5;							   
+	}
+}
 
 ss2d.SkeletalSprite.prototype.addAnimation = function(animationName, animationPath)
 {

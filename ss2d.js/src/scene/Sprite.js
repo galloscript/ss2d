@@ -112,6 +112,21 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 			
 		//}
 	};
+	
+	ss2d.Sprite.prototype.setTexture = function(texture, textureAtlas)
+	{
+		if(typeof textureAtlas == 'string')
+		{
+			textureAtlas = ss2d.ResourceManager.loadTextureAtlas(textureAtlas);
+		}
+		else if(typeof texture == 'string' && !textureAtlas)
+		{
+			texture = ss2d.ResourceManager.loadTexture(texture);
+		}
+
+		this.mTextureAtlas = textureAtlas||null
+		this.mTexture = texture || null;
+	}
 }
 
 /**
