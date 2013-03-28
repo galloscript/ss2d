@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Skeletons Experiment</title>
+        <style>body{ font-family: Verdana; }</style>
+    </head>
+    <body>
+    	<h4>Skeletal Animations Demo</h4>
+    	<p>You can pick and move the Snipeboy and Dragon with the mouse.</p>
+        <button onclick="showHideBones();">Show/Hide Bones</button>
+        <button onclick="playStop();">Play/Stop Animation</button>
+        <br />
+        Time Dilation: <span id="dilationValue" style="width: 35px; display: inline-block">1.0</span>
+        <button onclick="addDilation(-0.1)">-</button>
+        <button onclick="addDilation(0.1)">+</button>
+        <br />
+        <canvas id="mainCanvas" width="900" height="512">No canvas Support!</canvas>
+        <img src="assets/skeletons/snipeboy/snipeboyBodyparts.png" />
+        <img src="assets/skeletons/dragon/dragon-bodyparts.png" width="400" />
+        <script src="http://galloman.github.com/ss2d/lib/ss2dLib-min.js"></script>
+        <script>
+        var demo = {};
+		
+		ss2d.ResourceManager.loadResources([
+			ss2d.ResourceManager.Loaders.SKELETON,
+			'assets/skeletons/snipeboy/snipeboySkeleton.json',
+			'assets/skeletons/dragon/dragon-skeleton.json',
+			ss2d.ResourceManager.Loaders.SKELETAL_ANIMATION,
+			'assets/skeletons/snipeboy/snipeboyAnimation.json',
+			'assets/skeletons/dragon/dragon-flying.json',
+			ss2d.ResourceManager.Loaders.TEXTURE_ATLAS,
+			'assets/skeletons/snipeboy/snipeboyBodyparts.json',
+			'assets/skeletons/dragon/dragon-bodyparts.json'
+			], function(resourceName, numLoaded, totalToLoad)
+			{
+				console.log(resourceName+' '+numLoaded+'/'+totalToLoad);
+			}, function()
+			{
+		        demo.view = new ss2d.View('mainCanvas');
+		        demo.view.mBackgroundFillStyle = '#bbbbbb';
+		
+		        demo.skeleton = new ss2d.SkeletalSprite(100, 250, 1, 
+		        									   'assets/skeletons/snipeboy/snipeboySkeleton.json',
+		        									   'assets/skeletons/snipeboy/snipeboyBodyparts.json');
+		        									   
+		        demo.skeleton.addAnimation('walk', 'assets/skeletons/snipeboy/snipeboyAnimation.json');
+				demo.view.mMainScene.addObject(demo.skeleton);
+				demo.skeleton.mPickable = new ss2d.Pickable(demo.skeleton);
+				demo.skeleton.mPivotY = -150;
+				demo.skeleton.tick = function(deltaTime)
+				{
+					this.updateAnimation(deltaTime);
+				    this.mPickable.tick(deltaTime);
+				};
+				demo.skeleton.playAnimation('walk');
+				
+				demo.dragon = new ss2d.SkeletalSprite(620, 350, 1, 
+		        									   'assets/skeletons/dragon/dragon-skeleton.json',
+		        									   'assets/skeletons/dragon/dragon-bodyparts.json');
+		        									   
+		        demo.dragon.addAnimation('fly', 'assets/skeletons/dragon/dragon-flying.json');
+				demo.view.mMainScene.addObject(demo.dragon);
+				demo.dragon.mScaleX = demo.dragon.mScaleY = 0.7;
+				demo.dragon.mScaleX = -0.7;
+				demo.dragon.mPickable = new ss2d.Pickable(demo.dragon);
+				demo.dragon.tick = function(deltaTime)
+				{
+					this.updateAnimation(deltaTime);
+				    this.mPickable.tick(deltaTime);
+				};
+				demo.dragon.playAnimation('fly');
+
+		        demo.view.startLoop();
+			});
+        </script>
+        <script>
+        	//button functions
+	        			
+			function showHideBones()
+			{
+				demo.skeleton.mShowBones = !demo.skeleton.mShowBones;
+				demo.dragon.mShowBones = !demo.dragon.mShowBones;
+			}
+			
+			function playStop()
+			{
+				if(demo.skeleton.mCurrentAnimation)
+				{
+					demo.skeleton.stopAnimation();
+					demo.dragon.stopAnimation();
+				}
+				else
+				{
+					demo.skeleton.playAnimation('walk');
+					demo.dragon.playAnimation('fly');
+				}
+			}
+			
+			function addDilation(dilation)
+			{
+				demo.skeleton.mTimeDilation += dilation;
+				demo.dragon.mTimeDilation += dilation;
+				document.getElementById('dilationValue').innerHTML = Math.floor(demo.skeleton.mTimeDilation*100)/100;
+			}
+        </script>
+    </body>
+</html>
