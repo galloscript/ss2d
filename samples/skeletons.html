@@ -22,7 +22,6 @@
 	        <a href="assets/skeletons/snipeboy/snipeboyBodyparts.png" target="_blank">Snipeboy Atlas</a><br />
 	        <a href="assets/skeletons/dragon/dragon-bodyparts.png" target="_blank">Dragon Atlas</a>
         <p>
-    	
         <button onclick="showHideBones();">Show/Hide Bones</button>
         <button onclick="playStop();">Play/Stop Animation</button>
         <br />
@@ -67,13 +66,12 @@ ss2d.ResourceManager.loadResources([
 		};
 		demo.skeleton.playAnimation('walk');
 		
-		demo.dragon = new ss2d.SkeletalSprite(620, 350, 1, 
+		demo.dragon = new ss2d.SkeletalSprite(620, 350, 0.7, 
         									   'assets/skeletons/dragon/dragon-skeleton.json',
         									   'assets/skeletons/dragon/dragon-bodyparts.json');
         									   
         demo.dragon.addAnimation('fly', 'assets/skeletons/dragon/dragon-flying.json');
 		demo.view.mMainScene.addObject(demo.dragon);
-		demo.dragon.mScaleX = demo.dragon.mScaleY = 0.7;
 		demo.dragon.mScaleX = -0.7;
 		demo.dragon.mPickable = new ss2d.Pickable(demo.dragon);
 		demo.dragon.tick = function(deltaTime)
