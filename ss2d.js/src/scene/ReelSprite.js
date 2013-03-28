@@ -128,18 +128,20 @@ if(COMPILING_CLIENT || COMPILING_OFFLINE)
 				this.mTexture = this.mReelSet.mTexture;
 			}
 			
-			var timePerFrame = this.mPlayingReel.getTimePerFrame() * this.mTimeDilation;	
+			var timePerFrame = this.mPlayingReel.getTimePerFrame();	
 			
-			this.mElapsedTimeCurrentFrame += deltaTime;
+			this.mElapsedTimeCurrentFrame += deltaTime * Math.abs(this.mTimeDilation);
 			
 			//a frame change
-			if(this.mElapsedTimeCurrentFrame >= timePerFrame)
+			if(Math.abs(this.mTimeDilation) > 0.01 && this.mElapsedTimeCurrentFrame >= timePerFrame)
 			{
 				var framesToAdd = Math.floor(this.mElapsedTimeCurrentFrame / timePerFrame);
+				if(this.mTimeDilation < 0)
+					framesToAdd *= -1;
 				this.mFrameCount += framesToAdd;
 				this.mElapsedTimeCurrentFrame -= timePerFrame;
 				
-				if(this.mFrameCount >= this.mPlayingReel.mFrames.length)
+				if(this.mTimeDilation > 0 && this.mFrameCount >= this.mPlayingReel.mFrames.length)
 				{
 					if(this.mLoop)
 					{	
@@ -149,6 +151,20 @@ if(COMPILING_CLIENT || COMPILING_OFFLINE)
 					else
 					{
 						this.mFrameCount--;
+						this.mComplete = true;
+						this.mPlaying = false;
+					}
+				}
+				else if(this.mTimeDilation < 0 && this.mFrameCount < 0)
+				{
+					if(this.mLoop)
+					{	
+						this.mFrameCount = this.mPlayingReel.mFrames.length - 1;
+						this.mElapsedTimeCurrentFrame = 0;
+					}
+					else
+					{
+						this.mFrameCount++;
 						this.mComplete = true;
 						this.mPlaying = false;
 					}

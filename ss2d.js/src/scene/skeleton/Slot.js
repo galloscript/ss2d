@@ -20,9 +20,10 @@ goog.require('ss2d.Sprite');
  * @param {string|ss2d.Texture} texture The name or reference of a texture file or the name of a frame in a texture atlas.
  * @param {string|ss2d.TextureAtlas=} textureAtlas The name or reference of a texture atlas file.
  */
-ss2d.Slot = function(masterBone, x, y, w, h, texture, textureAtlas)
+ss2d.Slot = function(masterBone, name, x, y, w, h, texture, textureAtlas)
 {
-	ss2d.Sprite.call(this, x, y, w, h, texture, textureAtlas)
+	ss2d.Sprite.call(this, x, y, w, h, texture, textureAtlas);
+	this.mName = name;
 	this.mBone = masterBone;
 	this.mAuxBoneMatrix = new ss2d.Matrix3();
 };

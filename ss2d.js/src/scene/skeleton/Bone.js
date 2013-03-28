@@ -34,6 +34,8 @@ ss2d.Bone = function(skeletalSprite, name, x, y, scale, rotation, length)
 	this.mRepresentation.mAlpha = 0.7;
 	this.mRepresentation.mRotation = -Math.PI*0.5;
 	this.addObject(this.mRepresentation);
+	
+	this.mSetupPose = {'x': x, 'y': y, 's': scale, 'r': rotation};
 };
 
 goog.inherits(ss2d.Bone, ss2d.DisplayObjectContainer);
@@ -44,18 +46,112 @@ goog.inherits(ss2d.Bone, ss2d.DisplayObjectContainer);
  * @param {Object} nextState
  * @param {number} part
  */
-ss2d.Bone.prototype.interpolateBoneStates = function(prevState, nextState, part)
+ss2d.Bone.prototype.interpolateBoneStates = function(prevState, nextState, translatePart, rotatePart, translateCurve, rotateCurve)
 {
-	
+	this.mLocation.mX = this.mSetupPose['x'] + prevState['x'] + ((nextState['x'] - prevState['x']) * translatePart);
+	this.mLocation.mY = this.mSetupPose['y'] + prevState['y'] + ((nextState['y'] - prevState['y']) * translatePart);
+	this.mRotation = this.mSetupPose['r'] + prevState['r'] + ((nextState['r'] - prevState['r']) * rotatePart);
 };
 
 /** @override */
 ss2d.Bone.prototype.tick = function(deltaTime)
 {
-	
-	var prevState = null;
-	var nextState = null;
-	var part = 0;
-	this.interpolateBoneStates(prevState, nextState, part);
 	this.tickChildren(deltaTime);
+	
+	var parent = this.mParentSkeletalSprite;
+	
+	if(!parent.mCurrentAnimation)
+		return;
+		
+	var animation = parent.mCurrentAnimation.mAnimationData;
+	
+	if(!animation || !animation['bones'][this.mName])
+		return;
+		
+	var playReverse = (parent.mTimeDilation < 0)? true : false;
+	var currentTime = this.mParentSkeletalSprite.mCurrentAnimationTime;
+	var boneRotations = animation['bones'][this.mName]['rotate'];
+	var boneTranslations = animation['bones'][this.mName]['translate'];
+	
+	var prevState = {'x':0, 'y':0, 'r': 0};
+	var nextState = {'x':0, 'y':0, 'r': 0};
+	
+	//nearest rotation and translation
+
+	var nextRotation = null;
+	var prevRotation = null;
+	var nextTranslation = null;
+	var prevTranslation = null;
+	var translatePart = 1;
+	var rotatePart = 1;
+	
+	if(boneRotations)
+	{
+		for(var ri = 0; ri < boneRotations.length && nextRotation == null; ri++)
+		{
+			if(boneRotations[ri]['time'] > currentTime)
+			{
+				nextRotation = boneRotations[ri]; 
+				
+				if(ri == 0)
+				{
+					prevRotation = boneRotations[boneRotations.length - 1];
+				}
+				else
+				{
+					prevRotation = boneRotations[ri - 1];
+				}
+			}
+		}
+		
+		if(prevRotation && nextRotation)
+		{
+			prevState['r'] = prevRotation['angle'];
+			nextState['r'] = nextRotation['angle'];
+			rotatePart = (currentTime - prevRotation['time']) / (nextRotation['time'] - prevRotation['time']);
+		}
+	}
+	
+	if(boneTranslations)
+	{
+		for(var ti = 0; ti < boneTranslations.length && nextTranslation == null; ti++)
+		{
+			if(boneTranslations[ti]['time'] > currentTime)
+			{
+				nextTranslation = boneTranslations[ti]; 
+				
+				if(ti == 0)
+				{
+					prevTranslation = boneTranslations[boneTranslations.length - 1];
+				}
+				else
+				{
+					prevTranslation = boneTranslations[ti - 1];
+				}
+			}
+		}
+		
+		if(prevTranslation && nextTranslation)
+		{
+			prevState['x'] = prevTranslation['x'];
+			nextState['x'] = nextTranslation['x'];
+			prevState['y'] = prevTranslation['y'];
+			nextState['y'] = nextTranslation['y'];
+			translatePart = (currentTime - prevTranslation['time']) / (nextTranslation['time'] - prevTranslation['time']);
+		}
+	}
+	
+	//TODO: Add curve
+	
+	if(!playReverse)
+	{
+		this.interpolateBoneStates(prevState, nextState, translatePart, rotatePart);
+	}
+	else
+	{
+		translatePart = 1 - translatePart;
+		rotatePart = 1 - rotatePart;
+		this.interpolateBoneStates(nextState, prevState, translatePart, rotatePart);
+	}
 };
+

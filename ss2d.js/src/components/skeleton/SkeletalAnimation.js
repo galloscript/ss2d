@@ -35,8 +35,26 @@ ss2d.SkeletalAnimation = function(animationFileName, callbackFunction, callbackT
 ss2d.SkeletalAnimation.prototype.animationDataLoaded = function(data)
 {
 	this.mAnimationData = JSON.parse(data);
-	this.mCallbackFunction.call(this.mCallbackTarget, this);
-	
 	ss2d.Skeleton.allDegToRad(this.mAnimationData);
+	this.mCallbackFunction.call(this.mCallbackTarget, this);
+	this.mDuration = ss2d.SkeletalAnimation.findMaxTime(this.mAnimationData, 0);
+};
+
+ss2d.SkeletalAnimation.findMaxTime = function(jsonObject, maxTime)
+{
+	maxTime = maxTime||0;
+	for(var key in jsonObject)
+	{
+		if(key == 'time')
+		{
+			maxTime = Math.max(jsonObject[key], maxTime);
+		}
+		else if(typeof jsonObject[key] == 'object')
+		{
+			maxTime = ss2d.SkeletalAnimation.findMaxTime(jsonObject[key], maxTime);
+		}
+	}
+	
+	return maxTime;
 };
 
