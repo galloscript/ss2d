@@ -34,8 +34,10 @@ ss2d.RenderSupport = function(context)
 	{
 		this.mMatrixStack = [];
 		this.mCurrentMatrix = new ss2d.Matrix3();
-		this.mAlphaStack = [];
-		this.mCurrentAlpha = 1;
+
+		this.mColorStack = [];
+		this.mCurrentColor = [1.0, 1.0, 1.0, 1.0];
+		
 		this.mActiveTexture = 0;
 		this.mActiveSampler = 0;
 		
@@ -81,32 +83,36 @@ ss2d.RenderSupport.prototype.popTransform = function(){};
 
 if(RENDER_CONTEXT == 'webgl')
 {		
-	ss2d.RenderSupport.prototype.pushTransform = function(displayObject, alpha)
+	ss2d.RenderSupport.prototype.pushTransform = function(displayObject, color)
 	{
 		//this.mAuxMatrix.identity();
 		var curMatrix = displayObject;
-		alpha = alpha||1;
+		color = color||[1.0, 1.0, 1.0, 1.0];
 		if(displayObject instanceof ss2d.DisplayObject)
 		{
 			curMatrix = displayObject.getTransformationMatrix();
-			alpha = displayObject.mAlpha;
+			color = displayObject.mColor.getF32Array(color, displayObject.mAlpha);
 		} 
-		this.mAlphaStack.push(alpha);
-		this.mCurrentAlpha *= alpha;
-		this.mMatrixStack.push(curMatrix);
-		this.mCurrentMatrix = this.mCurrentMatrix.concatMatrix(curMatrix);
-		return this.mCurrentMatrix;
+		this.mColorStack.push(this.mCurrentColor.slice());
+		this.mCurrentColor[0] *= color[0];
+		this.mCurrentColor[1] *= color[1];
+		this.mCurrentColor[2] *= color[2];
+		this.mCurrentColor[3] *= color[3];
+		
+		//this.mMatrixStack.push(curMatrix);
+		//this.mCurrentMatrix = this.mCurrentMatrix.concatMatrix(curMatrix);
+		//return this.mCurrentMatrix;
 	};
 	
 	ss2d.RenderSupport.prototype.popTransform = function()
 	{
-		if(this.mMatrixStack.length > 0)
+		//if(this.mMatrixStack.length > 0)
+		//{
+			//this.mCurrentMatrix.concatMatrix(this.mMatrixStack.pop().invert());
+		//}
+		if(this.mColorStack.length > 0)
 		{
-			this.mCurrentMatrix.concatMatrix(this.mMatrixStack.pop().invert());
-		}
-		if(this.mAlphaStack.length > 0)
-		{
-			this.mCurrentAlpha /= this.mAlphaStack.pop();
+			this.mCurrentColor = this.mColorStack.pop();
 		}
 	};
 	

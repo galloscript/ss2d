@@ -39,13 +39,13 @@ ss2d.BitmapTextSprite = function(x, y, textString, bitmapFont, fontSize)
 		this.mGlyphSprite = new ss2d.Sprite;
 		this.mClip = [];
 		this.mDisplacement = new ss2d.Point();
-	}
-	//WEBGL
-	//if(RENDER_CONTEXT == 'webgl')
-	//{
 		
-	
-	//}
+		//WEBGL
+		if(RENDER_CONTEXT == 'webgl')
+		{
+			this.mGlyphSprite.mParent = this;
+		}
+	}
 };
 
 goog.inherits(ss2d.BitmapTextSprite, ss2d.Quad);
@@ -72,80 +72,80 @@ ss2d.BitmapTextSprite.prototype.getDisplayChars = function()
 
 if(COMPILING_CLIENT||COMPILING_OFFLINE)
 {
+	/*if(RENDER_CONTEXT == 'webgl')
+	{
+		ss2d.BitmapTextSprite.prototype.render = function(renderSupport)
+		{
+			
+		};
+	}*/
+	
 	/** @override */
 	ss2d.BitmapTextSprite.prototype.render = function(renderSupport)
 	{
-
-		//if(RENDER_CONTEXT == 'webgl')
-		//{
+		renderSupport.pushTransform(this);
+		var ctx = renderSupport.mContext;
+		try{
+			this.mWidth = 0;
+			var xTranslation = 0;
+			this.mGlyphSprite.mTexture = this.mBitmapFont.mTexture;
+			var s = this.mFontSize /this.mBitmapFont.mMidHeight;
+			this.mScaleX = this.mScaleY = s;
+			var charsToShow = (this.mDisplayChars > -1)?
+							  Math.min(this.mDisplayChars, this.mTextString.length):
+							  this.mTextString.length;
 			
-		//}
-		//else
-		//{
-			renderSupport.pushTransform(this);
-			var ctx = renderSupport.mContext;
-			try{
-				this.mWidth = 0;
-				var xTranslation = 0;
-				this.mGlyphSprite.mTexture = this.mBitmapFont.mTexture;
-				var s = this.mFontSize /this.mBitmapFont.mMidHeight;
-				this.mScaleX = this.mScaleY = s;
-				var charsToShow = (this.mDisplayChars > -1)?
-								  Math.min(this.mDisplayChars, this.mTextString.length):
-								  this.mTextString.length;
-				
-				for(var c = 0; c < charsToShow; ++c)
-				{
-					var charCode = this.mTextString.charCodeAt(c);
-					if(charCode == 32)
-					{ 
-						//ctx.translate(this.mBitmapFont.mMidWidth*0.5, 0);
-						xTranslation += this.mBitmapFont.mMidWidth*0.6;
-						continue;
-					}
-
-					this.mBitmapFont.getGlyphClip(charCode, this.mClip);
-
-					//this.mGlyphSprite.mRotation = this.mRotation
-					this.mGlyphSprite.mClip = this.mClip;
-					this.mGlyphSprite.mWidth =  this.mClip[2];
-					this.mGlyphSprite.mHeight =  this.mClip[3];
-					
-					this.mDisplacement.mX = xTranslation;
-					this.mDisplacement.mY = this.mClip[5];
-					this.displacement(c, charCode, xTranslation, this.mClip[5], this.mDisplacement);
-					
-					//this.mGlyphSprite.mScaleX = this.mGlyphSprite.mScaleY = s;
-					//ctx.scale(s, s);
-					this.mGlyphSprite.mLocation.mX = this.mDisplacement.mX;
-					this.mGlyphSprite.mLocation.mY = this.mDisplacement.mY;
-					//ctx.translate(0, this.mClip[5]);
-					
-					
-					this.mGlyphSprite.render(renderSupport);
-					//ctx.rotate(this.mRotation);
-					
-					/*ctx.drawImage(this.mBitmapFont.mTexture.mTextureElement,
-								  this.mClip[0],
-								  this.mClip[1],
-								  this.mClip[2],
-								  this.mClip[3],
-								  0,
-								  0,
-								  this.mClip[2], 
-								  this.mClip[3]);
-					ctx.translate(0, -this.mClip[5]);
-					ctx.translate(this.mClip[4], 0);
-					ctx.scale(1/s, 1/s);*/
-					xTranslation += this.mClip[4];
-					
+			for(var c = 0; c < charsToShow; ++c)
+			{
+				var charCode = this.mTextString.charCodeAt(c);
+				if(charCode == 32)
+				{ 
+					//ctx.translate(this.mBitmapFont.mMidWidth*0.5, 0);
+					xTranslation += this.mBitmapFont.mMidWidth*0.6;
+					continue;
 				}
-				this.mWidth = xTranslation;
-				this.mHeight = this.mFontSize/this.mScaleY;
-			} catch (t) { }
-			renderSupport.popTransform();
-			
-		//}
+
+				this.mBitmapFont.getGlyphClip(charCode, this.mClip);
+
+				//this.mGlyphSprite.mRotation = this.mRotation
+				this.mGlyphSprite.mClip = this.mClip;
+				this.mGlyphSprite.mWidth =  this.mClip[2];
+				this.mGlyphSprite.mHeight =  this.mClip[3];
+				
+				this.mDisplacement.mX = xTranslation;
+				this.mDisplacement.mY = this.mClip[5];
+				this.displacement(c, charCode, xTranslation, this.mClip[5], this.mDisplacement);
+				
+				//this.mGlyphSprite.mScaleX = this.mGlyphSprite.mScaleY = s;
+				//ctx.scale(s, s);
+				this.mGlyphSprite.mLocation.mX = this.mDisplacement.mX;
+				this.mGlyphSprite.mLocation.mY = this.mDisplacement.mY;
+				//ctx.translate(0, this.mClip[5]);
+				
+				
+				
+				this.mGlyphSprite.render(renderSupport);
+				//ctx.rotate(this.mRotation);
+				
+				/*ctx.drawImage(this.mBitmapFont.mTexture.mTextureElement,
+							  this.mClip[0],
+							  this.mClip[1],
+							  this.mClip[2],
+							  this.mClip[3],
+							  0,
+							  0,
+							  this.mClip[2], 
+							  this.mClip[3]);
+				ctx.translate(0, -this.mClip[5]);
+				ctx.translate(this.mClip[4], 0);
+				ctx.scale(1/s, 1/s);*/
+				xTranslation += this.mClip[4];
+				
+			}
+			this.mWidth = xTranslation;
+			this.mHeight = this.mFontSize/this.mScaleY;
+		} catch (t) { }
+		renderSupport.popTransform();
 	};
 }
 

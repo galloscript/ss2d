@@ -46,6 +46,8 @@ if(RENDER_CONTEXT == 'webgl')
 	{
 		try
 		{
+			//TODO: check if the image size is a power of 2, if not, use aux canvas to create one.
+			
 			var gl = ss2d.CURRENT_VIEW.mContext;
 			this.mTextureId = gl.createTexture();
 			gl.bindTexture(gl.TEXTURE_2D, this.mTextureId);

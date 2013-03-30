@@ -88,7 +88,7 @@ ss2d.Matrix3.prototype.determinant = function()
  * @param {ss2d.Matrix3} otherMatrix
  * @return {ss2d.Matrix3} this object
  */
-/*ss2d.Matrix3.prototype.concatMatrix = function(otherMatrix)
+ss2d.Matrix3.prototype.concatMatrix = function(otherMatrix)
 {
 	return this.setValues(otherMatrix.mA * this.mA + (otherMatrix.mC * this.mB),
 			      otherMatrix.mB * this.mA + (otherMatrix.mD * this.mB),
@@ -96,8 +96,8 @@ ss2d.Matrix3.prototype.determinant = function()
 			      otherMatrix.mB * this.mC + (otherMatrix.mD * this.mD),
 			      otherMatrix.mA * this.mTx + (otherMatrix.mC * this.mTy) + otherMatrix.mTx * 1,
 			      otherMatrix.mB * this.mTx + (otherMatrix.mD * this.mTy) + otherMatrix.mTy * 1);
-}*/
-
+}
+/*
 ss2d.Matrix3.prototype.concatMatrix = function(otherMatrix)
 {
 	var a = this.getMatF32Array();
@@ -132,7 +132,7 @@ ss2d.Matrix3.prototype.concatMatrix = function(otherMatrix)
 	this.mTxTy = a20 * b02 + a21 * b12 + a22 * b22;
 	
 	return this;
-};
+};*/
 
 
 /**
@@ -143,11 +143,14 @@ ss2d.Matrix3.prototype.concatMatrix = function(otherMatrix)
  */
 ss2d.Matrix3.prototype.translate = function(dx, dy)
 {
-	var translateMatrix = new ss2d.Matrix3();
-	translateMatrix.mTx += dx;
-	translateMatrix.mTy += dy;
+	//var translateMatrix = new ss2d.Matrix3();
+	//translateMatrix.mTx += dx;
+	//translateMatrix.mTy += dy;
+	//return this.concatMatrix(translateMatrix);
 	
-	return this.concatMatrix(translateMatrix);
+	this.mTx += dx;
+	this.mTy += dy;
+	return this;
 }
 
 /**
@@ -158,11 +161,17 @@ ss2d.Matrix3.prototype.translate = function(dx, dy)
  */
 ss2d.Matrix3.prototype.scale = function(sx,sy)
 {
-	var scaleMatrix = new ss2d.Matrix3();
-	scaleMatrix.mA = sx;
-	scaleMatrix.mD = sy;
-	
-	return this.concatMatrix(scaleMatrix);
+	//var scaleMatrix = new ss2d.Matrix3();
+	//scaleMatrix.mA = sx;
+	//scaleMatrix.mD = sy;
+	//return this.concatMatrix(scaleMatrix);
+	this.mA *= sx;
+	this.mB *= sy;
+	this.mC *= sx;
+	this.mD *= sy;
+	this.mTx *= sx;
+	this.mTy *= sy;
+	return this;
 }
 
 /**

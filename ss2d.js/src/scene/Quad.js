@@ -46,8 +46,10 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 			var mMatrix = new ss2d.Matrix3().scale(this.mWidth, this.mHeight).concatMatrix(this.getTransformationMatrix());
 			var mvMatrix = mMatrix.concatMatrix(this.getWorldTransformationMatrix(null, null));
 			
+			renderSupport.pushTransform(this);
+			
 			material.mModelViewMatrix = mvMatrix;
-			material.mColor = this.mColor.getF32Array(material.mColor, this.mAlpha * renderSupport.mCurrentAlpha);
+			material.mColor = renderSupport.mCurrentColor;
 			material.mActiveTexture = renderSupport.mAux8x8Texture.mTextureId;
 			material.mVertexPositionBuffer = renderSupport.mBuffers.mQuadVertexPosition;
 			material.mTextureCoordBuffer = renderSupport.mBuffers.mQuadTextureCoords;
@@ -56,6 +58,8 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 			
 			gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, renderSupport.mBuffers.mQuadVertexIndex);
 			gl.drawElements(gl.TRIANGLES, renderSupport.mBuffers.mQuadVertexIndex.numItems, gl.UNSIGNED_SHORT, 0);
+			
+			renderSupport.popTransform();
 		};
 	}
 	else

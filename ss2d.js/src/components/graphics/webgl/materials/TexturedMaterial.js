@@ -27,8 +27,8 @@ ss2d.materials.Textured = function(support)
 	this.mVertexPositionBuffer = null;
 	this.mTextureCoordBuffer = null;
 	
-	this.mAuxVec4Array = new Float32Array();
-	this.mAuxMat3Array = new Float32Array();
+	this.mAuxVec4Array = new Float32Array(4);
+	this.mAuxMat3Array = new Float32Array(9);
 };
 
 ss2d.materials.Textured.prototype.apply = function(support)
@@ -40,11 +40,11 @@ ss2d.materials.Textured.prototype.apply = function(support)
 	support.activeTextureForSampler(this.mActiveTexture, this.mShaderProgram.mUniforms['uSampler'], gl.TEXTURE0);
 	
 	//gl.uniformMatrix3fv(this.mShaderProgram.mUniforms['uPMatrix'], false, ss2d.CURRENT_VIEW.mProjection.getMatF32Array());
-	gl.uniformMatrix3fv(this.mShaderProgram.mUniforms['uTMatrix'], false, this.mTextureCoordMatrix.getMatF32Array());
+	gl.uniformMatrix3fv(this.mShaderProgram.mUniforms['uTMatrix'], false, this.mTextureCoordMatrix.getMatF32Array(this.mAuxMat3Array));
 	
 	//var mvpMatrix = ss2d.CURRENT_VIEW.mProjection.clone().concatMatrix(this.mModelViewMatrix); 
 	var mvpMatrix = this.mModelViewMatrix.clone().concatMatrix(ss2d.CURRENT_VIEW.mProjection); 
-	gl.uniformMatrix3fv(this.mShaderProgram.mUniforms['uMVPMatrix'], false, mvpMatrix.getMatF32Array());	
+	gl.uniformMatrix3fv(this.mShaderProgram.mUniforms['uMVPMatrix'], false, mvpMatrix.getMatF32Array(this.mAuxMat3Array));	
 	
 	gl.uniform4fv(this.mShaderProgram.mUniforms['uColor'], this.mColor);
 	

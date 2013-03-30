@@ -110,6 +110,7 @@ ss2d.View.prototype.nextFrame = function()
 	
 	var timePassedInSeconds = timePassed / 1000.0;
 	
+	this.mRealFPS = Math.floor(100.0 / timePassedInSeconds)*0.01;
 	this.mTotalTime += timePassedInSeconds;
 	
 	//update input

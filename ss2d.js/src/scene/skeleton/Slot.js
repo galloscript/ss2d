@@ -43,15 +43,19 @@ ss2d.Slot.prototype.getWorldTransformationMatrix = function(targetMatrix, upToPa
 	return worldMatrix;
 };
 
-/** @override */
-ss2d.Slot.prototype.render = function(support)
+//2d context require override, webgl no.
+if(RENDER_CONTEXT != 'webgl')
 {
-	this.mAuxBoneMatrix.identity();
-	this.mBone.getWorldTransformationMatrix(this.mAuxBoneMatrix, this.mParent.mParent, true);
-	support.pushTransform(this.mAuxBoneMatrix);
-	ss2d.Sprite.prototype.render.call(this, support);
-	support.popTransform();
-};
+	/** @override */
+	ss2d.Slot.prototype.render = function(support)
+	{
+		this.mAuxBoneMatrix.identity();
+		this.mBone.getWorldTransformationMatrix(this.mAuxBoneMatrix, this.mParent.mParent, true);
+		support.pushTransform(this.mAuxBoneMatrix);
+		ss2d.Sprite.prototype.render.call(this, support);
+		support.popTransform();
+	};
+}
 
 ss2d.Slot.prototype.tick = function(deltaTime)
 {
