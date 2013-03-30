@@ -55,7 +55,7 @@ ss2d.RigidBody.prototype.reset = function()
 										 ownerBounds.mHeight*0.5,
 										 !this.mDyniamicBody);
 										 
-			this.mBody.m_rotation = this.mOwner.mRotation + Math.PI;
+			this.mBody.m_rotation = -this.mOwner.mRotation + Math.PI;
 										 
 		break;
 		case ss2d.RigidBody.Types.CIRCLE:
@@ -84,6 +84,6 @@ ss2d.RigidBody.prototype.tick = function(deltaTime)
 	{
 		this.mOwner.mLocation.mX = this.mBody.m_position.x;
 		this.mOwner.mLocation.mY = this.mBody.m_position.y;
-		this.mOwner.mRotation = this.mBody.m_rotation - Math.PI;
+		this.mOwner.mRotation = -this.mBody.m_rotation - Math.PI;
 	}
 };

@@ -26,7 +26,17 @@ goog.require('ss2d.WebAudio');
 ss2d.ClientView = function(canvasId, canvasWidth, canvasHeight, frameRate, inputRate, delay)
 {
 	this.mCanvas = document.getElementById(canvasId);
-	this.mContext = this.mCanvas.getContext('2d'); 
+	
+	if(RENDER_CONTEXT == 'webgl')
+	{
+		this.mContext = this.mCanvas.getContext('webgl')||this.mCanvas.getContext('experimental-webgl');
+		this.mProjection = ss2d.RenderSupport.orthogonalProjectionMatrix(0, this.mWidth, this.mHeight, 0, 1, -1);
+	}
+	else
+	{
+		this.mContext = this.mCanvas.getContext('2d'); 
+	}
+	
 	this.mRunning = false;
 	this.mFrameRate = frameRate || 60.0;
 	this.mInput = new ss2d.Input(this);
@@ -35,9 +45,7 @@ ss2d.ClientView = function(canvasId, canvasWidth, canvasHeight, frameRate, input
 	this.mCanvas.width = canvasWidth || this.mCanvas.height;
 	this.mCanvas.height = canvasHeight || this.mCanvas.height;
 	
-	ss2d.CURRENT_VIEW = this;
-	ss2d.ClientView.CANVAS_CONTEXT = this.mContext;
-	
+	ss2d.CURRENT_VIEW = this;	
 	ss2d.AUDIO_CONTEXT = ss2d.WebAudio.getAudioContext();
 	
 	/** @type {ss2d.DisplayObject} */
@@ -61,9 +69,6 @@ ss2d.ClientView = function(canvasId, canvasWidth, canvasHeight, frameRate, input
 	
 	this.mTotalTime = 0;
 };
-
-/** @type {Object} */
-ss2d.ClientView.CANVAS_CONTEXT = null;
 
 /** @type {function} */
 ss2d.ClientView.NEXT_FRAME_CALLER = function(){ ss2d.CURRENT_VIEW.nextFrame() };
@@ -104,11 +109,7 @@ ss2d.ClientView.prototype.nextFrame = function()
 		{ 
 			this.mPostTickFunctions[methodIndex].call(null, timePassedInSeconds); 
 		}
-		
-		//clean background
-		this.mContext.fillStyle = this.mBackgroundFillStyle;  
-		this.mContext.fillRect(0, 0, this.mCanvas.width, this.mCanvas.height); 
-		
+				
 		for(var methodIndex in this.mPreRenderFunctions)
 		{ 
 			this.mPreRenderFunctions[methodIndex].call(null, this.mRenderSupport); 
@@ -117,7 +118,7 @@ ss2d.ClientView.prototype.nextFrame = function()
 		//render scene
 		if(this.mMainScene != null)
 		{
-			this.mMainScene.render(this.mRenderSupport);
+			this.render();
 		}
 		
 		for(var methodIndex in this.mPostRenderFunctions)
@@ -138,6 +139,38 @@ ss2d.ClientView.prototype.nextFrame = function()
 		setTimeout(ss2d.ClientView.NEXT_FRAME_CALLER, nextFrameTime * 1000.0);
 	}
 };
+
+/**
+ * Called every frame by nextFrame method to render the scene in the proper context.
+ */
+ss2d.ClientView.prototype.render = function(){};
+
+if(RENDER_CONTEXT == 'webgl')
+{
+	ss2d.ClientView.prototype.render = function()
+	{	
+		var gl = this.mContext;
+		gl.viewport(0, 0, this.mCanvas.width, this.mCanvas.height);
+		var cc = this.mClearColor;
+		gl.clearColor(cc[0], cc[1], cc[2], cc[3]);
+		gl.clear(gl.COLOR_BUFFER_BIT);
+		
+		//render scene
+		this.mMainScene.render(this.mRenderSupport);
+	}
+}
+else
+{
+	ss2d.ClientView.prototype.render = function()
+	{
+		//clean background
+		this.mContext.fillStyle = this.mBackgroundFillStyle;  
+		this.mContext.fillRect(0, 0, this.mCanvas.width, this.mCanvas.height); 
+
+		//render scene
+		this.mMainScene.render(this.mRenderSupport);
+	};
+}
 
 /**
  * Called in an interval specified by the inputRate property seconds and sends the user input to the server
@@ -244,12 +277,20 @@ ss2d.ClientView.prototype.stopLoop = function()
 };
 
 /**
- * A callback function to resize the canvas. Receives canvas width and height every frame.
+ * A callback function that receives canvas width and height every frame.
  * Implemented by the user
  * @param {Object} cw canvas width
  * @param {Object} ch canvas height
  */
 ss2d.ClientView.prototype.resizeCanvas = function(cw, ch){};
+
+if(RENDER_CONTEXT == 'webgl')
+{
+	ss2d.ClientView.prototype.resizeCanvas = function(cw, ch)
+	{
+		this.mProjection = ss2d.RenderSupport.orthogonalProjectionMatrix(0, cw, ch, 0, 1, -1, this.mProjection);
+	};
+}
 
 /**
  * Create a new ss2d.ClientCommunicationInterface connection.

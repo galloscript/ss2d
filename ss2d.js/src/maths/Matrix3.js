@@ -14,13 +14,14 @@ ss2d.Matrix3 = function()
 {
 	this.mA = 1.0;
 	this.mB = 0.0;
+	this.mAB = 0.0;
 	this.mC = 0.0;
 	this.mD = 1.0;
+	this.mCD = 0.0;
 	this.mTx = 0.0;
 	this.mTy = 0.0; 
+	this.mTxTy = 1.0;
 	//this.setValues(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-	
-	this.mMatF32Array = new Array(9); //new Float32Array(9);
 }
 
 /**
@@ -49,7 +50,12 @@ ss2d.Matrix3.prototype.setValues = function(a,b,c,d,tx,ty)
  */
 ss2d.Matrix3.prototype.clone = function()
 {
-	return new ss2d.Matrix3().setValues(this.mA, this.mB, this.mC, this.mD, this.mTx, this.mTy);	
+	var clonedMatrix = new ss2d.Matrix3().setValues(this.mA, this.mB, this.mC, this.mD, this.mTx, this.mTy);	
+	clonedMatrix.mAB = this.mAB;
+	clonedMatrix.mCD = this.mCD;
+	clonedMatrix.mTxTy = this.mTxTy;
+	
+	return clonedMatrix;
 }
 
 /**
@@ -82,7 +88,7 @@ ss2d.Matrix3.prototype.determinant = function()
  * @param {ss2d.Matrix3} otherMatrix
  * @return {ss2d.Matrix3} this object
  */
-ss2d.Matrix3.prototype.concatMatrix = function(otherMatrix)
+/*ss2d.Matrix3.prototype.concatMatrix = function(otherMatrix)
 {
 	return this.setValues(otherMatrix.mA * this.mA + (otherMatrix.mC * this.mB),
 			      otherMatrix.mB * this.mA + (otherMatrix.mD * this.mB),
@@ -90,7 +96,44 @@ ss2d.Matrix3.prototype.concatMatrix = function(otherMatrix)
 			      otherMatrix.mB * this.mC + (otherMatrix.mD * this.mD),
 			      otherMatrix.mA * this.mTx + (otherMatrix.mC * this.mTy) + otherMatrix.mTx * 1,
 			      otherMatrix.mB * this.mTx + (otherMatrix.mD * this.mTy) + otherMatrix.mTy * 1);
-}
+}*/
+
+ss2d.Matrix3.prototype.concatMatrix = function(otherMatrix)
+{
+	var a = this.getMatF32Array();
+	var b = otherMatrix.getMatF32Array();
+	var a00 = a[0*3+0];
+	var a01 = a[0*3+1];
+	var a02 = a[0*3+2];
+	var a10 = a[1*3+0];
+	var a11 = a[1*3+1];
+	var a12 = a[1*3+2];
+	var a20 = a[2*3+0];
+	var a21 = a[2*3+1];
+	var a22 = a[2*3+2];
+	var b00 = b[0*3+0];
+	var b01 = b[0*3+1];
+	var b02 = b[0*3+2];
+	var b10 = b[1*3+0];
+	var b11 = b[1*3+1];
+	var b12 = b[1*3+2];
+	var b20 = b[2*3+0];
+	var b21 = b[2*3+1];
+	var b22 = b[2*3+2];
+	
+	this.mA = a00 * b00 + a01 * b10 + a02 * b20;
+	this.mB = a00 * b01 + a01 * b11 + a02 * b21;
+	this.mAB = a00 * b02 + a01 * b12 + a02 * b22;
+	this.mC = a10 * b00 + a11 * b10 + a12 * b20;
+	this.mD = a10 * b01 + a11 * b11 + a12 * b21;
+	this.mCD = a10 * b02 + a11 * b12 + a12 * b22;
+	this.mTx = a20 * b00 + a21 * b10 + a22 * b20;
+	this.mTy = a20 * b01 + a21 * b11 + a22 * b21;
+	this.mTxTy = a20 * b02 + a21 * b12 + a22 * b22;
+	
+	return this;
+};
+
 
 /**
  * Translates the matrix along the x and y axes.
@@ -98,12 +141,13 @@ ss2d.Matrix3.prototype.concatMatrix = function(otherMatrix)
  * @param {number} dy movement in y axis
  * @return {ss2d.Matrix3} this object
  */
-ss2d.Matrix3.prototype.translate = function(dx,dy)
+ss2d.Matrix3.prototype.translate = function(dx, dy)
 {
-	this.mTx += dx;
-	this.mTy += dy;
+	var translateMatrix = new ss2d.Matrix3();
+	translateMatrix.mTx += dx;
+	translateMatrix.mTy += dy;
 	
-	return this;
+	return this.concatMatrix(translateMatrix);
 }
 
 /**
@@ -114,14 +158,11 @@ ss2d.Matrix3.prototype.translate = function(dx,dy)
  */
 ss2d.Matrix3.prototype.scale = function(sx,sy)
 {
-	this.mA *= sx;
-	this.mB *= sy;
-	this.mC *= sx;
-	this.mD *= sy;
-	this.mTx *= sx;
-	this.mTy *= sy;
+	var scaleMatrix = new ss2d.Matrix3();
+	scaleMatrix.mA = sx;
+	scaleMatrix.mD = sy;
 	
-	return this;
+	return this.concatMatrix(scaleMatrix);
 }
 
 /**
@@ -133,14 +174,12 @@ ss2d.Matrix3.prototype.rotate = function(angle)
 {
 	var rotMatrix = new ss2d.Matrix3()
 	rotMatrix.setValues(Math.cos(angle),
-			    Math.sin(angle),
 			    -Math.sin(angle),
+			    Math.sin(angle),
 			    Math.cos(angle),
 			    0.0, 0.0);
-	this.concatMatrix(rotMatrix)
-	delete rotMatrix;
-	
-	return this;
+			    
+	return this.concatMatrix(rotMatrix);
 }
 
 /**
@@ -182,22 +221,22 @@ ss2d.Matrix3.prototype.invert = function()
 /**
  * @return {Float32Array} for uniform shader attributes
  */
-ss2d.Matrix3.prototype.getMatF32Array = function()
+ss2d.Matrix3.prototype.getMatF32Array = function(matF32Array)
 {
 	//this.mMat3 = [this.mA, this.mB, 0.0, this.mC, this.mD, 0.0, this.mTx, this.mTy, 1.0];
 	//this.mMat3 = [this.mA, this.mC, this.mTx, this.mB, this.mD, this.mTy, 0.0, 0.0, 1.0];
-	this.mMatF32Array[0] = this.mA; 
-	this.mMatF32Array[1] = this.mB; 
-	this.mMatF32Array[2] = 0.0;
-	this.mMatF32Array[3] = this.mC; 
-	this.mMatF32Array[4] = this.mD;
-	this.mMatF32Array[5] = 0.0; 
-	this.mMatF32Array[6] = this.mTx; 
-	this.mMatF32Array[7] = this.mTy;
-	this.mMatF32Array[8] = 1.0;
-	//this.mMatF32Array = new Float32Array([this.mA, this.mC, this.mTx, this.mB, this.mD, this.mTy, 0.0, 0.0, 1.0]);
+	matF32Array = matF32Array||new Float32Array(9);
+	matF32Array[0] = this.mA; 
+	matF32Array[1] = this.mB; 
+	matF32Array[2] = this.mAB;
+	matF32Array[3] = this.mC; 
+	matF32Array[4] = this.mD;
+	matF32Array[5] = this.mCD; 
+	matF32Array[6] = this.mTx; 
+	matF32Array[7] = this.mTy;
+	matF32Array[8] = this.mTxTy;
 	
-	return this.mMatF32Array;
+	return matF32Array;
 }
 
 

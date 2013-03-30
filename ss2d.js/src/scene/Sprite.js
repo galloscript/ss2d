@@ -60,15 +60,91 @@ ss2d.Object.assignClassId(ss2d.Sprite, 1004);
 if(COMPILING_CLIENT||COMPILING_OFFLINE)
 {
 	/** @override */
-	ss2d.Sprite.prototype.render = function(renderSupport)
+	if(RENDER_CONTEXT == 'webgl')
 	{
-
-		//if(RENDER_CONTEXT == 'webgl')
-		//{
+		ss2d.Sprite.prototype.render = function(renderSupport)
+		{
+			if(this.mTextureAtlas && this.mTextureAtlas.mTextureId == -1)
+				return;
+				
+			if(!this.mTextureAtlas && this.mTexture.mTextureId == -1)
+				return;
 			
-		//}
-		//else
-		//{
+			var textureObject = this.mTexture;
+			if(this.mTextureAtlas)
+			{
+				if(this.mTextureAtlas.mTexture && this.mTextureAtlas.mAtlasDescriptor)
+				{
+					textureObject = this.mTextureAtlas.mTexture;
+					this.mTextureAtlas.getClipFor(this.mTexture, this.mClip);
+				}
+			}
+			
+			var gl = renderSupport.mContext;
+			var material = renderSupport.mMaterials.mTextured;
+			
+			var orgScale = {x: this.mScaleX, y: this.mScaleY};
+			var orgPivot = {x: this.mPivotX, y: this.mPivotY};
+			/*this.mPivotX /= this.mWidth;
+			this.mPivotY /= this.mHeight;
+			this.mScaleX *= this.mWidth;
+			this.mScaleY *= this.mHeight;
+			var mvMatrix = renderSupport.pushTransform(this);
+			this.mScaleX = orgScale.x;
+			this.mScaleY = orgScale.y;
+			this.mPivotX = orgPivot.x;
+			this.mPivotY = orgPivot.y;*/
+			
+			var whMatrix = new ss2d.Matrix3();
+			whMatrix.scale(this.mWidth, this.mHeight);
+			//this.mPivotX = 0;
+			//this.mPivotY = 0;
+			var mMatrix = whMatrix.concatMatrix(this.getTransformationMatrix());
+			//this.mPivotX = orgPivot.x;
+			//this.mPivotY = orgPivot.y;
+			var mvMatrix = renderSupport.pushTransform(mMatrix);
+			
+			mvMatrix = mvMatrix.clone().scale(this.mParent.mScaleX, this.mParent.mScaleY);
+			
+			//var mvMatrix = renderSupport.pushTransform(this);
+			
+			var tMatrix = new ss2d.Matrix3();
+			
+			if(this.mClip && this.mClip.length > 3)
+			{
+				var tw = textureObject.mTextureElement.width;
+				var th = textureObject.mTextureElement.height;
+				tMatrix.scale(this.mClip[2] / tw, this.mClip[3] / th);
+				tMatrix.translate(this.mClip[0] / tw, this.mClip[1] / th);
+				
+			}
+			
+			mvMatrix = this.getWorldTransformationMatrix(null, null);
+			mvMatrix = mMatrix.concatMatrix(mvMatrix);
+			//gl.bindBuffer(gl.ARRAY_BUFFER, renderSupport.mBuffers.mQuadVertexPosition);
+			//gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array([0.0, 0.0, this.mWidth, 0.0, this.mWidth, this.mHeight, 0.0, this.mHeight]));
+			
+			material.mModelViewMatrix = mvMatrix;
+			material.mTextureCoordMatrix = tMatrix; 
+			material.mActiveTexture = textureObject.mTextureId;
+			material.mVertexPositionBuffer = renderSupport.mBuffers.mQuadVertexPosition;
+			material.mTextureCoordBuffer = renderSupport.mBuffers.mQuadTextureCoords;
+			
+			material.apply(renderSupport);
+			
+			gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, renderSupport.mBuffers.mQuadVertexIndex);
+			gl.drawElements(gl.TRIANGLES, renderSupport.mBuffers.mQuadVertexIndex.numItems, gl.UNSIGNED_SHORT, 0);
+			
+			//gl.bindBuffer(gl.ARRAY_BUFFER, renderSupport.mBuffers.mQuadVertexPosition);
+			//gl.drawArrays(gl.TRIANGLES, 0, 4);
+			
+			renderSupport.popTransform();
+		};
+	}
+	else
+	{
+		ss2d.Sprite.prototype.render = function(renderSupport)
+		{
 			var textureElement = null;
 			if(this.mTextureAtlas)
 			{
@@ -109,9 +185,8 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 				}
 			}
 			renderSupport.popTransform();
-			
-		//}
-	};
+		};
+	}
 	
 	ss2d.Sprite.prototype.setTexture = function(texture, textureAtlas)
 	{

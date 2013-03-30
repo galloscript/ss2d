@@ -34,7 +34,7 @@ ss2d.Bone = function(skeletalSprite, name, x, y, scaleX, scaleY, rotation, lengt
 	
 	this.mRepresentation = new ss2d.Quad(0, 0, 5, length, '#ff0000');
 	this.mRepresentation.mAlpha = 0.7;
-	this.mRepresentation.mRotation = -Math.PI*0.5;
+	this.mRepresentation.mRotation = Math.PI*0.5;
 	this.addObject(this.mRepresentation);
 	
 	this.mSetupPose = {'x': x, 'y': y, 'r': rotation, 'sx': scaleX, 'sy':scaleY};

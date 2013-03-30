@@ -28,11 +28,6 @@ ss2d.Quad = function(x, y, w, h, color)
 	
 	this.mWidth = w || 10.0;
 	this.mHeight = h || 10.0;
-	
-	//if(RENDER_CONTEXT == 'webgl')
-	//{
-
-	//}
 };
 
 goog.inherits(ss2d.Quad, ss2d.DisplayObject);
@@ -41,22 +36,40 @@ ss2d.Object.assignClassId(ss2d.Quad, 1003);
 
 if(COMPILING_CLIENT||COMPILING_OFFLINE)
 {
-	/** @override */
-	ss2d.Quad.prototype.render = function(renderSupport)
+	if(RENDER_CONTEXT == 'webgl')
 	{
-		//if(RENDER_CONTEXT == 'webgl')
-		//{
+		ss2d.Quad.prototype.render = function(renderSupport)
+		{	
+			var gl = renderSupport.mContext;
+			var material = renderSupport.mMaterials.mTextured;
+
+			var whMatrix = new ss2d.Matrix3().scale(this.mWidth, this.mHeight);
+			var mMatrix = whMatrix.concatMatrix(this.getTransformationMatrix());
+			var mvMatrix = mMatrix.concatMatrix(this.getWorldTransformationMatrix(null, null));
 			
-		//}
-		//else
-		//{
+			material.mModelViewMatrix = mvMatrix;
+			material.mActiveTexture = renderSupport.mAux8x8Texture.mTextureId;
+			material.mVertexPositionBuffer = renderSupport.mBuffers.mQuadVertexPosition;
+			material.mTextureCoordBuffer = renderSupport.mBuffers.mQuadTextureCoords;
+			
+			material.apply(renderSupport);
+			
+			gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, renderSupport.mBuffers.mQuadVertexIndex);
+			gl.drawElements(gl.TRIANGLES, renderSupport.mBuffers.mQuadVertexIndex.numItems, gl.UNSIGNED_SHORT, 0);
+		};
+	}
+	else
+	{
+		/** @override */
+		ss2d.Quad.prototype.render = function(renderSupport)
+		{
 			renderSupport.pushTransform(this);
 			var ctx = renderSupport.mContext;
 			ctx.fillStyle = this.mColor.getHexString();
 			ctx.fillRect(0, 0, this.mWidth, this.mHeight);
 			renderSupport.popTransform(); 
-		//}
-	};
+		};
+	}
 }
 
 /** @override */

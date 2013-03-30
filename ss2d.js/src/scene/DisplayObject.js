@@ -91,7 +91,6 @@ ss2d.DisplayObject.prototype.getTransformationMatrix = function(targetMatrix)
  * @param {boolean} includeHimself
  * @return {ss2d.Matrix3} The world transformation of the object. 
  */
-//TODO: Modify to accept a top parent to iterate instead of the first one without parent.
 ss2d.DisplayObject.prototype.getWorldTransformationMatrix = function(targetMatrix, upToParent, includeHimself)
 {
 	var parentsStack = [];

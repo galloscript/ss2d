@@ -42,12 +42,12 @@ ss2d.Skeleton.prototype.skeletonDataLoaded = function(data)
 
 ss2d.Skeleton.allDegToRad = function(jsonObject)
 {
-	var deg2Rad = -1 / (180/Math.PI);
+	var deg2Rad = 1 / (180/Math.PI);
 	for(var key in jsonObject)
 	{
 		if(key == 'rotation' || key == 'angle')
 		{
-			jsonObject[key] = jsonObject[key]*deg2Rad;
+			jsonObject[key] = (jsonObject[key]*deg2Rad);
 		}
 		else if(key == 'y')
 		{

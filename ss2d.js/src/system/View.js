@@ -22,7 +22,8 @@ goog.require('ss2d.PhysicalWorld');
  * @param {number=} canvasHeight
  * @param {number=} frameRate Frames per second, 60.0 by default
  * @property {HTMLCanvasElement} mCanvas Canvas HTML Canvas element
- * @property {CanvasRenderingContext2d} mContext Canvas context
+ * @property {CanvasRenderingContext2d|WebGLRenderginContext} mContext Canvas context
+ * @property {number[16]} mProjection Orthogonal projection matrix
  * @property {boolean} mRunning Is main loop running?
  * @property {number} mFrameRate Frames per second (60 by default)
  * @property {ss2d.Input} mInput Mapped user input
@@ -39,25 +40,40 @@ goog.require('ss2d.PhysicalWorld');
 ss2d.View = function(canvasId, mainScene, canvasWidth, canvasHeight, frameRate)
 {
 	this.mCanvas = document.getElementById(canvasId);
-	this.mContext = this.mCanvas.getContext('2d'); 
+	
+	if(RENDER_CONTEXT == 'webgl')
+	{
+		this.mContext = this.mCanvas.getContext('webgl', { alpha: false })||this.mCanvas.getContext('experimental-webgl', { alpha: false });
+		this.mProjection = ss2d.RenderSupport.make2DProjection(this.mCanvas.width, this.mCanvas.height);
+		this.mClearColor = [0.8, 0.8, 0.8, 1.0];
+	}
+	else
+	{
+		this.mContext = this.mCanvas.getContext('2d'); 
+		this.mBackgroundFillStyle = '#202020';
+	}
+	
+	if(!this.mContext)
+	{
+		throw 'Incompatible render context: '+RENDER_CONTEXT;
+	}
+
+	ss2d.CURRENT_VIEW = this;
+	
+	this.mRenderSupport = new ss2d.RenderSupport(this.mContext);
+	
 	this.mRunning = false;
 	this.mFrameRate = frameRate || 60.0;
 	this.mInput = new ss2d.Input(this);
 	
 	this.mLastFrameTimestamp = new Date().getTime();
-	
-	ss2d.CURRENT_VIEW = this;
-	ss2d.View.CANVAS_CONTEXT = this.mContext;
-	
+
 	this.mCanvas.width = canvasWidth || this.mCanvas.width;
 	this.mCanvas.height = canvasHeight || this.mCanvas.height;
 	
 	ss2d.AUDIO_CONTEXT = ss2d.WebAudio.getAudioContext();
 
 	this.mMainScene = mainScene || new ss2d.DisplayObjectContainer();
-	this.mRenderSupport = new ss2d.RenderSupport(this.mContext);
-	
-	this.mBackgroundFillStyle = '#202020';
 	
 	this.mPhysicalWorld = ss2d.PhysicalWorld.getWorld();
 	
@@ -69,9 +85,6 @@ ss2d.View = function(canvasId, mainScene, canvasWidth, canvasHeight, frameRate)
 	
 	this.mTotalTime = 0;
 };
-
-/** @type {Object} */
-ss2d.View.CANVAS_CONTEXT = null;
 
 /** @type {function} */
 ss2d.View.NEXT_FRAME_CALLER = function(){ ss2d.CURRENT_VIEW.nextFrame() };
@@ -87,8 +100,6 @@ ss2d.View.prototype.nextFrame = function()
 	
 	//called with canvas width and height every frame
 	this.resizeCanvas(this.mCanvas.width, this.mCanvas.height);
-	
-	
 	
 	//update physics
 	var worldUpdates = Math.floor(Math.max(1, timePassed/(1000.0/ss2d.PhysicalWorld.UPDATE_RATE)));
@@ -117,23 +128,18 @@ ss2d.View.prototype.nextFrame = function()
 		this.mPostTickFunctions[methodIndex].call(null, timePassedInSeconds); 
 	}
 	
-	//clean background
-	this.mContext.fillStyle = this.mBackgroundFillStyle;  
-	this.mContext.fillRect(0, 0, this.mCanvas.width, this.mCanvas.height); 
-	
 	for(var methodIndex in this.mPreRenderFunctions)
 	{ 
 		this.mPreRenderFunctions[methodIndex].call(null, this.mRenderSupport); 
 	}
 	
-	//render scene
-	this.mMainScene.render(this.mRenderSupport);
+	this.render();
 	
 	for(var methodIndex in this.mPostRenderFunctions)
 	{ 
 		this.mPostRenderFunctions[methodIndex].call(null, this.mRenderSupport); 
 	}
-	
+
 	//calculate the delay time for the nextFrame call based on the 
 	//frameRate and time spend in update and render operations.
 	this.mLastFrameTimestamp = now;
@@ -147,6 +153,38 @@ ss2d.View.prototype.nextFrame = function()
 		setTimeout(ss2d.View.NEXT_FRAME_CALLER, nextFrameTime * 1000.0);
 	}
 };
+
+/**
+ * Called every frame by nextFrame method to render the scene in the proper context.
+ */
+ss2d.View.prototype.render = function(){};
+
+if(RENDER_CONTEXT == 'webgl')
+{
+	ss2d.View.prototype.render = function()
+	{	
+		var gl = this.mContext;
+		gl.viewport(0, 0, this.mCanvas.width, this.mCanvas.height);
+		var cc = this.mClearColor;
+		gl.clearColor(cc[0], cc[1], cc[2], cc[3]);
+		gl.clear(gl.COLOR_BUFFER_BIT);
+		
+		//render scene
+		this.mMainScene.render(this.mRenderSupport);
+	}
+}
+else
+{
+	ss2d.View.prototype.render = function()
+	{
+		//clean background
+		this.mContext.fillStyle = this.mBackgroundFillStyle;  
+		this.mContext.fillRect(0, 0, this.mCanvas.width, this.mCanvas.height); 
+
+		//render scene
+		this.mMainScene.render(this.mRenderSupport);
+	};
+}
 
 //start the main loop if it's ready.
 ss2d.View.prototype.startLoop = function()
@@ -167,10 +205,17 @@ ss2d.View.prototype.stopLoop = function()
 };
 
 /**
- * A callback function to resize the canvas. Receives canvas width and height every frame.
+ * A callback function that receives canvas width and height every frame.
  * Implemented by the user
  * @param {Object} cw canvas width
  * @param {Object} ch canvas height
  */
 ss2d.View.prototype.resizeCanvas = function(cw, ch){};
 
+if(RENDER_CONTEXT == 'webgl')
+{
+	ss2d.View.prototype.resizeCanvas = function(cw, ch)
+	{
+		this.mProjection = ss2d.RenderSupport.make2DProjection(this.mCanvas.width, this.mCanvas.height, this.mProjection);
+	};
+}
