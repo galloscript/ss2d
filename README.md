@@ -37,6 +37,9 @@ Main Features
 Changelog
 ---------
 
+30-03-2013<br>
+Added partial WebGL compatibilty in a separate lib file ss2dLibWGL.js
+
 28-03-2013<br>
 Added partial support to Spine skeletal animations. See http://esotericsoftware.com/
 
