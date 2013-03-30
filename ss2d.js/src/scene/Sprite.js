@@ -125,6 +125,7 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 			//gl.bufferSubData(gl.ARRAY_BUFFER, 0, new Float32Array([0.0, 0.0, this.mWidth, 0.0, this.mWidth, this.mHeight, 0.0, this.mHeight]));
 			
 			material.mModelViewMatrix = mvMatrix;
+			material.mColor = this.mColor.getF32Array(material.mColor, this.mAlpha * renderSupport.mCurrentAlpha);
 			material.mTextureCoordMatrix = tMatrix; 
 			material.mActiveTexture = textureObject.mTextureId;
 			material.mVertexPositionBuffer = renderSupport.mBuffers.mQuadVertexPosition;

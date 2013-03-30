@@ -17,14 +17,18 @@ ss2d.materials.Textured = function(support)
 	var fragmentShader = new ss2d.ShaderSource().compileSource(ss2d.materials.Textured.FRAGMENT_SOURCE, gl.FRAGMENT_SHADER);
 	
 	this.mShaderProgram = new ss2d.ShaderProgram([vertexShader, fragmentShader], 
-												 ['uMVMatrix', 'uPMatrix', 'uTMatrix', 'uSampler'], 
+												 ['uMVPMatrix', 'uTMatrix', 'uSampler', 'uColor'], 
 												 ['aVertexPosition', 'aTextureCoord']);
 								 
-	this.mModelViewMatrix = [];
-	this.mTextureCoordMatrix = [];
+	this.mModelViewMatrix = new ss2d.Matrix3();
+	this.mTextureCoordMatrix = new ss2d.Matrix3();
 	this.mActiveTexture = 0;
+	this.mColor = [];
 	this.mVertexPositionBuffer = null;
 	this.mTextureCoordBuffer = null;
+	
+	this.mAuxVec4Array = new Float32Array();
+	this.mAuxMat3Array = new Float32Array();
 };
 
 ss2d.materials.Textured.prototype.apply = function(support)
@@ -40,7 +44,9 @@ ss2d.materials.Textured.prototype.apply = function(support)
 	
 	//var mvpMatrix = ss2d.CURRENT_VIEW.mProjection.clone().concatMatrix(this.mModelViewMatrix); 
 	var mvpMatrix = this.mModelViewMatrix.clone().concatMatrix(ss2d.CURRENT_VIEW.mProjection); 
-	gl.uniformMatrix3fv(this.mShaderProgram.mUniforms['uMVMatrix'], false, mvpMatrix.getMatF32Array());	
+	gl.uniformMatrix3fv(this.mShaderProgram.mUniforms['uMVPMatrix'], false, mvpMatrix.getMatF32Array());	
+	
+	gl.uniform4fv(this.mShaderProgram.mUniforms['uColor'], this.mColor);
 	
 	gl.bindBuffer(gl.ARRAY_BUFFER, this.mTextureCoordBuffer);
 	gl.vertexAttribPointer(this.mShaderProgram.mAttributes['aTextureCoord'], this.mTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
@@ -52,39 +58,21 @@ ss2d.materials.Textured.prototype.apply = function(support)
 ss2d.materials.Textured.VERTEX_SOURCE = ''+
 	'attribute vec2 aVertexPosition;'+
 	'attribute vec2 aTextureCoord;'+
-	'uniform mat3 uMVMatrix;'+
-	//'uniform mat3 uPMatrix;'+
+	'uniform mat3 uMVPMatrix;'+
 	'varying vec2 vTextureCoord;'+
 	'void main(void){'+
-		'gl_Position = vec4((uMVMatrix * vec3(aVertexPosition, 1.0)).xy, 0.0, 1.0);'+
 		'vTextureCoord = aTextureCoord;'+
-		//'float px = (uMVMatrix[0][0] * aVertexPosition.x) + (uMVMatrix[1][0] * aVertexPosition.y) + uMVMatrix[2][0];'+
-		//'float py = (uMVMatrix[0][1] * aVertexPosition.x) + (uMVMatrix[1][1] * aVertexPosition.y) + uMVMatrix[2][1];'+
-		//'gl_Position = vec4(px, py , 0.0, 1.0);'+
-		// Multiply the position by the matrix.
-		//'vec2 pos = (uMVMatrix * vec3(aVertexPosition, 0)).xy;'+
-		
-		// convert the position from pixels to 0.0 to 1.0
-		//'vec2 zeroToOne = pos / vec2(256, 256);'+
-
-		// convert from 0->1 to 0->2
-		//'vec2 zeroToTwo = zeroToOne * 2.0;'+
-		
-		// convert from 0->2 to -1->+1 (clipspace)
-		//'vec2 clipSpace = zeroToTwo - 1.0;'+
-		
-		//'gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);'+
+		'gl_Position = vec4((uMVPMatrix * vec3(aVertexPosition, 1.0)).xy, 0.0, 1.0);'+
 	'}';
 
 ss2d.materials.Textured.FRAGMENT_SOURCE = ''+
 	'precision mediump float;'+
 	'uniform sampler2D uSampler;'+
 	'uniform mat3 uTMatrix;'+
+	'uniform vec4 uColor;'+
 	'varying vec2 vTextureCoord;'+
 	'void main(void){'+
-		'gl_FragData[0] = texture2D(uSampler, (uTMatrix * vec3(vTextureCoord, 1.0)).xy);'+
-		//'if(gl_FragData[0].a < 0.9){ discard; }'+
-		//'gl_FragData[0] = texture2D(uSampler, vTextureCoord);'+
-		//'gl_FragData[0] = vec4(0.0, 1.0, 1.0, 1.0);'+
+		'vec4 color = texture2D(uSampler, (uTMatrix * vec3(vTextureCoord, 1.0)).xy);'+
+		'gl_FragData[0] = color * uColor;'+
 	'}';
 	

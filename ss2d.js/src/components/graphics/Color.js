@@ -68,7 +68,7 @@ ss2d.Color.prototype.setBlue = function(b){ this.mColorArray[2] = b; };
 /**
  * @return {number[3]} Array of bytes with values from 0 to 255
  */
-ss2d.Color.prototype.getRGBArray = function()
+ss2d.Color.prototype.getRGBArray = function(alpha)
 {
 	return this.mColorArray;
 };
@@ -99,12 +99,13 @@ ss2d.Color.prototype.getRGBAString = function(alpha)
  * @param {Array=} target An already created array to store the values
  * @return {number[3]} Array with float color components values from 0 to 1.
  */
-ss2d.Color.prototype.getF32Array = function(target)
+ss2d.Color.prototype.getF32Array = function(target, alpha)
 {
 	target = target || new Array(3);
 	target[0] = this.mColorArray[0] / 255;
 	target[1] = this.mColorArray[1] / 255;
 	target[2] = this.mColorArray[2] / 255;
+	target[3] = alpha;
 	return target;
 };
 

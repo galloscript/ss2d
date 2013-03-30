@@ -43,11 +43,11 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 			var gl = renderSupport.mContext;
 			var material = renderSupport.mMaterials.mTextured;
 
-			var whMatrix = new ss2d.Matrix3().scale(this.mWidth, this.mHeight);
-			var mMatrix = whMatrix.concatMatrix(this.getTransformationMatrix());
+			var mMatrix = new ss2d.Matrix3().scale(this.mWidth, this.mHeight).concatMatrix(this.getTransformationMatrix());
 			var mvMatrix = mMatrix.concatMatrix(this.getWorldTransformationMatrix(null, null));
 			
 			material.mModelViewMatrix = mvMatrix;
+			material.mColor = this.mColor.getF32Array(material.mColor, this.mAlpha * renderSupport.mCurrentAlpha);
 			material.mActiveTexture = renderSupport.mAux8x8Texture.mTextureId;
 			material.mVertexPositionBuffer = renderSupport.mBuffers.mQuadVertexPosition;
 			material.mTextureCoordBuffer = renderSupport.mBuffers.mQuadTextureCoords;

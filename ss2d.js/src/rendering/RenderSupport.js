@@ -34,6 +34,8 @@ ss2d.RenderSupport = function(context)
 	{
 		this.mMatrixStack = [];
 		this.mCurrentMatrix = new ss2d.Matrix3();
+		this.mAlphaStack = [];
+		this.mCurrentAlpha = 1;
 		this.mActiveTexture = 0;
 		this.mActiveSampler = 0;
 		
@@ -79,15 +81,18 @@ ss2d.RenderSupport.prototype.popTransform = function(){};
 
 if(RENDER_CONTEXT == 'webgl')
 {		
-	ss2d.RenderSupport.prototype.pushTransform = function(displayObject)
+	ss2d.RenderSupport.prototype.pushTransform = function(displayObject, alpha)
 	{
 		//this.mAuxMatrix.identity();
 		var curMatrix = displayObject;
+		alpha = alpha||1;
 		if(displayObject instanceof ss2d.DisplayObject)
 		{
 			curMatrix = displayObject.getTransformationMatrix();
+			alpha = displayObject.mAlpha;
 		} 
-
+		this.mAlphaStack.push(alpha);
+		this.mCurrentAlpha *= alpha;
 		this.mMatrixStack.push(curMatrix);
 		this.mCurrentMatrix = this.mCurrentMatrix.concatMatrix(curMatrix);
 		return this.mCurrentMatrix;
@@ -98,6 +103,10 @@ if(RENDER_CONTEXT == 'webgl')
 		if(this.mMatrixStack.length > 0)
 		{
 			this.mCurrentMatrix.concatMatrix(this.mMatrixStack.pop().invert());
+		}
+		if(this.mAlphaStack.length > 0)
+		{
+			this.mCurrentAlpha /= this.mAlphaStack.pop();
 		}
 	};
 	

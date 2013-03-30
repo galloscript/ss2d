@@ -66,16 +66,17 @@ ss2d.TextSprite.prototype.getDisplayChars = function()
 
 if(COMPILING_CLIENT||COMPILING_OFFLINE)
 {
-	/** @override */
-	ss2d.TextSprite.prototype.render = function(renderSupport)
+	if(RENDER_CONTEXT == 'webgl')
 	{
-
-		//if(RENDER_CONTEXT == 'webgl')
-		//{
-			
-		//}
-		//else
-		//{
+		ss2d.TextSprite.prototype.render = function(renderSupport)
+		{
+		}
+	}
+	else
+	{
+		/** @override */
+		ss2d.TextSprite.prototype.render = function(renderSupport)
+		{
 			renderSupport.pushTransform(this);
 			var ctx = renderSupport.mContext;
 			ctx.font = this.mFontStyle+' '+this.mFontSize+'px '+this.mFontName;
@@ -86,11 +87,10 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 				textToDisplay = this.mTextString.substring(0, this.mDisplayChars);
 			
 			ctx.fillText(textToDisplay, 0, this.mFontSize);	 
-
-			renderSupport.popTransform();
 			
-		//}
-	};
+			renderSupport.popTransform();
+		};
+	}
 }
 
 //*****************
