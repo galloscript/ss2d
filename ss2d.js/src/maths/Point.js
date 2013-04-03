@@ -16,8 +16,8 @@ goog.provide('ss2d.Point');
  */
 ss2d.Point = function(x, y)
 {
-	this.mX = x;
-	this.mY = y;
+	this.mX = x||0;
+	this.mY = y||0;
 };
 
 /**
@@ -27,8 +27,8 @@ ss2d.Point = function(x, y)
  */
 ss2d.Point.prototype.set = function(xv, yv)
 {
-	this.mX = xv;
-	this.mY = yv;
+	this.mX = xv||0;
+	this.mY = yv||0;
 };
 
 /**

@@ -29,7 +29,7 @@ ss2d.SkeletalAnimationLoader.RESOURCE_EXTENSION = 'sklanim';
  * @param {string} resourceFileName
  * @param {function} resourceLoadedCallback
  * @param {Object} callbackTarget
- * @return {ss2d.Skeleton}
+ * @return {ss2d.SkeletalAnimation}
  */
 ss2d.SkeletalAnimationLoader.loadResource = function(resourceFileName, resourceLoadedCallback, callbackTarget)
 {

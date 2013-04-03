@@ -86,20 +86,25 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 			var mMatrix = new ss2d.Matrix3().scale(this.mWidth, this.mHeight).concatMatrix(this.getTransformationMatrix());
 			var mvMatrix = mMatrix.concatMatrix(this.getWorldTransformationMatrix(null, null));
 
-			var tMatrix = new ss2d.Matrix3();
-			if(this.mClip && this.mClip.length > 3)
-			{
-				var tw = textureObject.mTextureElement.width;
-				var th = textureObject.mTextureElement.height;
-				tMatrix.scale(this.mClip[2] / tw, this.mClip[3] / th);
-				tMatrix.translate(this.mClip[0] / tw, this.mClip[1] / th);
-				
-			}
+			if(!this.mClip || this.mClip.length <= 3)
+				this.mClip = [0 , 0, textureObject.mTextureElement.width, textureObject.mTextureElement.height];
 			
+			var tMatrix = new ss2d.Matrix3();	
+			var tw = textureObject.mPOTWidth;
+			var th = textureObject.mPOTHeight;
+			tMatrix.scale(this.mClip[2] / tw, this.mClip[3] / th);
+			tMatrix.translate(this.mClip[0] / tw, this.mClip[1] / th);
+
 			renderSupport.pushTransform(this);
 
 			material.mModelViewMatrix = mvMatrix;
-			material.mColor = renderSupport.mCurrentColor;
+			var color = renderSupport.mCurrentColor.slice();
+			var alpha = (this.mInheritAlpha) ? renderSupport.mCurrentColor[3] : this.mAlpha;
+			if(!this.mInheritColor)
+			{
+				this.mColor.getF32Array(color, alpha);
+			}
+			material.mColor = color;
 			material.mTextureCoordMatrix = tMatrix; 
 			material.mActiveTexture = textureObject.mTextureId;
 			material.mVertexPositionBuffer = renderSupport.mBuffers.mQuadVertexPosition;

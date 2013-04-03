@@ -43,7 +43,7 @@ ss2d.ShaderProgram = function(shaders, uniforms, attributes)
 	{
 		var attributeName = attributes[aIndex];
 		this.mAttributes[attributeName] = gl.getAttribLocation(this.mProgramId, attributeName);
-		gl.enableVertexAttribArray(this.mAttributes[attributeName]);
+		//gl.enableVertexAttribArray(this.mAttributes[attributeName]);
 	}
 	
 	ss2d.ShaderProgram.PROGRAM_IN_USE = null
@@ -62,6 +62,21 @@ ss2d.ShaderProgram.prototype.use = function(gl)
 {
 	if(ss2d.ShaderProgram.PROGRAM_IN_USE != this)
 	{
+		//disable previous
+		var piu = ss2d.ShaderProgram.PROGRAM_IN_USE;
+		if(piu != null)
+		{	
+			for(var aIndex in piu.mAttributes)
+			{
+				gl.disableVertexAttribArray(piu.mAttributes[aIndex]);
+			}
+		}
+		
+		//enable current
+		for(var aIndex in this.mAttributes)
+		{
+			gl.enableVertexAttribArray(this.mAttributes[aIndex]);
+		}
 		gl.useProgram(this.mProgramId);
 		ss2d.ShaderProgram.PROGRAM_IN_USE = this;
 	}

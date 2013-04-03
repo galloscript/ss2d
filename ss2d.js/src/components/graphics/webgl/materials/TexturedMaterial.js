@@ -48,11 +48,13 @@ ss2d.materials.Textured.prototype.apply = function(support)
 	
 	gl.uniform4fv(this.mShaderProgram.mUniforms['uColor'], this.mColor);
 	
+	gl.bindBuffer(gl.ARRAY_BUFFER, this.mVertexPositionBuffer);
+	gl.vertexAttribPointer(this.mShaderProgram.mAttributes['aVertexPosition'], this.mVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+	
 	gl.bindBuffer(gl.ARRAY_BUFFER, this.mTextureCoordBuffer);
 	gl.vertexAttribPointer(this.mShaderProgram.mAttributes['aTextureCoord'], this.mTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
 	
-	gl.bindBuffer(gl.ARRAY_BUFFER, this.mVertexPositionBuffer);
-	gl.vertexAttribPointer(this.mShaderProgram.mAttributes['aVertexPosition'], this.mVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
 };
 
 ss2d.materials.Textured.VERTEX_SOURCE = ''+

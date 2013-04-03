@@ -65,6 +65,9 @@ ss2d.DisplayObject = function(x, y, scale, rotation, color, alpha)
 	{
 		this.mSoundList = [];
 	}
+	
+	this.mInheritColor = true;
+	this.mInheritAlpha = true;
 };
 
 ss2d.Object.assignClassId(ss2d.DisplayObject, 1001);

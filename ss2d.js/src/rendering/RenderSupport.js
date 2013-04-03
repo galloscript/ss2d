@@ -11,6 +11,7 @@ goog.provide('ss2d.RenderSupport');
 goog.require('ss2d.Defines');
 goog.require('ss2d.Matrix3');
 goog.require('ss2d.materials.Textured');
+goog.require('ss2d.materials.Particle');
 
 /**
  * @constructor
@@ -45,28 +46,17 @@ ss2d.RenderSupport = function(context)
 		
 		//webgl setup
 		//gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
-		gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+		this.mDefaultBlendSource = gl.SRC_ALPHA;
+		this.mDefaultBlendDestination = gl.ONE_MINUS_SRC_ALPHA;
+		gl.blendFunc(this.mDefaultBlendSource, this.mDefaultBlendDestination);
 		gl.enable(gl.BLEND);
 		
-		//setup built-in buffers
-		this.mBuffers = {};
-		this.mBuffers.mQuadVertexPosition = this.createBuffer(gl.ARRAY_BUFFER,
-															  new Float32Array([0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0]),
-															  //new Float32Array([0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0]),
-															  2, 4);
-															  
-		this.mBuffers.mQuadTextureCoords = this.createBuffer(gl.ARRAY_BUFFER,
-															 new Float32Array([0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0]),
-															 //new Float32Array([1.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0]),
-															 2, 4);
-															 
-		this.mBuffers.mQuadVertexIndex = this.createBuffer(gl.ELEMENT_ARRAY_BUFFER,
-														   new Uint16Array([0, 1, 2, 0, 2, 3]),
-														   1, 6);
+		this.createBuiltInBuffers();
 														   
 		//setup built-in materials
 		this.mMaterials = {};
 		this.mMaterials.mTextured = new ss2d.materials.Textured(this);
+		this.mMaterials.mParticle = new ss2d.materials.Particle(this);
 	}
 };
 
@@ -130,18 +120,6 @@ if(RENDER_CONTEXT == 'webgl')
 		
 	}
 	
-	ss2d.RenderSupport.prototype.createBuffer = function(type, data, itemSize, numItems, usage)
-	{
-		var gl = this.mContext;
-		usage = usage||gl.STATIC_DRAW
-		var buffer = gl.createBuffer();
-		gl.bindBuffer(type, buffer);
-		gl.bufferData(type, data, gl.STATIC_DRAW);
-		buffer.itemSize = itemSize;
-		buffer.numItems = numItems;
-		return buffer;
-	};
-	
 	ss2d.RenderSupport.make2DProjection = function(width, height, target) 
 	{
 	  // Note: This matrix flips the Y axis so 0 is at the top.
@@ -155,6 +133,56 @@ if(RENDER_CONTEXT == 'webgl')
 
 		return target;
 	};
+		
+	ss2d.RenderSupport.prototype.createBuffer = function(type, data, itemSize, numItems, usage)
+	{
+		var gl = this.mContext;
+		usage = usage||gl.STATIC_DRAW
+		var buffer = gl.createBuffer();
+		gl.bindBuffer(type, buffer);
+		gl.bufferData(type, data, gl.STATIC_DRAW);
+		buffer.itemSize = itemSize;
+		buffer.numItems = numItems;
+		return buffer;
+	};
+	
+	ss2d.RenderSupport.prototype.createBuiltInBuffers = function()
+	{
+		var gl = this.mContext;
+		//setup built-in buffers
+		this.mBuffers = this.mBuffers||{};
+		
+		this.mBuffers.mQuadVertexPosition = this.createBuffer(gl.ARRAY_BUFFER,
+															  new Float32Array([0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0]),
+															  //new Float32Array([0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0]),
+															  2, 4);
+															  
+		this.mBuffers.mQuadTextureCoords = this.createBuffer(gl.ARRAY_BUFFER,
+															 new Float32Array([0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0]),
+															 //new Float32Array([1.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0]),
+															 2, 4);
+															 
+		this.mBuffers.mQuadVertexIndex = this.createBuffer(gl.ELEMENT_ARRAY_BUFFER,
+														   new Uint16Array([0, 1, 2, 0, 2, 3]),
+														   1, 6);
+		
+		
+		var particlesQVP = [];
+		var particlesQVI = [];
+		for(var i = 0; i < 2000; ++i)
+		{
+			particlesQVP = particlesQVP.concat([0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0]);
+			particlesQVI = particlesQVI.concat([0 + (i * 4), 1 + (i * 4), 2 + (i * 4), 0 + (i * 4), 2 + (i * 4), 3 + (i * 4)]);
+		}
+		
+		this.mBuffers.mParticlesQVP = this.createBuffer(gl.ARRAY_BUFFER, 
+														new Float32Array(particlesQVP), 
+														2, particlesQVP.length / 2);
+		this.mBuffers.mParticlesQVI = this.createBuffer(gl.ELEMENT_ARRAY_BUFFER, 
+														new Uint16Array(particlesQVI), 
+														1, particlesQVI.length);	
+	};
+
 }
 else
 {

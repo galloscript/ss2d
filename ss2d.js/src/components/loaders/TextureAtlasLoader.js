@@ -29,7 +29,7 @@ ss2d.TextureAtlasLoader.RESOURCE_EXTENSION = 'atlas';
  * @param {string} resourceFileName
  * @param {function} resourceLoadedCallback
  * @param {Object} callbackTarget
- * @return {ss2d.TextureAtlas} The loaded texture
+ * @return {ss2d.TextureAtlas} The loaded texture atlas
  */
 ss2d.TextureAtlasLoader.loadResource = function(resourceFileName, resourceLoadedCallback, callbackTarget)
 {

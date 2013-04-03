@@ -49,7 +49,13 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 			renderSupport.pushTransform(this);
 			
 			material.mModelViewMatrix = mvMatrix;
-			material.mColor = renderSupport.mCurrentColor;
+			var color = renderSupport.mCurrentColor.slice();
+			var alpha = (this.mInheritAlpha) ? renderSupport.mCurrentColor[3] : this.mAlpha;
+			if(!this.mInheritColor)
+			{
+				this.mColor.getF32Array(color, alpha);
+			}
+			material.mColor = color;
 			material.mActiveTexture = renderSupport.mAux8x8Texture.mTextureId;
 			material.mVertexPositionBuffer = renderSupport.mBuffers.mQuadVertexPosition;
 			material.mTextureCoordBuffer = renderSupport.mBuffers.mQuadTextureCoords;

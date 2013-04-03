@@ -15,7 +15,7 @@ goog.require('ss2d.Slot');
 /**
  * @constructor
  */
-ss2d.SkeletalSprite = function(x, y, scale, skeleton, bodyAtlas)
+ss2d.SkeletalSprite = function(x, y, scale, skeleton, bodyAtlas, slotClass)
 {
 	ss2d.DisplayObjectContainer.call(this, x, y);
 	this.mScaleX = this.mScaleY = scale;
@@ -25,6 +25,8 @@ ss2d.SkeletalSprite = function(x, y, scale, skeleton, bodyAtlas)
 	
 	this.mSlots = new ss2d.DisplayObjectContainer();
 	this.addObject(this.mSlots);
+	
+	this.mSlotClass = slotClass||ss2d.Slot;
 	
 	this.mBoneMap = {};
 	this.mSlotMap = {};
@@ -94,14 +96,14 @@ ss2d.SkeletalSprite.prototype.setup = function(skeleton)
 		
 		var skinInfo = defaultSkin[slot['name']][slot['attachment']];
 		var masterBone = this.mBoneMap[slot['bone']];
-		var slotObject = new ss2d.Slot(masterBone,
-									   slot['name'],
-									   skinInfo['x']||0, 
-									   skinInfo['y']||0,
-									   skinInfo['width']||1,
-									   skinInfo['height']||1,
-									   slot['attachment'],
-									   this.mBodyAtlas);
+		var slotObject = new this.mSlotClass(masterBone,
+										     slot['name'],
+										     skinInfo['x']||0, 
+										     skinInfo['y']||0,
+										     skinInfo['width']||1,
+										     skinInfo['height']||1,
+										     slot['attachment'],
+										     this.mBodyAtlas);
 		slotObject.mPivotX = slotObject.mWidth*0.5;
 		slotObject.mPivotY = slotObject.mHeight*0.5;							   
 		slotObject.mRotation = skinInfo['rotation']||0;

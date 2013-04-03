@@ -14,6 +14,7 @@ goog.require('ss2d.BitmapFontLoader');
 goog.require('ss2d.ReelSetLoader');
 goog.require('ss2d.SkeletonLoader');
 goog.require('ss2d.SkeletalAnimationLoader');
+goog.require('ss2d.ParticleSystemLoader');
 
 /** 
  * @class 
@@ -50,7 +51,8 @@ ss2d.ResourceManager.Loaders = {
 	BITMAP_FONT: ss2d.BitmapFontLoader,
 	REELSET: ss2d.ReelSetLoader,
 	SKELETON: ss2d.SkeletonLoader,
-	SKELETAL_ANIMATION: ss2d.SkeletalAnimationLoader
+	SKELETAL_ANIMATION: ss2d.SkeletalAnimationLoader,
+	PARTICLE_SYSTEM: ss2d.ParticleSystemLoader
 };
 
 /**
@@ -173,6 +175,7 @@ ss2d.ResourceManager.loadEndsCallback = function(resource)
 /**
  * @param {string} textureName
  * @param {function} textureLoadedCallback
+ * @param {Object} callbackTarget
  */
 ss2d.ResourceManager.loadTexture = function(textureName, textureLoadedCallback, callbackTarget)
 {	
@@ -182,6 +185,7 @@ ss2d.ResourceManager.loadTexture = function(textureName, textureLoadedCallback, 
 /**
  * @param {string} atlasName
  * @param {function} atlasLoadedCallback
+ * @param {Object} callbackTarget
  */
 ss2d.ResourceManager.loadTextureAtlas = function(atlasName, atlasLoadedCallback, callbackTarget)
 {
@@ -191,6 +195,7 @@ ss2d.ResourceManager.loadTextureAtlas = function(atlasName, atlasLoadedCallback,
 /**
  * @param {string} soudName
  * @param {function} soundLoadedCallback
+ * @param {Object} callbackTarget
  */
 ss2d.ResourceManager.loadSound = function(soudName, soundLoadedCallback, callbackTarget)
 {	
@@ -200,6 +205,7 @@ ss2d.ResourceManager.loadSound = function(soudName, soundLoadedCallback, callbac
 /**
  * @param {string} bitmapFont
  * @param {function} bitmapLoadedCallback
+ * @param {Object} callbackTarget
  */
 ss2d.ResourceManager.loadBitmapFont = function(bitmapFont, bitmapLoadedCallback, callbackTarget)
 {
@@ -209,6 +215,7 @@ ss2d.ResourceManager.loadBitmapFont = function(bitmapFont, bitmapLoadedCallback,
 /**
  * @param {string} reelSet
  * @param {function} reelSetLoadedCallback
+ * @param {Object} callbackTarget
  */
 ss2d.ResourceManager.loadReelSet = function(reelSet, reelSetLoadedCallback, callbackTarget)
 {
@@ -218,6 +225,7 @@ ss2d.ResourceManager.loadReelSet = function(reelSet, reelSetLoadedCallback, call
 /**
  * @param {string} skeleton
  * @param {function} skeletonLoadedCallback
+ * @param {Object} callbackTarget
  */
 ss2d.ResourceManager.loadSkeleton = function(skeleton, skeletonLoadedCallback, callbackTarget)
 {
@@ -225,12 +233,22 @@ ss2d.ResourceManager.loadSkeleton = function(skeleton, skeletonLoadedCallback, c
 };
 
 /**
- * @param {string} SkeletalAnimation
+ * @param {string} skeletalAnimation
  * @param {function} animationLoadedCallback
+ * @param {Object} callbackTarget
  */
 ss2d.ResourceManager.loadSkeletalAnimation = function(skeletalAnimation, animationLoadedCallback, callbackTarget)
 {
 	return ss2d.ResourceManager.loadResourceWithLoader(ss2d.SkeletalAnimationLoader, skeletalAnimation, animationLoadedCallback, callbackTarget);
 };
 
+/**
+ * @param {string} particleSystem
+ * @param {function} loadedCallback
+ * @param {Object} callbackTarget
+ */
+ss2d.ResourceManager.loadParticleSystem = function(particleSystem, loadedCallback, callbackTarget)
+{
+	return ss2d.ResourceManager.loadResourceWithLoader(ss2d.ParticleSystemLoader, particleSystem, loadedCallback, callbackTarget);
+};
 

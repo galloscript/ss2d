@@ -29,7 +29,7 @@ ss2d.ReelSetLoader.RESOURCE_EXTENSION = 'reelset';
  * @param {string} resourceFileName
  * @param {function} resourceLoadedCallback
  * @param {Object} callbackTarget
- * @return {ss2d.TextureAtlas} The loaded texture
+ * @return {ss2d.ReelSet} The loaded reel set
  */
 ss2d.ReelSetLoader.loadResource = function(resourceFileName, resourceLoadedCallback, callbackTarget)
 {

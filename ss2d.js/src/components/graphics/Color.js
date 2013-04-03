@@ -11,16 +11,16 @@ goog.provide('ss2d.Color');
  * @constructor
  * @param {(ss2d.Color|number|string|number[3])} color
  */
-ss2d.Color = function(color)
+ss2d.Color = function(color, isF32)
 {
-	this.setValue(color);
+	this.setValue(color, isF32);
 };
 
 /**
  * Sets the color value from various types of color representation formats
  * @param {(ss2d.Color|number|string|number[3])} color
  */
-ss2d.Color.prototype.setValue = function(color)
+ss2d.Color.prototype.setValue = function(color, isF32)
 {
 	if(color instanceof ss2d.Color)
 	{
@@ -30,6 +30,12 @@ ss2d.Color.prototype.setValue = function(color)
 	{
 		//color = (color[0] << 16) + (color[1] << 8) + color[2];
 		this.mColorArray = color.slice(0);
+		if(isF32)
+		{
+			this.mColorArray[0] = color[0] * 255;
+			this.mColorArray[1] = color[1] * 255;
+			this.mColorArray[2] = color[2] * 255;
+		}
 	}
 	else if(typeof color == 'string' || typeof color == 'number')
 	{

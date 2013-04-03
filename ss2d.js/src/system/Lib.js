@@ -76,9 +76,8 @@ goog.require('ss2d.ReelSprite');
 goog.require('ss2d.Sprite');
 goog.require('ss2d.TextSprite');
 goog.require('ss2d.BitmapTextSprite');
-
-//scene/skeletal
 goog.require('ss2d.SkeletalSprite');
+goog.require('ss2d.ParticleEmitter');
 
 //system
 goog.require('ss2d.DefaultConfig');
