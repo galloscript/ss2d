@@ -23,7 +23,7 @@
         <script id="democode">
 var view = new ss2d.View('mainCanvas');
 view.mClearColor = [0.0, 0.0, 0.0, 1.0];
-var loadingText = new ss2d.BitmapTextSprite(350, 256, 'LOADING', 'assets/fonts/fun02.fnt', 40);
+
 
 
 ss2d.ResourceManager.loadResources([
@@ -31,7 +31,8 @@ ss2d.ResourceManager.loadResources([
 	'assets/fonts/fun02.fnt'
 ], null, function()
 {
-	view.mMainScene.addObject(loadingText);
+	view.loadingText = new ss2d.BitmapTextSprite(350, 256, 'LOADING', 'assets/fonts/fun02.fnt', 40);
+	view.mMainScene.addObject(view.loadingText);
 	view.startLoop();
 	view.stopLoop();
 	ss2d.ResourceManager.loadResources([
@@ -96,7 +97,7 @@ ss2d.ResourceManager.loadResources([
 		}, 2100);
 		
 		setTimeout(function(){
-			view.mMainScene.removeObject(loadingText);
+			view.mMainScene.removeObject(view.loadingText);
 			view.startLoop();
 		}, 2400);
 		
