@@ -12,6 +12,7 @@ goog.require('ss2d.Defines');
 goog.require('ss2d.Matrix3');
 goog.require('ss2d.materials.Textured');
 goog.require('ss2d.materials.Particle');
+goog.require('ss2d.materials.GPUParticle');
 
 /**
  * @constructor
@@ -57,6 +58,9 @@ ss2d.RenderSupport = function(context)
 		this.mMaterials = {};
 		this.mMaterials.mTextured = new ss2d.materials.Textured(this);
 		this.mMaterials.mParticle = new ss2d.materials.Particle(this);
+		
+		//not supported yet
+		this.mMaterials.mGPUParticle = new ss2d.materials.GPUParticle(this);
 	}
 };
 

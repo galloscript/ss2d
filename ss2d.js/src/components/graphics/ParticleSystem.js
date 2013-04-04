@@ -46,7 +46,10 @@ ss2d.ParticleSystem.prototype.loaded = function(fileData)
 	var img = this.mSystemDescriptor['texture']['-name'];
 	var texturePath = (pathEnd > 0)?this.mName.substring(0, pathEnd)+img:img;
 	
-	this.mTexture = ss2d.ResourceManager.loadTexture(texturePath, this.textureLoaded, this);
+	this.mTexture = ss2d.CURRENT_VIEW.mRenderSupport.mAux8x8Texture;
+	
+	if(img.length > 0)
+		this.mTexture = ss2d.ResourceManager.loadTexture(texturePath, this.textureLoaded, this);
 };
 
 ss2d.ParticleSystem.prototype.textureLoaded = function(texture)

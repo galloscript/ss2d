@@ -6,14 +6,14 @@
  * @author David Gallardo Moreno (portalg@gmail.com)
  */
 
-goog.provide('ss2d.ParticleEmitter');
+goog.provide('ss2d.GPUParticleEmitter');
 
 goog.require('ss2d.ResourceManager');
 goog.require('ss2d.Quad');
 goog.require('ss2d.Particle');
 goog.require('ss2d.Matrix3');
 
-ss2d.ParticleEmitter = function(x, y, w, h, particleSystem)
+ss2d.GPUParticleEmitter = function(x, y, w, h, particleSystem)
 {
 	
 	ss2d.Quad.call(this, x, y, w, h);
@@ -21,24 +21,24 @@ ss2d.ParticleEmitter = function(x, y, w, h, particleSystem)
 	this.mPivotY = this.mHeight*0.5;
 	
 	if(RENDER_CONTEXT != 'webgl') 
-		throw 'ss2d.ParticleEmitter requires WebGL Rendering Context';
+		throw 'ss2d.GPUParticleEmitter requires WebGL Rendering Context';
 		
 	if(!particleSystem)
 		throw 'No particle system provided';
 	
 	this.mParticleSystem = particleSystem;
-	this.mActive = false;
-	this.mShowHitBox = true;
 	
 	if(typeof particleSystem == 'string')
 		this.mParticleSystem = ss2d.ResourceManager.loadParticleSystem(particleSystem, this.setup, this);
+		
+	this.mShowHitBox = false;
 };
 
-goog.inherits(ss2d.ParticleEmitter, ss2d.Quad);
+goog.inherits(ss2d.GPUParticleEmitter, ss2d.Quad);
 
-ss2d.ParticleEmitter.MAX_UPDATE_RATE = 100;
+ss2d.GPUParticleEmitter.MAX_UPDATE_RATE = 100;
 
-ss2d.ParticleEmitter.prototype.setup = function(particleSystem)
+ss2d.GPUParticleEmitter.prototype.setup = function(particleSystem)
 {
 	this.mParticleSystem = particleSystem;
 	this.mTexture = this.mParticleSystem.mTexture;
@@ -60,7 +60,7 @@ ss2d.ParticleEmitter.prototype.setup = function(particleSystem)
     this.mTangentialAcceleration = parseFloat(desc['tangentialAcceleration']['-value']);
     this.mRadialAccelVariance = parseFloat(desc['radialAccelVariance']['-value']); 
     this.mTangentialAccelVariance = parseFloat(desc['tangentialAccelVariance']['-value']);
-	this.mParticleLifeSpan = Math.max(0.08, parseFloat(desc['particleLifeSpan']['-value'])); 
+	this.mParticleLifeSpan = parseFloat(desc['particleLifeSpan']['-value']); 
 	this.mParticleLifespanVariance = parseFloat(desc['particleLifespanVariance']['-value']);			
 	this.mStartParticleSize = parseFloat(desc['startParticleSize']['-value']); 
 	this.mStartParticleSizeVariance = parseFloat(desc['startParticleSizeVariance']['-value']);
@@ -102,7 +102,7 @@ ss2d.ParticleEmitter.prototype.setup = function(particleSystem)
 	this.mRadiusSpeed = 0; 		// The speed at which a particle moves from maxRadius to minRadius
 	
 	//control properties
-	this.mRotation = - this.mAngle / (180.0 / Math.PI);
+	this.mRotation = this.mAngle / (180.0 / Math.PI);
 	this.mEmitterType = parseFloat(desc['emitterType']['-value']);
 	this.mParticleCount = 0;
 	this.mEmissionRate = this.mMaxParticles / this.mParticleLifeSpan;
@@ -113,43 +113,52 @@ ss2d.ParticleEmitter.prototype.setup = function(particleSystem)
 	this.mUseTexture = true;
 	this.mParticleIndex = 0;
 	this.mParticles = [];
-	this.mParticleDataArray = new Float32Array(this.mMaxParticles);
+	var particleDataArray = [];
+	var auxParticleArray = [];
 	
 	var worldLocation = this.localToWorld(this.mLocation);
 	for(var i = 0; i < this.mMaxParticles; ++i)
 	{
-		this.mParticles[i] = this.generateParticle(null, worldLocation, i*0.008);
-		this.mParticles[i].getPCBufferArray(this.mParticleDataArray, i * 24);
+		this.mParticles[i] = this.generateParticle(null, worldLocation);
+		this.mParticles[i].mTimeToLive = 0;
+		this.mParticles[i].getArray(auxParticleArray);
+		particleDataArray = particleDataArray.concat(auxParticleArray);
+		particleDataArray = particleDataArray.concat(auxParticleArray);
+		particleDataArray = particleDataArray.concat(auxParticleArray);
+		particleDataArray = particleDataArray.concat(auxParticleArray);
 	}
 	this.mParticleCount = this.mMaxParticles;
 	var gl = ss2d.CURRENT_VIEW.mContext;
 	var renderSupport = ss2d.CURRENT_VIEW.mRenderSupport;
 	
 	this.mParticleDataBuffer = renderSupport.createBuffer(gl.ARRAY_BUFFER, 
-														  new Float32Array(this.mParticleDataArray), 
-														  6,  this.mParticleDataArray.length / 6,
+														  new Float32Array(particleDataArray), 
+														  ss2d.Particle.SRUCT_SIZE,  particleDataArray.length / ss2d.Particle.SRUCT_SIZE,
 														  gl.DYNAMIC_DRAW);
+	delete particleDataArray;
+	delete auxParticleArray;
+	
 	this.mFreeParticles = [];
 	this.mReady = true;
 	this.startEmitter();
 };
 
-ss2d.ParticleEmitter.prototype.startEmitter = function(p)
+ss2d.GPUParticleEmitter.prototype.startEmitter = function(p)
 {
 	this.mActive = true;
 };
 
-ss2d.ParticleEmitter.prototype.stopEmitter = function(p)
+ss2d.GPUParticleEmitter.prototype.stopEmitter = function(p)
 {
 	this.mActive = false;
 };
 
-/*s2d.ParticleEmitter.MINUS_ONE_TO_ONE = function()
+ss2d.GPUParticleEmitter.MINUS_ONE_TO_ONE = function()
 {
-	return ((Math.random() * 2.0) - 1.0);
+	return (Math.random() * 2) - 1;
 }
-*/
-ss2d.ParticleEmitter.prototype.generateParticle = function(particle, worldLocation, addedLifeTime)
+
+ss2d.GPUParticleEmitter.prototype.generateParticle = function(particle, worldLocation, addedLifeTime)
 {
 	if(this.mParticleCount >= this.mMaxParticles)
 		return;
@@ -158,56 +167,57 @@ ss2d.ParticleEmitter.prototype.generateParticle = function(particle, worldLocati
 	addedLifeTime = addedLifeTime||0;
 	particle.mTimeStamp = ss2d.CURRENT_VIEW.mTotalTime;
 	
-	//var m1to1 = ss2d.ParticleEmitter.MINUS_ONE_TO_ONE;
+	var m1to1 = ss2d.GPUParticleEmitter.MINUS_ONE_TO_ONE;
 	
-	particle.mPosition.mX = worldLocation.mX + (((Math.random() * 2.0) - 1.0) * this.mSourcePositionVariance.mX);
-	particle.mPosition.mY = worldLocation.mY + (((Math.random() * 2.0) - 1.0) * this.mSourcePositionVariance.mY);
+	particle.mPosition.mX = worldLocation.mX + (m1to1() * this.mSourcePositionVariance.mX);
+	particle.mPosition.mY = worldLocation.mY + (m1to1() * this.mSourcePositionVariance.mY);
 	particle.mStartPos.mX = worldLocation.mX;
 	particle.mStartPos.mY = worldLocation.mY;
 	
-	var newAngle = this.mRotation + (((Math.random() * 2.0) - 1.0) * this.mAngleVariance / (180 / Math.PI));
+	var newAngle = this.mRotation + (m1to1() * this.mAngleVariance / (180 / Math.PI));
 	var vector = new ss2d.Point(Math.cos(newAngle), Math.sin(newAngle));
-	var vectorSpeed = this.mSpeed + (((Math.random() * 2.0) - 1.0) * this.mSpeedVariance);
+	var vectorSpeed = this.mSpeed + (m1to1() * this.mSpeedVariance);
 	particle.mDirection = ss2d.Point.scalePoint(vector, vectorSpeed);
-	particle.mRadius = this.mMaxRadius + (((Math.random() * 2.0) - 1.0) * this.mMaxRadiusVariance);
+	particle.mDirection.mY *= -1;
+	particle.mRadius = this.mMaxRadius + (m1to1() * this.mMaxRadiusVariance);
 	
-	particle.mRadiusDelta = (this.mMaxRadius / this.mParticleLifeSpan);// * (1.0 / ss2d.ParticleEmitter.MAX_UPDATE_RATE);
-	particle.mAngle  = this.mRotation + (((Math.random() * 2.0) - 1.0) * this.mAngleVariance / (180 / Math.PI));
-	particle.mDegreesPerSecond = (this.mRotatePerSecond + (((Math.random() * 2.0) - 1.0) *  this.mRotatePerSecondVariance)) / (180 / Math.PI);
+	particle.mRadiusDelta = (this.mMaxRadius / this.mParticleLifeSpan);// * (1.0 / ss2d.GPUParticleEmitter.MAX_UPDATE_RATE);
+	particle.mAngle  = this.mRotation + (m1to1() * this.mAngleVariance / (180 / Math.PI));
+	particle.mDegreesPerSecond = (this.mRotatePerSecond + (m1to1() *  this.mRotatePerSecondVariance)) / (180 / Math.PI);
 	
 	particle.mRadialAcceleration = this.mRadialAcceleration;
 	particle.mTangentialAcceleration = this.mTangentialAcceleration;
 	
-	particle.mTimeToLive = Math.max(0, this.mParticleLifeSpan + (this.mParticleLifespanVariance * ((Math.random() * 2.0) - 1.0))) + addedLifeTime;
+	particle.mTimeToLive = Math.max(0, this.mParticleLifeSpan + (this.mParticleLifespanVariance * m1to1())) + addedLifeTime;
 	
-	var particleStartSize = this.mStartParticleSize + (this.mStartParticleSizeVariance * ((Math.random() * 2.0) - 1.0));
-	var particleFinishSize = this.mFinishParticleSize + (this.mFinishParticleSizeVariance * ((Math.random() * 2.0) - 1.0));
-	particle.mParticleSizeDelta = ((particleFinishSize - particleStartSize)  / this.mParticleLifeSpan) / this.mTexture.mTextureElement.width;
+	var particleStartSize = this.mStartParticleSize + (this.mStartParticleSizeVariance * m1to1());
+	var particleFinishSize = this.mFinishParticleSize + (this.mFinishParticleSizeVariance * m1to1());
+	particle.mParticleSizeDelta = ((particleFinishSize - particleStartSize) / particle.mTimeToLive);// * (1.0 / ss2d.GPUParticleEmitter.MAX_UPDATE_RATE);
 	particle.mParticleSize = Math.max(0, particleStartSize);
 	
 	var startColor = particle.mColor;
-	startColor[0]  = this.mStartColor[0] + (this.mStartColorVariance[0] * ((Math.random() * 2.0) - 1.0));
-	startColor[1]  = this.mStartColor[1] + (this.mStartColorVariance[1] * ((Math.random() * 2.0) - 1.0));
-	startColor[2]  = this.mStartColor[2] + (this.mStartColorVariance[2] * ((Math.random() * 2.0) - 1.0));
-	startColor[3]  = this.mStartColor[3] + (this.mStartColorVariance[3] * ((Math.random() * 2.0) - 1.0));
+	startColor[0]  = this.mStartColor[0] + (this.mStartColorVariance[0] * m1to1());
+	startColor[1]  = this.mStartColor[1] + (this.mStartColorVariance[1] * m1to1());
+	startColor[2]  = this.mStartColor[2] + (this.mStartColorVariance[2] * m1to1());
+	startColor[3]  = this.mStartColor[3] + (this.mStartColorVariance[3] * m1to1());
 	
 	var endColor = [];
-	endColor[0]  = this.mFinishColor[0] + (this.mFinishColorVariance[0] * ((Math.random() * 2.0) - 1.0));
-	endColor[1]  = this.mFinishColor[1] + (this.mFinishColorVariance[1] * ((Math.random() * 2.0) - 1.0));
-	endColor[2]  = this.mFinishColor[2] + (this.mFinishColorVariance[2] * ((Math.random() * 2.0) - 1.0));
-	endColor[3]  = this.mFinishColor[3] + (this.mFinishColorVariance[3] * ((Math.random() * 2.0) - 1.0));
+	endColor[0]  = this.mFinishColor[0] + (this.mFinishColorVariance[0] * m1to1());
+	endColor[1]  = this.mFinishColor[1] + (this.mFinishColorVariance[1] * m1to1());
+	endColor[2]  = this.mFinishColor[2] + (this.mFinishColorVariance[2] * m1to1());
+	endColor[3]  = this.mFinishColor[3] + (this.mFinishColorVariance[3] * m1to1());
 	
 	var deltaColor = particle.mDeltaColor;
-	deltaColor[0] = ((endColor[0] - startColor[0]) / particle.mTimeToLive) / this.mParticleLifeSpan;
-	deltaColor[1] = ((endColor[1] - startColor[1]) / particle.mTimeToLive) / this.mParticleLifeSpan;
-	deltaColor[2] = ((endColor[2] - startColor[2]) / particle.mTimeToLive) / this.mParticleLifeSpan;
-	deltaColor[3] = ((endColor[3] - startColor[3]) / particle.mTimeToLive) / this.mParticleLifeSpan;
+	deltaColor[0] = ((endColor[0] - startColor[0]) / particle.mTimeToLive);// * (1.0 / ss2d.GPUParticleEmitter.MAX_UPDATE_RATE);
+	deltaColor[1] = ((endColor[1] - startColor[1]) / particle.mTimeToLive);// * (1.0 / ss2d.GPUParticleEmitter.MAX_UPDATE_RATE);
+	deltaColor[2] = ((endColor[2] - startColor[2]) / particle.mTimeToLive);// * (1.0 / ss2d.GPUParticleEmitter.MAX_UPDATE_RATE);
+	deltaColor[3] = ((endColor[3] - startColor[3]) / particle.mTimeToLive);// * (1.0 / ss2d.GPUParticleEmitter.MAX_UPDATE_RATE);
 	
-	var startA = this.mRotationStart + (this.mRotationStartVariance * ((Math.random() * 2.0) - 1.0));
-	var endA = this.mRotationEnd + (this.mRotationEndVariance * ((Math.random() * 2.0) - 1.0));
+	var startA = this.mRotationStart + (this.mRotationStartVariance * m1to1());
+	var endA = this.mRotationEnd + (this.mRotationEndVariance * m1to1());
 	
 	particle.mRotation = startA;
-	particle.mRotationDelta = (endA - startA) / this.mParticleLifeSpan;
+	particle.mRotationDelta = (endA - startA) / particle.mTimeToLive;
 	
 	this.mParticleCount++;
 	
@@ -216,29 +226,14 @@ ss2d.ParticleEmitter.prototype.generateParticle = function(particle, worldLocati
 
 if(RENDER_CONTEXT == 'webgl')
 {
-	ss2d.ParticleEmitter.prototype.render = function(support)
+	ss2d.GPUParticleEmitter.prototype.render = function(support)
 	{
 		if(!this.mReady)
 			return;
 			
 		this.mPivotX = this.mWidth*0.5;
 		this.mPivotY = this.mHeight*0.5;
-
-		var gl = support.mContext;
 		
-		gl.blendFunc(this.mBlendFuncSource, this.mBlendFuncDestination);
-
-		var material = support.mMaterials.mParticle;
-		material.mActiveTexture = this.mTexture.mTextureId;
-		material.mParticleDataBuffer = this.mParticleDataBuffer;
-		material.mParticleDataArray = this.mParticleDataArray;
-		
-		material.apply(support);
-		
-		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, support.mBuffers.mParticlesQVI);
-		gl.drawElements(gl.TRIANGLES, this.mMaxParticles * 6, gl.UNSIGNED_SHORT, 0);
-		
-		gl.blendFunc(support.mDefaultBlendSource, support.mDefaultBlendDestination);
 		
 		if(this.mShowHitBox)
 		{
@@ -247,14 +242,35 @@ if(RENDER_CONTEXT == 'webgl')
 			ss2d.Quad.prototype.render.call(this, support);
 			this.mAlpha = prevAlpha;
 		}
+		
+		var gl = support.mContext;
+		
+		gl.blendFunc(this.mBlendFuncSource, this.mBlendFuncDestination);
+
+		var material = support.mMaterials.mGPUParticle;
+		material.mActiveTexture = this.mTexture.mTextureId;
+		material.mParticleDataBuffer = this.mParticleDataBuffer;
+		
+		material.mEmitterType = this.mEmitterType;
+		material.mGravity[0] = this.mGravity.mX;
+		material.mGravity[1] = this.mGravity.mY;
+		
+		material.apply(support);
+		
+		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, support.mBuffers.mParticlesQVI);
+		gl.drawElements(gl.TRIANGLES, this.mMaxParticles * 6, gl.UNSIGNED_SHORT, 0);
+		
+		gl.blendFunc(support.mDefaultBlendSource, support.mDefaultBlendDestination);
+		
+		
 	};
 	
-	ss2d.ParticleEmitter.prototype.tick = function(deltaTime)
+	ss2d.GPUParticleEmitter.prototype.tick = function(deltaTime)
 	{
 		this.updateParticles(deltaTime);
 	};
 	
-	ss2d.ParticleEmitter.prototype.updateParticles = function(deltaTime)
+	ss2d.GPUParticleEmitter.prototype.updateParticles = function(deltaTime)
 	{
 		if(!this.mReady)
 			return;
@@ -301,11 +317,7 @@ if(RENDER_CONTEXT == 'webgl')
 			particle.mTimeToLive -= deltaTime;
 			var timeLapse = ss2d.CURRENT_VIEW.mTotalTime - particle.mTimeStamp;
 			particle.mRadius -= (particle.mRadiusDelta * deltaTime);
-			
-			//REPLACING SHADER FUNCTIONALITY
-			
-			
-			
+
 			if(particle.mTimeToLive <= 0.0 || (this.mEmitterType == 1.0 && particle.mRadius < this.mMinRadius))
 			{
 				this.mParticleCount--;

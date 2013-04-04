@@ -78,6 +78,7 @@ goog.require('ss2d.TextSprite');
 goog.require('ss2d.BitmapTextSprite');
 goog.require('ss2d.SkeletalSprite');
 goog.require('ss2d.ParticleEmitter');
+goog.require('ss2d.GPUParticleEmitter');
 
 //system
 goog.require('ss2d.DefaultConfig');

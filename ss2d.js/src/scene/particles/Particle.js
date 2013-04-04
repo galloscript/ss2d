@@ -9,6 +9,7 @@ goog.provide('ss2d.Particle');
 
 goog.require('ss2d.Point');
 
+/** @constructor */
 ss2d.Particle = function()
 {
 	this.mPosition = new ss2d.Point();
@@ -31,6 +32,7 @@ ss2d.Particle = function()
 };
 
 ss2d.Particle.SRUCT_SIZE = 26;
+ss2d.Particle.PC_BUFFER_ELEMENTS = 6;
 
 ss2d.Particle.prototype.getArray = function(target)
 {
@@ -48,3 +50,20 @@ ss2d.Particle.prototype.getArray = function(target)
 	
 	return target;
 };
+
+/**
+ * Sets the particle data into a Float32Array buffer
+ * @param {Float32Array} target
+ * @param {number} offset
+ */
+ss2d.Particle.prototype.getPCBufferArray = function(target, offset)
+{
+	offset = offset||0;
+	target.set([this.mPosition.mX, this.mPosition.mY, this.mColor[0], this.mColor[1], this.mColor[2], this.mColor[3],
+				this.mPosition.mX, this.mPosition.mY, this.mColor[0], this.mColor[1], this.mColor[2], this.mColor[3],
+				this.mPosition.mX, this.mPosition.mY, this.mColor[0], this.mColor[1], this.mColor[2], this.mColor[3],
+				this.mPosition.mX, this.mPosition.mY, this.mColor[0], this.mColor[1], this.mColor[2], this.mColor[3]],
+				offset);
+
+};
+
