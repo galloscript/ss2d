@@ -26,7 +26,6 @@ view.mClearColor = [0.0, 0.0, 0.0, 1.0];
 var loadingText = new ss2d.BitmapTextSprite(400, 256, 'LOADING', 'assets/fonts/fun02.fnt', 25);
 view.mMainScene.addObject(loadingText);
 view.startLoop();
-view.stopLoop();
 ss2d.ResourceManager.loadResources([
 	ss2d.ResourceManager.Loaders.PARTICLE_SYSTEM,
 	'assets/particles/plasma.pex',
@@ -90,7 +89,6 @@ ss2d.ResourceManager.loadResources([
 	
 	setTimeout(function(){
 		view.mMainScene.removeObject(loadingText);
-		view.startLoop();
 	}, 2400);
 	
 	view.mMainScene.addObject(view.eSprite);
