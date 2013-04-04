@@ -118,26 +118,27 @@ ss2d.ResourceManager.loadResources([
 			}
         </script>
         <script src="jscolor/jscolor.js"></script>
-        <script>
+        <script id="colorpickercode">
         	var colorPickerBoy = new jscolor.color(document.getElementById('colorPickerBoy'));
-        	
-        	colorPickerBoy.onImmediateChange = function(obj)
+        	colorPickerBoy.onImmediateChange = function(obj) 
         	{
         		demo.skeleton.mColor.setValue('#'+colorPickerBoy.valueElement.value);
         	}
-        	
         	var colorPickerDragon = new jscolor.color(document.getElementById('colorPickerDragon'));
-        	
-        	colorPickerDragon.onImmediateChange = function(obj)
+        	colorPickerDragon.onImmediateChange = function(obj) 
         	{
         		demo.dragon.mColor.setValue('#'+colorPickerDragon.valueElement.value);
         	}
         </script>
          <pre class="prettyprint" id="code1">
 		  </pre>
+		   <pre class="prettyprint" id="code2">
+		  </pre>
 		  <script>
 		  var c1 = document.getElementById('democode').innerHTML;
 		  document.getElementById('code1').innerHTML = c1;
+		  var c2 = document.getElementById('colorpickercode').innerHTML;
+		  document.getElementById('code2').innerHTML = c2;
 		  </script>
 		  <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
 		  <link rel="stylesheet" type="text/css" href="http://google-code-prettify.googlecode.com/svn/trunk/styles/desert.css" />
