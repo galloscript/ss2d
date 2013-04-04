@@ -23,88 +23,71 @@
         <script id="democode">
 var view = new ss2d.View('mainCanvas');
 view.mClearColor = [0.0, 0.0, 0.0, 1.0];
-view.startLoop();
-
 ss2d.ResourceManager.loadResources([
-	ss2d.ResourceManager.Loaders.BITMAP_FONT,
-	'assets/fonts/fun02.fnt'
+	ss2d.ResourceManager.Loaders.PARTICLE_SYSTEM,
+	'assets/particles/plasma.pex',
+	'assets/particles/smoke01.pex',
+	'assets/particles/heal01.pex',
+	'assets/particles/spirit01.pex',
+	'assets/particles/fireball02.pex',
+	'assets/particles/fireball03.pex',
+	'assets/particles/fireball04.pex',
+	'assets/particles/fireball05.pex',
 ], null, function()
 {
-	view.loadingText = new ss2d.BitmapTextSprite(350, 256, 'LOADING', 'assets/fonts/fun02.fnt', 40);
-	view.mMainScene.addObject(view.loadingText);
+	view.startLoop();
 	
-	ss2d.ResourceManager.loadResources([
-		ss2d.ResourceManager.Loaders.PARTICLE_SYSTEM,
-		'assets/particles/plasma.pex',
-		'assets/particles/smoke01.pex',
-		'assets/particles/heal01.pex',
-		'assets/particles/spirit01.pex',
-		'assets/particles/fireball02.pex',
-		'assets/particles/fireball03.pex',
-		'assets/particles/fireball04.pex',
-		'assets/particles/fireball05.pex',
-	], null, function()
-	{
-		setTimeout(function(){
-			view.emitter = new ss2d.GPUParticleEmitter(140, 140, 100, 100, 'assets/particles/fireball05.pex');
-			view.emitter.mPickable = new ss2d.Pickable(view.emitter);
-			view.emitter.tick = function(deltaTime){ this.mPickable.tick(deltaTime); this.updateParticles(deltaTime); };
-			//view.mMainScene.addObject(view.emitter);
+	setTimeout(function(){
+		view.emitter = new ss2d.GPUParticleEmitter(140, 140, 100, 100, 'assets/particles/fireball05.pex');
+		view.emitter.mPickable = new ss2d.Pickable(view.emitter);
+		view.emitter.tick = function(deltaTime){ this.mPickable.tick(deltaTime); this.updateParticles(deltaTime); };
+		view.mMainScene.addObject(view.emitter);
 		}, 300);
-		
-		setTimeout(function(){
-			view.emitter2 = new ss2d.GPUParticleEmitter(400, 156, 100, 100, 'assets/particles/fireball02.pex');
-			view.emitter2.mPickable = new ss2d.Pickable(view.emitter2);
-			view.emitter2.tick = function(deltaTime){ this.mPickable.tick(deltaTime); this.updateParticles(deltaTime); };
-			//view.mMainScene.addObject(view.emitter2);
-		}, 600);
-		
-		setTimeout(function(){
-			view.emitter3 = new ss2d.GPUParticleEmitter(456, 356, 100, 100, 'assets/particles/plasma.pex');
-			view.emitter3.mPickable = new ss2d.Pickable(view.emitter3);
-			view.emitter3.tick = function(deltaTime){ this.mPickable.tick(deltaTime); this.updateParticles(deltaTime); };
-			//view.mMainScene.addObject(view.emitter3);
-		}, 900);
-		
-		setTimeout(function(){
-			view.emitter4 = new ss2d.GPUParticleEmitter(200, 356, 100, 100, 'assets/particles/fireball03.pex');
-			view.emitter4.mPickable = new ss2d.Pickable(view.emitter4);
-			view.emitter4.tick = function(deltaTime){ this.mPickable.tick(deltaTime); this.updateParticles(deltaTime); };
-			//view.mMainScene.addObject(view.emitter4);
-		}, 1200);
-		
-		setTimeout(function(){
-			view.emitter5 = new ss2d.GPUParticleEmitter(570, 156, 100, 100, 'assets/particles/spirit01.pex');
-			view.emitter5.mPickable = new ss2d.Pickable(view.emitter5);
-			view.emitter5.tick = function(deltaTime){ this.mPickable.tick(deltaTime); this.updateParticles(deltaTime); };
-			//view.mMainScene.addObject(view.emitter5);
-		}, 1500);
-		
-		setTimeout(function(){
-			view.emitter6 = new ss2d.GPUParticleEmitter(570, 356, 100, 100, 'assets/particles/heal01.pex');
-			view.emitter6.mPickable = new ss2d.Pickable(view.emitter6);
-			view.emitter6.tick = function(deltaTime){ this.mPickable.tick(deltaTime); this.updateParticles(deltaTime); };
-			//view.mMainScene.addObject(view.emitter6);
-		}, 1800);
-		
-		setTimeout(function(){
-			view.emitter7 = new ss2d.GPUParticleEmitter(770, 300, 100, 100, 'assets/particles/smoke01.pex');
-			view.emitter7.mPickable = new ss2d.Pickable(view.emitter7);
-			view.emitter7.tick = function(deltaTime){ this.mRotation += 3*deltaTime; this.mPickable.tick(deltaTime); this.updateParticles(deltaTime); };
-			//view.mMainScene.addObject(view.emitter7);
-		}, 2100);
-		
-		setTimeout(function(){
-			view.mMainScene.addObject(view.emitter);
-			view.mMainScene.addObject(view.emitter2);
-			view.mMainScene.addObject(view.emitter3);
-			view.mMainScene.addObject(view.emitter4);
-			view.mMainScene.addObject(view.emitter5);
-			view.mMainScene.addObject(view.emitter6);
-			view.mMainScene.addObject(view.emitter7);
-			view.mMainScene.removeObject(view.loadingText);
-		}, 2400);
-	});
+	
+	setTimeout(function(){
+		view.emitter2 = new ss2d.GPUParticleEmitter(400, 156, 100, 100, 'assets/particles/fireball02.pex');
+		view.emitter2.mPickable = new ss2d.Pickable(view.emitter2);
+		view.emitter2.tick = function(deltaTime){ this.mPickable.tick(deltaTime); this.updateParticles(deltaTime); };
+		view.mMainScene.addObject(view.emitter2);
+	}, 600);
+	
+	setTimeout(function(){
+		view.emitter3 = new ss2d.GPUParticleEmitter(456, 356, 100, 100, 'assets/particles/plasma.pex');
+		view.emitter3.mPickable = new ss2d.Pickable(view.emitter3);
+		view.emitter3.tick = function(deltaTime){ this.mPickable.tick(deltaTime); this.updateParticles(deltaTime); };
+		view.mMainScene.addObject(view.emitter3);
+	}, 900);
+	
+	setTimeout(function(){
+		view.emitter4 = new ss2d.GPUParticleEmitter(200, 356, 100, 100, 'assets/particles/fireball03.pex');
+		view.emitter4.mPickable = new ss2d.Pickable(view.emitter4);
+		view.emitter4.tick = function(deltaTime){ this.mPickable.tick(deltaTime); this.updateParticles(deltaTime); };
+		view.mMainScene.addObject(view.emitter4);
+	}, 1200);
+	
+	setTimeout(function(){
+		view.emitter5 = new ss2d.GPUParticleEmitter(570, 156, 100, 100, 'assets/particles/spirit01.pex');
+		view.emitter5.mPickable = new ss2d.Pickable(view.emitter5);
+		view.emitter5.tick = function(deltaTime){ this.mPickable.tick(deltaTime); this.updateParticles(deltaTime); };
+		view.mMainScene.addObject(view.emitter5);
+	}, 1500);
+	
+	setTimeout(function(){
+		view.emitter6 = new ss2d.GPUParticleEmitter(570, 356, 100, 100, 'assets/particles/heal01.pex');
+		view.emitter6.mPickable = new ss2d.Pickable(view.emitter6);
+		view.emitter6.tick = function(deltaTime){ this.mPickable.tick(deltaTime); this.updateParticles(deltaTime); };
+		view.mMainScene.addObject(view.emitter6);
+	}, 1800);
+	
+	setTimeout(function(){
+		view.emitter7 = new ss2d.GPUParticleEmitter(770, 300, 100, 100, 'assets/particles/smoke01.pex');
+		view.emitter7.mPickable = new ss2d.Pickable(view.emitter7);
+		view.emitter7.tick = function(deltaTime){ this.mRotation += 3*deltaTime; this.mPickable.tick(deltaTime); this.updateParticles(deltaTime); };
+		view.mMainScene.addObject(view.emitter7);
+	}, 2100);
+	
+	view.mMainScene.addObject(view.eSprite);
+
 });
 		</script>
 		  <pre class="prettyprint" id="code1">
