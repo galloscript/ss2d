@@ -119,21 +119,22 @@ ss2d.ResourceManager.loadResources([
         </script>
         <script src="jscolor/jscolor.js"></script>
         <script id="colorpickercode">
-        	var colorPickerBoy = new jscolor.color(document.getElementById('colorPickerBoy'));
-        	colorPickerBoy.onImmediateChange = function(obj) 
-        	{
-        		demo.skeleton.mColor.setValue('#'+colorPickerBoy.valueElement.value);
-        	}
-        	var colorPickerDragon = new jscolor.color(document.getElementById('colorPickerDragon'));
-        	colorPickerDragon.onImmediateChange = function(obj) 
-        	{
-        		demo.dragon.mColor.setValue('#'+colorPickerDragon.valueElement.value);
-        	}
+var colorPickerBoy = new jscolor.color(document.getElementById('colorPickerBoy'));
+colorPickerBoy.onImmediateChange = function(obj) 
+{
+	demo.skeleton.mColor.setValue('#'+colorPickerBoy.valueElement.value);
+}
+var colorPickerDragon = new jscolor.color(document.getElementById('colorPickerDragon'));
+colorPickerDragon.onImmediateChange = function(obj) 
+{
+	demo.dragon.mColor.setValue('#'+colorPickerDragon.valueElement.value);
+}
         </script>
+        <pre class="prettyprint" id="code2">
+		  </pre>
          <pre class="prettyprint" id="code1">
 		  </pre>
-		   <pre class="prettyprint" id="code2">
-		  </pre>
+
 		  <script>
 		  var c1 = document.getElementById('democode').innerHTML;
 		  document.getElementById('code1').innerHTML = c1;
