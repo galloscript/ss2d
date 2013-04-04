@@ -70,6 +70,7 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 	{
 		ss2d.TextSprite.prototype.render = function(renderSupport)
 		{
+			
 		}
 	}
 	else

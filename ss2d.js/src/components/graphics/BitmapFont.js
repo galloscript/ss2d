@@ -92,7 +92,8 @@ ss2d.BitmapFont.prototype.fontFileLoaded = function(fileData)
 ss2d.BitmapFont.prototype.fontTextureLoaded = function(texture)
 {
 	this.mTexture = texture;
-	this.mCallbackFunction.call(this.mCallbackTarget, this);
+	if(this.mCallbackFunction)
+		this.mCallbackFunction.call(this.mCallbackTarget, this);
 }
 
 /** 

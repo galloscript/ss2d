@@ -86,7 +86,7 @@ ss2d.materials.GPUParticle.VERTEX_SOURCE = ''+
 	'void main(void){'+
 		
 		'float timeLapse = (uTotalTime - aPS_PSD_T_TS.w);'+
-		'float sizeToZero = 1.0; if(aPS_PSD_T_TS.z <= 0.0){ sizeToZero = 0.0; }'+
+		'float sizeToZero = 1.0; if(timeLapse > aPS_PSD_T_TS.z){ sizeToZero = 0.0; }'+
 		'vec2 pos = vec2(aPos_Dir.x, aPos_Dir.y);'+
 		'float angle = aRa_RaD_A_DPS.y;'+
 		'float scaleMultiplier = 1.0;'+

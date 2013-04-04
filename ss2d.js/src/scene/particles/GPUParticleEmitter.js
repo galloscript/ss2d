@@ -275,6 +275,7 @@ if(RENDER_CONTEXT == 'webgl')
 		if(!this.mReady)
 			return;
 		
+		deltaTime = (deltaTime > 2.0 / ss2d.CURRENT_VIEW.mFrameRate) ? 1.0 / ss2d.CURRENT_VIEW.mFrameRate : deltaTime;
 		var gl = ss2d.CURRENT_VIEW.mContext;
 		var renderSupport = ss2d.CURRENT_VIEW.mRenderSupport;
 		if(this.mActive && this.mEmissionRate)
@@ -311,10 +312,11 @@ if(RENDER_CONTEXT == 'webgl')
 				this.stopEmitter();
 		}
 		
+		var lifeToRest = deltaTime;
 		for(var p_index = 0; p_index < this.mMaxParticles; ++p_index)
 		{
 			var particle = this.mParticles[p_index];
-			particle.mTimeToLive -= deltaTime;
+			particle.mTimeToLive -= lifeToRest;
 			var timeLapse = ss2d.CURRENT_VIEW.mTotalTime - particle.mTimeStamp;
 			particle.mRadius -= (particle.mRadiusDelta * deltaTime);
 
