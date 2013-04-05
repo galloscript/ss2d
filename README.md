@@ -37,6 +37,9 @@ Main Features
 Changelog
 ---------
 
+04-04-2013<br>
+Added partial support to Particle Designer for creating particle emitters, only in WebGL version. See http://www.71squared.com/en/particledesigner
+
 30-03-2013<br>
 Added partial WebGL compatibilty in a separate lib file ss2dLibWGL.js
 
