@@ -16,6 +16,9 @@ goog.require('ss2d.Skeleton');
  */
 ss2d.SkeletalAnimation = function(animationFileName, callbackFunction, callbackTarget)
 {
+	if(!animationFileName)
+		return;
+		
 	this.mName = animationFileName;
 	this.mCallbackFunction = callbackFunction;
 	this.mCallbackTarget = callbackTarget||null;
@@ -36,7 +39,15 @@ ss2d.SkeletalAnimation.prototype.animationDataLoaded = function(data)
 {
 	this.mAnimationData = JSON.parse(data);
 	ss2d.Skeleton.allDegToRad(this.mAnimationData);
-	this.mCallbackFunction.call(this.mCallbackTarget, this);
+	this.mDuration = ss2d.SkeletalAnimation.findMaxTime(this.mAnimationData, 0);
+	
+	if(this.mCallbackFunction)
+		this.mCallbackFunction.call(this.mCallbackTarget, this);
+};
+
+ss2d.SkeletalAnimation.prototype.setFromSkeleton = function(animationName)
+{
+	this.mAnimationData = animationName;
 	this.mDuration = ss2d.SkeletalAnimation.findMaxTime(this.mAnimationData, 0);
 };
 

@@ -11,6 +11,7 @@ goog.require('ss2d.ResourceManager');
 goog.require('ss2d.DisplayObjectContainer');
 goog.require('ss2d.Bone');
 goog.require('ss2d.Slot');
+goog.require('ss2d.SkeletalAnimation');
 
 /**
  * @constructor
@@ -110,6 +111,16 @@ ss2d.SkeletalSprite.prototype.setup = function(skeleton)
 		this.mSlotMap[slot['name']] = slotObject;
 		this.mSlots.addObject(slotObject);
 	}
+	
+	if(this.mSkeleton.mIncludeAnimations)
+	{
+		for(var animName in this.mSkeleton.mSkeletonData['animations'])
+		{
+			var anim = new ss2d.SkeletalAnimation();
+			anim.setFromSkeleton(this.mSkeleton.mSkeletonData['animations'][animName]);
+			this.mAnimationsMap[animName] = anim;
+		}
+	}
 };
 
 ss2d.SkeletalSprite.prototype.setDefaultPose = function()
@@ -188,9 +199,9 @@ ss2d.SkeletalSprite.prototype.updateAnimation = function(deltaTime)
 		{
 			this.mCurrentAnimationTime += this.mCurrentAnimation.mDuration
 		}
-
-		this.tickChildren(deltaTime);
 	}
+	
+	this.tickChildren(deltaTime);
 	
 	//security
 	if(this.mCurrentAnimation &&
@@ -199,7 +210,6 @@ ss2d.SkeletalSprite.prototype.updateAnimation = function(deltaTime)
 	{
 		this.mCurrentAnimationTime = 0;
 	}
-	
 };
 
 /** @override */

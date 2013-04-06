@@ -17,7 +17,7 @@ ss2d.Skeleton = function(skeletonFileName, callbackFunction, callbackTarget)
 	this.mName = skeletonFileName;
 	this.mCallbackFunction = callbackFunction;
 	this.mCallbackTarget = callbackTarget||null;
-	
+	this.mIncludeAnimations = false;
 	var sklFileRequest = new XMLHttpRequest();
 	sklFileRequest.mSkeleton = this;
 	sklFileRequest.open("GET", skeletonFileName, true);
@@ -34,6 +34,10 @@ ss2d.Skeleton.prototype.skeletonDataLoaded = function(data)
 {
 	this.mSkeletonData = JSON.parse(data);
 	ss2d.Skeleton.allDegToRad(this.mSkeletonData);
+	
+	if(this.mSkeletonData['animations'])
+		this.mIncludeAnimations = true;
+		
 	if(this.mCallbackFunction)
 	{
 		this.mCallbackFunction.call(this.mCallbackTarget, this);
