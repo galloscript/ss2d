@@ -37,7 +37,8 @@ ss2d.Texture = function(textureFile, callbackFunction, callbackTarget)
  */
 ss2d.Texture.prototype.handleLoadedTexture = function(textureElement)
 {
-	this.mCallbackFunction.call(this.mCallbackTarget, this); 
+	if(this.mCallbackFunction)
+		this.mCallbackFunction.call(this.mCallbackTarget, this); 
 };
 
 if(RENDER_CONTEXT == 'webgl')
@@ -85,8 +86,8 @@ if(RENDER_CONTEXT == 'webgl')
 		{
 			console.log(t);
 		}
-		
-		this.mCallbackFunction.call(this.mCallbackTarget, this);
+		if(this.mCallbackFunction)
+			this.mCallbackFunction.call(this.mCallbackTarget, this);
 	};
 }
 

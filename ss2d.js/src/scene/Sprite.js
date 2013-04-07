@@ -29,28 +29,29 @@ ss2d.Sprite = function(x, y, width, height, texture, textureAtlas)
 {
 	ss2d.Quad.call(this, x, y, width, height);
 	
+	
 	if(COMPILING_CLIENT || COMPILING_OFFLINE)
 	{
+		this.mTextureAtlas = textureAtlas||null
+		this.mTexture = texture || null;
+		this.mReady = false;
 		if(typeof textureAtlas == 'string')
 		{
-			textureAtlas = ss2d.ResourceManager.loadTextureAtlas(textureAtlas);
+			textureAtlas = ss2d.ResourceManager.loadTextureAtlas(textureAtlas, function(atlasObj){ 
+				this.mTextureAtlas = atlasObj; 
+				this.mReady = true;
+			}, this);
 		}
 		else if(typeof texture == 'string' && !textureAtlas)
 		{
-			texture = ss2d.ResourceManager.loadTexture(texture);
+			texture = ss2d.ResourceManager.loadTexture(texture, function(textureObj){
+				this.mTexture = textureObj;
+				this.mReady = true;
+			}, this);
 		}
-
 	}
-	this.mTextureAtlas = textureAtlas||null
-	this.mTexture = texture || null;
+
 	this.mClip = [];
-	
-	//WEBGL
-	//if(RENDER_CONTEXT == 'webgl')
-	//{
-		
-	
-	//}
 };
 
 goog.inherits(ss2d.Sprite, ss2d.Quad);
@@ -64,6 +65,9 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 	{
 		ss2d.Sprite.prototype.render = function(renderSupport)
 		{
+			if(!this.mReady)
+				return;
+				
 			if(this.mTextureAtlas && this.mTextureAtlas.mTextureId == -1)
 				return;
 				

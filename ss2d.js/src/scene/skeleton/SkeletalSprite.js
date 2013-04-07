@@ -41,6 +41,8 @@ ss2d.SkeletalSprite = function(x, y, scale, skeleton, bodyAtlas, slotClass)
 		//this.mBodyAtlas = ss2d.ResourceManager.loadTextureAtlas(bodyAtlas);
 	//}
 	
+	this.mCurrentAnimationCallback = null;
+	
 	if(typeof skeleton == 'string')
 	{
 		this.mSkeleton = ss2d.ResourceManager.loadSkeleton(skeleton, this.setup, this);
@@ -172,15 +174,18 @@ ss2d.SkeletalSprite.prototype.addAnimation = function(animationName, animationPa
 	this.mAnimationsMap[animationName] = ss2d.ResourceManager.loadSkeletalAnimation(animationPath);
 };
 
-ss2d.SkeletalSprite.prototype.playAnimation = function(animationName)
+ss2d.SkeletalSprite.prototype.playAnimation = function(animationName, animCallback)
 {
 	this.mCurrentAnimationTime = 0;
+	this.mCurrentAnimationCallback = animCallback;
 	this.mCurrentAnimation = this.mAnimationsMap[animationName]||null;
+	
 };
 
 ss2d.SkeletalSprite.prototype.stopAnimation = function()
 {
 	this.mCurrentAnimationTime = 0;
+	this.mCurrentAnimationCallback = false;
 	this.mCurrentAnimation = null;
 	this.setDefaultPose();
 };
@@ -190,14 +195,20 @@ ss2d.SkeletalSprite.prototype.updateAnimation = function(deltaTime)
 	if(this.mCurrentAnimation && Math.abs(this.mTimeDilation) > 0.01)
 	{
 		this.mCurrentAnimationTime += deltaTime*this.mTimeDilation;
-	
+		var ended = false;
 		if(this.mTimeDilation > 0 && this.mCurrentAnimationTime >= this.mCurrentAnimation.mDuration)
 		{
 			this.mCurrentAnimationTime -= this.mCurrentAnimation.mDuration;
+			ended = true;
 		}
 		else if(this.mTimeDilation < 0 && this.mCurrentAnimationTime <= 0)
 		{
-			this.mCurrentAnimationTime += this.mCurrentAnimation.mDuration
+			this.mCurrentAnimationTime += this.mCurrentAnimation.mDuration;
+			ended = true;
+		}
+		if(ended && this.mCurrentAnimationCallback)
+		{
+			this.mCurrentAnimationCallback.call(this);
 		}
 	}
 	
