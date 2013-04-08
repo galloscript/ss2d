@@ -24,7 +24,7 @@
       this.mLocation.mX -= mouseDiff.mX*deltaTime;
       this.mLocation.mY -= mouseDiff.mY*deltaTime;
       var left = input.mMousePoint.mX < this.mLocation.mX?-1:1;
-      var rot = ss2d.Point.angle(mouseDiff, ss2d.Point.Y_AXIS)*left;  
+      var rot = -ss2d.Point.angle(mouseDiff, ss2d.Point.Y_AXIS)*left;  
       this.mRotation = (isNaN(rot))?this.mRotation:rot;
     }
   };
