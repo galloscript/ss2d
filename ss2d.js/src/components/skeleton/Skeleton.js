@@ -39,9 +39,7 @@ ss2d.Skeleton.prototype.skeletonDataLoaded = function(data)
 		this.mIncludeAnimations = true;
 		
 	if(this.mCallbackFunction)
-	{
 		this.mCallbackFunction.call(this.mCallbackTarget, this);
-	}
 };
 
 ss2d.Skeleton.allDegToRad = function(jsonObject)
@@ -51,6 +49,15 @@ ss2d.Skeleton.allDegToRad = function(jsonObject)
 	{
 		if(key == 'rotation' || key == 'angle')
 		{
+			if(jsonObject[key] > 180)
+			{
+				jsonObject[key] -= 360;
+			}
+			else if(jsonObject[key] < -180)
+			{
+				jsonObject[key] += 360;
+			}
+			
 			jsonObject[key] = (jsonObject[key]*deg2Rad);
 		}
 		else if(key == 'y')

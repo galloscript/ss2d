@@ -98,6 +98,13 @@ ss2d.ResourceManager.loadResources = function(resources, oneElementLoadedCallbac
 		ss2d.ResourceManager.ONE_ELEMENT_LOADED_CALLBACK = oneElementLoadedCallback || function(){};
 		ss2d.ResourceManager.CURRENT_ELEMENT_TO_LOAD = 0;
 		
+		if(resources.length == 0)
+		{
+			ss2d.ResourceManager.ELEMENTS_LOADED_CALLBACK.call();
+			ss2d.ResourceManager.ELEMENTS_LOADED_CALLBACK = function(){};
+			ss2d.ResourceManager.ONE_ELEMENT_LOADED_CALLBACK = function(){};
+		}
+		
 		var loaderKeys = 0;
 		
 		for(resKey in resources)
