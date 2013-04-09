@@ -7,7 +7,7 @@ Author: David Gallardo Moreno <portalg@gmail.com>
 
 License: The MIT License (MIT), read LICENSE.md file.
 
-Main Page: http://galloman.github.com/ss2d/
+Official Blog: http://ss2d.wordpress.com
 
 Youtube channel: http://www.youtube.com/user/SmoothStep2D
 

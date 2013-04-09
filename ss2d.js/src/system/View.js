@@ -50,7 +50,7 @@ ss2d.View = function(canvasId, mainScene, canvasWidth, canvasHeight, frameRate)
 	else
 	{
 		this.mContext = this.mCanvas.getContext('2d'); 
-		this.mBackgroundFillStyle = '#202020';
+		this.mBackgroundFillStyle = '#cccccc';
 	}
 	
 	if(!this.mContext)
