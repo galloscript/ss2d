@@ -16,8 +16,8 @@
     <body>
     	<h4>Skeletal Animations Demo 2</h4>
     	<p> New Spine format support: the skeleton and animations are in the same file. <br/>
-    		You can pick and move the Snipeboys.<br />
-    		The walking snipeboy will follow your mouse with his head if you move it close enough.
+    		You can pick and move the spineboys.<br />
+    		The walking spineboy will follow your mouse with his head if you move it close enough.
     	</p>
     	<p>Animations created with <a href="http://esotericsoftware.com/" target="_blank">Spine</a></p>
     	<p>
@@ -37,9 +37,9 @@ demo.view = new ss2d.View('mainCanvas');
 
 ss2d.ResourceManager.loadResources([
 	ss2d.ResourceManager.Loaders.SKELETON,
-	'assets/skeletons/snipeboy/snipeboy3.json',
+	'assets/skeletons/spineboy/spineboy3.json',
 	ss2d.ResourceManager.Loaders.TEXTURE_ATLAS,
-	'assets/skeletons/snipeboy/snipeboyBodyparts.json',
+	'assets/skeletons/spineboy/spineboyBodyparts.json',
 	], function(resourceName, numLoaded, totalToLoad)
 	{
 		console.log(resourceName+' '+numLoaded+'/'+totalToLoad);
@@ -49,8 +49,8 @@ ss2d.ResourceManager.loadResources([
         demo.view.mBackgroundFillStyle = '#bbbbbb';
 
         demo.skeleton = new ss2d.SkeletalSprite(100, 250, 1, 
-        									   'assets/skeletons/snipeboy/snipeboy3.json',
-        									   'assets/skeletons/snipeboy/snipeboyBodyparts.json');
+        									   'assets/skeletons/spineboy/spineboy3.json',
+        									   'assets/skeletons/spineboy/spineboyBodyparts.json');
 		demo.view.mMainScene.addObject(demo.skeleton);
 		demo.skeleton.mPickable = new ss2d.Pickable(demo.skeleton);
 		demo.skeleton.mPivotY = -150;
@@ -80,8 +80,8 @@ ss2d.ResourceManager.loadResources([
 		};
 		
 		demo.skeleton2 = new ss2d.SkeletalSprite(400, 250, 1, 
-        									   'assets/skeletons/snipeboy/snipeboy3.json',
-        									   'assets/skeletons/snipeboy/snipeboyBodyparts.json');
+        									   'assets/skeletons/spineboy/spineboy3.json',
+        									   'assets/skeletons/spineboy/spineboyBodyparts.json');
 		demo.view.mMainScene.addObject(demo.skeleton2);
 		demo.skeleton2.mPickable = new ss2d.Pickable(demo.skeleton2);
 		demo.skeleton2.mPivotY = -150;
