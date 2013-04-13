@@ -30,9 +30,8 @@ ss2d.Tween = function(target, time, transitionMethod, delay, looptype)
 	if(transitionMethod) this.mTransitionMethod = transitionMethod;
 	
 	this.mTotalTime = time;
-	this.mCurrentTime = -delay;
-	this.mDelay = 0;
-	if(delay) this.mDelay = delay;
+	this.mDelay = delay||0;
+	this.mCurrentTime = -this.mDelay;
 	
 	this.mLoopCount = 0;
 	this.mLoop = ss2d.Tween.LoopType.NONE;

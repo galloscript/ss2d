@@ -13,6 +13,7 @@ goog.require('ss2d.Quad');
 goog.require('ss2d.Particle');
 goog.require('ss2d.Matrix3');
 
+/** @constructor */
 ss2d.GPUParticleEmitter = function(x, y, w, h, particleSystem)
 {
 	

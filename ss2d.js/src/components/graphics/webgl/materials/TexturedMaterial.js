@@ -10,6 +10,7 @@ goog.provide('ss2d.materials.Textured');
 goog.require('ss2d.ShaderSource');
 goog.require('ss2d.ShaderProgram');
 
+/** @constructor */
 ss2d.materials.Textured = function(support)
 {
 	var gl = support.mContext;

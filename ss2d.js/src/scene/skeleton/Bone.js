@@ -51,8 +51,6 @@ goog.inherits(ss2d.Bone, ss2d.DisplayObjectContainer);
  */
 ss2d.Bone.prototype.interpolateBoneStates = function(prevState, nextState, parts, curves)
 {
-	//TODO: smart rotation interpolation: 
-	//change the next state value if the difference between both states is greater than 360 degrees
 	this.mLocation.mX = this.mSetupPose['x'] + prevState['x'] + ((nextState['x'] - prevState['x']) * parts['xy']);
 	this.mLocation.mY = this.mSetupPose['y'] + prevState['y'] + ((nextState['y'] - prevState['y']) * parts['xy']);
 	this.mRotation = this.mSetupPose['r'] + prevState['r'] + ((nextState['r'] - prevState['r']) * parts['r']);

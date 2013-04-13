@@ -68,10 +68,10 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 			if(!this.mReady)
 				return;
 				
-			if(this.mTextureAtlas && this.mTextureAtlas.mTextureId == -1)
+			if(this.mTextureAtlas && !this.mTextureAtlas.mTextureElement)
 				return;
 				
-			if(!this.mTextureAtlas && this.mTexture.mTextureId == -1)
+			if(!this.mTextureAtlas && !this.mTexture.mTextureElement)
 				return;
 			
 			var textureObject = this.mTexture;
@@ -84,6 +84,9 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 				}
 			}
 			
+			if(!textureObject.mTextureElement)
+				return;
+				
 			var gl = renderSupport.mContext;
 			var material = renderSupport.mMaterials.mTextured;
 
