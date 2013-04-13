@@ -189,7 +189,7 @@ ul.inheritsList
 <h2>Classes</h2>
 <ul class="classList">
 	
-	<li><i><a href="../symbols/global.html">GLOBAL_</a></i></li>
+	<li><i><a href="../symbols/global.html">_global_</a></i></li>
 	
 	<li><a href="../symbols/ss2d.html">ss2d</a></li>
 	
@@ -200,6 +200,8 @@ ul.inheritsList
 	<li><a href="../symbols/ss2d.BitmapFontLoader.html">ss2d.BitmapFontLoader</a></li>
 	
 	<li><a href="../symbols/ss2d.BitmapTextSprite.html">ss2d.BitmapTextSprite</a></li>
+	
+	<li><a href="../symbols/ss2d.Bone.html">ss2d.Bone</a></li>
 	
 	<li><a href="../symbols/ss2d.ClientCommunicationInterface.html">ss2d.ClientCommunicationInterface</a></li>
 	
@@ -215,6 +217,8 @@ ul.inheritsList
 	
 	<li><a href="../symbols/ss2d.DisplayObjectContainer.html">ss2d.DisplayObjectContainer</a></li>
 	
+	<li><a href="../symbols/ss2d.GPUParticleEmitter.html">ss2d.GPUParticleEmitter</a></li>
+	
 	<li><a href="../symbols/ss2d.HTML5Audio.html">ss2d.HTML5Audio</a></li>
 	
 	<li><a href="../symbols/ss2d.IAnimatable.html">ss2d.IAnimatable</a></li>
@@ -229,11 +233,21 @@ ul.inheritsList
 	
 	<li><a href="../symbols/ss2d.Juggler.html">ss2d.Juggler</a></li>
 	
+	<li><a href="../symbols/ss2d.materials.GPUParticle.html">ss2d.materials.GPUParticle</a></li>
+	
+	<li><a href="../symbols/ss2d.materials.Textured.html">ss2d.materials.Textured</a></li>
+	
 	<li><a href="../symbols/ss2d.Matrix3.html">ss2d.Matrix3</a></li>
 	
 	<li><a href="../symbols/ss2d.MultiplayerScene.html">ss2d.MultiplayerScene</a></li>
 	
 	<li><a href="../symbols/ss2d.Object.html">ss2d.Object</a></li>
+	
+	<li><a href="../symbols/ss2d.Particle.html">ss2d.Particle</a></li>
+	
+	<li><a href="../symbols/ss2d.ParticleSystem.html">ss2d.ParticleSystem</a></li>
+	
+	<li><a href="../symbols/ss2d.ParticleSystemLoader.html">ss2d.ParticleSystemLoader</a></li>
 	
 	<li><a href="../symbols/ss2d.PhysicalWorld.html">ss2d.PhysicalWorld</a></li>
 	
@@ -264,6 +278,22 @@ ul.inheritsList
 	<li><a href="../symbols/ss2d.ServerCommunicationInterface.html">ss2d.ServerCommunicationInterface</a></li>
 	
 	<li><a href="../symbols/ss2d.ServerView.html">ss2d.ServerView</a></li>
+	
+	<li><a href="../symbols/ss2d.ShaderProgram.html">ss2d.ShaderProgram</a></li>
+	
+	<li><a href="../symbols/ss2d.ShaderSource.html">ss2d.ShaderSource</a></li>
+	
+	<li><a href="../symbols/ss2d.SkeletalAnimation.html">ss2d.SkeletalAnimation</a></li>
+	
+	<li><a href="../symbols/ss2d.SkeletalAnimationLoader.html">ss2d.SkeletalAnimationLoader</a></li>
+	
+	<li><a href="../symbols/ss2d.SkeletalSprite.html">ss2d.SkeletalSprite</a></li>
+	
+	<li><a href="../symbols/ss2d.Skeleton.html">ss2d.Skeleton</a></li>
+	
+	<li><a href="../symbols/ss2d.SkeletonLoader.html">ss2d.SkeletonLoader</a></li>
+	
+	<li><a href="../symbols/ss2d.Slot.html">ss2d.Slot</a></li>
 	
 	<li><a href="../symbols/ss2d.Sprite.html">ss2d.Sprite</a></li>
 	
@@ -355,6 +385,42 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/ss2d.RenderSupport.html#activeTextureForSampler">activeTextureForSampler</a></b>(textureId, sampler, textureSlot)
+								</div>
+								<div class="description"></div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/ss2d.RenderSupport.html#createBuffer">createBuffer</a></b>(type, data, itemSize, numItems, usage)
+								</div>
+								<div class="description"></div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/ss2d.RenderSupport.html#createBuiltInBuffers">createBuiltInBuffers</a></b>()
+								</div>
+								<div class="description"></div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ss2d.RenderSupport.<b><a href="../symbols/ss2d.RenderSupport.html#.make2DProjection">make2DProjection</a></b>(width, height, target)
+								</div>
+								<div class="description"></div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/ss2d.RenderSupport.html#popTransform">popTransform</a></b>()
 								</div>
 								<div class="description">Pop the last transformation matrix.</div>
@@ -429,6 +495,187 @@ ul.inheritsList
 					Method Detail
 				</div>
 				
+					<a name="activeTextureForSampler"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>activeTextureForSampler</b>(textureId, sampler, textureSlot)
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>textureId</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<b>sampler</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<b>textureSlot</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="createBuffer"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>createBuffer</b>(type, data, itemSize, numItems, usage)
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>type</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<b>data</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<b>itemSize</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<b>numItems</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<b>usage</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="createBuiltInBuffers"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>createBuiltInBuffers</b>()
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".make2DProjection"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">ss2d.RenderSupport.</span><b>make2DProjection</b>(width, height, target)
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>width</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<b>height</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<b>target</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
 					<a name="popTransform"> </a>
 					<div class="fixedFont">
 					
@@ -474,7 +721,7 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<span class="light fixedFont">{<a href="../symbols/ss2d.DisplayObject.html">ss2d.DisplayObject</a>}</span> <b>displayObject</b>
+									<span class="light fixedFont">{<a href="../symbols/ss2d.DisplayObject.html">ss2d.DisplayObject</a>|<a href="../symbols/ss2d.Matrix3.html">ss2d.Matrix3</a>}</span> <b>displayObject</b>
 									
 								</dt>
 								<dd></dd>
@@ -502,7 +749,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Sun Mar 17 2013 18:00:37 GMT+0100 (CET)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Apr 10 2013 00:10:59 GMT+0200 (CEST)
 		</div>
 	</body>
 </html>

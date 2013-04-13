@@ -189,7 +189,7 @@ ul.inheritsList
 <h2>Classes</h2>
 <ul class="classList">
 	
-	<li><i><a href="../symbols/global.html">GLOBAL_</a></i></li>
+	<li><i><a href="../symbols/global.html">_global_</a></i></li>
 	
 	<li><a href="../symbols/ss2d.html">ss2d</a></li>
 	
@@ -200,6 +200,8 @@ ul.inheritsList
 	<li><a href="../symbols/ss2d.BitmapFontLoader.html">ss2d.BitmapFontLoader</a></li>
 	
 	<li><a href="../symbols/ss2d.BitmapTextSprite.html">ss2d.BitmapTextSprite</a></li>
+	
+	<li><a href="../symbols/ss2d.Bone.html">ss2d.Bone</a></li>
 	
 	<li><a href="../symbols/ss2d.ClientCommunicationInterface.html">ss2d.ClientCommunicationInterface</a></li>
 	
@@ -215,6 +217,8 @@ ul.inheritsList
 	
 	<li><a href="../symbols/ss2d.DisplayObjectContainer.html">ss2d.DisplayObjectContainer</a></li>
 	
+	<li><a href="../symbols/ss2d.GPUParticleEmitter.html">ss2d.GPUParticleEmitter</a></li>
+	
 	<li><a href="../symbols/ss2d.HTML5Audio.html">ss2d.HTML5Audio</a></li>
 	
 	<li><a href="../symbols/ss2d.IAnimatable.html">ss2d.IAnimatable</a></li>
@@ -229,11 +233,21 @@ ul.inheritsList
 	
 	<li><a href="../symbols/ss2d.Juggler.html">ss2d.Juggler</a></li>
 	
+	<li><a href="../symbols/ss2d.materials.GPUParticle.html">ss2d.materials.GPUParticle</a></li>
+	
+	<li><a href="../symbols/ss2d.materials.Textured.html">ss2d.materials.Textured</a></li>
+	
 	<li><a href="../symbols/ss2d.Matrix3.html">ss2d.Matrix3</a></li>
 	
 	<li><a href="../symbols/ss2d.MultiplayerScene.html">ss2d.MultiplayerScene</a></li>
 	
 	<li><a href="../symbols/ss2d.Object.html">ss2d.Object</a></li>
+	
+	<li><a href="../symbols/ss2d.Particle.html">ss2d.Particle</a></li>
+	
+	<li><a href="../symbols/ss2d.ParticleSystem.html">ss2d.ParticleSystem</a></li>
+	
+	<li><a href="../symbols/ss2d.ParticleSystemLoader.html">ss2d.ParticleSystemLoader</a></li>
 	
 	<li><a href="../symbols/ss2d.PhysicalWorld.html">ss2d.PhysicalWorld</a></li>
 	
@@ -264,6 +278,22 @@ ul.inheritsList
 	<li><a href="../symbols/ss2d.ServerCommunicationInterface.html">ss2d.ServerCommunicationInterface</a></li>
 	
 	<li><a href="../symbols/ss2d.ServerView.html">ss2d.ServerView</a></li>
+	
+	<li><a href="../symbols/ss2d.ShaderProgram.html">ss2d.ShaderProgram</a></li>
+	
+	<li><a href="../symbols/ss2d.ShaderSource.html">ss2d.ShaderSource</a></li>
+	
+	<li><a href="../symbols/ss2d.SkeletalAnimation.html">ss2d.SkeletalAnimation</a></li>
+	
+	<li><a href="../symbols/ss2d.SkeletalAnimationLoader.html">ss2d.SkeletalAnimationLoader</a></li>
+	
+	<li><a href="../symbols/ss2d.SkeletalSprite.html">ss2d.SkeletalSprite</a></li>
+	
+	<li><a href="../symbols/ss2d.Skeleton.html">ss2d.Skeleton</a></li>
+	
+	<li><a href="../symbols/ss2d.SkeletonLoader.html">ss2d.SkeletonLoader</a></li>
+	
+	<li><a href="../symbols/ss2d.Slot.html">ss2d.Slot</a></li>
 	
 	<li><a href="../symbols/ss2d.Sprite.html">ss2d.Sprite</a></li>
 	
@@ -350,16 +380,6 @@ ul.inheritsList
 					<tbody>
 					
 						<tr>
-							<td class="attributes">&lt;static&gt; &nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
-								ss2d.View.<b><a href="../symbols/ss2d.View.html#.CANVAS_CONTEXT">CANVAS_CONTEXT</a></b>
-								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
@@ -433,6 +453,56 @@ ul.inheritsList
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
+								<b><a href="../symbols/ss2d.View.html#mPostRenderFunctions">mPostRenderFunctions</a></b>
+								</div>
+								<div class="description">Functions called every frame after the main scene render method.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/ss2d.View.html#mPostTickFunctions">mPostTickFunctions</a></b>
+								</div>
+								<div class="description">Functions called every frame after the main scene tick method.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/ss2d.View.html#mPreRenderFunctions">mPreRenderFunctions</a></b>
+								</div>
+								<div class="description">Functions called every frame before the main scene render method.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/ss2d.View.html#mPreTickFunctions">mPreTickFunctions</a></b>
+								</div>
+								<div class="description">Functions called every frame before the main scene tick method.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/ss2d.View.html#mProjection">mProjection</a></b>
+								</div>
+								<div class="description">Orthogonal projection matrix</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
 								<b><a href="../symbols/ss2d.View.html#mRenderSupport">mRenderSupport</a></b>
 								</div>
 								<div class="description">Rendering support</div>
@@ -446,6 +516,16 @@ ul.inheritsList
 								<b><a href="../symbols/ss2d.View.html#mRunning">mRunning</a></b>
 								</div>
 								<div class="description">Is main loop running?</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/ss2d.View.html#mTotalTime">mTotalTime</a></b>
+								</div>
+								<div class="description">Time passed since the view loop starts.</div>
 							</td>
 						</tr>
 					
@@ -491,9 +571,18 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/ss2d.View.html#render">render</a></b>()
+								</div>
+								<div class="description">Called every frame by nextFrame method to render the scene in the proper context.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/ss2d.View.html#resizeCanvas">resizeCanvas</a></b>(cw, ch)
 								</div>
-								<div class="description">A callback function to resize the canvas.</div>
+								<div class="description">A callback function that receives canvas width and height every frame.</div>
 							</td>
 						</tr>
 					
@@ -595,28 +684,6 @@ ul.inheritsList
 					Field Detail
 				</div>
 				
-					<a name=".CANVAS_CONTEXT"> </a>
-					<div class="fixedFont">&lt;static&gt; 
-					
-					
-					<span class="light">ss2d.View.</span><b>CANVAS_CONTEXT</b>
-					
-					</div>
-					<div class="description">
-						
-						
-						
-					</div>
-					
-					
-
-						
-						
-						
-						
-
-					<hr />
-				
 					<a name="mBackgroundFillStyle"> </a>
 					<div class="fixedFont">
 					
@@ -664,7 +731,7 @@ ul.inheritsList
 					<a name="mContext"> </a>
 					<div class="fixedFont">
 					
-					<span class="light">{CanvasRenderingContext2d}</span>
+					<span class="light">{CanvasRenderingContext2d|WebGLRenderginContext}</span>
 					<b>mContext</b>
 					
 					</div>
@@ -771,6 +838,116 @@ ul.inheritsList
 
 					<hr />
 				
+					<a name="mPostRenderFunctions"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Array}</span>
+					<b>mPostRenderFunctions</b>
+					
+					</div>
+					<div class="description">
+						Functions called every frame after the main scene render method.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="mPostTickFunctions"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Array}</span>
+					<b>mPostTickFunctions</b>
+					
+					</div>
+					<div class="description">
+						Functions called every frame after the main scene tick method.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="mPreRenderFunctions"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Array}</span>
+					<b>mPreRenderFunctions</b>
+					
+					</div>
+					<div class="description">
+						Functions called every frame before the main scene render method.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="mPreTickFunctions"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Array}</span>
+					<b>mPreTickFunctions</b>
+					
+					</div>
+					<div class="description">
+						Functions called every frame before the main scene tick method.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="mProjection"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{number[16]}</span>
+					<b>mProjection</b>
+					
+					</div>
+					<div class="description">
+						Orthogonal projection matrix
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
 					<a name="mRenderSupport"> </a>
 					<div class="fixedFont">
 					
@@ -802,6 +979,28 @@ ul.inheritsList
 					</div>
 					<div class="description">
 						Is main loop running?
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="mTotalTime"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{number}</span>
+					<b>mTotalTime</b>
+					
+					</div>
+					<div class="description">
+						Time passed since the view loop starts.
 						
 						
 					</div>
@@ -873,6 +1072,31 @@ ul.inheritsList
 
 					<hr />
 				
+					<a name="render"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>render</b>()
+					
+					</div>
+					<div class="description">
+						Called every frame by nextFrame method to render the scene in the proper context.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
 					<a name="resizeCanvas"> </a>
 					<div class="fixedFont">
 					
@@ -881,7 +1105,7 @@ ul.inheritsList
 					
 					</div>
 					<div class="description">
-						A callback function to resize the canvas. Receives canvas width and height every frame.
+						A callback function that receives canvas width and height every frame.
 Implemented by the user
 						
 						
@@ -978,7 +1202,7 @@ Implemented by the user
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Sun Mar 17 2013 18:00:37 GMT+0100 (CET)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Apr 10 2013 00:11:00 GMT+0200 (CEST)
 		</div>
 	</body>
 </html>

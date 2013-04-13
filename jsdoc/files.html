@@ -184,7 +184,7 @@ ul.inheritsList
 <h2>Classes</h2>
 <ul class="classList">
 	
-	<li><i><a href="symbols/global.html">GLOBAL_</a></i></li>
+	<li><i><a href="symbols/global.html">_global_</a></i></li>
 	
 	<li><a href="symbols/ss2d.html">ss2d</a></li>
 	
@@ -195,6 +195,8 @@ ul.inheritsList
 	<li><a href="symbols/ss2d.BitmapFontLoader.html">ss2d.BitmapFontLoader</a></li>
 	
 	<li><a href="symbols/ss2d.BitmapTextSprite.html">ss2d.BitmapTextSprite</a></li>
+	
+	<li><a href="symbols/ss2d.Bone.html">ss2d.Bone</a></li>
 	
 	<li><a href="symbols/ss2d.ClientCommunicationInterface.html">ss2d.ClientCommunicationInterface</a></li>
 	
@@ -210,6 +212,8 @@ ul.inheritsList
 	
 	<li><a href="symbols/ss2d.DisplayObjectContainer.html">ss2d.DisplayObjectContainer</a></li>
 	
+	<li><a href="symbols/ss2d.GPUParticleEmitter.html">ss2d.GPUParticleEmitter</a></li>
+	
 	<li><a href="symbols/ss2d.HTML5Audio.html">ss2d.HTML5Audio</a></li>
 	
 	<li><a href="symbols/ss2d.IAnimatable.html">ss2d.IAnimatable</a></li>
@@ -224,11 +228,21 @@ ul.inheritsList
 	
 	<li><a href="symbols/ss2d.Juggler.html">ss2d.Juggler</a></li>
 	
+	<li><a href="symbols/ss2d.materials.GPUParticle.html">ss2d.materials.GPUParticle</a></li>
+	
+	<li><a href="symbols/ss2d.materials.Textured.html">ss2d.materials.Textured</a></li>
+	
 	<li><a href="symbols/ss2d.Matrix3.html">ss2d.Matrix3</a></li>
 	
 	<li><a href="symbols/ss2d.MultiplayerScene.html">ss2d.MultiplayerScene</a></li>
 	
 	<li><a href="symbols/ss2d.Object.html">ss2d.Object</a></li>
+	
+	<li><a href="symbols/ss2d.Particle.html">ss2d.Particle</a></li>
+	
+	<li><a href="symbols/ss2d.ParticleSystem.html">ss2d.ParticleSystem</a></li>
+	
+	<li><a href="symbols/ss2d.ParticleSystemLoader.html">ss2d.ParticleSystemLoader</a></li>
 	
 	<li><a href="symbols/ss2d.PhysicalWorld.html">ss2d.PhysicalWorld</a></li>
 	
@@ -259,6 +273,22 @@ ul.inheritsList
 	<li><a href="symbols/ss2d.ServerCommunicationInterface.html">ss2d.ServerCommunicationInterface</a></li>
 	
 	<li><a href="symbols/ss2d.ServerView.html">ss2d.ServerView</a></li>
+	
+	<li><a href="symbols/ss2d.ShaderProgram.html">ss2d.ShaderProgram</a></li>
+	
+	<li><a href="symbols/ss2d.ShaderSource.html">ss2d.ShaderSource</a></li>
+	
+	<li><a href="symbols/ss2d.SkeletalAnimation.html">ss2d.SkeletalAnimation</a></li>
+	
+	<li><a href="symbols/ss2d.SkeletalAnimationLoader.html">ss2d.SkeletalAnimationLoader</a></li>
+	
+	<li><a href="symbols/ss2d.SkeletalSprite.html">ss2d.SkeletalSprite</a></li>
+	
+	<li><a href="symbols/ss2d.Skeleton.html">ss2d.Skeleton</a></li>
+	
+	<li><a href="symbols/ss2d.SkeletonLoader.html">ss2d.SkeletonLoader</a></li>
+	
+	<li><a href="symbols/ss2d.Slot.html">ss2d.Slot</a></li>
 	
 	<li><a href="symbols/ss2d.Sprite.html">ss2d.Sprite</a></li>
 	
@@ -291,9 +321,9 @@ ul.inheritsList
 			
 			
 			<div>
-				<h2><a href="symbols/src/ss2d.js_src_animation_IAnimatable.js.html">IAnimatable.js</a></h2>
+				<h2><a href="symbols/src/ss2d.js_src_system_View.js.html">View.js</a></h2>
 				
-Interface for objects that will be used with ss2d.Juggler.
+Main view class
 				<dl>
 					
 						<dt class="heading">Author:</dt>
@@ -323,9 +353,10 @@ Controls the major part of animations and delayed calls of the game.
 			<hr />
 			
 			<div>
-				<h2><a href="symbols/src/ss2d.js_src_animation_Transitions.js.html">Transitions.js</a></h2>
+				<h2><a href="symbols/src/ss2d.js_src_animation_DelayedInvocation.js.html">DelayedInvocation.js</a></h2>
 				
-Collection of transition functions. Used by ss2d.Tween class.
+Representation of a delayed in time function call. 
+Implements ss2d.IAnimatable interface to be used with ss2d.Juggler class.
 				<dl>
 					
 						<dt class="heading">Author:</dt>
@@ -339,11 +370,9 @@ Collection of transition functions. Used by ss2d.Tween class.
 			<hr />
 			
 			<div>
-				<h2><a href="symbols/src/ss2d.js_src_animation_Tween.js.html">Tween.js</a></h2>
+				<h2><a href="symbols/src/ss2d.js_src_animation_IAnimatable.js.html">IAnimatable.js</a></h2>
 				
-This class is used with ss2d.Juggler to create animations, 
-calculate the needed time to interpolate between a value and another 
-in the specified time and update the property value every frame.
+Interface for objects that will be used with ss2d.Juggler.
 				<dl>
 					
 						<dt class="heading">Author:</dt>
@@ -407,10 +436,9 @@ It's not finished yet, and probably needs another interface that represents a so
 			<hr />
 			
 			<div>
-				<h2><a href="symbols/src/ss2d.js_src_components_audio_WebAudio.js.html">WebAudio.js</a></h2>
+				<h2><a href="symbols/src/ss2d.js_src_animation_Transitions.js.html">Transitions.js</a></h2>
 				
-ss2d.IAudioComponent implementation that implements audio play back using
-the WebAudio API only available in webkit at this point.
+Collection of transition functions. Used by ss2d.Tween class.
 				<dl>
 					
 						<dt class="heading">Author:</dt>
@@ -424,9 +452,11 @@ the WebAudio API only available in webkit at this point.
 			<hr />
 			
 			<div>
-				<h2><a href="symbols/src/ss2d.js_src_components_graphics_BitmapFont.js.html">BitmapFont.js</a></h2>
+				<h2><a href="symbols/src/ss2d.js_src_animation_Tween.js.html">Tween.js</a></h2>
 				
-A texture atlas component for TexturePacker JSON (hash) output files.
+This class is used with ss2d.Juggler to create animations, 
+calculate the needed time to interpolate between a value and another 
+in the specified time and update the property value every frame.
 				<dl>
 					
 						<dt class="heading">Author:</dt>
@@ -443,6 +473,22 @@ A texture atlas component for TexturePacker JSON (hash) output files.
 				<h2><a href="symbols/src/ss2d.js_src_components_graphics_Color.js.html">Color.js</a></h2>
 				
 Representation of an RGB color
+				<dl>
+					
+						<dt class="heading">Author:</dt>
+						<dd>David Gallardo Moreno (portalg@gmail.com)</dd>
+					
+					
+					
+					
+				</dl>
+			</div>
+			<hr />
+			
+			<div>
+				<h2><a href="symbols/src/ss2d.js_src_components_graphics_ParticleSystem.js.html">ParticleSystem.js</a></h2>
+				
+A particle system created with Particle Designer
 				<dl>
 					
 						<dt class="heading">Author:</dt>
@@ -490,7 +536,7 @@ A frame for of a ss2d.Reel
 			<div>
 				<h2><a href="symbols/src/ss2d.js_src_components_graphics_ReelSet.js.html">ReelSet.js</a></h2>
 				
-Collection of ss2d.Reel objects. (NOT IMPLEMENTED YET)
+Collection of ss2d.Reel objects.
 				<dl>
 					
 						<dt class="heading">Author:</dt>
@@ -523,6 +569,119 @@ Texture component
 				<h2><a href="symbols/src/ss2d.js_src_components_graphics_TextureAtlas.js.html">TextureAtlas.js</a></h2>
 				
 A texture atlas component for TexturePacker JSON (hash) output files.
+				<dl>
+					
+						<dt class="heading">Author:</dt>
+						<dd>David Gallardo Moreno (portalg@gmail.com)</dd>
+					
+					
+					
+					
+				</dl>
+			</div>
+			<hr />
+			
+			<div>
+				<h2><a href="symbols/src/ss2d.js_src_components_audio_WebAudio.js.html">WebAudio.js</a></h2>
+				
+ss2d.IAudioComponent implementation that implements audio play back using
+the WebAudio API only available in webkit at this point.
+				<dl>
+					
+						<dt class="heading">Author:</dt>
+						<dd>David Gallardo Moreno (portalg@gmail.com)</dd>
+					
+					
+					
+					
+				</dl>
+			</div>
+			<hr />
+			
+			<div>
+				<h2><a href="symbols/src/ss2d.js_src_components_graphics_webgl_materials_GPUParticleMaterial.js.html">GPUParticleMaterial.js</a></h2>
+				
+Bult in material interface for particles
+				<dl>
+					
+						<dt class="heading">Author:</dt>
+						<dd>David Gallardo Moreno (portalg@gmail.com)</dd>
+					
+					
+					
+					
+				</dl>
+			</div>
+			<hr />
+			
+			<div>
+				<h2><a href="symbols/src/ss2d.js_src_components_graphics_BitmapFont.js.html">BitmapFont.js</a></h2>
+				
+A texture atlas component for TexturePacker JSON (hash) output files.
+				<dl>
+					
+						<dt class="heading">Author:</dt>
+						<dd>David Gallardo Moreno (portalg@gmail.com)</dd>
+					
+					
+					
+					
+				</dl>
+			</div>
+			<hr />
+			
+			<div>
+				<h2><a href="symbols/src/ss2d.js_src_components_graphics_webgl_materials_ParticleMaterial.js.html">ParticleMaterial.js</a></h2>
+				
+Bult in material interface for particles
+				<dl>
+					
+						<dt class="heading">Author:</dt>
+						<dd>David Gallardo Moreno (portalg@gmail.com)</dd>
+					
+					
+					
+					
+				</dl>
+			</div>
+			<hr />
+			
+			<div>
+				<h2><a href="symbols/src/ss2d.js_src_components_graphics_webgl_materials_TexturedMaterial.js.html">TexturedMaterial.js</a></h2>
+				
+Bult in material interface for textured object
+				<dl>
+					
+						<dt class="heading">Author:</dt>
+						<dd>David Gallardo Moreno (portalg@gmail.com)</dd>
+					
+					
+					
+					
+				</dl>
+			</div>
+			<hr />
+			
+			<div>
+				<h2><a href="symbols/src/ss2d.js_src_components_graphics_webgl_ShaderProgram.js.html">ShaderProgram.js</a></h2>
+				
+ShaderProgram component.
+				<dl>
+					
+						<dt class="heading">Author:</dt>
+						<dd>David Gallardo Moreno (portalg@gmail.com)</dd>
+					
+					
+					
+					
+				</dl>
+			</div>
+			<hr />
+			
+			<div>
+				<h2><a href="symbols/src/ss2d.js_src_components_graphics_webgl_ShaderSource.js.html">ShaderSource.js</a></h2>
+				
+ShaderSource resource. Requires an initialized view
 				<dl>
 					
 						<dt class="heading">Author:</dt>
@@ -600,6 +759,22 @@ Interface for loaders
 			<hr />
 			
 			<div>
+				<h2><a href="symbols/src/ss2d.js_src_components_loaders_ParticleSystemLoader.js.html">ParticleSystemLoader.js</a></h2>
+				
+Loader for particle system files.
+				<dl>
+					
+						<dt class="heading">Author:</dt>
+						<dd>David Gallardo Moreno (portalg@gmail.com)</dd>
+					
+					
+					
+					
+				</dl>
+			</div>
+			<hr />
+			
+			<div>
 				<h2><a href="symbols/src/ss2d.js_src_components_loaders_ReelSetLoader.js.html">ReelSetLoader.js</a></h2>
 				
 Loader for texture atlas files.
@@ -619,6 +794,38 @@ Loader for texture atlas files.
 				<h2><a href="symbols/src/ss2d.js_src_components_loaders_ResourceManager.js.html">ResourceManager.js</a></h2>
 				
 A utility class for load and track resources
+				<dl>
+					
+						<dt class="heading">Author:</dt>
+						<dd>David Gallardo Moreno (portalg@gmail.com)</dd>
+					
+					
+					
+					
+				</dl>
+			</div>
+			<hr />
+			
+			<div>
+				<h2><a href="symbols/src/ss2d.js_src_components_loaders_SkeletalAnimSetLoader.js.html">SkeletalAnimSetLoader.js</a></h2>
+				
+Loader for texture atlas files.
+				<dl>
+					
+						<dt class="heading">Author:</dt>
+						<dd>David Gallardo Moreno (portalg@gmail.com)</dd>
+					
+					
+					
+					
+				</dl>
+			</div>
+			<hr />
+			
+			<div>
+				<h2><a href="symbols/src/ss2d.js_src_components_loaders_SkeletonLoader.js.html">SkeletonLoader.js</a></h2>
+				
+Loader for texture atlas files.
 				<dl>
 					
 						<dt class="heading">Author:</dt>
@@ -683,6 +890,38 @@ A singleton class that represents a box2d world
 				<h2><a href="symbols/src/ss2d.js_src_components_physics_RigidBody.js.html">RigidBody.js</a></h2>
 				
 A rigid body component
+				<dl>
+					
+						<dt class="heading">Author:</dt>
+						<dd>David Gallardo Moreno (portalg@gmail.com)</dd>
+					
+					
+					
+					
+				</dl>
+			</div>
+			<hr />
+			
+			<div>
+				<h2><a href="symbols/src/ss2d.js_src_components_skeleton_SkeletalAnimation.js.html">SkeletalAnimation.js</a></h2>
+				
+Spine SkeletalAnimation descriptor.
+				<dl>
+					
+						<dt class="heading">Author:</dt>
+						<dd>David Gallardo Moreno (portalg@gmail.com)</dd>
+					
+					
+					
+					
+				</dl>
+			</div>
+			<hr />
+			
+			<div>
+				<h2><a href="symbols/src/ss2d.js_src_components_skeleton_Skeleton.js.html">Skeleton.js</a></h2>
+				
+Spine skeleton descriptor.
 				<dl>
 					
 						<dt class="heading">Author:</dt>
@@ -908,6 +1147,54 @@ A subclass of ss2d.DisplayObjectContainer that implements some multiplayer featu
 			<hr />
 			
 			<div>
+				<h2><a href="symbols/src/ss2d.js_src_scene_particles_GPUParticleEmitter.js.html">GPUParticleEmitter.js</a></h2>
+				
+Particle system emitter
+				<dl>
+					
+						<dt class="heading">Author:</dt>
+						<dd>David Gallardo Moreno (portalg@gmail.com)</dd>
+					
+					
+					
+					
+				</dl>
+			</div>
+			<hr />
+			
+			<div>
+				<h2><a href="symbols/src/ss2d.js_src_scene_particles_Particle.js.html">Particle.js</a></h2>
+				
+Particle element for ss2.ParticleEmitter
+				<dl>
+					
+						<dt class="heading">Author:</dt>
+						<dd>David Gallardo Moreno (portalg@gmail.com)</dd>
+					
+					
+					
+					
+				</dl>
+			</div>
+			<hr />
+			
+			<div>
+				<h2><a href="symbols/src/ss2d.js_src_scene_particles_ParticleEmitter.js.html">ParticleEmitter.js</a></h2>
+				
+Particle system emitter
+				<dl>
+					
+						<dt class="heading">Author:</dt>
+						<dd>David Gallardo Moreno (portalg@gmail.com)</dd>
+					
+					
+					
+					
+				</dl>
+			</div>
+			<hr />
+			
+			<div>
 				<h2><a href="symbols/src/ss2d.js_src_scene_Quad.js.html">Quad.js</a></h2>
 				
 A colored Quad object.
@@ -927,6 +1214,54 @@ A colored Quad object.
 				<h2><a href="symbols/src/ss2d.js_src_scene_ReelSprite.js.html">ReelSprite.js</a></h2>
 				
 An ss2d.Sprite with a frame based animation.
+				<dl>
+					
+						<dt class="heading">Author:</dt>
+						<dd>David Gallardo Moreno (portalg@gmail.com)</dd>
+					
+					
+					
+					
+				</dl>
+			</div>
+			<hr />
+			
+			<div>
+				<h2><a href="symbols/src/ss2d.js_src_scene_skeleton_Bone.js.html">Bone.js</a></h2>
+				
+Spine skeletal joint
+				<dl>
+					
+						<dt class="heading">Author:</dt>
+						<dd>David Gallardo Moreno (portalg@gmail.com)</dd>
+					
+					
+					
+					
+				</dl>
+			</div>
+			<hr />
+			
+			<div>
+				<h2><a href="symbols/src/ss2d.js_src_scene_skeleton_SkeletalSprite.js.html">SkeletalSprite.js</a></h2>
+				
+Spine skeletal sprite
+				<dl>
+					
+						<dt class="heading">Author:</dt>
+						<dd>David Gallardo Moreno (portalg@gmail.com)</dd>
+					
+					
+					
+					
+				</dl>
+			</div>
+			<hr />
+			
+			<div>
+				<h2><a href="symbols/src/ss2d.js_src_scene_skeleton_Slot.js.html">Slot.js</a></h2>
+				
+Spine skeleton attachments
 				<dl>
 					
 						<dt class="heading">Author:</dt>
@@ -1068,13 +1403,9 @@ Object and Class utilities. This is NOT a base class for all Objects of ss2d
 			<hr />
 			
 			<div>
-				<h2><a href="symbols/src/ss2d.js_src_system_View.js.html">View.js</a></h2>
+				<h2><a href="symbols/src/ss2d.js_src_components_graphics_webgl_BufferSupport.js.html">../../ss2d.js/src/components/graphics/webgl/BufferSupport.js</a></h2>
 				
-Main view class
 				<dl>
-					
-						<dt class="heading">Author:</dt>
-						<dd>David Gallardo Moreno (portalg@gmail.com)</dd>
 					
 					
 					
@@ -1084,14 +1415,9 @@ Main view class
 			<hr />
 			
 			<div>
-				<h2><a href="symbols/src/ss2d.js_src_animation_DelayedInvocation.js.html">DelayedInvocation.js</a></h2>
+				<h2><a href="symbols/src/ss2d.js_src_components_graphics_webgl_materials_IMaterial.js.html">../../ss2d.js/src/components/graphics/webgl/materials/IMaterial.js</a></h2>
 				
-Representation of a delayed in time function call. 
-Implements ss2d.IAnimatable interface to be used with ss2d.Juggler class.
 				<dl>
-					
-						<dt class="heading">Author:</dt>
-						<dd>David Gallardo Moreno (portalg@gmail.com)</dd>
 					
 					
 					
@@ -1104,7 +1430,7 @@ Implements ss2d.IAnimatable interface to be used with ss2d.Juggler class.
 		</div>
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blankt">JsDoc Toolkit</a> 2.4.0 on Sun Mar 17 2013 18:00:37 GMT+0100 (CET)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blankt">JsDoc Toolkit</a> 2.4.0 on Wed Apr 10 2013 00:11:00 GMT+0200 (CEST)
 		</div>
 	</body>
 </html>

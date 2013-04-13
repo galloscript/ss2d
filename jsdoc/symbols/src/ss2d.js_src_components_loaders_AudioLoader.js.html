@@ -43,10 +43,11 @@
 <span class='line'> 36</span>  * Load the audio file
 <span class='line'> 37</span>  * @param {string} resourceFileName
 <span class='line'> 38</span>  * @param {function} resourceLoadedCallback
-<span class='line'> 39</span>  * @return {ss2d.Texture} The loaded texture
-<span class='line'> 40</span>  */</span><span class="WHIT">
-<span class='line'> 41</span> </span><span class="NAME">ss2d.AudioLoader.loadResource</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">resourceFileName</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">resourceLoadedCallback</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'> 42</span> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 43</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">ss2d.AudioLoader.AUDIO_COMPONENT_CLASS</span><span class="PUNC">(</span><span class="NAME">resourceFileName</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">resourceLoadedCallback</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 44</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 45</span> </span></pre></body></html>
+<span class='line'> 39</span>  * @param {Object} callbackTarget
+<span class='line'> 40</span>  * @return {ss2d.Texture} The loaded texture
+<span class='line'> 41</span>  */</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="NAME">ss2d.AudioLoader.loadResource</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">resourceFileName</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">resourceLoadedCallback</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">callbackTarget</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 43</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 44</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">ss2d.AudioLoader.AUDIO_COMPONENT_CLASS</span><span class="PUNC">(</span><span class="NAME">resourceFileName</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">resourceLoadedCallback</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">callbackTarget</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 45</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 46</span> </span></pre></body></html>

@@ -1,0 +1,45 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">// Copyright (c) 2013 David Gallardo Moreno. All rights reserved.</span><span class="WHIT">
+<span class='line'>  2</span> 
+<span class='line'>  3</span> </span><span class="COMM">/**
+<span class='line'>  4</span>  * @fileoverview Loader for texture atlas files.
+<span class='line'>  5</span>  * @author David Gallardo Moreno (portalg@gmail.com)
+<span class='line'>  6</span>  */</span><span class="WHIT">
+<span class='line'>  7</span> 
+<span class='line'>  8</span> </span><span class="NAME">goog.provide</span><span class="PUNC">(</span><span class="STRN">'ss2d.SkeletalAnimationLoader'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  9</span> 
+<span class='line'> 10</span> </span><span class="NAME">goog.require</span><span class="PUNC">(</span><span class="STRN">'ss2d.ILoader'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 11</span> </span><span class="NAME">goog.require</span><span class="PUNC">(</span><span class="STRN">'ss2d.SkeletalAnimation'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 12</span> 
+<span class='line'> 13</span> </span><span class="COMM">/**
+<span class='line'> 14</span>  * @constructor
+<span class='line'> 15</span>  * @implements ss2d.ILoader
+<span class='line'> 16</span>  * @static
+<span class='line'> 17</span>  */</span><span class="WHIT">
+<span class='line'> 18</span> </span><span class="NAME">ss2d.SkeletalAnimationLoader</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 19</span> 
+<span class='line'> 20</span> </span><span class="COMM">/**
+<span class='line'> 21</span>  * The extension used in ResourceManager class.
+<span class='line'> 22</span>  * @static
+<span class='line'> 23</span>  * @type {string}
+<span class='line'> 24</span>  */</span><span class="WHIT">
+<span class='line'> 25</span> </span><span class="NAME">ss2d.SkeletalAnimationLoader.RESOURCE_EXTENSION</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">'sklanim'</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 26</span> 
+<span class='line'> 27</span> </span><span class="COMM">/**
+<span class='line'> 28</span>  * Load the texture
+<span class='line'> 29</span>  * @param {string} resourceFileName
+<span class='line'> 30</span>  * @param {function} resourceLoadedCallback
+<span class='line'> 31</span>  * @param {Object} callbackTarget
+<span class='line'> 32</span>  * @return {ss2d.SkeletalAnimation}
+<span class='line'> 33</span>  */</span><span class="WHIT">
+<span class='line'> 34</span> </span><span class="NAME">ss2d.SkeletalAnimationLoader.loadResource</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">resourceFileName</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">resourceLoadedCallback</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">callbackTarget</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 35</span> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="WHIT">	</span><span class="KEYW">return</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">ss2d.SkeletalAnimation</span><span class="PUNC">(</span><span class="NAME">resourceFileName</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">resourceLoadedCallback</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">callbackTarget</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 37</span> </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 38</span> </span></pre></body></html>

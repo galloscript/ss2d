@@ -189,7 +189,7 @@ ul.inheritsList
 <h2>Classes</h2>
 <ul class="classList">
 	
-	<li><i><a href="../symbols/global.html">GLOBAL_</a></i></li>
+	<li><i><a href="../symbols/global.html">_global_</a></i></li>
 	
 	<li><a href="../symbols/ss2d.html">ss2d</a></li>
 	
@@ -200,6 +200,8 @@ ul.inheritsList
 	<li><a href="../symbols/ss2d.BitmapFontLoader.html">ss2d.BitmapFontLoader</a></li>
 	
 	<li><a href="../symbols/ss2d.BitmapTextSprite.html">ss2d.BitmapTextSprite</a></li>
+	
+	<li><a href="../symbols/ss2d.Bone.html">ss2d.Bone</a></li>
 	
 	<li><a href="../symbols/ss2d.ClientCommunicationInterface.html">ss2d.ClientCommunicationInterface</a></li>
 	
@@ -215,6 +217,8 @@ ul.inheritsList
 	
 	<li><a href="../symbols/ss2d.DisplayObjectContainer.html">ss2d.DisplayObjectContainer</a></li>
 	
+	<li><a href="../symbols/ss2d.GPUParticleEmitter.html">ss2d.GPUParticleEmitter</a></li>
+	
 	<li><a href="../symbols/ss2d.HTML5Audio.html">ss2d.HTML5Audio</a></li>
 	
 	<li><a href="../symbols/ss2d.IAnimatable.html">ss2d.IAnimatable</a></li>
@@ -229,11 +233,21 @@ ul.inheritsList
 	
 	<li><a href="../symbols/ss2d.Juggler.html">ss2d.Juggler</a></li>
 	
+	<li><a href="../symbols/ss2d.materials.GPUParticle.html">ss2d.materials.GPUParticle</a></li>
+	
+	<li><a href="../symbols/ss2d.materials.Textured.html">ss2d.materials.Textured</a></li>
+	
 	<li><a href="../symbols/ss2d.Matrix3.html">ss2d.Matrix3</a></li>
 	
 	<li><a href="../symbols/ss2d.MultiplayerScene.html">ss2d.MultiplayerScene</a></li>
 	
 	<li><a href="../symbols/ss2d.Object.html">ss2d.Object</a></li>
+	
+	<li><a href="../symbols/ss2d.Particle.html">ss2d.Particle</a></li>
+	
+	<li><a href="../symbols/ss2d.ParticleSystem.html">ss2d.ParticleSystem</a></li>
+	
+	<li><a href="../symbols/ss2d.ParticleSystemLoader.html">ss2d.ParticleSystemLoader</a></li>
 	
 	<li><a href="../symbols/ss2d.PhysicalWorld.html">ss2d.PhysicalWorld</a></li>
 	
@@ -264,6 +278,22 @@ ul.inheritsList
 	<li><a href="../symbols/ss2d.ServerCommunicationInterface.html">ss2d.ServerCommunicationInterface</a></li>
 	
 	<li><a href="../symbols/ss2d.ServerView.html">ss2d.ServerView</a></li>
+	
+	<li><a href="../symbols/ss2d.ShaderProgram.html">ss2d.ShaderProgram</a></li>
+	
+	<li><a href="../symbols/ss2d.ShaderSource.html">ss2d.ShaderSource</a></li>
+	
+	<li><a href="../symbols/ss2d.SkeletalAnimation.html">ss2d.SkeletalAnimation</a></li>
+	
+	<li><a href="../symbols/ss2d.SkeletalAnimationLoader.html">ss2d.SkeletalAnimationLoader</a></li>
+	
+	<li><a href="../symbols/ss2d.SkeletalSprite.html">ss2d.SkeletalSprite</a></li>
+	
+	<li><a href="../symbols/ss2d.Skeleton.html">ss2d.Skeleton</a></li>
+	
+	<li><a href="../symbols/ss2d.SkeletonLoader.html">ss2d.SkeletonLoader</a></li>
+	
+	<li><a href="../symbols/ss2d.Slot.html">ss2d.Slot</a></li>
 	
 	<li><a href="../symbols/ss2d.Sprite.html">ss2d.Sprite</a></li>
 	
@@ -449,6 +479,15 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&lt;static&gt; &nbsp;</td>
 							<td class="nameDescription">
+								<div class="fixedFont">ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.loadParticleSystem">loadParticleSystem</a></b>(particleSystem, loadedCallback, callbackTarget)
+								</div>
+								<div class="description"></div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
 								<div class="fixedFont">ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.loadReelSet">loadReelSet</a></b>(reelSet, reelSetLoadedCallback, callbackTarget)
 								</div>
 								<div class="description"></div>
@@ -498,6 +537,24 @@ function()
 								<div class="fixedFont">ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.loadResourceWithLoader">loadResourceWithLoader</a></b>(loader, name, loadedCallback, callbackTarget)
 								</div>
 								<div class="description">Loads a resource with the specified loader.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.loadSkeletalAnimation">loadSkeletalAnimation</a></b>(skeletalAnimation, animationLoadedCallback, callbackTarget)
+								</div>
+								<div class="description"></div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&lt;static&gt; &nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">ss2d.ResourceManager.<b><a href="../symbols/ss2d.ResourceManager.html#.loadSkeleton">loadSkeleton</a></b>(skeleton, skeletonLoadedCallback, callbackTarget)
+								</div>
+								<div class="description"></div>
 							</td>
 						</tr>
 					
@@ -771,7 +828,7 @@ function()
 								<dd></dd>
 							
 								<dt>
-									<b>callbackTarget</b>
+									<span class="light fixedFont">{Object}</span> <b>callbackTarget</b>
 									
 								</dt>
 								<dd></dd>
@@ -823,6 +880,54 @@ function()
 
 					<hr />
 				
+					<a name=".loadParticleSystem"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">ss2d.ResourceManager.</span><b>loadParticleSystem</b>(particleSystem, loadedCallback, callbackTarget)
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{string}</span> <b>particleSystem</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{function}</span> <b>loadedCallback</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>callbackTarget</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
 					<a name=".loadReelSet"> </a>
 					<div class="fixedFont">&lt;static&gt; 
 					
@@ -855,7 +960,7 @@ function()
 								<dd></dd>
 							
 								<dt>
-									<b>callbackTarget</b>
+									<span class="light fixedFont">{Object}</span> <b>callbackTarget</b>
 									
 								</dt>
 								<dd></dd>
@@ -1002,6 +1107,102 @@ function()
 
 					<hr />
 				
+					<a name=".loadSkeletalAnimation"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">ss2d.ResourceManager.</span><b>loadSkeletalAnimation</b>(skeletalAnimation, animationLoadedCallback, callbackTarget)
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{string}</span> <b>skeletalAnimation</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{function}</span> <b>animationLoadedCallback</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>callbackTarget</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name=".loadSkeleton"> </a>
+					<div class="fixedFont">&lt;static&gt; 
+					
+					
+					<span class="light">ss2d.ResourceManager.</span><b>loadSkeleton</b>(skeleton, skeletonLoadedCallback, callbackTarget)
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{string}</span> <b>skeleton</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{function}</span> <b>skeletonLoadedCallback</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<span class="light fixedFont">{Object}</span> <b>callbackTarget</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
 					<a name=".loadSound"> </a>
 					<div class="fixedFont">&lt;static&gt; 
 					
@@ -1034,7 +1235,7 @@ function()
 								<dd></dd>
 							
 								<dt>
-									<b>callbackTarget</b>
+									<span class="light fixedFont">{Object}</span> <b>callbackTarget</b>
 									
 								</dt>
 								<dd></dd>
@@ -1082,7 +1283,7 @@ function()
 								<dd></dd>
 							
 								<dt>
-									<b>callbackTarget</b>
+									<span class="light fixedFont">{Object}</span> <b>callbackTarget</b>
 									
 								</dt>
 								<dd></dd>
@@ -1130,7 +1331,7 @@ function()
 								<dd></dd>
 							
 								<dt>
-									<b>callbackTarget</b>
+									<span class="light fixedFont">{Object}</span> <b>callbackTarget</b>
 									
 								</dt>
 								<dd></dd>
@@ -1183,7 +1384,7 @@ function()
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Sun Mar 17 2013 18:00:37 GMT+0100 (CET)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Apr 10 2013 00:10:59 GMT+0200 (CEST)
 		</div>
 	</body>
 </html>

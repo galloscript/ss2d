@@ -189,7 +189,7 @@ ul.inheritsList
 <h2>Classes</h2>
 <ul class="classList">
 	
-	<li><i><a href="../symbols/global.html">GLOBAL_</a></i></li>
+	<li><i><a href="../symbols/global.html">_global_</a></i></li>
 	
 	<li><a href="../symbols/ss2d.html">ss2d</a></li>
 	
@@ -200,6 +200,8 @@ ul.inheritsList
 	<li><a href="../symbols/ss2d.BitmapFontLoader.html">ss2d.BitmapFontLoader</a></li>
 	
 	<li><a href="../symbols/ss2d.BitmapTextSprite.html">ss2d.BitmapTextSprite</a></li>
+	
+	<li><a href="../symbols/ss2d.Bone.html">ss2d.Bone</a></li>
 	
 	<li><a href="../symbols/ss2d.ClientCommunicationInterface.html">ss2d.ClientCommunicationInterface</a></li>
 	
@@ -215,6 +217,8 @@ ul.inheritsList
 	
 	<li><a href="../symbols/ss2d.DisplayObjectContainer.html">ss2d.DisplayObjectContainer</a></li>
 	
+	<li><a href="../symbols/ss2d.GPUParticleEmitter.html">ss2d.GPUParticleEmitter</a></li>
+	
 	<li><a href="../symbols/ss2d.HTML5Audio.html">ss2d.HTML5Audio</a></li>
 	
 	<li><a href="../symbols/ss2d.IAnimatable.html">ss2d.IAnimatable</a></li>
@@ -229,11 +233,21 @@ ul.inheritsList
 	
 	<li><a href="../symbols/ss2d.Juggler.html">ss2d.Juggler</a></li>
 	
+	<li><a href="../symbols/ss2d.materials.GPUParticle.html">ss2d.materials.GPUParticle</a></li>
+	
+	<li><a href="../symbols/ss2d.materials.Textured.html">ss2d.materials.Textured</a></li>
+	
 	<li><a href="../symbols/ss2d.Matrix3.html">ss2d.Matrix3</a></li>
 	
 	<li><a href="../symbols/ss2d.MultiplayerScene.html">ss2d.MultiplayerScene</a></li>
 	
 	<li><a href="../symbols/ss2d.Object.html">ss2d.Object</a></li>
+	
+	<li><a href="../symbols/ss2d.Particle.html">ss2d.Particle</a></li>
+	
+	<li><a href="../symbols/ss2d.ParticleSystem.html">ss2d.ParticleSystem</a></li>
+	
+	<li><a href="../symbols/ss2d.ParticleSystemLoader.html">ss2d.ParticleSystemLoader</a></li>
 	
 	<li><a href="../symbols/ss2d.PhysicalWorld.html">ss2d.PhysicalWorld</a></li>
 	
@@ -264,6 +278,22 @@ ul.inheritsList
 	<li><a href="../symbols/ss2d.ServerCommunicationInterface.html">ss2d.ServerCommunicationInterface</a></li>
 	
 	<li><a href="../symbols/ss2d.ServerView.html">ss2d.ServerView</a></li>
+	
+	<li><a href="../symbols/ss2d.ShaderProgram.html">ss2d.ShaderProgram</a></li>
+	
+	<li><a href="../symbols/ss2d.ShaderSource.html">ss2d.ShaderSource</a></li>
+	
+	<li><a href="../symbols/ss2d.SkeletalAnimation.html">ss2d.SkeletalAnimation</a></li>
+	
+	<li><a href="../symbols/ss2d.SkeletalAnimationLoader.html">ss2d.SkeletalAnimationLoader</a></li>
+	
+	<li><a href="../symbols/ss2d.SkeletalSprite.html">ss2d.SkeletalSprite</a></li>
+	
+	<li><a href="../symbols/ss2d.Skeleton.html">ss2d.Skeleton</a></li>
+	
+	<li><a href="../symbols/ss2d.SkeletonLoader.html">ss2d.SkeletonLoader</a></li>
+	
+	<li><a href="../symbols/ss2d.Slot.html">ss2d.Slot</a></li>
 	
 	<li><a href="../symbols/ss2d.Sprite.html">ss2d.Sprite</a></li>
 	
@@ -326,7 +356,7 @@ ul.inheritsList
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/ss2d.Color.html#constructor">ss2d.Color</a></b>(color)
+								<b><a href="../symbols/ss2d.Color.html#constructor">ss2d.Color</a></b>(color, isF32)
 							</div>
 							<div class="description"></div>
 						</td>
@@ -373,7 +403,7 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/ss2d.Color.html#getF32Array">getF32Array</a></b>(target)
+								<div class="fixedFont"><b><a href="../symbols/ss2d.Color.html#getF32Array">getF32Array</a></b>(target, alpha)
 								</div>
 								<div class="description"></div>
 							</td>
@@ -409,7 +439,7 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/ss2d.Color.html#getRGBArray">getRGBArray</a></b>()
+								<div class="fixedFont"><b><a href="../symbols/ss2d.Color.html#getRGBArray">getRGBArray</a></b>(alpha)
 								</div>
 								<div class="description"></div>
 							</td>
@@ -472,7 +502,7 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/ss2d.Color.html#setValue">setValue</a></b>(color)
+								<div class="fixedFont"><b><a href="../symbols/ss2d.Color.html#setValue">setValue</a></b>(color, isF32)
 								</div>
 								<div class="description">Sets the color value from various types of color representation formats</div>
 							</td>
@@ -495,7 +525,7 @@ ul.inheritsList
 				</div>
 				
 				<div class="fixedFont">
-						<b>ss2d.Color</b>(color)
+						<b>ss2d.Color</b>(color, isF32)
 				</div>
 				
 				<div class="description">
@@ -512,6 +542,12 @@ ul.inheritsList
 						
 							<dt>
 								<span class="light fixedFont">{(<a href="../symbols/ss2d.Color.html">ss2d.Color</a>|number|string|number[3])}</span>  <b>color</b>
+								
+							</dt>
+								<dd></dd>
+						
+							<dt>
+								 <b>isF32</b>
 								
 							</dt>
 								<dd></dd>
@@ -598,7 +634,7 @@ ul.inheritsList
 					<div class="fixedFont">
 					
 					<span class="light">{number[3]}</span>
-					<b>getF32Array</b>(target)
+					<b>getF32Array</b>(target, alpha)
 					
 					</div>
 					<div class="description">
@@ -618,6 +654,12 @@ ul.inheritsList
 									
 								</dt>
 								<dd>An already created array to store the values</dd>
+							
+								<dt>
+									<b>alpha</b>
+									
+								</dt>
+								<dd></dd>
 							
 							</dl>
 						
@@ -723,7 +765,7 @@ ul.inheritsList
 					<div class="fixedFont">
 					
 					<span class="light">{number[3]}</span>
-					<b>getRGBArray</b>()
+					<b>getRGBArray</b>(alpha)
 					
 					</div>
 					<div class="description">
@@ -734,6 +776,17 @@ ul.inheritsList
 					
 					
 					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>alpha</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
 						
 						
 						
@@ -1002,7 +1055,7 @@ ul.inheritsList
 					<div class="fixedFont">
 					
 					
-					<b>setValue</b>(color)
+					<b>setValue</b>(color, isF32)
 					
 					</div>
 					<div class="description">
@@ -1019,6 +1072,12 @@ ul.inheritsList
 							
 								<dt>
 									<span class="light fixedFont">{(<a href="../symbols/ss2d.Color.html">ss2d.Color</a>|number|string|number[3])}</span> <b>color</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<b>isF32</b>
 									
 								</dt>
 								<dd></dd>
@@ -1046,7 +1105,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Sun Mar 17 2013 18:00:36 GMT+0100 (CET)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Apr 10 2013 00:10:59 GMT+0200 (CEST)
 		</div>
 	</body>
 </html>
