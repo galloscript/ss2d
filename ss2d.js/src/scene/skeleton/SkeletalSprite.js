@@ -41,21 +41,24 @@ ss2d.SkeletalSprite = function(x, y, scale, skeleton, bodyAtlas, slotClass)
 		//this.mBodyAtlas = ss2d.ResourceManager.loadTextureAtlas(bodyAtlas);
 	//}
 	
-	this.mCurrentAnimationCallback = null;
+	this.mPlayOnce = false;
+	this.mTriggers = {};
+		//debug
+	this.mShowBones = false;
+	
+	//animation
+	this.mCurrentAnimationTime = 0;
+	this.mCurrentAnimation = null;
+	this.mCurrentAnimationName = '';
+	this.mTimeDilation = 1;
+	this.mCurrentSkin = 'default';
 	
 	if(typeof skeleton == 'string')
 	{
 		this.mSkeleton = ss2d.ResourceManager.loadSkeleton(skeleton, this.setup, this);
 	}
 	
-	//debug
-	this.mShowBones = false;
-	
-	//animation
-	this.mCurrentAnimationTime = 0;
-	this.mCurrentAnimation = null;
-	this.mTimeDilation = 1;
-	this.mCurrentSkin = 'default';
+
 };
 
 goog.inherits(ss2d.SkeletalSprite, ss2d.DisplayObjectContainer);
@@ -174,41 +177,83 @@ ss2d.SkeletalSprite.prototype.addAnimation = function(animationName, animationPa
 	this.mAnimationsMap[animationName] = ss2d.ResourceManager.loadSkeletalAnimation(animationPath);
 };
 
-ss2d.SkeletalSprite.prototype.playAnimation = function(animationName, animCallback)
+ss2d.SkeletalSprite.prototype.playAnimation = function(animationName, startAt, playOnce)
 {
-	this.mCurrentAnimationTime = 0;
-	this.mCurrentAnimationCallback = animCallback;
+	playOnce = playOnce||false; 
+	startAt = startAt||0;
+	this.mCurrentAnimationName = animationName;
+	this.mCurrentAnimationTime = startAt;
+	this.mPlayOnce = playOnce;
 	this.mCurrentAnimation = this.mAnimationsMap[animationName]||null;
 	
+};
+
+ss2d.SkeletalSprite.prototype.addTrigger = function(animationName, pTime, triggerFunction)
+{
+	if(!this.mTriggers[animationName])
+		this.mTriggers[animationName] = [];
+		
+	this.mTriggers[animationName].push({
+		time: pTime,
+		callback: triggerFunction
+	});
 };
 
 ss2d.SkeletalSprite.prototype.stopAnimation = function()
 {
 	this.mCurrentAnimationTime = 0;
-	this.mCurrentAnimationCallback = false;
+	this.mCurrentAnimationName = '';
+	this.mPlayOnce = false;
 	this.mCurrentAnimation = null;
 	this.setDefaultPose();
 };
 
 ss2d.SkeletalSprite.prototype.updateAnimation = function(deltaTime)
 {
+	var prevTime = this.mCurrentAnimationTime;
 	if(this.mCurrentAnimation && Math.abs(this.mTimeDilation) > 0.01)
 	{
 		this.mCurrentAnimationTime += deltaTime*this.mTimeDilation;
 		var ended = false;
-		if(this.mTimeDilation > 0 && this.mCurrentAnimationTime >= this.mCurrentAnimation.mDuration)
+		if(this.mTimeDilation > 0)
 		{
-			this.mCurrentAnimationTime -= this.mCurrentAnimation.mDuration;
-			ended = true;
+			if(this.mCurrentAnimationTime >= this.mCurrentAnimation.mDuration)
+			{
+				this.mCurrentAnimationTime -= this.mCurrentAnimation.mDuration;
+				ended = true;
+			}
+			
+			for(var tkey in this.mTriggers[this.mCurrentAnimationName])
+			{
+				var trigger = this.mTriggers[this.mCurrentAnimationName][tkey];
+				if(trigger.time > prevTime && (trigger.time < this.mCurrentAnimationTime || ended))
+				{
+					trigger.callback.call(this);
+				}
+			}
 		}
-		else if(this.mTimeDilation < 0 && this.mCurrentAnimationTime <= 0)
+		
+		if(this.mTimeDilation < 0)
 		{
-			this.mCurrentAnimationTime += this.mCurrentAnimation.mDuration;
-			ended = true;
+			if(this.mCurrentAnimationTime <= 0)
+			{
+				this.mCurrentAnimationTime += this.mCurrentAnimation.mDuration;
+				ended = true;
+			}
+			
+			for(var tkey in this.mTriggers[this.mCurrentAnimationName])
+			{
+				var trigger = this.mTriggers[this.mCurrentAnimationName][tkey];
+				if(trigger.time < prevTime && (trigger.time > this.mCurrentAnimationTime || ended))
+				{
+					trigger.callback.call(this);
+				}
+			}
 		}
-		if(ended && this.mCurrentAnimationCallback)
+		
+		if(ended && this.mPlayOnce)
 		{
-			this.mCurrentAnimationCallback.call(this);
+			this.stopAnimation();
 		}
 	}
 	

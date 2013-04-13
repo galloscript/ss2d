@@ -68,10 +68,10 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 			if(!this.mReady)
 				return;
 				
-			if(this.mTextureAtlas && !this.mTextureAtlas.mTextureElement)
+			if(this.mTextureAtlas && this.mTextureAtlas.mTextureId == -1)
 				return;
 				
-			if(!this.mTextureAtlas && !this.mTexture.mTextureElement)
+			if(!this.mTextureAtlas && this.mTexture.mTextureId == -1)
 				return;
 			
 			var textureObject = this.mTexture;
@@ -80,13 +80,14 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 				if(this.mTextureAtlas.mTexture && this.mTextureAtlas.mAtlasDescriptor)
 				{
 					textureObject = this.mTextureAtlas.mTexture;
+					
+					if(!textureObject.mTextureElement)
+						return;
+				
 					this.mTextureAtlas.getClipFor(this.mTexture, this.mClip);
 				}
 			}
-			
-			if(!textureObject.mTextureElement)
-				return;
-				
+
 			var gl = renderSupport.mContext;
 			var material = renderSupport.mMaterials.mTextured;
 

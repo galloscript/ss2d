@@ -28,7 +28,7 @@ ss2d.Slot = function(masterBone, name, x, y, w, h, texture, textureAtlas)
 	this.mAuxBoneMatrix = new ss2d.Matrix3();
 };
 
-goog.inherits(ss2d.Slot, ss2d.Sprite)
+goog.inherits(ss2d.Slot, ss2d.Sprite);
 
 /** 
  * Fakes the world transformation matrix to have it's Bone as parent.
