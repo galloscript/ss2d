@@ -77,17 +77,17 @@ if(COMPILING_CLIENT||COMPILING_OFFLINE)
 			var textureObject = this.mTexture;
 			if(this.mTextureAtlas)
 			{
+				textureObject = this.mTextureAtlas.mTexture;
+				
 				if(this.mTextureAtlas.mTexture && this.mTextureAtlas.mAtlasDescriptor)
 				{
-					textureObject = this.mTextureAtlas.mTexture;
-					
-					if(!textureObject.mTextureElement)
-						return;
-				
 					this.mTextureAtlas.getClipFor(this.mTexture, this.mClip);
 				}
 			}
-
+			
+			if(!textureObject || !textureObject.mTextureElement)
+				return;
+			
 			var gl = renderSupport.mContext;
 			var material = renderSupport.mMaterials.mTextured;
 
