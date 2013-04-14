@@ -40,7 +40,7 @@
 						<li><a href="#skeletons">Skeletal sprites</a></li>
 						<li><a href="#audio">Playing audio files</a></li>
 						<li><a href="#resourcemanager">Loading content</a></li>
-						<li><a href="#transitions">Transitions</a></li>
+						<li><a href="#propertyanim">Property animation</a></li>
 					</ul>
 					<h3>Advanced features</h3>
 					<ul>
@@ -451,7 +451,7 @@ view.startLoop();	</pre>
 					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample4.2_pickablecontainer.html" target="_blank">Run this code</a></span>
 					<div class="codeSampleTitle">Code sample 4.2: Container behaviour</div>
 				</div><!--/codeContainer-->
-				<p>The first thing we do in sample 4.2 is create twe sprites that will be insidie a container. The sprite that represents the Wall Block.png image has nothing special, only note that is first added to the container because it must be rendered before the tree sprite, that way the tree will be rendered over the block. The tree has a special behaviour, we override the <span class="codeChunk" style="color: #fff;">tick</span> to make the tree disappear and grow every few seconds. To achieve that effect with a few lines of code we are using the <a href="http://galloman.github.com/ss2d/jsdoc/symbols/ss2d.Tween.html" target="_blank">ss2d.Tween</a> class to create the transitions that resize the tree, and the <a href="http://galloman.github.com/ss2d/jsdoc/symbols/ss2d.Juggler.html" target="_blank">ss2d.Juggler</a> class to control both transitions. To read more about property animations with transition clases, go to the <a href="#transitions">Transitions</a> section.
+				<p>The first thing we do in sample 4.2 is create twe sprites that will be insidie a container. The sprite that represents the Wall Block.png image has nothing special, only note that is first added to the container because it must be rendered before the tree sprite, that way the tree will be rendered over the block. The tree has a special behaviour, we override the <span class="codeChunk" style="color: #fff;">tick</span> to make the tree disappear and grow every few seconds. To achieve that effect with a few lines of code we are using the <a href="http://galloman.github.com/ss2d/jsdoc/symbols/ss2d.Tween.html" target="_blank">ss2d.Tween</a> class to create the property animation that resize the tree, and the <a href="http://galloman.github.com/ss2d/jsdoc/symbols/ss2d.Juggler.html" target="_blank">ss2d.Juggler</a> class to control both animations. To read more about property animations, go to the <a href="#propertyanim">Property animation</a> section.
 				</p>
 				<p>Once the treeBlockContainer is created, we add both sprites and then define a behaviour for the container. First we make it piackble with the <a href="http://galloman.github.com/ss2d/jsdoc/symbols/ss2d.Pickable.html" target="_blank">ss2d.Pickable</a> component, this component will automatically check if an object is hitted when the user click with the mouse or touch on the scene, making the object move with the mouse while picked. Inside the <span class="codeChunk" style="color: #fff;">tick</span> we update all children state calling <span class="codeChunk" style="color: #fff;">tickChildren</span> method, this is necessary because we a re overriding the <span class="codeChunk" style="color: #fff;">tick</span> method of the container. Then we update the ss2d.Pickable component object, then we also use the <span class="codeChunk" style="color: #fff;">mPicked</span> property from the ss2d.Pickable object to change the <span class="codeChunk" style="color: #fff;">mAlpha</span> property of our container, meaning that everithing inside this container will have this level of transparency applied too. Next thing is to check if Z or X keys are pressed to change the scale of the container, with the same side effect as changing the alpha.
 				</p>
@@ -864,7 +864,7 @@ ss2d.ResourceManager.loadResources([
     
     //you can display the bones for debugging
     spineboy.mShowBones = true;
-    
+
     //make it pickable like any other ss2d.DisplayObject
     spineboy.mPickable = new ss2d.Pickable(spineboy);
     
@@ -1002,10 +1002,10 @@ ss2d.ResourceManager.loadResources([
 			</div><!--/sectionContent-->
 		</section>
 
-		<!--TRANSITIONS-->
+		<!--PROPERTY ANIMATION-->
 		<section>
 			<div class="sectionContent">
-				<h2><a id="transitions"></a>Transitions</h2>
+				<h2><a id="propertyanim"></a>Property animation</h2>
 			</div><!--/sectionContent-->
 		</section>
 
