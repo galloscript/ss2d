@@ -65,6 +65,13 @@ div.sectionContent
 	padding-bottom: 10px
 }
 
+div.sectionContent h1
+{
+	font-size: 26px;
+	border-bottom: 1px solid #aaaaaa;
+	padding-bottom: 10px
+}
+
 div.sectionContent p
 {
 	margin-left: 12px;

@@ -37,6 +37,7 @@
 						<li><a href="#collision">Collision detection</a></li>
 						<li><a href="#text">Displaying text</a></li>
 						<li><a href="#reelsprites">Reel sprites</a></li>
+						<li><a href="#skeletons">Skeletal sprites</a></li>
 						<li><a href="#audio">Playing audio files</a></li>
 						<li><a href="#resourcemanager">Loading content</a></li>
 						<li><a href="#transitions">Transitions</a></li>
@@ -53,6 +54,7 @@
 						<li><a href="#bitmapfonts">Bitmap fonts</a></li>
 						<li><a href="#textureatlas">Texture atlas</a></li>
 						<li><a href="#reelsets">Reel sets</a></li>
+						<li><a href="#reelsets">Skeletal animations</a></li>
 					</ul>
 				</div><!--/menu-->
 
@@ -63,6 +65,7 @@
 		<!--INTRODUCTION-->
 		<section>
 			<div class="sectionContent">
+				<h1>Core functionality</h1>
 				<h2><a id="intro"></a>Introduction</h2>
 				<p> SmoothStep2D is a 2D Game development framework, written in javascript that uses HTML5 Canvas element for rendering, all available web browser features like WebAudio, XMLRequest, etc. and a set of classes for real time and math operations to provide a complete and flexible API, that let you focus your effort in implementing gameplay. The API is inspired in <a href="http://gamua.com/sparrow/" target="_blank">Sparrow Framework</a> class design, a really good framework for developing native iOS games.
 				</p>
@@ -653,8 +656,335 @@ view.startLoop();	</pre>
 		<section>
 			<div class="sectionContent">
 				<h2><a id="reelsprites"></a>Reel sprites</h2>
-				<p>Reel sprites are the name that animated sprites receive in SmoothStep2D. Animated sprites are one of the most useful features in a 2D Game Framework/Engine, so SmoothStep2D provides an sprite class to display this type of content, the <a href="" target="_blank">ss2d.ReelSprite</a>. With this class you have ability to load a custom JSON metadata type named Reel Sets, that contains all the animations and poses that you can play from a sprite map. You can read more about how to create Reel Set JSON file in <a href="#reelsets">Reel Sets</a> section.
+				<p>Reel sprites are the name that animated sprites receive in SmoothStep2D. Animated sprites are one of the most useful features in a 2D Game Framework/Engine, so SmoothStep2D provides an sprite class to display this type of content, the <a href="" target="_blank">ss2d.ReelSprite</a>. With this class you have ability to load a custom JSON metadata type named Reel Sets, that contains all the animations and poses that you can play from a sprite map. In the next sample we are going to use this spritesheet:
 				</p>
+				<center><img src="images/guy0.png" style="border: 1px solid #ababab;" />
+					<div class="imgFooter">guy0.png</div>
+				</center>
+				<p>And it's hand-wrote JSON reel set file:</p>
+				<div class="codeContainer">
+					<pre class="prettyprint linenums">
+{
+	"image": "guy0.png",
+	"comments": "32x36 - 0,  46, 92",
+	"reels": {
+		"walk_down_stop": {
+			"duration": 0,
+			"frames":[
+				[46,0,32,36,0,0]
+			]
+		},
+		"walk_down": {
+			"duration": 0.3,
+			"frames": [
+				[0,0,32,36,0,0],
+				[46,0,32,36,0,0],
+				[92,0,32,36,0,0]
+			]
+		},
+		"walk_right_stop": {
+			"duration": 0,
+			"frames":[
+				[48,36,32,36,0,0]
+			]
+		},
+		"walk_right": {
+			"duration": 0.3,
+			"frames": [
+				[2,36,32,36,0,0],
+				[48,36,32,36,0,0],
+				[92,36,32,36,0,0]
+			]
+		},
+		"walk_up_stop": {
+			"duration": 0,
+			"frames":[
+				[46,72,32,36,0,0]
+			]
+		},
+		"walk_up": {
+			"duration": 0.3,
+			"frames": [
+				[0,72,32,36,0,0],
+				[46,72,32,36,0,0],
+				[92,72,32,36,0,0]
+			]
+		},
+		"walk_left_stop": {
+			"duration": 0,
+			"frames":[
+				[46,108,32,36,0,0]
+			]
+		},
+		"walk_left": {
+			"duration": 0.3,
+			"frames": [
+				[0,107,32,36,0,0],
+				[46,108,32,36,0,0],
+				[92,108,32,36,0,0]
+			]
+		}
+	}
+}	</pre>
+				<div class="codeSampleTitle">Code sample 7.1: Reel set JSON file.</div>
+				<p> In this file we have three key objects, <span class="codeChunk" style="color: #65B042;">image</span> that tells us the relative location of the texture file with all frames, <span class="codeChunk" style="color: #65B042;">comments</span>, an optional field only for humans, and <span class="codeChunk" style="color: #65B042;">reels</span>, wich contain every reel (animation). Each reel is referenced by a unique name and contains two properties, <span class="codeChunk" style="color: #65B042;">duration</span>, that tells us the duration in seconds and <span class="codeChunk" style="color: #65B042;">frames</span>, an array that contains the texture coordinates plus two offset values to displace the frame when rendering, it is used when frames have different boundaries and you want to "center" your character. Here is the example of how to use it:
+				</p>
+				<div class="codeContainer">
+					<pre class="prettyprint linenums">
+var view = new ss2d.View('mainCanvas');
+view.mBackgroundFillStyle = '#cccccc';
+
+//create a guy with 1.5 times it's original size (original is 32x36 pixels) 
+//and playin the 'walk_right_stop' animation by default.
+var guy = new ss2d.ReelSprite(100, 100, 1.5, 'assets/reels/guy0.reelset', 'walk_right_stop');
+view.mMainScene.addObject(guy);
+
+//pivot to it's center
+guy.mPivotX = 32*0.5;
+guy.mPivotY = 36*0.5
+
+//set the next stop reel in a custom property
+//it will change depending on the last played reel.
+guy.mNextStopAnimation = 'walk_right_stop';
+
+//move with WASD keys
+guy.tick = function(deltaTime)
+{
+    //update sprite reel state
+    this.updateReelAnimation(deltaTime);
+    
+    //do nothing if reel isn't ready
+    if(!this.mPlayingReel)
+        return;
+    
+    var speed = 150 * deltaTime;
+    var stopped = true;
+    var input = ss2d.CURRENT_VIEW.mInput;
+
+    //if W key is pressed
+    if(input.isKeyPressed(ss2d.Input.Keys.W))
+    {
+        this.mLocation.mY -= speed;
+        stopped = false;
+    
+        //if walk_up is not the active reel, active it 
+        //and set it's stop frame as the next stop frame
+        if(this.mPlayingReel.mName != 'walk_up')
+        { 
+            this.playReel('walk_up'); 
+            this.mNextStopAnimation = 'walk_up_stop';
+        }
+    } 
+    else if(input.isKeyPressed(ss2d.Input.Keys.S))
+    { 
+        this.mLocation.mY += speed;
+        stopped = false;
+        if(this.mPlayingReel.mName != 'walk_down')
+        { 
+            this.playReel('walk_down'); 
+            this.mNextStopAnimation = 'walk_down_stop';
+        }
+    }
+    else if(input.isKeyPressed(ss2d.Input.Keys.A))
+    { 
+        this.mLocation.mX -= speed;
+        stopped = false;
+        if(this.mPlayingReel.mName != 'walk_left')
+        { 
+            this.playReel('walk_left'); 
+            this.mNextStopAnimation = 'walk_left_stop';
+        }
+    }
+    else if(input.isKeyPressed(ss2d.Input.Keys.D))
+    { 
+        this.mLocation.mX += speed;
+        stopped = false;
+        if(this.mPlayingReel.mName != 'walk_right')
+        { 
+            this.playReel('walk_right'); 
+            this.mNextStopAnimation = 'walk_right_stop';
+        }
+    }
+
+    //If the player is not moving the character, play the next stop animation.
+    if(stopped)
+        this.playReel(this.mNextStopAnimation);
+    
+}
+
+view.startLoop();	</pre>
+					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample7.2_reelspriteset.html" target="_blank">Run this code</a></span>
+				<div class="codeSampleTitle">Code sample 7.2: Reel sprite usage</div>
+			</div><!--/sectionContent-->
+		</section>
+
+		<!--SKELETAL SPRITES-->
+		<section>
+			<div class="sectionContent">
+				<h2><a id="skeletons"></a>Skeletal sprites</h2>
+				<p> SmoothStep2D have the ability to load Skeletons and animations generated with <a href="http://esotericsoftware.com/" target="_blank">Spine</a> from esoteric software, a really complete tool to create highly detailed 2D skeletal animations. The adventage of Skeletal animations compared to spritesheet animations is that each frame of the animation is prodecurally generated interpolating the transformation values between two key frames, and this key frames only need a few bytes of information about the location, scale and rotation of each bone, so it does not require the amounts of information that require the spritesheets for each animation. Another unique feature compared to sprisheet animation is that you can play animations at different speed rates and the animation keeps playing smooth. In the next example we are going to use an skeleton that comes with Spine software examples called spineboy, we have also packed all spineboy body parts in a single texture atlas. Here you can see the atlas and the spineboy in it's default pose.
+				</p>
+				<center>
+					<div class="imgContainer">
+						<img src="images/spineboyBodyparts.png" style="border: 1px solid #ababab;" />
+						<div class="imgFooter"> spineboyBodyparts.png</div>
+					</div>
+					<div style="display: inline-table">
+						<img src="images/spineboy.png" style="border: 1px solid #ababab;" />
+						<div class="imgFooter"> spineboy.png</div>
+					</div>
+				</center>
+				<p> If we want to use an skeleton in our scene we need to instance an <a href="http://galloman.github.io/ss2d/jsdoc/symbols/ss2d.SkeletalSprite.html" target="_blank">ss2d.SkeletalSprite</a> specifying the location, the scale, the spine skeleton JSON file, and optionally the texture atlas file. In the lastest version of Spine, the skeleton and animations are deployed in the same file, so we simply load the spineboy model and play the <span class="codeChunk" style="color: #65B042;">walk</span> animation.
+				</p>
+				<div class="codeContainer">
+					<pre class="prettyprint linenums">
+var view = new ss2d.View('mainCanvas');
+
+//skeleton and atlas paths
+var sbSkeleton = 'assets/skeletons/spineboy/spineboySkeleton.json';
+var sbAtlas = 'assets/skeletons/spineboy/spineboyBodyparts.json';
+
+//We will use the ss2d.ResourceManager to load the resources.
+//The loadResources method takes three parameters: 
+//the list of loaders and resources, per-resource callback, 
+//and a final all-resources-loaded callback.
+ss2d.ResourceManager.loadResources([
+    ss2d.ResourceManager.Loaders.SKELETON,
+    sbSkeleton,
+    ss2d.ResourceManager.Loaders.TEXTURE_ATLAS,
+    sbAtlas
+],function(itemName, loaded, toLoad){
+    console.log(itemName+' - '+loaded+'/'+toLoad);
+},function(){
+    //once all resources are loaded...
+    
+    //instance the ss2d.SkeletalSprite and add to the scene
+    var spineboy = new ss2d.SkeletalSprite(100, 450, 1, sbSkeleton, sbAtlas);
+    view.mMainScene.addObject(spineboy);
+    
+    //you can display the bones for debugging
+    spineboy.mShowBones = true;
+    
+    //make it pickable like any other ss2d.DisplayObject
+    spineboy.mPickable = new ss2d.Pickable(spineboy);
+    
+    //play walk animation
+    spineboy.playAnimation('walk');
+    
+    spineboy.tick = function(deltaTime)
+    {
+        //update pickable
+        this.mPickable.tick(deltaTime);
+        
+        //since we override the tick method to update the ss2d.Pickable 
+        //component, we must call updateAnimation method too.
+        this.updateAnimation(deltaTime);
+    };
+    
+    view.startLoop()
+});	</pre>
+					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample8.1_skeleton.html" target="_blank">Run this code</a></span>
+				<div class="codeSampleTitle">Code sample 8.1: Load skeleton</div>
+				<p>
+				If you run the above sample, you will see the spineboy skeleton with all it's bones rendered over the body and playing the walk animation included.
+				</p>
+				<div class="codeContainer">
+					<pre class="prettyprint linenums">
+var view = new ss2d.View('mainCanvas');
+var sbAtlas = 'assets/skeletons/spineboy/spineboyBodyparts.json';
+var sbSkeleton = 'assets/skeletons/spineboy/spineboySkeleton.json';
+ss2d.ResourceManager.loadResources([
+    ss2d.ResourceManager.Loaders.SKELETON,
+    sbSkeleton,
+    ss2d.ResourceManager.Loaders.TEXTURE_ATLAS,
+    sbAtlas
+],function(itemName, loaded, toLoad){
+    console.log(itemName+' - '+loaded+'/'+toLoad);
+},function(){
+    var spineboy = new ss2d.SkeletalSprite(100, 450, 1, sbSkeleton, sbAtlas);
+    view.mMainScene.addObject(spineboy);
+    
+    //custom properties to know the current state
+    spineboy.mWalking = false;
+    spineboy.mJumping = false;
+    
+    //give a behaviour that moves spineboy with A and D keys
+    spineboy.tick = function(deltaTime)
+    {
+        var input = ss2d.CURRENT_VIEW.mInput;
+        var walking = false;
+        var run = input.isKeyPressed(ss2d.Input.Keys.SHIFT) ? 1.7 : 1;
+        
+        
+        //If D key is pressed
+        if(input.isKeyPressed(ss2d.Input.Keys.D))
+        {
+            //change the scale to make it face the appropiate direction
+            this.mScaleX = 1;
+            
+            //add movement
+            this.mLocation.mX += 220 * deltaTime * run;
+            
+            //at the end of the frame we will change the walking state
+            walking = true;
+        }  
+        //the same for A key
+        else if(input.isKeyPressed(ss2d.Input.Keys.A))
+        {
+            this.mScaleX = -1;
+            this.mLocation.mX -= 220 * deltaTime * run;
+            walking = true;
+        }
+        
+        //if space bar is pressed and spineboy is not jumping
+        if(input.isKeyPressed(ss2d.Input.Keys.SPACE) && !this.mJumping)
+        {
+            //make it stop walking and start jumping
+            this.mWalking = false;
+            this.mJumping = true;
+            
+            //assure the time dilation is 1 for the mumping animation
+            this.mTimeDilation = 1;
+            
+            //play the jumping animation, starting at 0.3 seconds and only play once.
+            this.playAnimation('jump', 0.3, true);
+        }
+        
+        //if not jumping process the walking state things
+        if(!this.mJumping)
+        {
+            //change the time dilation to accelerate the animation when running
+            this.mTimeDilation = run;
+
+            if(!this.mWalking && walking)
+            {
+                //if we started to walk this frame, play the walk animation
+                this.playAnimation('walk');
+            } 
+            else if(this.mWalking && !walking)
+            {
+                //if we stoped to walk this frame, stop the current animation.
+                this.stopAnimation();
+            }
+            
+            //save the salking state for the next frame
+            this.mWalking = walking;
+        }
+        
+        //overriding tick method requires to call updateAnimation
+        this.updateAnimation(deltaTime);
+    };
+    
+    //add a trigger for jump animation at 0.25 seconds before the 
+    //animation ends, changing the jumping state.
+    spineboy.addTrigger('jump', spineboy.mAnimationsMap['jump'].mDuration - 0.25, function(){
+        this.mJumping = false;
+    });
+    
+    view.startLoop();
+}); </pre>
+					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample8.2_sklanimations.html" target="_blank">Run this code</a></span>
+				<div class="codeSampleTitle">Code sample 8.2: Interacting with the skeleton</div>
 			</div><!--/sectionContent-->
 		</section>
 
@@ -685,6 +1015,7 @@ view.startLoop();	</pre>
 		<!--PHYSICS-->
 		<section>
 			<div class="sectionContent">
+				<h1>Advanced features</h1>
 				<h2><a id="physics"></a>Physics</h2>
 			</div><!--/sectionContent-->
 		</section>
@@ -714,6 +1045,7 @@ view.startLoop();	</pre>
 		<!--BITMAP FONTS-->
 		<section>
 			<div class="sectionContent">
+				<h1>Creating content</h1>
 				<h2><a id="bitmapfonts"></a>Bitmap fonts</h2>
 			</div><!--/sectionContent-->
 		</section>
