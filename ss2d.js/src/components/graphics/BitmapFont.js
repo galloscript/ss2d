@@ -16,11 +16,13 @@ goog.require('XML.ObjTree');
  * @constructor
  * @param {string} bitmapFilename The resource name
  * @param {function} callbackFunction Called when the BitmapFont is loaded
+ * @param {Object} callbackTarget
  */
-ss2d.BitmapFont = function(bitmapFilename, callbackFunction)
+ss2d.BitmapFont = function(bitmapFilename, callbackFunction, callbackTarget)
 {
 	this.mName = bitmapFilename;
 	this.mCallbackFunction = callbackFunction;
+	this.mCallbackTarget = callbackTarget;
 	this.mFontDescriptor = null;
 	this.mTexture = null; 
 	this.mMidWidth = 0;

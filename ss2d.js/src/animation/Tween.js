@@ -77,8 +77,8 @@ ss2d.Tween.prototype.moveTo = function(x, y)
 
 /**
  * Create the needed ss2d.TweenedProperty objects to resize an ss2d.DisplayObject.
- * @param {number} x coord
- * @param {number} y coord
+ * @param {number} w
+ * @param {number} h
  */
 ss2d.Tween.prototype.resizeTo = function(w, h)
 {
@@ -86,10 +86,20 @@ ss2d.Tween.prototype.resizeTo = function(w, h)
 	this.animateProperty(this.mTarget.getHeight, this.mTarget.setHeight, h);
 };
 
+
+/**
+ * Create the needed ss2d.TweenedProperty objects to scale an ss2d.DisplayObject.
+ * @param {number} s
+ */
+ss2d.Tween.prototype.scaleTo = function(s)
+{
+	this.animateProperty(this.mTarget.getScaleX, this.mTarget.setScaleX, s);
+	this.animateProperty(this.mTarget.getScaleY, this.mTarget.setScaleY, s);
+};
+
 /**
  * Created the needed ss2d.TweenedProperty object to animate the alpha property of a ss2d.DisplayObject
- * @param {number} x coord
- * @param {number} y coord
+ * @param {number} a
  */
 ss2d.Tween.prototype.fadeTo = function(alpha)
 {

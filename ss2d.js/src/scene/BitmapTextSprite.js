@@ -17,6 +17,7 @@ goog.require('ss2d.Quad');
  * @param {string} textString The text that will be displayed.
  * @param {string} bitmapFont Bitmap font name.
  * @param {number} fontSize size in pixels of the line-height
+ * @param {*} color
  * @property {*} inherited @see ss2d.Quad
  * @property {string} mTextString 
  * @property {number} mFontSize
@@ -24,21 +25,23 @@ goog.require('ss2d.Quad');
  * @property {string} mDisplayChars Number of chars that will be displayed, by default -1 (all), used for text scrolling.
  * @property {number[5]} mClip
  */
-ss2d.BitmapTextSprite = function(x, y, textString, bitmapFont, fontSize)
+ss2d.BitmapTextSprite = function(x, y, textString, bitmapFont, fontSize, color)
 {
-	ss2d.Quad.call(this, x, y, 0, 0);
+	ss2d.Quad.call(this, x, y, 0, 0, color);
 	
 	this.mTextString = textString||'';
 	this.mFontSize = fontSize||16;
 	this.mDisplayChars = -1;
-	this.mBitmapFont = ss2d.ResourceManager.loadBitmapFont(bitmapFont);
-	
 	
 	if(COMPILING_CLIENT || COMPILING_OFFLINE)
 	{
 		this.mGlyphSprite = new ss2d.Sprite;
 		this.mClip = [];
 		this.mDisplacement = new ss2d.Point();
+		
+		this.mBitmapFont = ss2d.ResourceManager.loadBitmapFont(bitmapFont, function(){
+			this.mGlyphSprite.mReady = true;
+		}, this);
 		
 		//WEBGL
 		if(RENDER_CONTEXT == 'webgl')
