@@ -48,14 +48,14 @@
     
     if(input.isKeyPressed(ss2d.Input.Keys.W))
     {   
-      this.mLocation.mX += 200*deltaTime*Math.sin(this.mRotation);
-      this.mLocation.mY -= 200*deltaTime*Math.cos(this.mRotation); 
+      this.mLocation.mX -= 200*deltaTime*Math.sin(this.mRotation);
+      this.mLocation.mY += 200*deltaTime*Math.cos(this.mRotation); 
     }
     
     if(input.isKeyPressed(ss2d.Input.Keys.S))
     {   
-      this.mLocation.mX -= 200*deltaTime*Math.sin(this.mRotation);
-      this.mLocation.mY += 200*deltaTime*Math.cos(this.mRotation); 
+      this.mLocation.mX += 200*deltaTime*Math.sin(this.mRotation);
+      this.mLocation.mY -= 200*deltaTime*Math.cos(this.mRotation); 
     }
     
     if(input.isKeyPressed(ss2d.Input.Keys.SPACE) && !this.mBarPressed)
