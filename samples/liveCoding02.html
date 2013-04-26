@@ -18,8 +18,8 @@
   
   Bullet.prototype.tick = function(deltaTime)
   {
-    this.mLocation.mX += 300*deltaTime*Math.sin(this.mRotation);
-    this.mLocation.mY -= 300*deltaTime*Math.cos(this.mRotation);
+    this.mLocation.mX += 300*deltaTime*Math.sin(-this.mRotation);
+    this.mLocation.mY -= 300*deltaTime*Math.cos(-this.mRotation);
     this.mLifeTime -= deltaTime;
     if(this.mLifeTime <= 0)
       this.mParent.removeObject(this);
@@ -48,21 +48,21 @@
     
     if(input.isKeyPressed(ss2d.Input.Keys.W))
     {   
-      this.mLocation.mX += 200*deltaTime*Math.cos(this.mRotation);
-      this.mLocation.mY -= 200*deltaTime*Math.sin(this.mRotation); 
+      this.mLocation.mX += 200*deltaTime*Math.sin(-this.mRotation);
+      this.mLocation.mY -= 200*deltaTime*Math.cos(-this.mRotation); 
     }
     
     if(input.isKeyPressed(ss2d.Input.Keys.S))
     {   
-      this.mLocation.mX -= 200*deltaTime*Math.cos(this.mRotation);
-      this.mLocation.mY += 200*deltaTime*Math.sin(this.mRotation); 
+      this.mLocation.mX -= 200*deltaTime*Math.sin(-this.mRotation);
+      this.mLocation.mY += 200*deltaTime*Math.cos(-this.mRotation); 
     }
     
     if(input.isKeyPressed(ss2d.Input.Keys.SPACE) && !this.mBarPressed)
     {   
       ss2d.CURRENT_VIEW.mMainScene.addObject(
-      new Bullet(this.mLocation.mX + (65*Math.cos(this.mRotation)), 
-                 this.mLocation.mY - (65*Math.sin(this.mRotation)), 
+      new Bullet(this.mLocation.mX + (65*Math.sin(-this.mRotation)), 
+                 this.mLocation.mY - (65*Math.cos(-this.mRotation)), 
                  10, 10, this.mRotation));
     }
     
