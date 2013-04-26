@@ -41,10 +41,10 @@
     var input = ss2d.CURRENT_VIEW.mInput;
     
     if(input.isKeyPressed(ss2d.Input.Keys.A))
-       this.mRotation -= 3*deltaTime;
+       this.mRotation += 3*deltaTime;
     
     if(input.isKeyPressed(ss2d.Input.Keys.D))
-       this.mRotation += 3*deltaTime;
+       this.mRotation -= 3*deltaTime;
     
     if(input.isKeyPressed(ss2d.Input.Keys.W))
     {   
