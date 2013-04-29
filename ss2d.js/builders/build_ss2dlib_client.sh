@@ -22,6 +22,7 @@ then
 	--compiler_flags="--define=COMPILING_CLIENT=true" \
 	--compiler_flags="--define=COMPILING_SERVER=false" \
 	--compiler_flags="--define=COMPILING_OFFLINE=false" \
+	--compiler_flags="--define=COMPILING_ADVANCE=false" \
 	--compiler_flags="--output_wrapper=var ss2d=ss2d||{}; %output%" \
 	> ${deployTarget}
 else
@@ -37,6 +38,7 @@ else
 	--compiler_flags="--define=COMPILING_CLIENT=true" \
 	--compiler_flags="--define=COMPILING_SERVER=false" \
 	--compiler_flags="--define=COMPILING_OFFLINE=false" \
+	--compiler_flags="--define=COMPILING_ADVANCE=false" \
 	--compiler_flags="--output_wrapper=var ss2d=ss2d||{}; %output%" \
 	> ${deployTarget}
 fi

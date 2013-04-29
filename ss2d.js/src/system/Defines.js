@@ -38,3 +38,8 @@ var COMPILING_SERVER = false;
  */
 var COMPILING_OFFLINE = true;
 
+/** 
+ * Boolean flag used to include or strip code for ADVANCED compilation mode (obfuscated).
+ * @define {boolean} 
+ */
+var COMPILING_ADVANCE = false;

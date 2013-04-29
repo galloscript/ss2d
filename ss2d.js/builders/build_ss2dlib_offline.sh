@@ -22,6 +22,7 @@ then
 	--compiler_flags="--define=COMPILING_CLIENT=false" \
 	--compiler_flags="--define=COMPILING_SERVER=false" \
 	--compiler_flags="--define=COMPILING_OFFLINE=true" \
+	--compiler_flags="--define=COMPILING_ADVANCE=false" \
 	--compiler_flags="--output_wrapper=var ss2d=ss2d||{}; %output%" \
 	> ${deployTarget}
 else
@@ -37,6 +38,7 @@ else
 	--compiler_flags="--define=COMPILING_CLIENT=false" \
 	--compiler_flags="--define=COMPILING_SERVER=false" \
 	--compiler_flags="--define=COMPILING_OFFLINE=true" \
+	--compiler_flags="--define=COMPILING_ADVANCE=false" \
 	--compiler_flags="--output_wrapper=var ss2d=ss2d||{}; %output%" \
 	> ${deployTarget}
 fi
@@ -58,6 +60,4 @@ fi
 FLAGS_REPLACEMENT
 cat ${deployTarget}"_backup" >> ${deployTarget}
 rm  ${deployTarget}"_backup"
-
-
 
