@@ -18,7 +18,7 @@ ss2d.materials.GPUParticle = function(support)
 	var fragmentShader = new ss2d.ShaderSource().compileSource(ss2d.materials.GPUParticle.FRAGMENT_SOURCE, gl.FRAGMENT_SHADER);
 	
 	this.mShaderProgram = new ss2d.ShaderProgram([vertexShader, fragmentShader], 
-												 ['uPMatrix', 'uTotalTime', 'uEmitterType', 'uGravity', 'uDeltaTime'], 
+												 ['uPMatrix', 'uISMatrix', 'uTotalTime', 'uEmitterType', 'uGravity', 'uDeltaTime'], 
 												 ['aVertexPosition', 'aPos_Dir', 'aStartPos', 'aColor',
 												  'aDeltaColor', 'aRo_RoD_RaA_TaA', 'aRa_RaD_A_DPS', 'aPS_PSD_T_TS']);				 
 	this.mActiveTexture = 0;
@@ -54,6 +54,8 @@ ss2d.materials.GPUParticle.prototype.apply = function(support)
 	gl.uniform2fv(this.mShaderProgram.mUniforms['uGravity'], this.mGravity);
 	gl.uniform1f(this.mShaderProgram.mUniforms['uTotalTime'], ss2d.CURRENT_VIEW.mTotalTime);
 	gl.uniformMatrix3fv(this.mShaderProgram.mUniforms['uPMatrix'], false, ss2d.CURRENT_VIEW.mProjection.getMatF32Array(this.mAuxF32Matrix));
+	gl.uniformMatrix3fv(this.mShaderProgram.mUniforms['uISMatrix'], false, ss2d.CURRENT_VIEW.mMainScene.getTransformationMatrix().getMatF32Array(this.mAuxF32Matrix));
+
 
 	gl.bindBuffer(gl.ARRAY_BUFFER, this.mParticleDataBuffer);
 	gl.vertexAttribPointer(this.mShaderProgram.mAttributes['aPos_Dir'], 		4, gl.FLOAT, false, 26 * 4, 0);
@@ -78,6 +80,7 @@ ss2d.materials.GPUParticle.VERTEX_SOURCE = ''+
 	'attribute vec4 aRa_RaD_A_DPS;'+
 	'attribute vec4 aPS_PSD_T_TS;'+
 	'uniform mat3 uPMatrix;'+
+	'uniform mat3 uISMatrix;'+
 	'uniform float uTotalTime;'+
 	'uniform float uDeltaTime;'+
 	'uniform float uEmitterType;'+
@@ -126,7 +129,7 @@ ss2d.materials.GPUParticle.VERTEX_SOURCE = ''+
 		'size *= scaleMultiplier;'+
 		'vTextureCoord = aVertexPosition;'+
 		//- vec2(size * scaleMultiplier * 0.5, size * scaleMultiplier * 0.5)
-		'gl_Position = vec4((uPMatrix * vec3((aVertexPosition * size * sizeToZero) + pos - vec2(size * scaleMultiplier * 0.5, size * scaleMultiplier * 0.5), 1.0)).xy, 0.0, 1.0);'+
+		'gl_Position = vec4((uPMatrix * uISMatrix * vec3((aVertexPosition * size * sizeToZero) + pos - vec2(size * scaleMultiplier * 0.5, size * scaleMultiplier * 0.5), 1.0)).xy, 0.0, 1.0);'+
 	'}';
 
 ss2d.materials.GPUParticle.FRAGMENT_SOURCE = ''+

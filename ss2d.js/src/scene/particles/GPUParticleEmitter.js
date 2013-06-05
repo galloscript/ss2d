@@ -118,6 +118,7 @@ ss2d.GPUParticleEmitter.prototype.setup = function(particleSystem)
 	var auxParticleArray = [];
 	
 	var worldLocation = this.localToWorld(this.mLocation);
+	worldLocation = ss2d.CURRENT_VIEW.mMainScene.getTransformationMatrix().invert().transformPoint(worldLocation);
 	for(var i = 0; i < this.mMaxParticles; ++i)
 	{
 		this.mParticles[i] = this.generateParticle(null, worldLocation);
@@ -285,6 +286,7 @@ if(RENDER_CONTEXT == 'webgl')
 			this.mEmitCounter += deltaTime;
 			var auxParticleArray = [];
 			var worldLocation = this.localToWorld(this.mLocation);
+			worldLocation = ss2d.CURRENT_VIEW.mMainScene.getTransformationMatrix().invert().transformPoint(worldLocation);
 			
 			while(this.mParticleCount < this.mMaxParticles && this.mEmitCounter > rate)
 			{
