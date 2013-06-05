@@ -49,13 +49,6 @@
 						<li><a href="#building">Building applications</a></li>
 						<li><a href="#networking">Networking</a></li>
 					</ul>
-					<h3>Creating content</h3>
-					<ul>
-						<li><a href="#bitmapfonts">Bitmap fonts</a></li>
-						<li><a href="#textureatlas">Texture atlas</a></li>
-						<li><a href="#reelsets">Reel sets</a></li>
-						<li><a href="#reelsets">Skeletal animations</a></li>
-					</ul>
 				</div><!--/menu-->
 
 			</div><!--/sectionContent-->
@@ -591,7 +584,8 @@ text.tick = function(deltaTime)
 
 view.startLoop();	</pre>
 					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample6.1_text.html" target="_blank">Run this code</a></span>
-				<div class="codeSampleTitle">Code sample 6.1: Text sprite</div>	
+					<div class="codeSampleTitle">Code sample 6.1: Text sprite</div>	
+				</div><!--/codeContainer-->
 				<p>In the above sample we call the constructor specifiying all possible parameters, 0,0 as location, the text string we want to display, #550000 as color, 16px of height, Verdana font and italic style. Then we change the number of characterst that the text must show and give it a behaviour to increment this property and then reset. We also move the text sprite to follow the mouse location.
 				</P>
 				<p> The other option for displaying text is using a ss2d.BitmapTextSprite object, this object can load bitmap fonts in XML BMFont format, generated with software like <a href="http://www.angelcode.com/products/bmfont/" target="_blank">BMFont</a> or <a href="http://www.71squared.com/glyphdesigner" target="_blank">Glyph Designer</a>. This applications generate a texture file with all characters, plus an XML metada file with all character coords and spacing data. The ss2d.BitmapTextSprite constructor loads all this data to write any string using this characters. Let's see an example, <a href="https://c9.io/gallo/ss2dsamples/workspace/assets/fonts/fun02.txt" target="_blank">click here</a> to see the BMFont XML metadata file that we will use, and <a href="https://c9.io/gallo/ss2dsamples/workspace/assets/fonts/fun02.png" target="_blank">here</a> to see the texture that pairs with the XML file.
@@ -611,7 +605,8 @@ view.mMainScene.addObject(bmtext2);
 
 view.startLoop(); </pre>
 					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample6.2_bmtext.html" target="_blank">Run this code</a></span>
-				<div class="codeSampleTitle">Code sample 6.2: BMFont XML file generated with Glyph Designer</div>
+					<div class="codeSampleTitle">Code sample 6.2: BMFont XML file generated with Glyph Designer</div>
+				</div><!--/codeContainer-->
 				<p> We used two ss2d.BitmapTextSprite objects to compose a multi-line text string, there is no multi-line support in ss2d.BitmapTextSprite or ss2d.TextSprite, so that's a way to do it. The ss2d.BitmapTextsprite takes five parameters: the x and y location, the text string, the bitmap font xml path and the font size, note that the bmt font xml and texture are in the same directory. Another way to do miltine text or manipulate every character position with a custom algorithm is overriding a hook method called <span class="codeChunk" style="color: #fff;">displacement</span>, this method receives five parameters: the character index in the text string, the character code in ascii table, the default x and y coords where the character will be drawn, and an output parameter of type ss2d.Point called targetDisplacement that represent the final location of the character. By default this method maps the x and y parameters to <span class="codeChunk" style="color: #fff;">mX</span> and <span class="codeChunk" style="color: #fff;">mY</span> properties from targetDisplacement output parameter. Let's see an example of how to use this method to create some effects.
 				</p>	
 				<div class="codeContainer">
@@ -646,7 +641,8 @@ waveText.displacement = function(charIndex, charCode, x, y, targetDisplacement)
 
 view.startLoop();	</pre>
 					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample6.3_displacement.html" target="_blank">Run this code</a></span>
-				<div class="codeSampleTitle">Code sample 6.3: Bitmap text displacement effects</div>
+					<div class="codeSampleTitle">Code sample 6.3: Bitmap text displacement effects</div>
+				</div><!--/codeContainer-->
 				<p> As you can see, Bitmap text sprites are like any other display object and it's state can be changed in the same way, like the ss2d.Pickable component does, but there are some limitations, for example the boundaries of the text sprite are not affected by the <span class="codeChunk" style="color: #fff;">displacement</span> method, in this case the shake effect only moves a few pixels from character's original location, so it is negligible, but if we try to apply the ss2d.Pickable component to the wave text we probably perceive a lot of hit fails.
 				</p>
 			</div><!--/sectionContent-->
@@ -726,7 +722,8 @@ view.startLoop();	</pre>
 		}
 	}
 }	</pre>
-				<div class="codeSampleTitle">Code sample 7.1: Reel set JSON file.</div>
+					<div class="codeSampleTitle">Code sample 7.1: Reel set JSON file.</div>
+				</div><!--/codeContainer-->
 				<p> In this file we have three key objects, <span class="codeChunk" style="color: #65B042;">image</span> that tells us the relative location of the texture file with all frames, <span class="codeChunk" style="color: #65B042;">comments</span>, an optional field only for humans, and <span class="codeChunk" style="color: #65B042;">reels</span>, wich contain every reel (animation). Each reel is referenced by a unique name and contains two properties, <span class="codeChunk" style="color: #65B042;">duration</span>, that tells us the duration in seconds and <span class="codeChunk" style="color: #65B042;">frames</span>, an array that contains the texture coordinates plus two offset values to displace the frame when rendering, it is used when frames have different boundaries and you want to "center" your character. Here is the example of how to use it:
 				</p>
 				<div class="codeContainer">
@@ -814,7 +811,8 @@ guy.tick = function(deltaTime)
 
 view.startLoop();	</pre>
 					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample7.2_reelspriteset.html" target="_blank">Run this code</a></span>
-				<div class="codeSampleTitle">Code sample 7.2: Reel sprite usage</div>
+					<div class="codeSampleTitle">Code sample 7.2: Reel sprite usage</div>
+				</div><!--/codeContainer-->
 			</div><!--/sectionContent-->
 		</section>
 
@@ -884,7 +882,8 @@ ss2d.ResourceManager.loadResources([
     view.startLoop()
 });	</pre>
 					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample8.1_skeleton.html" target="_blank">Run this code</a></span>
-				<div class="codeSampleTitle">Code sample 8.1: Load skeleton</div>
+					<div class="codeSampleTitle">Code sample 8.1: Load skeleton</div>
+				</div><!--/codeContainer-->
 				<p>
 				If you run the sample above, you will see the spineboy skeleton playing the <span class="codeChunk" style="color: #65B042;">walk</span> animation, and all it's bones rendered over the body thanks to the <span class="codeChunk" style="color: #fff;">mShowBones</span> debug flag. Note that since we are overriding the  <span class="codeChunk" style="color: #fff;">tick</span> method, a call to the  <span class="codeChunk" style="color: #fff;">updateAnimation</span> method is required. Now, le'ts interact with this ss2d.SkeletalSprite objects, what we are goint to do is try to move it with D and A key, and play the  <span class="codeChunk" style="color: #65B042;">jump</span> animation when the space bar is pressed.
 				</p>
@@ -984,7 +983,8 @@ ss2d.ResourceManager.loadResources([
     view.startLoop();
 }); </pre>
 					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample8.2_sklanimations.html" target="_blank">Run this code</a></span>
-				<div class="codeSampleTitle">Code sample 8.2: Interacting with the skeleton</div>
+					<div class="codeSampleTitle">Code sample 8.2: Interacting with the skeleton</div>
+				</div><!--/codeContainer-->
 				<p> ¿Can you feel the magic? In this example the spineboy is not playing any animation by default, when we press A or D, it moves and play the <span class="codeChunk" style="color: #65B042;">walk</span> animation, if we are pressing the Shift key, it moves faster, and the animation too thanks to the <span class="codeChunk" style="color: #fff;">mTimeDilation</span> property, that modifies the speed at wich the animation is played. Check also the call to the  <span class="codeChunk" style="color: #fff;">playAnimation</span> for the <span class="codeChunk" style="color: #65B042;">jump</span> animation, we are calling this method with three parameters, the first one is the name of the animation, the second is the time at we want the animation start playing, and the last one is a flag to tell the ss2d.SkeletalSprite that we want to play the animation only once. We have also added a trigger at the end of the code, triggers let you specify a callback function once an animation reached the specied played time, in this case is <span class="codeChunk" style="color: #3387CC;">0.25</span> seconds before the animation starts, so if the duration is 1.3 seconds, it will be triggered at 1.05 seconds, and in this case, what the callback function does is simply change the jumping state.
 				</p>
 			</div><!--/sectionContent-->
@@ -1001,6 +1001,81 @@ ss2d.ResourceManager.loadResources([
 		<section>
 			<div class="sectionContent">
 				<h2><a id="resourcemanager"></a>Loading content</h2>
+				<p> In SmoothStep2D you usually don't load content resources explicitly except for the audio or custom data, but it is recommended to use the <a href="http://galloman.github.io/ss2d/jsdoc/symbols/ss2d.ResourceManager.html" target="_blank">ss2d.ResourceManager</a> class to pre-load the content data before starting to use it in the scene, this way you prevent from showing empty sprites or even get an undesired behaviour due miss syncronization between what you want to "play" and what is loaded. To pre-load content data, ss2d.ResourceManager provides the static method <span class="codeChunk" style="color: #fff;">loadResources</span>, wich accepts three parameters. The first one is an array composted by groups of loader class plus the list of resources to load with each loader, the second parameter is a callback function, called for each loaded resource receiving information to track the loading process, and as a third parameter, the callback function that will start the game. Let's see an example.
+				</p>
+				<div class="codeContainer">
+					<pre class="prettyprint linenums">
+
+//create the view before preloading content
+var view = new ss2d.View('mainCanvas');
+
+//create a quad that will represent our loading bar and add to the scene
+var loaderBar = new ss2d.Quad(200, 230, 1, 20, '#000000');
+view.mMainScene.addObject(loaderBar);
+view.startLoop();
+
+//calling loadResources staitc method
+ss2d.ResourceManager.loadResources([
+    //Loader for skeletal models creates with Spine
+    ss2d.ResourceManager.Loaders.SKELETON, 
+    'assets/skeletons/spineboy/spineboySkeleton.json',
+    //Loader for texture atlas created with TexturePacker
+    ss2d.ResourceManager.Loaders.TEXTURE_ATLAS,
+    'assets/skeletons/spineboy/spineboyBodyparts.json',
+    //Loader for regular 2D textures in any format accepted by the browser
+    ss2d.ResourceManager.Loaders.TEXTURE,
+    'assets/textures/Enemy Bug.png',
+    'assets/textures/Star.png',
+    //Loader for bitmap fonts
+    ss2d.ResourceManager.Loaders.BITMAP_FONT,
+    'assets/fonts/fun02.fnt',
+    'assets/fonts/gold01.fnt',
+], function(itemName, loaded, toLoad){ //Per-resource callback
+    console.log(itemName+' loaded. '+loaded+' of '+toLoad+' items loaded');
+    //update the loaderBar width according to the loaded objects.
+    loaderBar.mWidth = 100 * loaded / toLoad;
+}, function(){ //Pre-load of resources ends callback
+    console.log('The game starts here');
+    //Here you can remove/fade out the loaderBar.
+}); </pre>
+					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample10.1_resourcemanager.html" target="_blank">Run this code</a></span>
+					<div class="codeSampleTitle">Code sample 10.1: Pre-loading content</div>
+				</div><!--/codeContainer-->
+				<p> If you run the above example with the javascript console opened, you can see how each element is loaded and then a final message 'The game starts here'. Note that another message that says 'Load resources ends' is printed just before staring the game, this message is printed by the ss2d.ResourceManager.loadResources method, and if you didn't see it means that something goes wrong, for exemple, if you specify a reference to an element that didn't exists. Note also that the log printed for each loaded object can be in a different order than you specified in the Array, that's because the resources are loaded asynchronous. The loader classes we specify before each group of resources, are a set of built-in loader classes that implement the <a href="http://galloman.github.io/ss2d/jsdoc/symbols/ss2d.ILoader.html" target="_blank">ss2d.ILoader</a> interface. You can extend the framework funcionality and create you our loader classes implementing this interface, as a hint, take a look at how ss2d.ResourceManager use this classes in his loader methods. To make a more rich example, I have added a simple loader bar using an ss2d.Quad.
+				</p>
+				<p> After that, if you want to get a reference to a loeaded resource you must use the proper loader method from ss2d.ResourceManager. For example if you want to get the reference to a specific texture you must use <span class="codeChunk" style="color: #fff;">ss2d.ResourceManager.loadTexture</span> method. In the next example we will see how to pre-load two images and add it to our body, that's only for showing this feature, SmoothStep2D isn't designed to manipulate DOM elements. In a real game, is the ss2d.Sprite class who takes care of using this resource as intended.
+				</p>
+				<div class="codeContainer">
+					<pre class="prettyprint linenums">
+var view = new ss2d.View('mainCanvas');
+
+ss2d.ResourceManager.loadResources([
+    ss2d.ResourceManager.Loaders.TEXTURE,
+    'assets/textures/Enemy Bug.png',
+    'assets/textures/Star.png',
+], function(itemName, loaded, toLoad){
+    console.log(itemName+' loaded. '+loaded+' of '+toLoad+' items loaded');
+}, function() {
+    //One the resources are pre-loaded, the ResourceManager returns a reference from it's cache.
+    var texture1 = ss2d.ResourceManager.loadTexture('assets/textures/Enemy Bug.png');
+    var texture2 = ss2d.ResourceManager.loadTexture('assets/textures/Star.png');
+    
+    //Log information about the references
+    console.log(texture1, texture2);
+
+    //The mTextureElement property is an standard HTML Image element containing the texture data.
+    document.body.appendChild(texture1.mTextureElement);    
+    document.body.appendChild(texture2.mTextureElement);
+    
+    //if you didn't display any "loading" animation, you can start the loop here.
+    view.startLoop();
+});</pre>
+					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample10.2_resourcereference.html" target="_blank">Run this code</a></span>
+					<div class="codeSampleTitle">Code sample 10.2: Resource references</div>
+				</div><!--/codeContainer-->
+				<p>
+				Actually this way of using the loaded resources is only needed when you want to play sounds, when you want to use a custom resource loader that isn't implemented in SmoothStep2D, and for creating debugging utilities.
+				</p>
 			</div><!--/sectionContent-->
 		</section>
 
@@ -1043,28 +1118,6 @@ ss2d.ResourceManager.loadResources([
 			</div><!--/sectionContent-->
 		</section>
 
-		<!--CREATING CONTENT-->
-		<!--BITMAP FONTS-->
-		<section>
-			<div class="sectionContent">
-				<h1>Creating content</h1>
-				<h2><a id="bitmapfonts"></a>Bitmap fonts</h2>
-			</div><!--/sectionContent-->
-		</section>
-
-		<!--TEXTURE ATLAS-->
-		<section>
-			<div class="sectionContent">
-				<h2><a id="textureatlas"></a>Texture atlas</h2>
-			</div><!--/sectionContent-->
-		</section>
-
-		<!--REEL SETS-->
-		<section>
-			<div class="sectionContent">
-				<h2><a id="reelsets"></a>Reel sets</h2>
-			</div><!--/sectionContent-->
-		</section>
 
 	</body>
 </html>
