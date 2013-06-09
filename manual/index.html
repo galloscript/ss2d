@@ -41,10 +41,10 @@
 						<li><a href="#audio">Playing audio files</a></li>
 						<li><a href="#resourcemanager">Loading content</a></li>
 						<li><a href="#propertyanim">Property animation</a></li>
+						<li><a href="#physics">Physics</a></li>
 					</ul>
 					<h3>Advanced features</h3>
 					<ul>
-						<li><a href="#physics">Physics</a></li>
 						<li><a href="#prototypes">Extending prototypes</a></li>
 						<li><a href="#building">Building applications</a></li>
 						<li><a href="#networking">Networking</a></li>
@@ -994,6 +994,54 @@ ss2d.ResourceManager.loadResources([
 		<section>
 			<div class="sectionContent">
 				<h2><a id="audio"></a>Playing audio files</h2>
+				<p> There are two components that wich you can play audio data, the sandard HTML5 Audio element <span class="codeChunk" style="color: #65B042;">&lt;audio&gt;</span> and the newest WebAudio context. SmoothStep2D will try to load sounds as WebAudio data whenever this API is available, otherwise will load the data as an Audio element. There is no ss2d.DisplayObject to play sounds, so to load auido data you must use the <a href="#resourcemanager">ss2d.ResourceManager</a>. Let's see an example.
+				</p>
+				<div class="codeContainer">
+					<pre class="prettyprint linenums">
+//setup the view as usual
+var view = new ss2d.View('mainCanvas');
+
+//create an "emiter" object that will handle the events to play a sound
+var emiter = new ss2d.DisplayObject();
+ss2d.CURRENT_VIEW.mMainScene.addObject(emiter);
+
+//load audio data with the ss2d.ResourceManager.loadSound static method
+emiter.mSound = ss2d.ResourceManager.loadSound('assets/sounds/clink.wav');
+emiter.mSound2 = ss2d.ResourceManager.loadSound('assets/sounds/switch.wav');
+
+//assign a behaviour that play this sounds.
+emiter.tick = function(dt)
+{
+	//control if the F or G keys are pressed this frame
+	var input = ss2d.CURRENT_VIEW.mInput;
+	var FPressed = input.isKeyPressed(ss2d.Input.Keys.F);
+	var GPressed = input.isKeyPressed(ss2d.Input.Keys.G);
+
+	if(FPressed && !this.mFWasPressed)
+	{
+		//if F is pressed play the "clink.wav" sound
+		this.mSound.play();
+		console.log('playing clink.wav');
+	}
+	
+	if(GPressed && !this.mGWasPressed)
+	{
+		//if G is pressed play the "switch.wav" sound
+		this.mSound2.play();
+		console.log('playing clink.wav');
+	}
+	
+	this.mGWasPressed = GPressed;
+	this.mFWasPressed = FPressed;
+}
+view.startLoop(); </pre>
+					<span class="runCodeLink"><a href="https://c9.io/gallo/ss2dsamples/workspace/sample9.1_loadaudio.html" target="_blank">Run this code</a></span>
+					<div class="codeSampleTitle">Code sample 9.1: Load and play audio data</div>
+				</div><!--/codeContainer-->
+				<p> To load the audio data we use the <span class="codeChunk" style="color: #fff;">ss2d.ResourceManager.loadSound</span> static method, wich returns an object that implements the <a href="http://galloman.github.io/ss2d/jsdoc/symbols/ss2d.IAudioComponent.html" target="_blank">ss2d.IAudioComponent</a>, and like with any other resource, is recommended that you pre-load the data, what is avoided in some examples to simply it. The ss2d.IAudioComponent interface has three methods, <span class="codeChunk" style="color: #fff;">play</span>, <span class="codeChunk" style="color: #fff;">pause</span> and <span class="codeChunk" style="color: #fff;">stop</span>, and is obvious what this methods do with the sound.</p>
+				<p>Internally this object works very different in browsers that supports WebAudio context and browsers that only supports HTML5 Audio element, so currently SmoothStep2D only provides this simple interface that is compatible with both APIs. Even if we only use this basic functionality, there is a noticeable advantage of WebAudio over the Audio element, and is that with WebAudio, you can play the same sound in different buffers at the same time, it menas that if a sound has a duration of 2 seconds, and you play it for exemple at t=0, t=0.5 and t=1.5 3 (time = seconds), with WebAudio you will hear this sound 3 times as expected, but with audio element you can only hear this sound once, cause you must wait the 2 seconds of duration to play it again, and in the worst case, you must reload the audio data source to be able to play it again.</p>
+				<p> If you want to do more complex audio data manipulation, I suggest you extend the ss2d.WebAudio class functionality, adding methods that apply the WebAudio filters you need for your implementation, and be sure to notice your users that must run your app or game in a browser that support's this feature.
+				</p>
 			</div><!--/sectionContent-->
 		</section>
 
@@ -1074,7 +1122,7 @@ ss2d.ResourceManager.loadResources([
 					<div class="codeSampleTitle">Code sample 10.2: Resource references</div>
 				</div><!--/codeContainer-->
 				<p>
-				Actually this way of using the loaded resources is only needed when you want to play sounds, when you want to use a custom resource loader that isn't implemented in SmoothStep2D, and for creating debugging utilities.
+				Actually this way of using the loaded resources is only needed when you want to play sounds, when you want to use a custom resource loader that isn't implemented in SmoothStep2D, and for debug utilities.
 				</p>
 			</div><!--/sectionContent-->
 		</section>
@@ -1086,20 +1134,20 @@ ss2d.ResourceManager.loadResources([
 			</div><!--/sectionContent-->
 		</section>
 
-
-
-		<!--ADVANCED-->
 		<!--PHYSICS-->
 		<section>
 			<div class="sectionContent">
-				<h1>Advanced features</h1>
+				
 				<h2><a id="physics"></a>Physics</h2>
 			</div><!--/sectionContent-->
 		</section>
 
+
+		<!--ADVANCED-->
 		<!--PROTOTYPES-->
 		<section>
 			<div class="sectionContent">
+				<h1>Advanced features</h1>
 				<h2><a id="prototypes"></a>Extending prototypes</h2>
 			</div><!--/sectionContent-->
 		</section>
