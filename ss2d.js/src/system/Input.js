@@ -219,15 +219,15 @@ ss2d.Input.prototype.onMouseDown = function(pe)
 
 ss2d.Input.prototype.onMouseUp = function(pe)
 {
-	var event = this.mMobileDevice ? this.getTouch(0, pe) : pe;
+	//var event = this.mMobileDevice ? this.getTouch(0, pe) : pe;
 	
-	if((this.mMobileDevice && event) || !this.mMobileDevice){
+	//if((this.mMobileDevice && event) || !this.mMobileDevice){
 		this.mMouseDown = false;
 		this.mClicked = false;
 		pe.preventDefault();
 		pe.stopPropagation();
 		this.mView.mCanvas.removeEventListener("touchmove", ss2d.Input.handleEventCaller, false);
-	}
+	//}
 	return false;
 }
 
