@@ -9,6 +9,8 @@ goog.provide('ss2d.AudioLoader');
 
 goog.require('ss2d.ILoader');
 goog.require('ss2d.Texture');
+goog.require('ss2d.HTML5Audio');
+goog.require('ss2d.WebAudio');
 
 /**
  * @constructor

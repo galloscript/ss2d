@@ -21,7 +21,7 @@ ss2d.WebAudio = function(soundFile, callbackFunction)
 	
 	//for resource loading info
 	this.mName = soundFile;
-	this.mCallbackFunction = callbackFunction;
+	this.mCallbackFunction = callbackFunction || function(){};
 	this.mSoundSources = [];
 	this.mSoundBuffer = null;
 	this.mLastSource = null;

@@ -49,7 +49,7 @@ ss2d.Pickable.prototype.tick = function(deltaTime, playerInput)
 			{	
 				if(this.mRigidBody)
 				{
-					s2d.PhysicalWorld.getWorld().mWorld.DestroyJoint(this.mMouseJoint);
+					ss2d.PhysicalWorld.getWorld().mWorld.DestroyJoint(this.mMouseJoint);
 				}
 				this.mMouseJoint  = null;
 				this.mInput.PICKED_COMPONENT = null;

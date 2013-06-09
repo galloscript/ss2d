@@ -101,6 +101,18 @@ ss2d.View.prototype.nextFrame = function()
 	//called with canvas width and height every frame
 	this.resizeCanvas(this.mCanvas.width, this.mCanvas.height);
 	
+	for(var methodIndex in this.mPreRenderFunctions)
+	{ 
+		this.mPreRenderFunctions[methodIndex].call(null, this.mRenderSupport); 
+	}
+	
+	this.render();
+	
+	for(var methodIndex in this.mPostRenderFunctions)
+	{ 
+		this.mPostRenderFunctions[methodIndex].call(null, this.mRenderSupport); 
+	}
+	
 	//update physics
 	var worldUpdates = Math.floor(Math.max(1, timePassed/(1000.0/ss2d.PhysicalWorld.UPDATE_RATE)));
 	for(var i = 0; i < worldUpdates; ++i)
@@ -129,17 +141,7 @@ ss2d.View.prototype.nextFrame = function()
 		this.mPostTickFunctions[methodIndex].call(null, timePassedInSeconds); 
 	}
 	
-	for(var methodIndex in this.mPreRenderFunctions)
-	{ 
-		this.mPreRenderFunctions[methodIndex].call(null, this.mRenderSupport); 
-	}
-	
-	this.render();
-	
-	for(var methodIndex in this.mPostRenderFunctions)
-	{ 
-		this.mPostRenderFunctions[methodIndex].call(null, this.mRenderSupport); 
-	}
+
 
 	//calculate the delay time for the nextFrame call based on the 
 	//frameRate and time spend in update and render operations.

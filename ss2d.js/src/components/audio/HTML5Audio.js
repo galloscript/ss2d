@@ -19,11 +19,10 @@ ss2d.HTML5Audio = function(soundFile, callbackFunction)
 {
 	//resource loading info
 	this.mName = soundFile;
-	
 	this.mAudioElement = new Audio();
 	this.mAudioElement.mSound = this;
 	this.mAudioElement.preload = true;
-	this.mAudioElement.mCallbackFunction = callbackFunction;
+	this.mAudioElement.mCallbackFunction = callbackFunction || function(){};
 	
 	if(callbackFunction)
 	{
@@ -42,6 +41,7 @@ ss2d.HTML5Audio = function(soundFile, callbackFunction)
 /** @inheritDoc */
 ss2d.HTML5Audio.prototype.play = function()
 { 
+	//this.mAudioElement.src = this.mName;
 	this.mAudioElement.play(); 
 	return this;
 };

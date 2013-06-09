@@ -32,6 +32,7 @@ ss2d.Input = function(view)
 	if((navigator.userAgent.match(/Android/i)) || (navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) ||  (navigator.userAgent.match(/iPad/i)))
 	{
 		this.mMobileDevice = true;
+		canvas.style.webkitTapHighlightColor = 'rgba(0,0,0,0)';
    	}
 	
 	
@@ -186,9 +187,19 @@ ss2d.Input.prototype.handleEvent = function(event)
 	return r;
 }
 
+ss2d.Input.prototype.getTouch = function(touchIndex, pEvent)
+{
+	if(pEvent && pEvent.targetTouches)
+		return pEvent.targetTouches[touchIndex] || false;
+		
+	if(window.event && window.event.targetTouches)
+		return window.event.targetTouches[touchIndex] || false;
+}
+
 ss2d.Input.prototype.onMouseDown = function(pe)
 {	
-	var event = this.mMobileDevice ? window.event.targetTouches[ 0 ] : pe;
+	var event = this.mMobileDevice ? this.getTouch(0, pe) : pe;
+	if(!event) return false;
 	
 	this.mMouseX = event.offsetX || event.pageX - this.mView.mCanvas.offsetLeft;
 	this.mMouseY = event.offsetY || event.pageY - this.mView.mCanvas.offsetTop;
@@ -208,8 +219,9 @@ ss2d.Input.prototype.onMouseDown = function(pe)
 
 ss2d.Input.prototype.onMouseUp = function(pe)
 {
-	var event = this.mMobileDevice ? window.event.targetTouches[ 0 ] : pe;
-	if((this.mMobileDevice && !event) || !this.mMobileDevice){
+	var event = this.mMobileDevice ? this.getTouch(0, pe) : pe;
+	
+	if((this.mMobileDevice && event) || !this.mMobileDevice){
 		this.mMouseDown = false;
 		this.mClicked = false;
 		pe.preventDefault();
@@ -263,7 +275,8 @@ ss2d.Input.prototype.onFocusOut = function(event)
 
 ss2d.Input.prototype.onMouseMove = function(pe)
 {
-	var event = this.mMobileDevice ? window.event.targetTouches[0] : pe;
+	var event = this.mMobileDevice ? this.getTouch(0, pe) : pe;
+	
 	if(event){
 		this.mMouseX = event.offsetX || event.pageX - this.mView.mCanvas.offsetLeft;
 		this.mMouseY = event.offsetY || event.pageY - this.mView.mCanvas.offsetTop;
