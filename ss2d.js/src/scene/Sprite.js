@@ -47,6 +47,11 @@ ss2d.Sprite = function(x, y, width, height, texture, textureAtlas)
 			texture = ss2d.ResourceManager.loadTexture(texture, function(textureObj){
 				this.mTexture = textureObj;
 				this.mReady = true;
+				if(this.mWidth <= 0 && this.mHeight <= 0)
+				{
+					this.mWidth = this.mTexture.mTextureElement.width;
+					this.mHeight = this.mTexture.mTextureElement.height;
+				}
 			}, this);
 		}
 	}

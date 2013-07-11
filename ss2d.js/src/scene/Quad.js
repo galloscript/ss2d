@@ -26,8 +26,8 @@ ss2d.Quad = function(x, y, w, h, color)
 {
 	ss2d.DisplayObject.call(this, x, y, 1.0, 0.0, color, 1.0);
 	
-	this.mWidth = w || 10.0;
-	this.mHeight = h || 10.0;
+	this.mWidth = w;
+	this.mHeight = h;
 };
 
 goog.inherits(ss2d.Quad, ss2d.DisplayObject);

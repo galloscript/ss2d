@@ -49,10 +49,11 @@ ss2d.Input = function(view)
    	window.addEventListener('keydown', ss2d.Input.handleEventCaller, true);
 	window.addEventListener('keyup', ss2d.Input.handleEventCaller, true);
    	
-   	if (window.navigator.msPointerEnabled) { // WIN8
-   		a.addEventListener("MSPointerDown", ss2d.Input.handleEventCaller, true);
-		a.addEventListener("MSPointerUp", ss2d.Input.handleEventCaller, true);
-		a.addEventListener("MSPointerMove", ss2d.Input.handleEventCaller, true);
+   	if (window.navigator.msPointerEnabled) // WIN8
+   	{ 
+   		canvas.addEventListener("MSPointerDown", ss2d.Input.handleEventCaller, true);
+		canvas.addEventListener("MSPointerUp", ss2d.Input.handleEventCaller, true);
+		canvas.addEventListener("MSPointerMove", ss2d.Input.handleEventCaller, true);
    	} 
    	else
    	{
