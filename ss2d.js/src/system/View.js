@@ -96,7 +96,7 @@ ss2d.View.prototype.nextFrame = function()
 {
 	//get current time in miliseconds
 	var now = new Date().getTime();
-	var timePassed = now - this.mLastFrameTimestamp;
+	var timePassed = Math.min(now - this.mLastFrameTimestamp, 1200.0/this.mFrameRate);
 	
 	//called with canvas width and height every frame
 	this.resizeCanvas(this.mCanvas.width, this.mCanvas.height);
