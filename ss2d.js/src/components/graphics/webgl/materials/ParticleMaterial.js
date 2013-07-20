@@ -10,6 +10,7 @@ goog.provide('ss2d.materials.Particle');
 goog.require('ss2d.ShaderSource');
 goog.require('ss2d.ShaderProgram');
 
+/** @constructor */
 ss2d.materials.Particle = function(support)
 {
 	var gl = support.mContext;

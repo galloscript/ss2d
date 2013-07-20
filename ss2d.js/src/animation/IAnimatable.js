@@ -8,6 +8,7 @@
 goog.provide('ss2d.IAnimatable');
 
 /** 
+ * @constructor
  * @class Defines a prototype for a class that will be used with ss2d.Juggler to animate values over time.
  * @interface 
  */
