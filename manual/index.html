@@ -109,7 +109,7 @@
 	//run the game
 	view.startLoop();
 &lt;/script&gt;		</pre>
-					<span class="runCodeLink"><a href="https://preview.c9.io/gallo/ss2dsamples/sample01_setup.html" target="_blank" >Run this code</a></span>
+					<span class="runCodeLink"><a href="https://preview.c9users.io/gallo/ss2dsamples/sample01_setup.html" target="_blank" >Run this code</a></span>
 					<div class="codeSampleTitle">Code sample 1.1: Scene setup with ss2d.View</div>
 				</div><!--/codeContainer-->
 				<p>What we are doing here is creating a canvas element with the id <span class="codeChunk" style="color: #65B042;">"mainCanvas"</span> and a size of 512x512 pixels, you can set any size for canvas, even full screen. Then we add the minified ss2d library, wich brings all ss2d objects you need to draw and interact with the scene. The library can be added in other ways, you can download it and upload to your own server. You can also checkout the source code from the <a href="https://github.com/Galloman/ss2d" target="_blank">github repository</a> and build your own version of the library or build a single file with all the library and your application together, this is a more advanced topic explained <a href="#building">here</a>.
@@ -140,7 +140,7 @@ quad.tick = function(deltaTime)
 };
 
 view.startLoop();	</pre>
-					<span class="runCodeLink"><a href="https://preview.c9.io/gallo/ss2dsamples/sample02_quad.html" target="_blank">Run this code</a></span>
+					<span class="runCodeLink"><a href="https://preview.c9users.io/gallo/ss2dsamples/sample02_quad.html" target="_blank">Run this code</a></span>
 					<div class="codeSampleTitle">Code sample 1.2: Animated ss2d.Quad</div>
 				</div><!--/codeContainer-->
 				<p>In this code we instanced an <a href="http://galloman.github.com/ss2d/jsdoc/symbols/ss2d.Quad.html" target="_blank">ss2d.Quad</a> object, this contains all the needed information and methods to render a quad on our scene, in the constructor we pass the location, the size and the color of the quad. Then we acces to the current rendering scene with the <span class="codeChunk" style="color: #fff;">mMainScene</span> property from the view and call <span class="codeChunk" style="color: #fff;">addObject</span> method passing the recently created quad object as a parameter.
@@ -186,7 +186,7 @@ sprite.tick = function(deltaTime)
 };
 
 view.startLoop();	</pre>
-					<span class="runCodeLink"><a href="https://preview.c9.io/gallo/ss2dsamples/sample03_sprite.html" target="_blank">Run this code</a></span>
+					<span class="runCodeLink"><a href="https://preview.c9users.io/gallo/ss2dsamples/sample03_sprite.html" target="_blank">Run this code</a></span>
 					<div class="codeSampleTitle">Code sample 2.1: Adding textures to the scene with ss2d.Sprite</div>
 				</div><!--/codeContainer-->
 				<p>In the above sample we instance an ss2d.Sprite at location 23,125 with a size of 101x171 pixels and the <i>Enemy Bug.png</i> texture. The ss2d.Sprite constructor will take this texture path and load it automatically as an Image element to be used for rendering, if two or more sprites use the same texture you can continue using the path as a reference because the framework saves wich resources has been previously loaded and cache it's data instead of trying to request again from the server, you can read more about resource loading in <a href="#resourcemanager">this section</a>. We also change some properties inherited from ss2d.DisplayObject like <span class="codeChunk" style="color: #fff;">mAlpha</span> to set the level of transparency from 0 to 1 or the sprite's pivot with <span class="codeChunk" style="color: #fff;">mPivotX</span> and <span class="codeChunk" style="color: #fff;">mPivotY</span> properites. We also give a behaviour to our sprite overriding the tick method that will move the sprite 10 pixels per second to right direction and will rotate it counterclockwise. The rotation is measured in radinas wich means 1 revolution = 2 x PI, so in this sample the bug will do an spin every 4 seconds.
@@ -225,7 +225,7 @@ sprite.tick = function(deltaTime)
 };
 
 view.startLoop();	</pre>
-					<span class="runCodeLink"><a href="https://preview.c9.io/gallo/ss2dsamples/sample04_mouse.html" target="_blank">Run this code</a></span>
+					<span class="runCodeLink"><a href="https://preview.c9users.io/gallo/ss2dsamples/sample04_mouse.html" target="_blank">Run this code</a></span>
 					<div class="codeSampleTitle">Code sample 3.1: Set a sprite following mouse</div>
 				</div><!--/codeContainer-->
 				<p> In the above sample we use <span class="codeChunk" style="color: #fff;">mMouseX</span> and <span class="codeChunk" style="color: #fff;">mMouseY</span> properties from the input object to get the mouse location relative to the canvas top-left corner. We can also move an object using keys like W,A,S,D, to do so we need to call a method from the input object named <span class="codeChunk" style="color: #fff;">isKeyPressed</span> passing as a parameter the key code we want to check, for that we can use <span class="codeChunk" style="color: #fff;">ss2d.Input.Keys</span> namespace wich contains all key codes referenced by its character and some special keys like SHIFT, TAB, CTRL, the arrows, etc. Let's see how to move a quad with the keyboard.
@@ -296,7 +296,7 @@ quad.tick = function(deltaTime)
 };
 
 view.startLoop();	</pre>
-					<span class="runCodeLink"><a href="https://preview.c9.io/gallo/ss2dsamples/sample3.2_keys.html" target="_blank">Run this code</a></span>
+					<span class="runCodeLink"><a href="https://preview.c9users.io/gallo/ss2dsamples/sample3.2_keys.html" target="_blank">Run this code</a></span>
 					<div class="codeSampleTitle">Code sample 3.2: Moving a quad with WASD keys</div>
 				</div><!--/codeContainer-->
 				<p> In the code sample 3.2 we move the quad using the W, A, S and D keys. We also added a multiplier that makes the quad move at 400 pixels per second instead of 200 while SHIFT key is pressed, and finally we check if the SPACE key is pressed this frame to change the color. In this final part, we check that SPACE key is not only pressed this frame, but it also was not pressed the previous frame, if we do not do it this way the color will be changed 60 times per second while the user hold the space bar. To doing so we save the SPACE key state in a custom property named <span class="codeChunk" style="color: #fff;">mWasSPACEPressed</span> at the end of <span class="codeChunk" style="color: #fff;">tick</span> execution, then the next frame we will know if the SPACE key was already pressed the previous frame.
@@ -346,7 +346,7 @@ mouseLocText.tick = function(deltaTime)
 };
 
 view.startLoop();	</pre>
-					<span class="runCodeLink"><a href="https://preview.c9.io/gallo/ss2dsamples/sample4.1_container.html" target="_blank">Run this code</a></span>
+					<span class="runCodeLink"><a href="https://preview.c9users.io/gallo/ss2dsamples/sample4.1_container.html" target="_blank">Run this code</a></span>
 					<div class="codeSampleTitle">Code sample 4.1: Inherited transformation</div>
 				</div><!--/codeContainer-->
 				<p>In sample 4.1 we have two quads at different locations, one at 0,0 and another at 20,50. Then we add a new container at 20,20 to the main scene and add the two quads to this container. Finally we add a text sprite that will follow the mouse and tells us the mouse location. If you run this code and use the mouse to check the location of each quad, you will see how the container location has been added to both quads, the quad at 0,0 will be drawn at 20,20 and the quad at 20,50 will be drawn at 40,70. 
@@ -441,7 +441,7 @@ treeBlockContainer.tick = function(deltaTime)
 };
 
 view.startLoop();	</pre>
-					<span class="runCodeLink"><a href="https://preview.c9.io/gallo/ss2dsamples/sample4.2_pickablecontainer.html" target="_blank">Run this code</a></span>
+					<span class="runCodeLink"><a href="https://preview.c9users.io/gallo/ss2dsamples/sample4.2_pickablecontainer.html" target="_blank">Run this code</a></span>
 					<div class="codeSampleTitle">Code sample 4.2: Container behaviour</div>
 				</div><!--/codeContainer-->
 				<p>The first thing we do in sample 4.2 is create twe sprites that will be insidie a container. The sprite that represents the Wall Block.png image has nothing special, only note that is first added to the container because it must be rendered before the tree sprite, that way the tree will be rendered over the block. The tree has a special behaviour, we override the <span class="codeChunk" style="color: #fff;">tick</span> to make the tree disappear and grow every few seconds. To achieve that effect with a few lines of code we are using the <a href="http://galloman.github.com/ss2d/jsdoc/symbols/ss2d.Tween.html" target="_blank">ss2d.Tween</a> class to create the property animation that resize the tree, and the <a href="http://galloman.github.com/ss2d/jsdoc/symbols/ss2d.Juggler.html" target="_blank">ss2d.Juggler</a> class to control both animations. To read more about property animations, go to the <a href="#propertyanim">Property animation</a> section.
@@ -491,7 +491,7 @@ ss2d.Quad.prototype.tick = function(deltaTime)
 };
 
 view.startLoop();	</pre>
-					<span class="runCodeLink"><a href="https://preview.c9.io/gallo/ss2dsamples/sample5.1_hittest.html" target="_blank">Run this code</a></span>
+					<span class="runCodeLink"><a href="https://preview.c9users.io/gallo/ss2dsamples/sample5.1_hittest.html" target="_blank">Run this code</a></span>
 					<div class="codeSampleTitle">Code sample 5.1: Hit test</div>
 				</div><!--/codeContainer-->
 				<p> Another useful method is <span class="codeChunk" style="color: #fff;">getBounds</span>, this method returns an <a href="http://galloman.github.com/ss2d/jsdoc/symbols/ss2d.Rectangle.html" target="_blank">ss2d.Rectangle</a> object with the boundaries of the object or the area covered by a container's children. The ss2d.Rectangle is a math component that you can use to check collisions between objects using the <span class="codeChunk" style="color: #fff;">intersectsRectangle</span> method, that returns true if the rectangle intersects with the other rectangle passed as a parameter. Let's see an example of how to use this collision detection way.
@@ -536,7 +536,7 @@ collider.tick = function(deltaTime)
 }
 
 view.startLoop();	</pre>
-					<span class="runCodeLink"><a href="https://preview.c9.io/gallo/ss2dsamples/sample5.2_collisions.html" target="_blank">Run this code</a></span>
+					<span class="runCodeLink"><a href="https://preview.c9users.io/gallo/ss2dsamples/sample5.2_collisions.html" target="_blank">Run this code</a></span>
 					<div class="codeSampleTitle">Code sample 5.2: Collision detection</div>
 				</div><!--/codeContainer-->
 				<p>
@@ -583,12 +583,12 @@ text.tick = function(deltaTime)
 };
 
 view.startLoop();	</pre>
-					<span class="runCodeLink"><a href="https://preview.c9.io/gallo/ss2dsamples/sample6.1_text.html" target="_blank">Run this code</a></span>
+					<span class="runCodeLink"><a href="https://preview.c9users.io/gallo/ss2dsamples/sample6.1_text.html" target="_blank">Run this code</a></span>
 					<div class="codeSampleTitle">Code sample 6.1: Text sprite</div>	
 				</div><!--/codeContainer-->
 				<p>In the above sample we call the constructor specifiying all possible parameters, 0,0 as location, the text string we want to display, #550000 as color, 16px of height, Verdana font and italic style. Then we change the number of characterst that the text must show and give it a behaviour to increment this property and then reset. We also move the text sprite to follow the mouse location.
 				</P>
-				<p> The other option for displaying text is using a ss2d.BitmapTextSprite object, this object can load bitmap fonts in XML BMFont format, generated with software like <a href="http://www.angelcode.com/products/bmfont/" target="_blank">BMFont</a> or <a href="http://www.71squared.com/glyphdesigner" target="_blank">Glyph Designer</a>. This applications generate a texture file with all characters, plus an XML metada file with all character coords and spacing data. The ss2d.BitmapTextSprite constructor loads all this data to write any string using this characters. Let's see an example, <a href="https://preview.c9.io/gallo/ss2dsamples/assets/fonts/fun02.txt" target="_blank">click here</a> to see the BMFont XML metadata file that we will use, and <a href="https://preview.c9.io/gallo/ss2dsamples/assets/fonts/fun02.png" target="_blank">here</a> to see the texture that pairs with the XML file.
+				<p> The other option for displaying text is using a ss2d.BitmapTextSprite object, this object can load bitmap fonts in XML BMFont format, generated with software like <a href="http://www.angelcode.com/products/bmfont/" target="_blank">BMFont</a> or <a href="http://www.71squared.com/glyphdesigner" target="_blank">Glyph Designer</a>. This applications generate a texture file with all characters, plus an XML metada file with all character coords and spacing data. The ss2d.BitmapTextSprite constructor loads all this data to write any string using this characters. Let's see an example, <a href="https://preview.c9users.io/gallo/ss2dsamples/assets/fonts/fun02.txt" target="_blank">click here</a> to see the BMFont XML metadata file that we will use, and <a href="https://preview.c9users.io/gallo/ss2dsamples/assets/fonts/fun02.png" target="_blank">here</a> to see the texture that pairs with the XML file.
 				</p>
 				<div class="codeContainer">
 					<pre class="prettyprint linenums">
@@ -604,7 +604,7 @@ var bmtext2 = new ss2d.BitmapTextSprite(40, 115, 'bitmap font', 'assets/fonts/fu
 view.mMainScene.addObject(bmtext2);
 
 view.startLoop(); </pre>
-					<span class="runCodeLink"><a href="https://preview.c9.io/gallo/ss2dsamples/sample6.2_bmtext.html" target="_blank">Run this code</a></span>
+					<span class="runCodeLink"><a href="https://preview.c9users.io/gallo/ss2dsamples/sample6.2_bmtext.html" target="_blank">Run this code</a></span>
 					<div class="codeSampleTitle">Code sample 6.2: BMFont XML file generated with Glyph Designer</div>
 				</div><!--/codeContainer-->
 				<p> We used two ss2d.BitmapTextSprite objects to compose a multi-line text string, there is no multi-line support in ss2d.BitmapTextSprite or ss2d.TextSprite, so that's a way to do it. The ss2d.BitmapTextsprite takes five parameters: the x and y location, the text string, the bitmap font xml path and the font size, note that the bmt font xml and texture are in the same directory. Another way to do miltine text or manipulate every character position with a custom algorithm is overriding a hook method called <span class="codeChunk" style="color: #fff;">displacement</span>, this method receives five parameters: the character index in the text string, the character code in ascii table, the default x and y coords where the character will be drawn, and an output parameter of type ss2d.Point called targetDisplacement that represent the final location of the character. By default this method maps the x and y parameters to <span class="codeChunk" style="color: #fff;">mX</span> and <span class="codeChunk" style="color: #fff;">mY</span> properties from targetDisplacement output parameter. Let's see an example of how to use this method to create some effects.
@@ -640,7 +640,7 @@ waveText.displacement = function(charIndex, charCode, x, y, targetDisplacement)
 };
 
 view.startLoop();	</pre>
-					<span class="runCodeLink"><a href="https://preview.c9.io/gallo/ss2dsamples/sample6.3_displacement.html" target="_blank">Run this code</a></span>
+					<span class="runCodeLink"><a href="https://preview.c9users.io/gallo/ss2dsamples/sample6.3_displacement.html" target="_blank">Run this code</a></span>
 					<div class="codeSampleTitle">Code sample 6.3: Bitmap text displacement effects</div>
 				</div><!--/codeContainer-->
 				<p> As you can see, Bitmap text sprites are like any other display object and it's state can be changed in the same way, like the ss2d.Pickable component does, but there are some limitations, for example the boundaries of the text sprite are not affected by the <span class="codeChunk" style="color: #fff;">displacement</span> method, in this case the shake effect only moves a few pixels from character's original location, so it is negligible, but if we try to apply the ss2d.Pickable component to the wave text we probably perceive a lot of hit fails.
@@ -810,7 +810,7 @@ guy.tick = function(deltaTime)
 }
 
 view.startLoop();	</pre>
-					<span class="runCodeLink"><a href="https://preview.c9.io/gallo/ss2dsamples/sample7.2_reelspriteset.html" target="_blank">Run this code</a></span>
+					<span class="runCodeLink"><a href="https://preview.c9users.io/gallo/ss2dsamples/sample7.2_reelspriteset.html" target="_blank">Run this code</a></span>
 					<div class="codeSampleTitle">Code sample 7.2: Reel sprite usage</div>
 				</div><!--/codeContainer-->
 			</div><!--/sectionContent-->
@@ -881,7 +881,7 @@ ss2d.ResourceManager.loadResources([
     
     view.startLoop()
 });	</pre>
-					<span class="runCodeLink"><a href="https://preview.c9.io/gallo/ss2dsamples/sample8.1_skeleton.html" target="_blank">Run this code</a></span>
+					<span class="runCodeLink"><a href="https://preview.c9users.io/gallo/ss2dsamples/sample8.1_skeleton.html" target="_blank">Run this code</a></span>
 					<div class="codeSampleTitle">Code sample 8.1: Load skeleton</div>
 				</div><!--/codeContainer-->
 				<p>
@@ -982,7 +982,7 @@ ss2d.ResourceManager.loadResources([
     
     view.startLoop();
 }); </pre>
-					<span class="runCodeLink"><a href="https://preview.c9.io/gallo/ss2dsamples/sample8.2_sklanimations.html" target="_blank">Run this code</a></span>
+					<span class="runCodeLink"><a href="https://preview.c9users.io/gallo/ss2dsamples/sample8.2_sklanimations.html" target="_blank">Run this code</a></span>
 					<div class="codeSampleTitle">Code sample 8.2: Interacting with the skeleton</div>
 				</div><!--/codeContainer-->
 				<p> ¿Can you feel the magic? In this example the spineboy is not playing any animation by default, when we press A or D, it moves and play the <span class="codeChunk" style="color: #65B042;">walk</span> animation, if we are pressing the Shift key, it moves faster, and the animation too thanks to the <span class="codeChunk" style="color: #fff;">mTimeDilation</span> property, that modifies the speed at wich the animation is played. Check also the call to the  <span class="codeChunk" style="color: #fff;">playAnimation</span> for the <span class="codeChunk" style="color: #65B042;">jump</span> animation, we are calling this method with three parameters, the first one is the name of the animation, the second is the time at we want the animation start playing, and the last one is a flag to tell the ss2d.SkeletalSprite that we want to play the animation only once. We have also added a trigger at the end of the code, triggers let you specify a callback function once an animation reached the specied played time, in this case is <span class="codeChunk" style="color: #3387CC;">0.25</span> seconds before the animation starts, so if the duration is 1.3 seconds, it will be triggered at 1.05 seconds, and in this case, what the callback function does is simply change the jumping state.
@@ -1035,7 +1035,7 @@ emiter.tick = function(dt)
 	this.mFWasPressed = FPressed;
 }
 view.startLoop(); </pre>
-					<span class="runCodeLink"><a href="https://preview.c9.io/gallo/ss2dsamples/sample9.1_loadaudio.html" target="_blank">Run this code</a></span>
+					<span class="runCodeLink"><a href="https://preview.c9users.io/gallo/ss2dsamples/sample9.1_loadaudio.html" target="_blank">Run this code</a></span>
 					<div class="codeSampleTitle">Code sample 9.1: Load and play audio data</div>
 				</div><!--/codeContainer-->
 				<p> To load the audio data we use the <span class="codeChunk" style="color: #fff;">ss2d.ResourceManager.loadSound</span> static method, wich returns an object that implements the <a href="http://galloman.github.io/ss2d/jsdoc/symbols/ss2d.IAudioComponent.html" target="_blank">ss2d.IAudioComponent</a>, and like with any other resource, is recommended that you pre-load the data, what is avoided in some examples to simply it. The ss2d.IAudioComponent interface has three methods, <span class="codeChunk" style="color: #fff;">play</span>, <span class="codeChunk" style="color: #fff;">pause</span> and <span class="codeChunk" style="color: #fff;">stop</span>, and is obvious what this methods do with the sound.</p>
@@ -1086,7 +1086,7 @@ ss2d.ResourceManager.loadResources([
     console.log('The game starts here');
     //Here you can remove/fade out the loaderBar.
 }); </pre>
-					<span class="runCodeLink"><a href="https://preview.c9.io/gallo/ss2dsamples/sample10.1_resourcemanager.html" target="_blank">Run this code</a></span>
+					<span class="runCodeLink"><a href="https://preview.c9users.io/gallo/ss2dsamples/sample10.1_resourcemanager.html" target="_blank">Run this code</a></span>
 					<div class="codeSampleTitle">Code sample 10.1: Pre-loading content</div>
 				</div><!--/codeContainer-->
 				<p> If you run the above example with the javascript console opened, you can see how each element is loaded and then a final message 'The game starts here'. Note that another message that says 'Load resources ends' is printed just before staring the game, this message is printed by the ss2d.ResourceManager.loadResources method, and if you didn't see it means that something goes wrong, for exemple, if you specify a reference to an element that didn't exists. Note also that the log printed for each loaded object can be in a different order than you specified in the Array, that's because the resources are loaded asynchronous. The loader classes we specify before each group of resources, are a set of built-in loader classes that implement the <a href="http://galloman.github.io/ss2d/jsdoc/symbols/ss2d.ILoader.html" target="_blank">ss2d.ILoader</a> interface. You can extend the framework funcionality and create you our loader classes implementing this interface, as a hint, take a look at how ss2d.ResourceManager use this classes in his loader methods. To make a more rich example, I have added a simple loader bar using an ss2d.Quad.
@@ -1118,7 +1118,7 @@ ss2d.ResourceManager.loadResources([
     //if you didn't display any "loading" animation, you can start the loop here.
     view.startLoop();
 });</pre>
-					<span class="runCodeLink"><a href="https://preview.c9.io/gallo/ss2dsamples/sample10.2_resourcereference.html" target="_blank">Run this code</a></span>
+					<span class="runCodeLink"><a href="https://preview.c9users.io/gallo/ss2dsamples/sample10.2_resourcereference.html" target="_blank">Run this code</a></span>
 					<div class="codeSampleTitle">Code sample 10.2: Resource references</div>
 				</div><!--/codeContainer-->
 				<p>
